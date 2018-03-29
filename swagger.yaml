@@ -1,0 +1,1847 @@
+---
+swagger: '2.0'
+info:
+  version: نسخه اول
+  title: سرویس‌های پی‌پینگ - کاربر
+  x-logo:
+    url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-api/master/logo/logo-bg.png'
+  description: >
+   سرویس‌های عمومی پی‌پنیگ
+   This is a sample server Petstore server.
+
+    You can find out more about Swagger at
+
+    [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
+    #swagger](http://swagger.io/irc/).
+
+    For this sample, you can use the api key `کلید-مخصوص` to test the
+    authorization filters.
+
+    # مقدمات
+
+    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+
+    This API is documented in **OpenAPI format** and is based on
+
+    [لینک تستی](http://petstore.swagger.io/) provided by
+    [سوعگر](http://swagger.io) تیم.
+
+    It was **extended** to illustrate features of
+    [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+
+    tool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In
+    addition to standard
+
+    OpenAPI syntax we use a few [vendor
+    extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+
+    # OpenAPI Specification
+
+    This API is documented in **OpenAPI format** and is based on
+
+    [Petstore sample](http://petstore.swagger.io/) provided by
+    [swagger.io](http://swagger.io) team.
+
+    It was **extended** to illustrate features of
+    [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+
+    tool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In
+    addition to standard
+
+    OpenAPI syntax we use a few [vendor
+    extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+
+    # Cross-Origin Resource Sharing
+
+    This API features Cross-Origin Resource Sharing (CORS) implemented in
+    compliance with  [W3C spec](https://www.w3.org/TR/cors/).
+
+    And that allows cross-domain communication from the browser.
+
+    All responses have a wildcard same-origin which makes them completely public
+    and accessible to everyone, including any code on any site.
+
+    # Authentication
+
+    Petstore offers two forms of authentication:
+      - متن تستی شماره۱
+      - متن تستی شماره  ۲
+
+    OAuth2 - an open protocol to allow secure authorization in a simple
+    and standard method from web, mobile and desktop applications.
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+  termsOfService: None
+
+tags:
+    - name: Products
+      description: متن تستی برای اکشن‌های کنترلر آیتم مالی
+    - name: Campaigns
+      description: متن تستی برای اکشن‌های کنترلر کمپین‌ها
+    - name: Coupons
+      description: متن تستی برای اکشن‌های کنترلر کدهای تخفیف
+    - name: Payments
+      description: Operations about payments
+x-tagGroups:
+    - name: آیتم‌های مالی
+      tags:
+        - Campaigns
+    - name: فاکتور
+      tags:
+        - Coupons
+        - Payments
+    - name: سرویس یوزر
+      tags:
+        - Products
+
+paths:
+  "/v1/Campaigns/Create":
+    post:
+      tags:
+      - Campaigns
+      summary: ساخت یک کمپین جدید
+      description: شما با استفاده از این متد می‌توانید یک کمپین جدید برای یک یا چند آیتم مالی خود ایجاد کنید
+      operationId: V1CampaignsCreatePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات کمپین
+        required: false
+        schema:
+          "$ref": "#/definitions/CampaignCreateViewModel"
+      responses:
+        '200':
+          description: کمپین با موفقیت ساخته شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/Edit":
+    put:
+      tags:
+      - Campaigns
+      summary: بروزرسانی کمپین
+      operationId: V1CampaignsEditPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات کمپین
+        required: false
+        schema:
+          "$ref": "#/definitions/CampaignEditViewModel"
+      responses:
+        '200':
+          description: کمپین با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/Delete/{code}":
+    delete:
+      tags:
+      - Campaigns
+      summary: حذف یک کمپین
+      operationId: V1CampaignsDeleteByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد کمپین
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کمپین با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: کمپینی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/Get/{code}":
+    get:
+      tags:
+      - Campaigns
+      summary: نمایش یک کمپین
+      operationId: V1CampaignsGetByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد کمپین
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کمپین با موفقیت نمایش داده شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: کمپینی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/GetList":
+    get:
+      tags:
+      - Campaigns
+      summary: نمایش لیست کمپین‌ها
+      operationId: V1CampaignsGetListGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: شماره ابتدا لیست
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: شماره انتها لیست
+        required: false
+        type: integer
+        format: int32
+      - name: witharchived
+        in: query
+        description: اضافه شدن کمپین‌های‌ آرشیو شده
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        description: کیلدواژه جستجو در کمپین‌ها
+        required: false
+        type: string
+      responses:
+        '200':
+          description: لیست کمپین‌ها با موفقیت نمایش داده شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/GetListCount":
+    get:
+      tags:
+      - Campaigns
+      summary: دریافت تعداد کمپین‌ها
+      operationId: V1CampaignsGetListCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: تعداد کمپین‌ها با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/UserHaveArchived":
+    get:
+      tags:
+      - Campaigns
+      summary: دریافت وجود یا عدم وجود کمپین آرشیو شده برای کاربر
+      operationId: V1CampaignsUserHaveArchivedGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: وجود یا عدم وجود یک کمپین آرشیو شده برای کاربر با موفقیت نمایش
+            داده شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/ChangeActivation/{code}":
+    post:
+      tags:
+      - Campaigns
+      summary: تغییر وضعیت فعال یا غیرفعال بودن یک کمپین
+      operationId: V1CampaignsChangeActivationByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد کمپین
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت کمپین با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Campaigns/ChangeArchive/{code}":
+    post:
+      tags:
+      - Campaigns
+      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کمپین
+      operationId: V1CampaignsChangeArchiveByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد کمپین
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت کمپین با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/Create":
+    post:
+      tags:
+      - Coupons
+      summary: ساخت یک کد تخفیف جدید
+      operationId: V1CouponsCreatePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات کد تخفیف
+        required: false
+        schema:
+          "$ref": "#/definitions/CouponCreateViewModel"
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت ساخته شد
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/Edit":
+    put:
+      tags:
+      - Coupons
+      summary: بروزرسانی کد تخفیف
+      operationId: V1CouponsEditPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات کد تخفیف
+        required: false
+        schema:
+          "$ref": "#/definitions/CouponEditViewModel"
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/Delete/{code}":
+    delete:
+      tags:
+      - Coupons
+      summary: حذف یک کد تخفیف
+      operationId: V1CouponsDeleteByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/Get/{code}":
+    get:
+      tags:
+      - Coupons
+      summary: نمایش یک کد تخفیف
+      operationId: V1CouponsGetByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/CouponDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/GetList":
+    get:
+      tags:
+      - Coupons
+      summary: نمایش لیست کدهای تخفیف
+      operationId: V1CouponsGetListGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: شماره ابتدا لیست
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: شماره انتها لیست
+        required: false
+        type: integer
+        format: int32
+      - name: witharchived
+        in: query
+        description: اضافه شدن کدهای تخفیف‌ آرشیو شده
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        description: کیلدواژه جستجو در کدهای تخفیف
+        required: false
+        type: string
+      responses:
+        '200':
+          description: لیست کدهای تخفیف با موفقیت نمایش داده شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CouponListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/GetListCount":
+    get:
+      tags:
+      - Coupons
+      summary: دریافت تعداد کدهای تخفیف
+      operationId: V1CouponsGetListCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: تعداد کدهای تخفیف با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/UserHaveArchived":
+    get:
+      tags:
+      - Coupons
+      summary: دریافت وجود یا عدم وجود کد تخفیف آرشیو شده برای کاربر
+      operationId: V1CouponsUserHaveArchivedGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: وجود یا عدم وجود یک کد تخفیف آرشیو شده برای کاربر با موفقیت
+            نمایش داده شد
+          schema:
+            type: boolean
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/ChangeArchive/{code}":
+    post:
+      tags:
+      - Coupons
+      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کد تخفیف
+      operationId: V1CouponsChangeArchiveByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت کد تخفیف با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/ChangeActivation/{code}":
+    post:
+      tags:
+      - Coupons
+      summary: تغییر وضعیت فعال یا غیرفعال بودن یک کد تخفیف
+      operationId: V1CouponsChangeActivationByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت کد تخفیف با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/GetBuyersUseCouponCount/{code}":
+    get:
+      tags:
+      - Coupons
+      summary: دریافت تعداد خرید‌های یک کد تخفیف
+      operationId: V1CouponsGetBuyersUseCouponCountByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons/CouponCodeExist/{code}":
+    post:
+      tags:
+      - Coupons
+      summary: بررسی موجودیت یک کد تخفیف
+      operationId: V1CouponsCouponCodeExistByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت کد تخفیف با موفقیت نمایش داده شد
+          schema:
+            type: boolean
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Payments/Product":
+    post:
+      tags:
+      - Payments
+      operationId: V1PaymentsProductPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/ProductPaymentViewModel"
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Payments/CheckCoupon":
+    post:
+      tags:
+      - Payments
+      operationId: V1PaymentsCheckCouponPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/CouponViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/CouponResultVM"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Products/Create":
+    post:
+      tags:
+      - Products
+      summary: ساخت یک آیتم‌ مالی جدید
+      operationId: V1ProductsCreatePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات آیتم مالی
+        required: false
+        schema:
+          "$ref": "#/definitions/ProductCreateViewModel"
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت ساخته شد
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/BulkCreate":
+    post:
+      tags:
+      - Products
+      summary: ساخت گروهی آیتم‌ مالی
+      operationId: V1ProductsBulkCreatePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: models
+        in: body
+        description: مشخصات آیتم‌های مالی
+        required: false
+        schema:
+          type: array
+          items:
+            "$ref": "#/definitions/ProductBulkCreateViewModel"
+      responses:
+        '200':
+          description: آیتم‌های مالی با موفقیت ساخته شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ResponseBulkCreate"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/Edit":
+    put:
+      tags:
+      - Products
+      summary: بروزرسانی آیتم مالی
+      operationId: V1ProductsEditPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات آیتم مالی
+        required: false
+        schema:
+          "$ref": "#/definitions/ProductEditViewModel"
+      responses:
+        '200':
+          description: آیتم‌ مالی با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/Delete/{code}":
+    delete:
+      tags:
+      - Products
+      summary: حذف یک آیتم مالی
+      operationId: V1ProductsDeleteByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/Get/{code}":
+    get:
+      tags:
+      - Products
+      summary: نمایش یک آیتم مالی
+      operationId: V1ProductsGetByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/ProductFullDeatilViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetList":
+    get:
+      tags:
+      - Products
+      summary: دریافت لیست آیتم‌های مالی
+      operationId: V1ProductsGetListGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: شماره ابتدا لیست
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: شماره انتها لیست
+        required: false
+        type: integer
+        format: int32
+      - name: witharchived
+        in: query
+        description: اضافه شدن آیتم‌های آرشیو شده
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        description: کیلدواژه جستجو در آیتم‌های مالی
+        required: false
+        type: string
+      responses:
+        '200':
+          description: لیست آیتم‌های مالی با موفقیت نمایش داده شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ProductListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetListCount":
+    get:
+      tags:
+      - Products
+      summary: دریافت تعداد آیتم‌های مالی
+      operationId: V1ProductsGetListCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: تعداد آیتم‌های مالی با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetBuyersCount/{code}":
+    get:
+      tags:
+      - Products
+      summary: دریافت تعداد خرید‌های یک آیتم مالی
+      operationId: V1ProductsGetBuyersCountByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: تعداد خریدهای یک آیتم‌ مالی با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetProductSumTotalPay/{code}":
+    get:
+      tags:
+      - Products
+      summary: دریافت مجموع پرداختی‌ها از یک آیتم مالی
+      operationId: V1ProductsGetProductSumTotalPayByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: مجموع پرداختی‌ها از یک آیتم‌ مالی با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/UserHaveArchived":
+    get:
+      tags:
+      - Products
+      summary: دریافت وجود یا عدم وجود آیتم مالی آرشیو شده برای کاربر
+      operationId: V1ProductsUserHaveArchivedGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: وجود یا عدم وجود یک آیتم‌ مالی آرشیو شده برای کاربر با موفقیت
+            نمایش داده شد
+          schema:
+            type: boolean
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetTitleList":
+    get:
+      tags:
+      - Products
+      summary: دریافت لیست عناوین آیتم‌های مالی
+      operationId: V1ProductsGetTitleListGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: لیست عناوین آیتم‌های مالی با موفقیت نمایش داده شدند
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ListItem"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetTitle/{code}":
+    get:
+      tags:
+      - Products
+      summary: دریافت عنوان یک آیتم‌ مالی
+      operationId: V1ProductsGetTitleByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: عنوان آیتم‌ مالی با موفقیت نمایش داده شد
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/GetIntegrationStatus":
+    get:
+      tags:
+      - Products
+      summary: دریافت وضعیت اتصالات به سرویس‌های دیگر
+      operationId: V1ProductsGetIntegrationStatusGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: وضعیت اتصالات به سرویس‌های دیگر با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/IntegrationStatusViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/ChangeActivation/{code}":
+    post:
+      tags:
+      - Products
+      summary: تغییر وضعیت فعال یا غیرفعال بودن یک آیتم مالی
+      operationId: V1ProductsChangeActivationByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت آیتم مالی با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products/ChangeArchive/{code}":
+    post:
+      tags:
+      - Products
+      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک آیتم مالی
+      operationId: V1ProductsChangeArchiveByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت آیتم مالی با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+definitions:
+  CampaignCreateViewModel:
+    required:
+    - name
+    - startDate
+    - startTime
+    - endDate
+    - endTime
+    - type
+    - amount
+    - isActive
+    - priority
+    type: object
+    properties:
+      name:
+        type: string
+      startDate:
+        format: date-time
+        type: string
+      startTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      endDate:
+        format: date-time
+        type: string
+      endTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      isActive:
+        type: boolean
+      priority:
+        format: int32
+        maximum: 2147483647
+        minimum: 1
+        type: integer
+      activeProductCode:
+        type: string
+  CampaignEditViewModel:
+    required:
+    - name
+    - startDate
+    - startTime
+    - endDate
+    - endTime
+    - type
+    - amount
+    - isActive
+    - priority
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      startDate:
+        format: date-time
+        type: string
+      startTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      endDate:
+        format: date-time
+        type: string
+      endTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      isActive:
+        type: boolean
+      priority:
+        format: int32
+        maximum: 2147483647
+        minimum: 1
+        type: integer
+      activeProductCode:
+        type: string
+  CouponCreateViewModel:
+    required:
+    - name
+    - type
+    - amount
+    - redeemDate
+    - redeemTime
+    - maxRedemption
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      redeemDate:
+        format: date-time
+        type: string
+      redeemTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      maxRedemption:
+        format: int32
+        maximum: 2147483647
+        minimum: 1
+        type: integer
+      isActive:
+        type: boolean
+      activeProductCode:
+        type: string
+  CouponEditViewModel:
+    required:
+    - name
+    - type
+    - amount
+    - code
+    - redeemDate
+    - redeemTime
+    - maxRedemption
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      code:
+        pattern: "^[a-zA-Z0-9]+$"
+        type: string
+      redeemDate:
+        format: date-time
+        type: string
+      redeemTime:
+        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
+        type: string
+      maxRedemption:
+        format: int32
+        maximum: 2147483647
+        minimum: 1
+        type: integer
+      isActive:
+        type: boolean
+      activeProductCode:
+        type: string
+  CouponDetailViewModel:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      code:
+        type: string
+      redeemDate:
+        format: date-time
+        type: string
+      redeemTime:
+        type: string
+      maxRedemption:
+        format: int32
+        type: integer
+      isActive:
+        type: boolean
+      usedTime:
+        format: int32
+        type: integer
+      activeProductCode:
+        type: string
+      usedFor:
+        type: string
+      usedCount:
+        format: int32
+        type: integer
+      isArchived:
+        type: boolean
+  CouponListItemViewModel:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      code:
+        type: string
+      status:
+        type: string
+      amountDisplay:
+        type: string
+        readOnly: true
+  ProductPaymentViewModel:
+    type: object
+    properties:
+      product:
+        "$ref": "#/definitions/ProductFullDeatilViewModel"
+      amount:
+        type: string
+      addressLine:
+        type: string
+      postalCode:
+        type: string
+      city:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      fullName:
+        type: string
+        readOnly: true
+      instagramEmbed:
+        type: string
+      view:
+        type: string
+      verifyType:
+        type: object
+      correctName:
+        type: string
+      isBusiness:
+        type: boolean
+      customDescription:
+        type: string
+      couponCode:
+        type: string
+      haveCoupon:
+        type: boolean
+      metaDataName:
+        type: string
+      haveCampaign:
+        type: boolean
+      realAmount:
+        type: string
+      campaignName:
+        type: string
+      campaignAmount:
+        format: int32
+        type: integer
+      hasDefaultAmount:
+        type: boolean
+      description:
+        type: string
+      refId:
+        type: string
+  ProductFullDeatilViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      userId:
+        format: int32
+        type: integer
+      isDeleted:
+        type: boolean
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      redirectPage:
+        type: string
+      getAddress:
+        type: boolean
+      isActive:
+        type: boolean
+      changeActivationDate:
+        format: date-time
+        type: string
+      mailerLiteListId:
+        type: string
+      smsText:
+        type: string
+      instaImageId:
+        type: string
+      instaImageLink:
+        type: string
+      instaImageUrl:
+        type: string
+      customDescriptionText:
+        type: string
+      isArchived:
+        type: boolean
+      haveTax:
+        type: boolean
+      tax:
+        format: int32
+        type: integer
+        readOnly: true
+      emailOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      phoneOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nameOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      customDesOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      update_ClientId:
+        type: string
+      create_ClientId:
+        type: string
+  CouponViewModel:
+    required:
+    - couponCode
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      couponCode:
+        pattern: "^[a-zA-Z0-9]+$"
+        type: string
+      productCode:
+        type: string
+  CouponResultVM:
+    type: object
+    properties:
+      result:
+        type: string
+      newAmount:
+        type: string
+      couponCode:
+        type: string
+      isSuccess:
+        type: boolean
+  ProductCreateViewModel:
+    required:
+    - title
+    - amount
+    type: object
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      redirectPage:
+        type: string
+      getAddress:
+        type: boolean
+      mailerLiteListId:
+        type: string
+      smsText:
+        type: string
+      customDescriptionText:
+        type: string
+      isActive:
+        type: boolean
+      instaImageId:
+        type: string
+      instaImageLink:
+        type: string
+      instaImageUrl:
+        type: string
+      emailOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      phoneOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nameOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      customDesOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      mailerLiteList:
+        type: array
+        items:
+          "$ref": "#/definitions/SelectListItem"
+  SelectListItem:
+    type: object
+    properties:
+      disabled:
+        type: boolean
+      group:
+        "$ref": "#/definitions/SelectListGroup"
+      selected:
+        type: boolean
+      text:
+        type: string
+      value:
+        type: string
+  SelectListGroup:
+    type: object
+    properties:
+      disabled:
+        type: boolean
+      name:
+        type: string
+  ProductBulkCreateViewModel:
+    type: object
+    properties:
+      requestCode:
+        type: string
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      tax:
+        type: boolean
+      taxRate:
+        format: int32
+        type: integer
+        readOnly: true
+  ResponseBulkCreate:
+    type: object
+    properties:
+      code:
+        type: string
+      requestCode:
+        type: string
+  ProductEditViewModel:
+    required:
+    - title
+    - amount
+    type: object
+    properties:
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      redirectPage:
+        type: string
+      getAddress:
+        type: boolean
+      mailerLiteListId:
+        type: string
+      smsText:
+        type: string
+      customDescriptionText:
+        type: string
+      isActive:
+        type: boolean
+      isArchived:
+        type: boolean
+      instaImageId:
+        type: string
+      instaImageLink:
+        type: string
+      instaImageUrl:
+        type: string
+      emailOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      phoneOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nameOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      customDesOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      mailerLiteList:
+        type: array
+        items:
+          "$ref": "#/definitions/SelectListItem"
+  ProductListItemViewModel:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      title:
+        type: string
+      code:
+        type: string
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      defineAmountByUser:
+        type: boolean
+      amountDisplay:
+        type: string
+        readOnly: true
+      quantityVM:
+        type: string
+        readOnly: true
+  ListItem:
+    type: object
+    properties:
+      text:
+        type: string
+      value:
+        type: string
+  IntegrationStatusViewModel:
+    type: object
+    properties:
+      kavenegar:
+        type: boolean
+      mailerLite:
+        type: boolean
+      instagram:
+        type: boolean
+      haveIntegration:
+        type: boolean
+        readOnly: true
+      mailerLiteList:
+        type: array
+        items:
+          "$ref": "#/definitions/Tuple[String,String]"
+      instagramList:
+        type: array
+        items:
+          type: object
+  Tuple[String,String]:
+    type: object
+    properties:
+      item1:
+        type: string
+        readOnly: true
+      item2:
+        type: string
+        readOnly: true
+securityDefinitions:
+  Bearer:
+    name: Authorization
+    in: header
+    type: apiKey
+    description: 'JWT Authorization header using the Bearer scheme. Example: "bearer
+      {token}"'
+  oauth2:
+    flow: Client Credentials
+    tokenUrl: https://oauth.payping.io/connect/token
+    scopes:
+      openid: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      profile: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      email: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      role: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      isbusiness: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      PaymentAPI.write: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      PaymentAPI.read: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      UserServiceApi.read: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      ProductsApi.read: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      ProductsApi.write: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      InvoicingApi.read: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      InvoicingApi.write: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+      offline_access: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده 
+    type: oauth2
+    description: OAuth2 Client Credentials Grant
