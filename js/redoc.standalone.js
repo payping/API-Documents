@@ -18225,7 +18225,6 @@
       }), i.pop()), f
     }
 
-    lunr.use(lunr.ar);
     function c(e, t, n, o, i, c) {
       a('Dereferencing $ref pointer "%s" at %s', e.$ref, t);
       var p = s.resolve(t, e.$ref),
