@@ -2,7 +2,7 @@
 swagger: '2.0'
 info:
   version: نسخه اول
-  title: سرویس‌های پی‌پینگ - کاربر
+  title: سرویس‌های پلتفرم مالی پی‌پینگ
   x-logo:
     url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-api/master/logo/logo-bg.png'
   description: >
