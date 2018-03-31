@@ -4,7 +4,7 @@ info:
   version: نسخه اول
   title: سرویس‌های پلتفرم مالی پی‌پینگ
   x-logo:
-    url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-api/master/logo/logo-bg.png'
+    url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/master/logo/logo.png'
   description: >
    سرویس‌های عمومی پی‌پنیگ
    This is a sample server Petstore server.
@@ -127,6 +127,39 @@ paths:
               type: string
         '500':
           description: مشکلی در سرور رخ داده است
+      security:
+        - oauth2:
+            - 'product:write'
+            - 'product:read'
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            PetStore.v1.Pet pet = new PetStore.v1.Pet();
+            pet.setApiKey("your api key");
+            pet.petType = PetStore.v1.Pet.TYPE_DOG;
+            pet.name = "Rex";
+            // set other fields
+            PetStoreResponse response = pet.create();
+            if (response.statusCode == HttpStatusCode.Created)
+            {
+              // Successfully created
+            }
+            else
+            {
+              // Something wrong -- check response for errors
+              Console.WriteLine(response.getRawResponse());
+            }
+        - lang: PHP
+          source: |
+            $form = new \PetStore\Entities\Pet();
+            $form->setPetType("Dog");
+            $form->setName("Rex");
+            // set other fields
+            try {
+                $pet = $client->pets()->create($form);
+            } catch (UnprocessableEntityException $e) {
+                var_dump($e->getErrors());
+            }
   "/v1/Campaigns/Edit":
     put:
       tags:
