@@ -4,7 +4,7 @@ info:
   version: نسخه اول
   title: سرویس‌های پلتفرم مالی پی‌پینگ
   x-logo:
-    url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/master/logo/logo.png'
+    url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/7acf03754958b2cd9778771ff5e02cbc0cb8e68b/logo/logo.png'
   description: >
    سرویس‌های عمومی پی‌پنیگ
    This is a sample server Petstore server.
