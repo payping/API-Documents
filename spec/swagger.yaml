@@ -81,20 +81,1875 @@ tags:
     - name: Coupons
       description: متن تستی برای اکشن‌های کنترلر کدهای تخفیف
     - name: Payments
-      description: Operations about payments
+      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+
+    - name: AppManage
+      description: متن تستی برای توضیح کنترلر مدیریت برنامه
+    - name: File
+      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+    - name: Manage
+      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+
+    - name: Services
+      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
 x-tagGroups:
     - name: آیتم‌های مالی
       tags:
+        - Products
         - Campaigns
+        - Coupons
+        - Payments
     - name: فاکتور
       tags:
         - Coupons
         - Payments
     - name: سرویس یوزر
       tags:
-        - Products
+        - AppManage
+        - File
+        - Manage
+    - name: سرویس همگام‌سازی
+      tags:
+        - Services
 
 paths:
+
+  "/v1/Services/RemoveService":
+    delete:
+      tags:
+      - Services
+      summary: حذف یک سرویس
+      operationId: V1ServicesRemoveServiceDelete
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات سرویس
+        required: false
+        schema:
+          "$ref": "#/definitions/ServiceViewModel"
+      responses:
+        '200':
+          description: درخواست با موفقیت انجام شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Services/AddOrUpdate":
+    put:
+      tags:
+      - Services
+      summary: بروزرسانی یا اتصال یک سرویس
+      operationId: V1ServicesAddOrUpdatePut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات سرویس
+        required: false
+        schema:
+          type: object
+      responses:
+        '200':
+          description: درخواست با موفقیت انجام شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Services/CheckExist":
+    post:
+      tags:
+      - Services
+      summary: برسی وجود یک سرویس
+      operationId: V1ServicesCheckExistPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات سرویس
+        required: false
+        schema:
+          "$ref": "#/definitions/ServiceViewModel"
+      responses:
+        '200':
+          description: درخواست با موفقیت انجام شد
+          schema:
+            type: boolean
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Services/GetAllUserServices":
+    get:
+      tags:
+      - Services
+      summary: گرفتن تمام سرویس های کاربر
+      operationId: V1ServicesGetAllUserServicesGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: درخواست با موفقیت انجام شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/BaseIntegration"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Services/GetUserService":
+    get:
+      tags:
+      - Services
+      summary: گرفتن یک سرویس  کاربر
+      operationId: V1ServicesGetUserServiceGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      - name: serviceType
+        in: query
+        required: true
+        type: integer
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+      responses:
+        '200':
+          description: درخواست با موفقیت انجام شد
+          schema:
+            "$ref": "#/definitions/BaseIntegration"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: مشکلی در سرور رخ داده است
+
+
+  "/v1/AppManage/GetProfile":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageGetProfileGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/LatestApp":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageLatestAppGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/RegisterUser":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageRegisterUserPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/RegisterWithClient"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/Register":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageRegisterPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Username
+        in: query
+        required: false
+        type: string
+      - name: Email
+        in: query
+        required: false
+        type: string
+      - name: Password
+        in: query
+        required: false
+        type: string
+      - name: BusinessName
+        in: query
+        required: false
+        type: string
+      - name: IsBusiness
+        in: query
+        required: true
+        type: boolean
+      - name: PhoneNumber
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/ForgotPassword":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageForgotPasswordPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Email
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/AddPhone":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageAddPhonePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: phone
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/PersonalInfo":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManagePersonalInfoGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManagePersonalInfoPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/PersonalInfoViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/FindContacts":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageFindContactsPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: query
+        required: false
+        type: array
+        items:
+          type: string
+        collectionFormat: multi
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/EmailExist":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageEmailExistGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: email
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/PhoneExist":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManagePhoneExistGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: phonenumber
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/UsernameExist":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageUsernameExistGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: username
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/SendVerificationCode":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageSendVerificationCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: phonenumber
+        in: query
+        required: false
+        type: string
+      - name: type
+        in: query
+        required: true
+        type: integer
+        format: int32
+        enum:
+        - 0
+        - 1
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/ConnectPushNotify":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageConnectPushNotifyPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: DeviceId
+        in: query
+        required: false
+        type: string
+      - name: Token
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/VerifyPhone":
+    post:
+      tags:
+      - AppManage
+      operationId: V1AppManageVerifyPhonePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: phone
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/AppManage/GetClientUserProfile":
+    get:
+      tags:
+      - AppManage
+      operationId: V1AppManageGetClientUserProfileGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: username
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/File/UploadFile":
+    post:
+      tags:
+      - File
+      operationId: V1FileUploadFilePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: type
+        in: query
+        required: true
+        type: integer
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/File/Download/{servername}":
+    get:
+      tags:
+      - File
+      operationId: V1FileDownloadByServernameGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: servername
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetCategorystest":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetCategorystestGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetCategorys":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetCategorysGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetSubCategorys":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetSubCategorysGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: categoryid
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetUserDetail":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetUserDetailGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpdateUserBusinessCategory":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageUpdateUserBusinessCategoryPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/UpdateUserCategoryVm"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddBusinessinfo":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddBusinessinfoPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/AddBusinessinfoVm"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddPersonalinfo":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddPersonalinfoPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/AddPersonalinfoVm"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpdatePersonalinfo":
+    put:
+      tags:
+      - Manage
+      operationId: V1ManageUpdatePersonalinfoPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/UpdatePersonalinfoVm"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddBankinfo":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddBankinfoPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/BankViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetBankinfo":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetBankinfoGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddPhoneNumber":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddPhoneNumberPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/AddPhoneNumberViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetPhoneNumber":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetPhoneNumberGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddLocalPhoneNumer":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddLocalPhoneNumerPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/AddLocalPhoneNumberViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetLocalPhoneNumber":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetLocalPhoneNumberGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/AddLocalInformations":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageAddLocalInformationsPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/EditLocalInfoesViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetLocalInformations":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetLocalInformationsGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetSocials":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetSocialsGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpdateSocials":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageUpdateSocialsPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/SocialUserExtraViewModel"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/ChangePasswordAsync":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageChangePasswordAsyncPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      - name: currentPassword
+        in: query
+        required: false
+        type: string
+      - name: newPassword
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpdateActivity":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageUpdateActivityPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: activityDescription
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetUserBank":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetUserBankGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/VerifyLocalPhoneNumber":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageVerifyLocalPhoneNumberPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Code
+        in: query
+        required: false
+        type: string
+      - name: PhoneNumber
+        in: query
+        required: false
+        type: string
+      - name: UserId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/SendVoiceCode":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageSendVoiceCodePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: phone
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/VerifyPhoneNumber":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageVerifyPhoneNumberPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Code
+        in: query
+        required: false
+        type: string
+      - name: PhoneNumber
+        in: query
+        required: false
+        type: string
+      - name: UserId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/SaveUserPics":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageSaveUserPicsPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: txtUploadFile
+        in: query
+        required: false
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/Invite":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageInvitePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetCustomizeGateway":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetCustomizeGatewayGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpdateCustomizeGateway":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageUpdateCustomizeGatewayPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Logo
+        in: query
+        required: false
+      - name: BgImage
+        in: query
+        required: false
+      - name: PriceColor
+        in: query
+        required: false
+        type: string
+      - name: BgColor
+        in: query
+        required: false
+        type: string
+      - name: Repeat
+        in: query
+        required: true
+        type: boolean
+      - name: Stretch
+        in: query
+        required: true
+        type: boolean
+      - name: DeleteBgImage
+        in: query
+        required: true
+        type: boolean
+      - name: HasBackImage
+        in: query
+        required: true
+        type: boolean
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/CheckConnectUserCode":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageCheckConnectUserCodePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: Code
+        in: query
+        required: false
+        type: string
+      - name: UserName
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetProfileStatus":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetProfileStatusGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/UpgradeToBusiness":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageUpgradeToBusinessPost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: businessName
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/GetUsersYouInvitedCount":
+    get:
+      tags:
+      - Manage
+      operationId: V1ManageGetUsersYouInvitedCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userid
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/NationalCodeTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageNationalCodeTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: nationalCode
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/MobileTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageMobileTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: number
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/PhoneTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManagePhoneTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: localPhone
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/PostalCodeTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManagePostalCodeTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: postalCode
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/ShetabTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageShetabTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: CardNumber
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+  "/v1/Manage/ShebaTrue":
+    post:
+      tags:
+      - Manage
+      operationId: V1ManageShebaTruePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: shaba
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: Bad Request
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '500':
+          description: Server Error
+
+
   "/v1/Campaigns/Create":
     post:
       tags:
@@ -1209,6 +3064,269 @@ paths:
         '500':
           description: مشکلی در سرور رخ داده است
 definitions:
+
+  ServiceViewModel:
+    type: object
+    properties:
+      userId:
+        format: int32
+        type: integer
+      serviceType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        type: integer
+  BaseIntegration:
+    type: object
+    properties:
+      userId:
+        format: int32
+        type: integer
+      createDate:
+        format: date-time
+        type: string
+      serviceType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        type: integer
+
+
+  IdentityResult:
+    type: object
+    properties:
+      succeeded:
+        type: boolean
+        readOnly: true
+      errors:
+        type: array
+        items:
+          "$ref": "#/definitions/IdentityError"
+        readOnly: true
+  IdentityError:
+    type: object
+    properties:
+      code:
+        type: string
+      description:
+        type: string
+  RegisterWithClient:
+    required:
+    - username
+    - email
+    - password
+    - phoneNumber
+    - firstName
+    - lastName
+    - birthDay
+    - nationalCode
+    - cardNumber
+    - shaba
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phoneNumber:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      birthDay:
+        format: date-time
+        type: string
+      nationalCode:
+        type: string
+      cardNumber:
+        type: string
+      shaba:
+        type: string
+  PersonalInfoViewModel:
+    type: object
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      nationalCode:
+        type: string
+      birthday:
+        format: date-time
+        type: string
+  UpdateUserCategoryVm:
+    type: object
+    properties:
+      businessDescription:
+        type: string
+      subCategoryId:
+        format: int32
+        type: integer
+  AddBusinessinfoVm:
+    type: object
+    properties:
+      businessName:
+        type: string
+      businessDescription:
+        type: string
+      isBusinessMoreThan6Mil:
+        type: boolean
+      isOfficialSubmited:
+        type: boolean
+      bNationalCode:
+        type: string
+      sabtNumber:
+        type: string
+      economicCode:
+        type: string
+  AddPersonalinfoVm:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      phoneNumber:
+        type: string
+      localPhone:
+        type: string
+      birthDate:
+        format: date-time
+        type: string
+      nationalcode:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      address:
+        type: string
+      postalCode:
+        type: string
+  UpdatePersonalinfoVm:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      birthDate:
+        format: date-time
+        type: string
+      nationalcode:
+        type: string
+  BankViewModel:
+    type: object
+    properties:
+      shaba:
+        type: string
+      shabaVerifyed:
+        type: boolean
+  AddPhoneNumberViewModel:
+    required:
+    - number
+    type: object
+    properties:
+      number:
+        type: string
+      isVerifyed:
+        type: boolean
+  AddLocalPhoneNumberViewModel:
+    required:
+    - localPhone
+    type: object
+    properties:
+      localPhone:
+        maxLength: 11
+        minLength: 11
+        type: string
+  EditLocalInfoesViewModel:
+    required:
+    - state
+    - city
+    - address
+    - postalCode
+    type: object
+    properties:
+      state:
+        type: string
+      city:
+        type: string
+      address:
+        type: string
+      postalCode:
+        type: string
+  SocialUserExtraViewModel:
+    type: object
+    properties:
+      businessDescription:
+        type: string
+      site:
+        type: string
+      instagram:
+        type: string
+      telegram:
+        type: string
+      twitter:
+        type: string
+      allSocialIsNull:
+        type: boolean
+        readOnly: true
+  IFormFile:
+    type: object
+    properties:
+      contentType:
+        type: string
+        readOnly: true
+      contentDisposition:
+        type: string
+        readOnly: true
+      headers:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: string
+        readOnly: true
+      length:
+        format: int64
+        type: integer
+        readOnly: true
+      name:
+        type: string
+        readOnly: true
+      fileName:
+        type: string
+        readOnly: true
+
+
   CampaignCreateViewModel:
     required:
     - name
