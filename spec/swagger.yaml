@@ -72,7 +72,7 @@ info:
 
     <!-- ReDoc-Inject: <security-definitions> -->
   termsOfService: None
-
+host: https://api.payping.io
 tags:
     - name: Products
       description: متن تستی برای اکشن‌های کنترلر آیتم مالی
