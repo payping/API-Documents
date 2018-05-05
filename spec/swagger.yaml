@@ -8742,6 +8742,7 @@ definitions:
         readOnly: true
 
 
+
   CampaignCreateViewModel:
     required:
     - name
@@ -8833,6 +8834,90 @@ definitions:
         minimum: 1
         type: integer
       activeProductCode:
+        type: string
+  CategoryCreateViewModel:
+    type: object
+    properties:
+      name:
+        type: string
+      products:
+        type: array
+        items:
+          "$ref": "#/definitions/ProductCategoryViewModel"
+  ProductCategoryViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+  CategoryEditViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      products:
+        type: array
+        items:
+          "$ref": "#/definitions/ProductCategoryViewModel"
+  CategoryDetailViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      products:
+        type: array
+        items:
+          "$ref": "#/definitions/ProductDetailViewModel"
+  ProductDetailViewModel:
+    required:
+    - title
+    - amount
+    type: object
+    properties:
+      userId:
+        format: int32
+        type: integer
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      isActive:
+        type: boolean
+      isArchived:
+        type: boolean
+      haveTax:
+        type: boolean
+  CategoryListItemViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+      itemsCount:
+        format: int32
+        type: integer
+  CategoryMinorDetailVM:
+    type: object
+    properties:
+      code:
+        type: string
+      name:
         type: string
   CouponCreateViewModel:
     required:
@@ -8969,7 +9054,7 @@ definitions:
       amountDisplay:
         type: string
         readOnly: true
-  ProductPaymentViewModel:
+  ProductPayDetailViewModel:
     type: object
     properties:
       product:
@@ -8995,22 +9080,10 @@ definitions:
         readOnly: true
       instagramEmbed:
         type: string
-      view:
-        type: string
-      verifyType:
-        type: object
-      correctName:
-        type: string
-      isBusiness:
-        type: boolean
       customDescription:
-        type: string
-      couponCode:
         type: string
       haveCoupon:
         type: boolean
-      metaDataName:
-        type: string
       haveCampaign:
         type: boolean
       realAmount:
@@ -9050,27 +9123,8 @@ definitions:
         type: integer
       defineAmountByUser:
         type: boolean
-      redirectPage:
-        type: string
-      getAddress:
-        type: boolean
       isActive:
         type: boolean
-      changeActivationDate:
-        format: date-time
-        type: string
-      mailerLiteListId:
-        type: string
-      smsText:
-        type: string
-      instaImageId:
-        type: string
-      instaImageLink:
-        type: string
-      instaImageUrl:
-        type: string
-      customDescriptionText:
-        type: string
       isArchived:
         type: boolean
       haveTax:
@@ -9079,37 +9133,37 @@ definitions:
         format: int32
         type: integer
         readOnly: true
-      emailOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      phoneOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      nameOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      customDesOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      update_ClientId:
+      imageLink:
         type: string
-      create_ClientId:
+      category:
+        "$ref": "#/definitions/CategoryMinorDetailVM"
+  PermanentPaymentViewModel:
+    type: object
+    properties:
+      productCode:
+        type: string
+      amount:
+        type: string
+      addressLine:
+        type: string
+      postalCode:
+        type: string
+      city:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      phone:
+        type: string
+      fullName:
+        type: string
+        readOnly: true
+      customDescription:
+        type: string
+      couponCode:
         type: string
   CouponViewModel:
     required:
@@ -9135,44 +9189,30 @@ definitions:
         type: string
       isSuccess:
         type: boolean
-  ProductCreateViewModel:
-    required:
-    - title
-    - amount
+  PermanentCreateViewModel:
     type: object
     properties:
-      title:
+      code:
         type: string
-      description:
-        type: string
-      amount:
-        format: int32
-        type: integer
-      defineAmountByUser:
-        type: boolean
-      quantity:
-        format: int32
-        type: integer
-      unlimited:
-        type: boolean
       redirectPage:
         type: string
       getAddress:
         type: boolean
+      userId:
+        format: int32
+        type: integer
       mailerLiteListId:
         type: string
       smsText:
         type: string
       customDescriptionText:
         type: string
+      isDeleted:
+        type: boolean
       isActive:
         type: boolean
-      instaImageId:
-        type: string
-      instaImageLink:
-        type: string
-      instaImageUrl:
-        type: string
+      isArchived:
+        type: boolean
       emailOption:
         format: int32
         enum:
@@ -9201,30 +9241,201 @@ definitions:
         - 1
         - 2
         type: integer
-      mailerLiteList:
-        type: array
-        items:
-          "$ref": "#/definitions/SelectListItem"
-  SelectListItem:
+      clientId:
+        type: string
+      clientRefId:
+        type: string
+      permanentType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+  PermanentEditViewModel:
     type: object
     properties:
-      disabled:
-        type: boolean
-      group:
-        "$ref": "#/definitions/SelectListGroup"
-      selected:
-        type: boolean
-      text:
+      code:
         type: string
-      value:
+      redirectPage:
         type: string
-  SelectListGroup:
+      getAddress:
+        type: boolean
+      userId:
+        format: int32
+        type: integer
+      mailerLiteListId:
+        type: string
+      smsText:
+        type: string
+      customDescriptionText:
+        type: string
+      isDeleted:
+        type: boolean
+      isActive:
+        type: boolean
+      isArchived:
+        type: boolean
+      emailOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      phoneOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nameOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      customDesOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      clientId:
+        type: string
+      clientRefId:
+        type: string
+      permanentType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+  PermanentDetailViewModel:
     type: object
     properties:
-      disabled:
-        type: boolean
-      name:
+      code:
         type: string
+      redirectPage:
+        type: string
+      getAddress:
+        type: boolean
+      userId:
+        format: int32
+        type: integer
+      mailerLiteListId:
+        type: string
+      smsText:
+        type: string
+      customDescriptionText:
+        type: string
+      isDeleted:
+        type: boolean
+      isActive:
+        type: boolean
+      isArchived:
+        type: boolean
+      emailOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      phoneOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      nameOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      customDesOption:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      clientId:
+        type: string
+      clientRefId:
+        type: string
+      permanentType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+  PermanentListItemViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      title:
+        type: string
+      clientRefId:
+        type: string
+  ProductCreateViewModel:
+    required:
+    - title
+    - amount
+    type: object
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      quantity:
+        format: int32
+        type: integer
+      haveTax:
+        type: boolean
+      unlimited:
+        type: boolean
+      isActive:
+        type: boolean
+  ProductEditViewModel:
+    required:
+    - title
+    - amount
+    type: object
+    properties:
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      haveTax:
+        type: boolean
+      quantity:
+        format: int32
+        type: integer
+      unlimited:
+        type: boolean
+      isActive:
+        type: boolean
+      isArchived:
+        type: boolean
   ProductBulkCreateViewModel:
     type: object
     properties:
@@ -9245,6 +9456,8 @@ definitions:
         format: int32
         type: integer
         readOnly: true
+      categoryCode:
+        type: string
   ResponseBulkCreate:
     type: object
     properties:
@@ -9252,80 +9465,6 @@ definitions:
         type: string
       requestCode:
         type: string
-  ProductEditViewModel:
-    required:
-    - title
-    - amount
-    type: object
-    properties:
-      code:
-        type: string
-      title:
-        type: string
-      description:
-        type: string
-      amount:
-        format: int32
-        type: integer
-      defineAmountByUser:
-        type: boolean
-      quantity:
-        format: int32
-        type: integer
-      unlimited:
-        type: boolean
-      redirectPage:
-        type: string
-      getAddress:
-        type: boolean
-      mailerLiteListId:
-        type: string
-      smsText:
-        type: string
-      customDescriptionText:
-        type: string
-      isActive:
-        type: boolean
-      isArchived:
-        type: boolean
-      instaImageId:
-        type: string
-      instaImageLink:
-        type: string
-      instaImageUrl:
-        type: string
-      emailOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      phoneOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      nameOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      customDesOption:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      mailerLiteList:
-        type: array
-        items:
-          "$ref": "#/definitions/SelectListItem"
   ProductListItemViewModel:
     type: object
     properties:
