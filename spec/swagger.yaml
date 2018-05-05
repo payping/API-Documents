@@ -121,6 +121,7 @@ x-tagGroups:
         - Products
         - Campaigns
         - Coupons
+        - PermanentLinks
         - Categories
         - ItemPay
     - name: سرویس فاکتور
