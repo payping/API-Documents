@@ -116,13 +116,14 @@ tags:
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
 
 x-tagGroups:
-    - name: آیتم‌های مالی
+    - name: سرویس آیتم‌های مالی
       tags:
         - Products
         - Campaigns
         - Coupons
-        - Payments
-    - name: فاکتور
+        - Categories
+        - ItemPay
+    - name: سرویس فاکتور
       tags:
         - Account
         - AddressBooks
@@ -136,7 +137,7 @@ x-tagGroups:
         - Report
         - Request
         - Withdraw
-    - name: سرویس یوزر
+    - name: سرویس کاربر
       tags:
         - AppManage
         - File
@@ -4824,77 +4825,12 @@ paths:
           description: Server Error
 
 
-  "/v1/Campaigns/Create":
-    post:
-      tags:
-      - Campaigns
-      summary: ساخت یک کمپین جدید
-      description: شما با استفاده از این متد می‌توانید یک کمپین جدید برای یک یا چند آیتم مالی خود ایجاد کنید
-      operationId: V1CampaignsCreatePost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - application/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات کمپین
-        required: false
-        schema:
-          "$ref": "#/definitions/CampaignCreateViewModel"
-      responses:
-        '200':
-          description: کمپین با موفقیت ساخته شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-      security:
-        - oauth2:
-            - 'product:write'
-            - 'product:read'
-      x-code-samples:
-        - lang: 'C#'
-          source: |
-            PetStore.v1.Pet pet = new PetStore.v1.Pet();
-            pet.setApiKey("your api key");
-            pet.petType = PetStore.v1.Pet.TYPE_DOG;
-            pet.name = "Rex";
-            // set other fields
-            PetStoreResponse response = pet.create();
-            if (response.statusCode == HttpStatusCode.Created)
-            {
-              // Successfully created
-            }
-            else
-            {
-              // Something wrong -- check response for errors
-              Console.WriteLine(response.getRawResponse());
-            }
-        - lang: PHP
-          source: |
-            $form = new \PetStore\Entities\Pet();
-            $form->setPetType("Dog");
-            $form->setName("Rex");
-            // set other fields
-            try {
-                $pet = $client->pets()->create($form);
-            } catch (UnprocessableEntityException $e) {
-                var_dump($e->getErrors());
-            }
-  "/v1/Campaigns/Edit":
+  "/v1/Campaigns":
     put:
       tags:
       - Campaigns
       summary: بروزرسانی کمپین
-      operationId: V1CampaignsEditPut
+      operationId: V1CampaignsPut
       consumes:
       - application/json-patch+json
       - application/json
@@ -4918,42 +4854,54 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کمپینی با این کد وجود ندارد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Campaigns/Delete/{code}":
-    delete:
+    post:
       tags:
       - Campaigns
-      summary: حذف یک کمپین
-      operationId: V1CampaignsDeleteByCodeDelete
-      consumes: []
+      summary: ساخت یک کمپین جدید
+      operationId: V1CampaignsPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
       produces:
       - application/json
       parameters:
-      - name: code
-        in: path
-        description: کد کمپین
-        required: true
-        type: string
+      - name: model
+        in: body
+        description: مشخصات کمپین
+        required: false
+        schema:
+          "$ref": "#/definitions/CampaignCreateViewModel"
       responses:
         '200':
-          description: کمپین با موفقیت حذف شد
+          description: کمپین با موفقیت ساخته شد
         '400':
           description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
-        '404':
-          description: کمپینی با این کد وجود ندارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Campaigns/Get/{code}":
+  "/v1/Campaigns/{code}":
     get:
       tags:
       - Campaigns
       summary: نمایش یک کمپین
-      operationId: V1CampaignsGetByCodeGet
+      operationId: V1CampaignsByCodeGet
       consumes: []
       produces:
       - application/json
@@ -4972,6 +4920,41 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کمپینی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - Campaigns
+      summary: حذف یک کمپین
+      operationId: V1CampaignsByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد کمپین
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کمپین با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
         '500':
@@ -5017,6 +5000,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Campaigns/GetListCount":
@@ -5028,6 +5015,15 @@ paths:
       consumes: []
       produces:
       - application/json
+      parameters:
+      - name: witharchived
+        in: query
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        required: false
+        type: string
       responses:
         '200':
           description: تعداد کمپین‌ها با موفقیت نمایش داده شد
@@ -5040,6 +5036,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Campaigns/UserHaveArchived":
@@ -5061,6 +5061,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Campaigns/ChangeActivation/{code}":
@@ -5087,6 +5091,12 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کمپینی با این کد وجود ندارد
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Campaigns/ChangeArchive/{code}":
@@ -5113,14 +5123,307 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کمپینی با این کد وجود ندارد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Coupons/Create":
+  "/v1/Categories":
+    put:
+      tags:
+      - Categories
+      summary: بروزرسانی دسته‌بندی
+      operationId: V1CategoriesPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات دسته‌بندی
+        required: false
+        schema:
+          "$ref": "#/definitions/CategoryEditViewModel"
+      responses:
+        '200':
+          description: دسته‌بندی با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: دسته‌بندیی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    post:
+      tags:
+      - Categories
+      summary: ساخت یک دسته‌بندی جدید
+      operationId: V1CategoriesPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات دسته‌بندی
+        required: false
+        schema:
+          "$ref": "#/definitions/CategoryCreateViewModel"
+      responses:
+        '200':
+          description: دسته‌بندی با موفقیت ساخته شد
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Categories/{code}":
+    get:
+      tags:
+      - Categories
+      summary: نمایش یک دسته‌بندی
+      operationId: V1CategoriesByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد دسته‌بندی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: دسته‌بندی با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/CategoryDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: دسته‌بندیی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - Categories
+      summary: حذف یک دسته‌بندی
+      operationId: V1CategoriesByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد دسته‌بندی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: دسته‌بندی با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: دسته‌بندیی با این کد وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Categories/GetList":
+    get:
+      tags:
+      - Categories
+      summary: نمایش لیست دسته‌بندی‌ها
+      operationId: V1CategoriesGetListGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: شماره ابتدا لیست
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: شماره انتها لیست
+        required: false
+        type: integer
+        format: int32
+      - name: search
+        in: query
+        description: کیلدواژه جستجو در دسته‌بندی‌ها
+        required: false
+        type: string
+      responses:
+        '200':
+          description: لیست دسته‌بندی‌ها‌ با موفقیت نمایش داده شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CategoryListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Categories/GetTotalItemsCount/{code}":
+    get:
+      tags:
+      - Categories
+      summary: دریافت تعداد آیتم‌های مالی در این دسته‌بندی
+      operationId: V1CategoriesGetTotalItemsCountByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد دسته‌بندی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: تعداد آیتم‌های مالی در این دسته‌بندی با موفقیت نمایش داده شد
+          schema:
+            format: int32
+            type: integer
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Categories/GetCategory/{code}":
+    get:
+      tags:
+      - Categories
+      summary: نمایش دسته‌بندی یک آیتم مالی
+      operationId: V1CategoriesGetCategoryByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: دسته‌بندی آیتم مالی با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/CategoryMinorDetailVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: دسته‌بندی آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Coupons":
+    put:
+      tags:
+      - Coupons
+      summary: بروزرسانی کد تخفیف
+      operationId: V1CouponsPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات کد تخفیف
+        required: false
+        schema:
+          "$ref": "#/definitions/CouponEditViewModel"
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Coupons
       summary: ساخت یک کد تخفیف جدید
-      operationId: V1CouponsCreatePost
+      operationId: V1CouponsPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -5146,73 +5449,18 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Coupons/Edit":
-    put:
-      tags:
-      - Coupons
-      summary: بروزرسانی کد تخفیف
-      operationId: V1CouponsEditPut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - application/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات کد تخفیف
-        required: false
-        schema:
-          "$ref": "#/definitions/CouponEditViewModel"
-      responses:
-        '200':
-          description: کد تخفیف با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Coupons/Delete/{code}":
-    delete:
-      tags:
-      - Coupons
-      summary: حذف یک کد تخفیف
-      operationId: V1CouponsDeleteByCodeDelete
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: code
-        in: path
-        description: شناسه کد تخفیف
-        required: true
-        type: string
-      responses:
-        '200':
-          description: کد تخفیف با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '404':
-          description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Coupons/Get/{code}":
+  "/v1/Coupons/{code}":
     get:
       tags:
       - Coupons
       summary: نمایش یک کد تخفیف
-      operationId: V1CouponsGetByCodeGet
+      operationId: V1CouponsByCodeGet
       consumes: []
       produces:
       - application/json
@@ -5233,6 +5481,41 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - Coupons
+      summary: حذف یک کد تخفیف
+      operationId: V1CouponsByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه کد تخفیف
+        required: true
+        type: string
+      responses:
+        '200':
+          description: کد تخفیف با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
         '500':
@@ -5282,6 +5565,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/GetListCount":
@@ -5293,6 +5580,15 @@ paths:
       consumes: []
       produces:
       - application/json
+      parameters:
+      - name: witharchived
+        in: query
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        required: false
+        type: string
       responses:
         '200':
           description: تعداد کدهای تخفیف با موفقیت نمایش داده شد
@@ -5305,6 +5601,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/UserHaveArchived":
@@ -5328,6 +5628,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/ChangeArchive/{code}":
@@ -5354,6 +5658,12 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/ChangeActivation/{code}":
@@ -5380,6 +5690,12 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: کد تخفیفی با این شناسه وجود ندارد
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/GetBuyersUseCouponCount/{code}":
@@ -5409,6 +5725,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Coupons/CouponCodeExist/{code}":
@@ -5437,13 +5757,50 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Payments/Product":
+  "/v1/ItemPay/Pay/{code}":
+    get:
+      tags:
+      - ItemPay
+      summary: دریافت مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت
+      operationId: V1ItemPayPayByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت با موفقیت نمایش
+            داده شد
+          schema:
+            "$ref": "#/definitions/ProductPayDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/ItemPay/Pay":
     post:
       tags:
-      - Payments
-      operationId: V1PaymentsProductPost
+      - ItemPay
+      summary: ارسال مشخصات پرداخت آیتم‌مالی برای پرداخت
+      operationId: V1ItemPayPayPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -5456,23 +5813,28 @@ paths:
         in: body
         required: false
         schema:
-          "$ref": "#/definitions/ProductPaymentViewModel"
+          "$ref": "#/definitions/PermanentPaymentViewModel"
       responses:
         '200':
-          description: Success
+          description: پرداخت آیتم‌مالی با موفقیت انجام شد
         '400':
-          description: Bad Request
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
-          description: Server Error
-  "/v1/Payments/CheckCoupon":
+          description: مشکلی در سرور رخ داده است
+  "/v1/ItemPay/CheckCoupon":
     post:
       tags:
-      - Payments
-      operationId: V1PaymentsCheckCouponPost
+      - ItemPay
+      summary: چک کردن وضعیت یک کد تخفیف برای پرداخت
+      operationId: V1ItemPayCheckCouponPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -5488,23 +5850,338 @@ paths:
           "$ref": "#/definitions/CouponViewModel"
       responses:
         '200':
-          description: Success
+          description: مشخصات یک کد تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CouponResultVM"
         '400':
-          description: Bad Request
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
-          description: Server Error
-  "/v1/Products/Create":
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks":
+    put:
+      tags:
+      - PermanentLinks
+      summary: بروزرسانی لینک ثابت
+      operationId: V1PermanentLinksPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات لینک ثابت
+        required: false
+        schema:
+          "$ref": "#/definitions/PermanentEditViewModel"
+      responses:
+        '200':
+          description: لینک ثابت با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: لینک ثابتی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    post:
+      tags:
+      - PermanentLinks
+      summary: ساخت یک لینک ثابت جدید
+      operationId: V1PermanentLinksPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات لینک ثابت
+        required: false
+        schema:
+          "$ref": "#/definitions/PermanentCreateViewModel"
+      responses:
+        '200':
+          description: لینک ثابت با موفقیت ساخته شد
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks/{code}":
+    get:
+      tags:
+      - PermanentLinks
+      summary: نمایش یک لینک ثابت
+      operationId: V1PermanentLinksByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه لینک ثابت
+        required: true
+        type: string
+      responses:
+        '200':
+          description: لینک ثابت با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/PermanentDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: لینک ثابتی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - PermanentLinks
+      summary: حذف یک لینک ثابت
+      operationId: V1PermanentLinksByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: شناسه لینک ثابت
+        required: true
+        type: string
+      responses:
+        '200':
+          description: لینک ثابت با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: لینک ثابتی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks/GetList":
+    get:
+      tags:
+      - PermanentLinks
+      summary: نمایش لیست لینک‌های ثابت
+      operationId: V1PermanentLinksGetListGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: شماره ابتدا لیست
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: شماره انتها لیست
+        required: false
+        type: integer
+        format: int32
+      - name: witharchived
+        in: query
+        description: اضافه شدن لینک‌های ثابت‌ آرشیو شده
+        required: false
+        type: boolean
+      responses:
+        '200':
+          description: لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/PermanentListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks/ChangeActivation/{code}":
+    post:
+      tags:
+      - PermanentLinks
+      summary: تغییر وضعیت فعال یا غیرفعال بودن یک لینک ثابت
+      operationId: V1PermanentLinksChangeActivationByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد لینک ثابت
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت لینک ثابت با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: لینک ثابتی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks/ChangeArchive/{code}":
+    post:
+      tags:
+      - PermanentLinks
+      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک لینک ثابت
+      operationId: V1PermanentLinksChangeArchiveByCodePost
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد لینک ثابت
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت لینک ثابت با موفقیت تغییر کرد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: لینک ثابتی با این شناسه وجود ندارد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/PermanentLinks/UserHaveArchived":
+    get:
+      tags:
+      - PermanentLinks
+      summary: دریافت وجود یا عدم وجود لینک ثابت آرشیو شده برای کاربر
+      operationId: V1PermanentLinksUserHaveArchivedGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: وجود یا عدم وجود یک لینک ثابت آرشیو شده برای کاربر با موفقیت
+            نمایش داده شد
+          schema:
+            type: boolean
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Products":
+    put:
+      tags:
+      - Products
+      summary: بروزرسانی آیتم مالی
+      operationId: V1ProductsPut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات آیتم مالی
+        required: false
+        schema:
+          "$ref": "#/definitions/ProductEditViewModel"
+      responses:
+        '200':
+          description: آیتم‌ مالی با موفقیت بروزرسانی شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Products
       summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1ProductsCreatePost
+      operationId: V1ProductsPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -5530,6 +6207,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/BulkCreate":
@@ -5567,75 +6248,18 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Products/Edit":
-    put:
-      tags:
-      - Products
-      summary: بروزرسانی آیتم مالی
-      operationId: V1ProductsEditPut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - application/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات آیتم مالی
-        required: false
-        schema:
-          "$ref": "#/definitions/ProductEditViewModel"
-      responses:
-        '200':
-          description: آیتم‌ مالی با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '404':
-          description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Products/Delete/{code}":
-    delete:
-      tags:
-      - Products
-      summary: حذف یک آیتم مالی
-      operationId: V1ProductsDeleteByCodeDelete
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: code
-        in: path
-        description: کد آیتم مالی
-        required: true
-        type: string
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '404':
-          description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Products/Get/{code}":
+  "/v1/Products/{code}":
     get:
       tags:
       - Products
       summary: نمایش یک آیتم مالی
-      operationId: V1ProductsGetByCodeGet
+      operationId: V1ProductsByCodeGet
       consumes: []
       produces:
       - application/json
@@ -5656,6 +6280,41 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - Products
+      summary: حذف یک آیتم مالی
+      operationId: V1ProductsByCodeDelete
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت حذف شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
         '500':
@@ -5705,6 +6364,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetListCount":
@@ -5716,6 +6379,15 @@ paths:
       consumes: []
       produces:
       - application/json
+      parameters:
+      - name: witharchived
+        in: query
+        required: false
+        type: boolean
+      - name: search
+        in: query
+        required: false
+        type: string
       responses:
         '200':
           description: تعداد آیتم‌های مالی با موفقیت نمایش داده شد
@@ -5728,6 +6400,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetBuyersCount/{code}":
@@ -5757,6 +6433,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetProductSumTotalPay/{code}":
@@ -5786,6 +6466,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/UserHaveArchived":
@@ -5809,6 +6493,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetTitleList":
@@ -5833,6 +6521,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetTitle/{code}":
@@ -5861,6 +6553,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/GetIntegrationStatus":
@@ -5883,6 +6579,10 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/ChangeActivation/{code}":
@@ -5909,6 +6609,12 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Products/ChangeArchive/{code}":
@@ -5935,6 +6641,12 @@ paths:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
         '500':
           description: مشکلی در سرور رخ داده است
 definitions:
