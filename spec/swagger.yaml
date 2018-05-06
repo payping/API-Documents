@@ -64,8 +64,10 @@ info:
     All responses have a wildcard same-origin which makes them completely public
     and accessible to everyone, including any code on any site.
 
-    # Authentication
+    # پروتکل احراز هویت auth2O
 
+    در فریمورک OAuth ما یک لایه‌ی احراز هویت (Authorization Layer) ایجاد کردیم و نقش کلاینت (کلاینت می‌تواند کاربر یا مرورگر یا یک نرم‌افزار باشد) را از مجوز دسترسی آن جدا کرده‌ایم. در نتیجه به جای استفاده از مجوزهای دسترسی برای منابع محافظت شده می‌توان از اکسس توکن (access_token) استفاده کرد. که این access token به صورت یک رشته حاوی حروف و اعداد ایجاد می‌شود و دارای زمان انقضاء، اسکوپ (یا محدوده) و سایر ویژگی‌ها است. حال کاربر یا کلاینت از این access token برای دسترسی به سرویس‌ها و بخش‌های مختلف استفاده می‌کند. 
+    
     Petstore offers two forms of authentication:
       - متن تستی شماره۱
       - متن تستی شماره  ۲
