@@ -49,7 +49,10 @@ info:
     addition to standard
 
     OpenAPI syntax we use a few [vendor
-    extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
+    extensions](https://github.com/Rebilly/ReDo 	c/blob/master/docs/redoc-vendor-extensions.md).
+
+    # توضیحات تکمیلی برای تمام سرویس‌ها
+    برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید.
 
     # Cross-Origin Resource Sharing
 
@@ -6650,6 +6653,7 @@ paths:
           description: آیتم مالی با این کد موجود نمی‌باشد
         '500':
           description: مشکلی در سرور رخ داده است
+
 definitions:
 
 
