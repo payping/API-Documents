@@ -68,25 +68,27 @@ info:
 
     در فریمورک OAuth ما یک لایه‌ی احراز هویت (Authorization Layer) ایجاد کردیم و نقش کلاینت (کلاینت می‌تواند کاربر یا مرورگر یا یک نرم‌افزار باشد) را از مجوز دسترسی آن جدا کرده‌ایم. در نتیجه به جای استفاده از مجوزهای دسترسی برای منابع محافظت شده می‌توان از اکسس توکن (access_token) استفاده کرد. که این access token به صورت یک رشته حاوی حروف و اعداد ایجاد می‌شود و دارای زمان انقضاء، اسکوپ (یا محدوده) و سایر ویژگی‌ها است. حال کاربر یا کلاینت از این access token برای دسترسی به سرویس‌ها و بخش‌های مختلف استفاده می‌کند. 
     
-    Petstore offers two forms of authentication:
-      - متن تستی شماره۱
-      - متن تستی شماره  ۲
+    ما برای احراز هویت دو روش داریم:
+      - OAuth2
+      - JWT  
 
-    OAuth2 - an open protocol to allow secure authorization in a simple
-    and standard method from web, mobile and desktop applications.
+    OAuth2  یک پروتکل باز که به شما اجازه احراز هویت امن با استفاده از یک متد استاندارد و ساده در اپلیکیشن‌های وب، موبایل و دسکتاپ میدهد
 
+    
     <!-- ReDoc-Inject: <security-definitions> -->
   termsOfService: None
 host: api.payping.io
 tags:
-    - name: Products
+    - name: Product
       description: سرویس‌های عمومی بخش آیتم‌های مالی، لینک ثابت و سرویس‌های مربوط به پروسه پرداخت آنها 
-    - name: Campaigns
-      description: متن تستی برای اکشن‌های کنترلر کمپین‌ها
-    - name: Coupons
-      description: متن تستی برای اکشن‌های کنترلر کدهای تخفیف
-    - name: Payments
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+    - name: Campaign
+      description: سرویس‌های عمومی بخش کمپین‌ها‌
+    - name: Coupon
+      description: سرویس‌های عمومی بخش کدهای تخفیف
+    - name: ItemPay
+      description: سرویس‌های عمومی بخش پروسه پرداخت یک آیتم‌مالی‌‌ 
+    - name: Category
+      description: سرویس‌های عمومی بخش دسته‌بندی‌ها 
 
     - name: AppManage
       description: متن تستی برای توضیح کنترلر مدیریت برنامه
@@ -4854,8 +4856,37 @@ paths:
         schema:
           "$ref": "#/definitions/CampaignEditViewModel"
       security:
-        - payping_auth:
+        - oauth2:
             - 'product:write'
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            PetStore.v1.Pet pet = new PetStore.v1.Pet();
+            pet.setApiKey("your api key");
+            pet.petType = PetStore.v1.Pet.TYPE_DOG;
+            pet.name = "Rex";
+            // set other fields
+            PetStoreResponse response = pet.create();
+            if (response.statusCode == HttpStatusCode.Created)
+            {
+              // Successfully created
+            }
+            else
+            {
+              // Something wrong -- check response for errors
+              Console.WriteLine(response.getRawResponse());
+            }
+        - lang: PHP
+          source: |
+            $form = new \PetStore\Entities\Pet();
+            $form->setPetType("Dog");
+            $form->setName("Rex");
+            // set other fields
+            try {
+                $pet = $client->pets()->create($form);
+            } catch (UnprocessableEntityException $e) {
+                var_dump($e->getErrors());
+            }
       responses:
         '200':
           description: کمپین با موفقیت بروزرسانی شد
@@ -6458,6 +6489,38 @@ paths:
         required: false
         schema:
           "$ref": "#/definitions/ProductEditViewModel"
+      security:
+        - oauth2:
+            - 'product:write'
+      x-code-samples:
+        - lang: 'C#'
+          source: |
+            PetStore.v1.Pet pet = new PetStore.v1.Pet();
+            pet.setApiKey("your api key");
+            pet.petType = PetStore.v1.Pet.TYPE_DOG;
+            pet.name = "Rex";
+            // set other fields
+            PetStoreResponse response = pet.create();
+            if (response.statusCode == HttpStatusCode.Created)
+            {
+              // Successfully created
+            }
+            else
+            {
+              // Something wrong -- check response for errors
+              Console.WriteLine(response.getRawResponse());
+            }
+        - lang: PHP
+          source: |
+            $form = new \PetStore\Entities\Pet();
+            $form->setPetType("Dog");
+            $form->setName("Rex");
+            // set other fields
+            try {
+                $pet = $client->pets()->create($form);
+            } catch (UnprocessableEntityException $e) {
+                var_dump($e->getErrors());
+            }
       responses:
         '200':
           description: آیتم‌ مالی با موفقیت بروزرسانی شد
@@ -9952,13 +10015,8 @@ definitions:
       fileName:
         type: string
         readOnly: true
-        
 
-
-
-
-  securityDefinitions:
-  payping_auth:
+securityDefinitions:
   Bearer:
     name: Authorization
     in: header
