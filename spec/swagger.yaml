@@ -6,16 +6,7 @@ info:
   x-logo:
     url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/7acf03754958b2cd9778771ff5e02cbc0cb8e68b/logo/logo.png'
   description: >
-   سرویس‌های عمومی پی‌پنیگ
-   This is a sample server Petstore server.
-
-    You can find out more about Swagger at
-
-    [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
-    #swagger](http://swagger.io/irc/).
-
-    For this sample, you can use the api key `کلید-مخصوص` to test the
-    authorization filters.
+   مستندات سرویس‌های عمومی پی‌پینگ
 
     # مقدمات
 
@@ -52,19 +43,25 @@ info:
     extensions](https://github.com/Rebilly/ReDo 	c/blob/master/docs/redoc-vendor-extensions.md).
 
     # توضیحات تکمیلی برای تمام سرویس‌ها
+
     برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید.
 
-    # Cross-Origin Resource Sharing
+    # جدول کدهای دریافتی از هر سرویس
 
-    This API features Cross-Origin Resource Sharing (CORS) implemented in
-    compliance with  [W3C spec](https://www.w3.org/TR/cors/).
+    بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RestFul یک کدی به شما بازگرداننده می‌شود.
+    هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید
 
-    And that allows cross-domain communication from the browser.
+    |شماره کد|توضیحات|
+    |-------|--------|
+    |`200`| عملیات با موفقیت انجام شد |
+    |`400`| مشکلی در ارسال درخواست وجود دارد |
+    |`500`| مشکلی در سرور رخ داده دارد |
+    |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |
+    |`401`| عدم دسترسی|
+    |`403`| دسترسی غیر مجاز |
+    |`404`| آیتم درخواستی مورد نظر موجود نمی‌باشد |
 
-    All responses have a wildcard same-origin which makes them completely public
-    and accessible to everyone, including any code on any site.
-
-    # پروتکل احراز هویت auth2O
+    # پروتکل احراز هویت
 
     در فریمورک OAuth ما یک لایه‌ی احراز هویت (Authorization Layer) ایجاد کردیم و نقش کلاینت (کلاینت می‌تواند کاربر یا مرورگر یا یک نرم‌افزار باشد) را از مجوز دسترسی آن جدا کرده‌ایم. در نتیجه به جای استفاده از مجوزهای دسترسی برای منابع محافظت شده می‌توان از اکسس توکن (access_token) استفاده کرد. که این access token به صورت یک رشته حاوی حروف و اعداد ایجاد می‌شود و دارای زمان انقضاء، اسکوپ (یا محدوده) و سایر ویژگی‌ها است. حال کاربر یا کلاینت از این access token برای دسترسی به سرویس‌ها و بخش‌های مختلف استفاده می‌کند. 
     
@@ -4846,8 +4843,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -4855,55 +4851,11 @@ paths:
         required: false
         schema:
           "$ref": "#/definitions/CampaignEditViewModel"
-      security:
-        - oauth2:
-            - 'product:write'
-      x-code-samples:
-        - lang: 'C#'
-          source: |
-            PetStore.v1.Pet pet = new PetStore.v1.Pet();
-            pet.setApiKey("your api key");
-            pet.petType = PetStore.v1.Pet.TYPE_DOG;
-            pet.name = "Rex";
-            // set other fields
-            PetStoreResponse response = pet.create();
-            if (response.statusCode == HttpStatusCode.Created)
-            {
-              // Successfully created
-            }
-            else
-            {
-              // Something wrong -- check response for errors
-              Console.WriteLine(response.getRawResponse());
-            }
-        - lang: PHP
-          source: |
-            $form = new \PetStore\Entities\Pet();
-            $form->setPetType("Dog");
-            $form->setName("Rex");
-            // set other fields
-            try {
-                $pet = $client->pets()->create($form);
-            } catch (UnprocessableEntityException $e) {
-                var_dump($e->getErrors());
-            }
       responses:
         '200':
           description: کمپین با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Campaign
@@ -4914,8 +4866,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -4926,18 +4877,6 @@ paths:
       responses:
         '200':
           description: کمپین با موفقیت ساخته شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/{code}":
     get:
       tags:
@@ -4945,8 +4884,7 @@ paths:
       summary: نمایش یک کمپین
       operationId: V1CampaignByCodeGet
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -4956,28 +4894,15 @@ paths:
       responses:
         '200':
           description: کمپین با موفقیت نمایش داده شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     delete:
       tags:
       - Campaign
       summary: حذف یک کمپین
       operationId: V1CampaignByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -4987,20 +4912,8 @@ paths:
       responses:
         '200':
           description: کمپین با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/GetList":
     get:
       tags:
@@ -5008,8 +4921,7 @@ paths:
       summary: نمایش لیست کمپین‌ها
       operationId: V1CampaignGetListGet
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: offset
         in: query
@@ -5036,18 +4948,6 @@ paths:
       responses:
         '200':
           description: لیست کمپین‌ها با موفقیت نمایش داده شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/GetListCount":
     get:
       tags:
@@ -5072,18 +4972,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/UserHaveArchived":
     get:
       tags:
@@ -5091,24 +4979,11 @@ paths:
       summary: دریافت وجود یا عدم وجود کمپین آرشیو شده برای کاربر
       operationId: V1CampaignUserHaveArchivedGet
       consumes: []
-      produces:
-      - application/json
+      produces: []
       responses:
         '200':
           description: وجود یا عدم وجود یک کمپین آرشیو شده برای کاربر با موفقیت نمایش
             داده شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/ChangeActivation/{code}":
     post:
       tags:
@@ -5116,8 +4991,7 @@ paths:
       summary: تغییر وضعیت فعال یا غیرفعال بودن یک کمپین
       operationId: V1CampaignChangeActivationByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5127,20 +5001,8 @@ paths:
       responses:
         '200':
           description: وضعیت کمپین با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Campaign/ChangeArchive/{code}":
     post:
       tags:
@@ -5148,8 +5010,7 @@ paths:
       summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کمپین
       operationId: V1CampaignChangeArchiveByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5159,20 +5020,8 @@ paths:
       responses:
         '200':
           description: وضعیت کمپین با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کمپینی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category":
     put:
       tags:
@@ -5184,8 +5033,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -5196,20 +5044,8 @@ paths:
       responses:
         '200':
           description: دسته‌بندی با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: دسته‌بندیی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Category
@@ -5234,18 +5070,6 @@ paths:
           description: دسته‌بندی با موفقیت ساخته شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category/{code}":
     get:
       tags:
@@ -5266,28 +5090,15 @@ paths:
           description: دسته‌بندی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CategoryDetailViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: دسته‌بندیی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     delete:
       tags:
       - Category
       summary: حذف یک دسته‌بندی
       operationId: V1CategoryByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5297,20 +5108,8 @@ paths:
       responses:
         '200':
           description: دسته‌بندی با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: دسته‌بندیی با این کد وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category/GetList":
     get:
       tags:
@@ -5345,18 +5144,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/CategoryListItemViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category/GetListCount":
     get:
       tags:
@@ -5377,18 +5164,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category/GetTotalItemsCount/{code}":
     get:
       tags:
@@ -5410,18 +5185,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Category/GetCategory/{code}":
     get:
       tags:
@@ -5442,20 +5205,8 @@ paths:
           description: دسته‌بندی آیتم مالی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CategoryMinorDetailVM"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: دسته‌بندی آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon":
     put:
       tags:
@@ -5467,8 +5218,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -5479,20 +5229,8 @@ paths:
       responses:
         '200':
           description: کد تخفیف با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Coupon
@@ -5517,18 +5255,6 @@ paths:
           description: کد تخفیف با موفقیت ساخته شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/{code}":
     get:
       tags:
@@ -5549,28 +5275,15 @@ paths:
           description: کد تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CouponDetailViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     delete:
       tags:
       - Coupon
       summary: حذف یک کد تخفیف
       operationId: V1CouponByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5580,20 +5293,8 @@ paths:
       responses:
         '200':
           description: کد تخفیف با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/GetList":
     get:
       tags:
@@ -5633,18 +5334,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/CouponListItemViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/GetListCount":
     get:
       tags:
@@ -5669,18 +5358,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/UserHaveArchived":
     get:
       tags:
@@ -5696,18 +5373,6 @@ paths:
             نمایش داده شد
           schema:
             type: boolean
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/ChangeArchive/{code}":
     post:
       tags:
@@ -5715,8 +5380,7 @@ paths:
       summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کد تخفیف
       operationId: V1CouponChangeArchiveByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5726,20 +5390,8 @@ paths:
       responses:
         '200':
           description: وضعیت کد تخفیف با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/ChangeActivation/{code}":
     post:
       tags:
@@ -5747,8 +5399,7 @@ paths:
       summary: تغییر وضعیت فعال یا غیرفعال بودن یک کد تخفیف
       operationId: V1CouponChangeActivationByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -5758,20 +5409,8 @@ paths:
       responses:
         '200':
           description: وضعیت کد تخفیف با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/GetBuyersUseCouponCount/{code}":
     get:
       tags:
@@ -5793,18 +5432,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Coupon/CouponCodeExist/{code}":
     post:
       tags:
@@ -5825,18 +5452,6 @@ paths:
           description: وضعیت کد تخفیف با موفقیت نمایش داده شد
           schema:
             type: boolean
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/ItemPay/{code}":
     get:
       tags:
@@ -5857,20 +5472,6 @@ paths:
             داده شد
           schema:
             "$ref": "#/definitions/PayGetViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: Not Found
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/ItemPay":
     post:
       tags:
@@ -5882,8 +5483,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -5893,20 +5493,6 @@ paths:
       responses:
         '200':
           description: پرداخت آیتم‌مالی با موفقیت انجام شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: Not Found
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/ItemPay/CheckCoupon":
     post:
       tags:
@@ -5931,20 +5517,6 @@ paths:
           description: مشخصات یک کد تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CouponResultVM"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: Not Found
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/ItemPay/VerifyPermaLink/{payCode}/{refId}":
     post:
       tags:
@@ -5970,20 +5542,6 @@ paths:
           description: پرداخت لینک‌ثابت این آیتم‌مالی با موفقیت تایید شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: Not Found
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/ItemPay/PayReport/{payCode}":
     post:
       tags:
@@ -6004,20 +5562,8 @@ paths:
           description: گزارش کامل پرداخت این آیتم‌مالی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/PayReportViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: اطلاعات پرداخت با این کد ثبت نشده است
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink":
     put:
       tags:
@@ -6029,8 +5575,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -6041,20 +5586,8 @@ paths:
       responses:
         '200':
           description: لینک ثابت با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - PermaLink
@@ -6079,18 +5612,6 @@ paths:
           description: لینک ثابت با موفقیت ساخته شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/{code}":
     get:
       tags:
@@ -6111,28 +5632,15 @@ paths:
           description: لینک ثابت با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/PermanentDetailViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
     delete:
       tags:
       - PermaLink
       summary: حذف یک لینک ثابت
       operationId: V1PermaLinkByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -6142,20 +5650,8 @@ paths:
       responses:
         '200':
           description: لینک ثابت با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/GetList":
     get:
       tags:
@@ -6195,18 +5691,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/PermanentListItemViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/GetListCount":
     get:
       tags:
@@ -6231,18 +5715,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/ChangeActivation/{code}":
     post:
       tags:
@@ -6250,8 +5722,7 @@ paths:
       summary: تغییر وضعیت فعال یا غیرفعال بودن یک لینک ثابت
       operationId: V1PermaLinkChangeActivationByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -6261,20 +5732,8 @@ paths:
       responses:
         '200':
           description: وضعیت لینک ثابت با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/ChangeArchive/{code}":
     post:
       tags:
@@ -6282,8 +5741,7 @@ paths:
       summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک لینک ثابت
       operationId: V1PermaLinkChangeArchiveByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -6293,20 +5751,8 @@ paths:
       responses:
         '200':
           description: وضعیت لینک ثابت با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/UserHaveArchived":
     get:
       tags:
@@ -6322,22 +5768,11 @@ paths:
             نمایش داده شد
           schema:
             type: boolean
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/PermaLink/GetBuyersList/{payCode}":
     get:
       tags:
       - PermaLink
+      summary: دریافت لیست پرداخت‌های انجام شده یک لینک‌ثابت
       operationId: V1PermaLinkGetBuyersListByPayCodeGet
       consumes: []
       produces:
@@ -6345,41 +5780,33 @@ paths:
       parameters:
       - name: payCode
         in: path
+        description: کد پرداخت
         required: true
         type: string
       - name: offset
         in: query
+        description: شماره ابتدا لیست
         required: false
         type: integer
         format: int32
       - name: limit
         in: query
+        description: شماره انتها لیست
         required: false
         type: integer
         format: int32
       responses:
         '200':
-          description: Success
+          description: لیست با موفقیت نمایش داده شد
           schema:
             type: array
             items:
               "$ref": "#/definitions/ProductBuyerViewModel"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
   "/v1/PermaLink/GetBuyersListCount/{payCode}":
     get:
       tags:
       - PermaLink
+      summary: دریافت تعداد پرداختی‌های یک آیتم‌مالی
       operationId: V1PermaLinkGetBuyersListCountByPayCodeGet
       consumes: []
       produces:
@@ -6391,22 +5818,10 @@ paths:
         type: string
       responses:
         '200':
-          description: Success
+          description: تعداد پرداختی‌های یک آیتم‌مالی با موفقیت نمایش داده شد
           schema:
             format: int32
             type: integer
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
   "/v1/PermaLink/GetBuyer/{productCode}":
     get:
       tags:
@@ -6427,22 +5842,11 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/BuyerDetailsViewModel"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
   "/v1/PermaLink/GetBuyer/{payCode}":
     get:
       tags:
       - PermaLink
+      summary: دریافت جزئیات پرداخت یک آیتم‌مالی
       operationId: V1PermaLinkGetBuyerByPayCodeGet
       consumes: []
       produces:
@@ -6450,25 +5854,14 @@ paths:
       parameters:
       - name: payCode
         in: path
+        description: کد پرداخت
         required: true
         type: string
       responses:
         '200':
-          description: Success
+          description: جزئیات پرداخت یک آیتم‌مالی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/BuyerDetailsViewModel"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
   "/v1/Product":
     put:
       tags:
@@ -6480,8 +5873,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -6489,55 +5881,11 @@ paths:
         required: false
         schema:
           "$ref": "#/definitions/ProductEditViewModel"
-      security:
-        - oauth2:
-            - 'product:write'
-      x-code-samples:
-        - lang: 'C#'
-          source: |
-            PetStore.v1.Pet pet = new PetStore.v1.Pet();
-            pet.setApiKey("your api key");
-            pet.petType = PetStore.v1.Pet.TYPE_DOG;
-            pet.name = "Rex";
-            // set other fields
-            PetStoreResponse response = pet.create();
-            if (response.statusCode == HttpStatusCode.Created)
-            {
-              // Successfully created
-            }
-            else
-            {
-              // Something wrong -- check response for errors
-              Console.WriteLine(response.getRawResponse());
-            }
-        - lang: PHP
-          source: |
-            $form = new \PetStore\Entities\Pet();
-            $form->setPetType("Dog");
-            $form->setName("Rex");
-            // set other fields
-            try {
-                $pet = $client->pets()->create($form);
-            } catch (UnprocessableEntityException $e) {
-                var_dump($e->getErrors());
-            }
       responses:
         '200':
           description: آیتم‌ مالی با موفقیت بروزرسانی شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
     post:
       tags:
       - Product
@@ -6562,18 +5910,6 @@ paths:
           description: آیتم مالی با موفقیت ساخته شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/BulkCreate":
     post:
       tags:
@@ -6603,18 +5939,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/ResponseBulkCreate"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/{code}":
     get:
       tags:
@@ -6635,28 +5959,15 @@ paths:
           description: آیتم مالی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/ProductFullDeatilViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
     delete:
       tags:
       - Product
       summary: حذف یک آیتم مالی
       operationId: V1ProductByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -6666,20 +5977,8 @@ paths:
       responses:
         '200':
           description: آیتم مالی با موفقیت حذف شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetList":
     get:
       tags:
@@ -6719,18 +6018,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/ProductListItemViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetListCount":
     get:
       tags:
@@ -6755,18 +6042,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetBuyersCount/{code}":
     get:
       tags:
@@ -6788,18 +6063,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetProductSumTotalPay/{code}":
     get:
       tags:
@@ -6821,18 +6084,6 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/UserHaveArchived":
     get:
       tags:
@@ -6848,18 +6099,6 @@ paths:
             نمایش داده شد
           schema:
             type: boolean
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetTitleList":
     get:
       tags:
@@ -6876,18 +6115,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/ListItem"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetTitle/{code}":
     get:
       tags:
@@ -6908,18 +6135,6 @@ paths:
           description: عنوان آیتم‌ مالی با موفقیت نمایش داده شد
           schema:
             type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/GetIntegrationStatus":
     get:
       tags:
@@ -6934,18 +6149,6 @@ paths:
           description: وضعیت اتصالات به سرویس‌های دیگر با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/IntegrationStatusViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/ChangeActivation/{code}":
     post:
       tags:
@@ -6953,8 +6156,7 @@ paths:
       summary: تغییر وضعیت فعال یا غیرفعال بودن یک آیتم مالی
       operationId: V1ProductChangeActivationByCodePost
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
@@ -6964,20 +6166,8 @@ paths:
       responses:
         '200':
           description: وضعیت آیتم مالی با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Product/ChangeArchive/{code}":
     post:
       tags:
@@ -6985,6 +6175,25 @@ paths:
       summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک آیتم مالی
       operationId: V1ProductChangeArchiveByCodePost
       consumes: []
+      produces: []
+      parameters:
+      - name: code
+        in: path
+        description: کد آیتم مالی
+        required: true
+        type: string
+      responses:
+        '200':
+          description: وضعیت آیتم مالی با موفقیت تغییر کرد
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
+  "/v1/Product/FindUserIdByProductCode/{code}":
+    get:
+      tags:
+      - Product
+      summary: دریافت آیدی کاربر با استفاده از کد آیتم‌مالی
+      operationId: V1ProductFindUserIdByProductCodeByCodeGet
+      consumes: []
       produces:
       - application/json
       parameters:
@@ -6995,56 +6204,17 @@ paths:
         type: string
       responses:
         '200':
-          description: وضعیت آیتم مالی با موفقیت تغییر کرد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: آیتم مالی با این کد موجود نمی‌باشد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Product/FindUserIdByProductCode/{code}":
-    get:
-      tags:
-      - Product
-      operationId: V1ProductFindUserIdByProductCodeByCodeGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: code
-        in: path
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Success
+          description: آیدی کاربر با موفقیت نمایش داده شد
           schema:
             format: int32
             type: integer
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
+        '404':
+          description: آیتم مالی با این کد موجود نمی‌باشد
   "/v1/Product/UploadImage":
     post:
       tags:
       - Product
+      summary: آپلود تصویر برای آیتم‌مالی
       operationId: V1ProductUploadImagePost
       consumes: []
       produces:
@@ -7059,22 +6229,9 @@ paths:
         type: string
       responses:
         '200':
-          description: Success
+          description: تصویر با موفقیت آپلود شد
           schema:
             type: string
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '500':
-          description: Server Error
-
 
 definitions:
 
