@@ -142,9 +142,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: model
         in: body
@@ -169,9 +167,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: model
         in: body
@@ -196,9 +192,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: _model
         in: body
@@ -210,6 +204,29 @@ paths:
           description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/PaymentResult"
+  "/v1/Pay/Batch":
+    post:
+      tags:
+      - Payment
+      summary: پرداخت پول جدید بصورت گروهی
+      operationId: V1PayBatchPost
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: Upload File
+        required: true
+        type: file
+      responses:
+        '200':
+          description: لیست حاوی اطلاعات درخواست کنندگان
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CreateBatchPaymentViewModel"
   "/v1/Pay/GoToIpg":
     get:
       tags:
@@ -240,7 +257,9 @@ paths:
         type: boolean
       responses:
         '200':
-          description: مقدمات ورود به درگاه با موفقیت ساخته شد
+          description: Success
+        '302':
+          description: تغییر مسیر به درگاه
   "/v1/Pay/Verify":
     post:
       tags:
@@ -253,9 +272,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: model
         in: body
@@ -267,8 +284,32 @@ paths:
         '200':
           description: تاییدیه آیتم مالی با موفقیت انجام شد
           schema:
-            format: int32
-            type: integer
+            "$ref": "#/definitions/VerifyResultVM"
+  "/v1/Pay/PPVerify":
+    post:
+      tags:
+      - Payment
+      summary: تایید پرداخت
+      operationId: V1PayPPVerifyPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        description: مشخصات پرداختی
+        required: false
+        schema:
+          "$ref": "#/definitions/VerifyPaymentViewModel"
+      responses:
+        '200':
+          description: تاییدیه آیتم مالی با موفقیت انجام شد
+          schema:
+            "$ref": "#/definitions/VerifyResultVM"
   "/v1/Pay/Cancel":
     post:
       tags:
@@ -281,9 +322,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: model
         in: body
@@ -305,9 +344,7 @@ paths:
       operationId: V1PayByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -326,9 +363,7 @@ paths:
       operationId: V1PayUnVerifiedPayGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       responses:
         '200':
           description: جزئیات پرداخت با موفقیت ساخته شد
@@ -344,9 +379,7 @@ paths:
       operationId: V1PayAllVerifiedGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       responses:
         '200':
           description: لیست پول های پرداخت موفقیت ساخته شد
@@ -371,6 +404,434 @@ paths:
       responses:
         '200':
           description: لیست پول های پرداخت موفقیت ساخته شد
+  "/v1/Report/ReceiveReports":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای دریافت شده
+      operationId: V1ReportReceiveReportsGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ReportsReciveVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/ReceiveReportsCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای دریافت شده
+      operationId: V1ReportReceiveReportsCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/TodayReceiveReports":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای دریافت شده امروز
+      operationId: V1ReportTodayReceiveReportsGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ReportsReciveVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/TodayReceiveReportsCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای دریافت شده امروز
+      operationId: V1ReportTodayReceiveReportsCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/PayReports":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای درخواستی تایید شده
+      operationId: V1ReportPayReportsGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/ReportPayVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/PayReportsCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش پولهای درخواستی تایید شده
+      operationId: V1ReportPayReportsCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/WithdrawsPagination":
+    get:
+      tags:
+      - Report
+      summary: گزارش تسویه حساب
+      operationId: V1ReportWithdrawsPaginationGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: userId
+        in: query
+        description: آی دی کاربر
+        required: false
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/WithdrawsPagingVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/WithdrawsPaginationCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش تسویه حساب
+      operationId: V1ReportWithdrawsPaginationCountGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: userId
+        in: query
+        description: آی دی کاربر
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/UserWithdrawsCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش تعداد تسویه حسابهای موجود
+      operationId: V1ReportUserWithdrawsCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/Requests":
+    get:
+      tags:
+      - Report
+      summary: گزارش تمام تسویه حساب های ثبت شده
+      operationId: V1ReportRequestsGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/RequestIndexVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/RequestsCount":
+    get:
+      tags:
+      - Report
+      summary: گزارش تمام تسویه حساب های ثبت شده
+      operationId: V1ReportRequestsCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            "$ref": "#/definitions/ResultVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/UserReport":
+    get:
+      tags:
+      - Report
+      summary: گزارش  پرداخت ها/دریافت ها
+      operationId: V1ReportUserReportGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: payType
+        in: query
+        description: "0= پرداخت ها/دریافت ها\r\n1= دریافتی ها\r\n2= پرداختی ها"
+        required: false
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: گزارش با موفقیت تهیه شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/RequestIndexVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Report/Last10DaysPayCount":
+    get:
+      tags:
+      - Report
+      operationId: V1ReportLast10DaysPayCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            additionalProperties:
+              format: int32
+              type: integer
+  "/v1/Report/UserResiveTodaySum":
+    get:
+      tags:
+      - Report
+      operationId: V1ReportUserResiveTodaySumGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/v1/Report/TotalUserGetPaid":
+    get:
+      tags:
+      - Report
+      operationId: V1ReportTotalUserGetPaidGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/v1/Report/TotalGetPaidCount":
+    get:
+      tags:
+      - Report
+      operationId: V1ReportTotalGetPaidCountGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
   "/v1/Report/Clients":
     get:
       tags:
@@ -378,9 +839,7 @@ paths:
       operationId: V1ReportClientsGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       responses:
         '200':
           description: Success
@@ -396,9 +855,7 @@ paths:
       operationId: V1ReportTransactionReportGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: ClientId
         in: query
@@ -454,9 +911,7 @@ paths:
       operationId: V1ReportWithdrawTransactionsGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: ClientId
         in: query
@@ -499,6 +954,21 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/Withdraw"
+  "/v1/Report/Last5Withdraws":
+    get:
+      tags:
+      - Report
+      operationId: V1ReportLast5WithdrawsGet
+      consumes: []
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Last5WithdrawsVM"
   "/v1/Request":
     post:
       tags:
@@ -511,9 +981,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: _model
         in: body
@@ -525,14 +993,6 @@ paths:
           description: درخواست پول با موفقیت انجام شد
           schema:
             "$ref": "#/definitions/RequestResult"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Request/Multi":
     post:
       tags:
@@ -545,9 +1005,7 @@ paths:
       - text/json
       - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: _model
         in: body
@@ -559,14 +1017,29 @@ paths:
           description: درخواست پول با موفقیت انجام شد
           schema:
             "$ref": "#/definitions/RequestResult"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
+  "/v1/Request/Batch":
+    post:
+      tags:
+      - Request
+      summary: درخواست پول بصورت گروهی
+      operationId: V1RequestBatchPost
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: Upload File
+        required: true
+        type: file
+      responses:
+        '200':
+          description: لیست حاوی اطلاعات پرداخت کنندگان
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CreateBatchRequestViewModel"
   "/v1/Request/SendReminder":
     post:
       tags:
@@ -584,14 +1057,6 @@ paths:
       responses:
         '200':
           description: یادآوری با موفقیت انجام شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Request/Cancel":
     post:
       tags:
@@ -609,14 +1074,6 @@ paths:
       responses:
         '200':
           description: درخواست با موفقیت کنسل شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Withdraw/{Code}":
     get:
       tags:
@@ -625,9 +1082,7 @@ paths:
       operationId: V1WithdrawByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -646,9 +1101,7 @@ paths:
       operationId: V1WithdrawBalanceGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       responses:
         '200':
           description: دریافت موفق موجودی
@@ -6207,11 +6660,33 @@ definitions:
         type: string
       userName:
         type: string
+  CreateBatchPaymentViewModel:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      fullName:
+        type: string
+      userName:
+        type: string
+      email:
+        type: string
+      mobile:
+        type: string
+      avatar:
+        type: string
   VerifyPaymentViewModel:
     type: object
     properties:
       refId:
         type: string
+  VerifyResultVM:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
   CancelPaymentViewModel:
     type: object
     properties:
@@ -6338,6 +6813,127 @@ definitions:
       payDate:
         format: int64
         type: integer
+  ReportsReciveVM:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      payDate:
+        format: date-time
+        type: string
+      payerName:
+        type: string
+      code:
+        type: string
+      description:
+        type: string
+      payStatus:
+        type: string
+      isProduct:
+        type: boolean
+      amountVM:
+        type: string
+        readOnly: true
+      payDateVM:
+        type: string
+        readOnly: true
+  ResultVM:
+    type: object
+    properties:
+      result:
+        format: int32
+        type: integer
+  ReportPayVM:
+    type: object
+    properties:
+      userId:
+        format: int32
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      payDate:
+        format: date-time
+        type: string
+      name:
+        type: string
+      code:
+        type: string
+      payStatus:
+        type: string
+      amountDisplay:
+        type: string
+        readOnly: true
+      payDateDisplay:
+        type: string
+        readOnly: true
+  WithdrawsPagingVM:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      reqDate:
+        format: date-time
+        type: string
+      repayDate:
+        format: date-time
+        type: string
+      refId:
+        type: string
+      withdrawStatus:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      amountVM:
+        type: string
+        readOnly: true
+      rePayDateDisplay:
+        type: string
+        readOnly: true
+      reqDateVM:
+        type: string
+        readOnly: true
+      refIdVM:
+        type: string
+        readOnly: true
+      withdrawStatusVM:
+        type: string
+        readOnly: true
+  RequestIndexVM:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      requestDate:
+        format: date-time
+        type: string
+      payDate:
+        format: date-time
+        type: string
+      payerName:
+        type: string
+      code:
+        type: string
+      payStatus:
+        type: string
+      amountDisplay:
+        type: string
+        readOnly: true
+      authDateVM:
+        type: string
+        readOnly: true
+      payDateDisplay:
+        type: string
+        readOnly: true
   Payment:
     type: object
     properties:
@@ -6570,6 +7166,20 @@ definitions:
         - 1
         - 2
         type: integer
+  Last5WithdrawsVM:
+    type: object
+    properties:
+      code:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      reqDate:
+        format: date-time
+        type: string
+      repayDate:
+        format: date-time
+        type: string
   CreateRequestViewModel:
     type: object
     properties:
@@ -6604,12 +7214,22 @@ definitions:
         type: string
       referenceId:
         type: string
-  ResultVM:
+  CreateBatchRequestViewModel:
     type: object
     properties:
-      result:
+      amount:
         format: int32
         type: integer
+      fullName:
+        type: string
+      userName:
+        type: string
+      email:
+        type: string
+      mobile:
+        type: string
+      avatar:
+        type: string
   CreateWithdrawVM:
     type: object
     properties:
