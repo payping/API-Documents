@@ -10,41 +10,18 @@ info:
 
     # مقدمات
 
-    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-
-    This API is documented in **OpenAPI format** and is based on
-
-    [لینک تستی](http://petstore.swagger.io/) provided by
-    [سوعگر](http://swagger.io) تیم.
-
-    It was **extended** to illustrate features of
-    [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-
-    tool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In
-    addition to standard
-
-    OpenAPI syntax we use a few [vendor
-    extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
-
-    # OpenAPI Specification
-
-    This API is documented in **OpenAPI format** and is based on
-
-    [Petstore sample](http://petstore.swagger.io/) provided by
-    [swagger.io](http://swagger.io) team.
-
-    It was **extended** to illustrate features of
-    [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-
-    tool and [ReDoc](https://github.com/Rebilly/ReDoc) documentation. In
-    addition to standard
-
-    OpenAPI syntax we use a few [vendor
-    extensions](https://github.com/Rebilly/ReDo 	c/blob/master/docs/redoc-vendor-extensions.md).
+    مستندات سرویس‌های عمومی پلت‌فرم مالی پی‌پینگ.
+    جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.
 
     # توضیحات تکمیلی برای تمام سرویس‌ها
 
     برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید.
+
+    # نکاتی برای آپلود فایل‌ها
+
+    برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از سرویس آپلودمنیجر استفاده کنید.
+    
+    پس از انجام عملیات آپلود توسط سرویس آپلود منیجر، نام فایل آپلود شده به عنوان خروجی به شما برگردانده می‌شود و سپس با آپدیت کردن فیلد مربوط به فایل آبجکت مورد نظر، آن را در دیتابیس ذخیره نمایید.
 
     # جدول کدهای دریافتی از هر سرویس
 
@@ -55,7 +32,7 @@ info:
     |-------|--------|
     |`200`| عملیات با موفقیت انجام شد |
     |`400`| مشکلی در ارسال درخواست وجود دارد |
-    |`500`| مشکلی در سرور رخ داده دارد |
+    |`500`| مشکلی در سرور رخ داده است |
     |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |
     |`401`| عدم دسترسی|
     |`403`| دسترسی غیر مجاز |
@@ -66,7 +43,6 @@ info:
     در فریمورک OAuth ما یک لایه‌ی احراز هویت (Authorization Layer) ایجاد کردیم و نقش کلاینت (کلاینت می‌تواند کاربر یا مرورگر یا یک نرم‌افزار باشد) را از مجوز دسترسی آن جدا کرده‌ایم. در نتیجه به جای استفاده از مجوزهای دسترسی برای منابع محافظت شده می‌توان از اکسس توکن (access_token) استفاده کرد. که این access token به صورت یک رشته حاوی حروف و اعداد ایجاد می‌شود و دارای زمان انقضاء، اسکوپ (یا محدوده) و سایر ویژگی‌ها است. حال کاربر یا کلاینت از این access token برای دسترسی به سرویس‌ها و بخش‌های مختلف استفاده می‌کند. 
     
     ما برای احراز هویت دو روش داریم:
-      - OAuth2
       - JWT  
 
     OAuth2  یک پروتکل باز که به شما اجازه احراز هویت امن با استفاده از یک متد استاندارد و ساده در اپلیکیشن‌های وب، موبایل و دسکتاپ میدهد
@@ -110,16 +86,19 @@ tags:
     - name: UploadManager
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
 
-    - name: Payment
+    - name: AdminPayment
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: Report
+    - name: AdminReport
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: Request
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: Withdraw
+    - name: AdminWithdraw
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
 
 x-tagGroups:
+    - name: سرویس پرداخت
+      tags:
+        - AdminPayment
+        - AdminReport
+        - AdminWithdraw
     - name: سرویس آیتم‌های مالی
       tags:
         - Product
@@ -136,12 +115,6 @@ x-tagGroups:
         - Invoices
         - Items
         - UploadManager
-    - name: سرویس پرداخت
-      tags:
-        - Payment
-        - Report
-        - Request
-        - Withdraw
     - name: سرویس کاربر
       tags:
         - AppManage
@@ -154,42 +127,12 @@ x-tagGroups:
 
 paths:
 
-
-  "/v1/Payment/GetUserKey":
-    get:
-      tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentGetUserKeyGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: username
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت ساخته شد
-          schema:
-            type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Payment/RequestToken":
+  "/admin/Pay":
     post:
       tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentRequestTokenPost
+      - AdminPayment
+      summary: پرداخت پول جدید
+      operationId: AdminPayPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -202,105 +145,31 @@ paths:
       parameters:
       - name: model
         in: body
-        description: مشخصات آیتم مالی
+        description: مشخصات پرداخت
         required: false
         schema:
-          "$ref": "#/definitions/RequestTokenViewModel"
+          "$ref": "#/definitions/AdminCreatePaymentViewModel"
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
+          description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
-            type: string
+            "$ref": "#/definitions/PaymentResult"
         '400':
           description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Payment/VerifyPayment":
-    post:
+  "/admin/Pay/RemovePaymentByCode":
+    delete:
       tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentVerifyPaymentPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات آیتم مالی
-        required: false
-        schema:
-          "$ref": "#/definitions/VerifyPaymentViewModel"
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت ساخته شد
-          schema:
-            format: int32
-            type: integer
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Payment/GoToIpg":
-    get:
-      tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentGoToIpgGet
+      - AdminPayment
+      summary: پرداخت پول جدید
+      operationId: AdminPayRemovePaymentByCodeDelete
       consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: query
-        required: false
-        type: string
-      - name: IsApp
-        in: query
-        required: true
-        type: boolean
-      - name: phone
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت ساخته شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Payment/PaymentDetails":
-    get:
-      tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentPaymentDetailsGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
+      produces: []
       parameters:
       - name: code
         in: query
@@ -308,23 +177,20 @@ paths:
         type: string
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
-          schema:
-            "$ref": "#/definitions/PaymentDetailsViewModel"
+          description: پرداخت پول جدید با موفقیت ساخته شد
         '400':
           description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Payment/GetUnVerifiedPayments":
+  "/admin/Report/UsersHaveMorePayments":
     get:
       tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentGetUnVerifiedPaymentsGet
+      - AdminReport
+      operationId: AdminReportUsersHaveMorePaymentsGet
       consumes: []
       produces:
       - text/plain
@@ -332,25 +198,14 @@ paths:
       - text/json
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
+          description: Success
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CheckVerifyViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Payment/GetAllVerifiedPayments":
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/UsersPaid":
     get:
       tags:
-      - Payment
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1PaymentGetAllVerifiedPaymentsGet
+      - AdminReport
+      operationId: AdminReportUsersPaidGet
       consumes: []
       produces:
       - text/plain
@@ -358,38 +213,352 @@ paths:
       - text/json
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
+          description: Success
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CheckVerifyViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Report/GetReceiveReports":
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/PaymentsCount":
     get:
       tags:
-      - Report
-      operationId: V1ReportGetReceiveReportsGet
+      - AdminReport
+      operationId: AdminReportPaymentsCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/PaymentTernover":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportPaymentTernoverGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/TotalUserGetPaid":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportTotalUserGetPaidGet
       consumes: []
       produces:
       - text/plain
       - application/json
       - text/json
       parameters:
-      - name: offset
+      - name: userId
         in: query
         required: true
         type: integer
         format: int32
-      - name: limit
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/TodayUserGetPaidAmount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportTodayUserGetPaidAmountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
         in: query
         required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/Lasy30UserGetPaidAmount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportLasy30UserGetPaidAmountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/TotalGetPaidCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportTotalGetPaidCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/UserPaymentReceiveReportCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPaymentReceiveReportCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/UserPayReportCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPayReportCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/Last10DaysPayCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportLast10DaysPayCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            additionalProperties:
+              format: int32
+              type: integer
+  "/admin/Report/Last14DaysSales":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportLast14DaysSalesGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              type: array
+              items:
+                type: string
+  "/admin/Report/UserPaymentReport":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPaymentReportGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Payment"
+  "/admin/Report/Last4UserPayment":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportLast4UserPaymentGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+  "/admin/Report/Last5Transaction":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportLast5TransactionGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Payment"
+  "/admin/Report/UserPaymentReceiveReportPagination":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPaymentReceiveReportPaginationGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ReportsPagintionVM"
+  "/admin/Report/UserPaymentReceiveReportPaginationCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPaymentReceiveReportPaginationCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/UserPayReportPagination":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPayReportPaginationGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        required: false
         type: integer
         format: int32
       responses:
@@ -399,55 +568,11 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/ReportsReciveVM"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/v1/Report/GetPayReports":
+  "/admin/Report/UserPayReportPaginationCount":
     get:
       tags:
-      - Report
-      operationId: V1ReportGetPayReportsGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: offset
-        in: query
-        required: true
-        type: integer
-        format: int32
-      - name: limit
-        in: query
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: Success
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/ReportPayVM"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/v1/Report/GetWithdrawsPagination":
-    get:
-      tags:
-      - Report
-      operationId: V1ReportGetWithdrawsPaginationGet
+      - AdminReport
+      operationId: AdminReportUserPayReportPaginationCountGet
       consumes: []
       produces:
       - text/plain
@@ -459,36 +584,16 @@ paths:
         required: true
         type: integer
         format: int32
-      - name: offset
-        in: query
-        required: true
-        type: integer
-        format: int32
-      - name: limit
-        in: query
-        required: true
-        type: integer
-        format: int32
       responses:
         '200':
           description: Success
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/WithdrawsPagingVM"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/v1/Report/GetUserWithdrawsCount":
+            "$ref": "#/definitions/ResultVM"
+  "/admin/Report/UserBalance":
     get:
       tags:
-      - Report
-      operationId: V1ReportGetUserWithdrawsCountGet
+      - AdminReport
+      operationId: AdminReportUserBalanceGet
       consumes: []
       produces:
       - text/plain
@@ -506,19 +611,173 @@ paths:
           schema:
             format: int32
             type: integer
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/v1/Report/GetRequests":
+  "/admin/Report/UserResiveTodaySum":
     get:
       tags:
-      - Report
-      operationId: V1ReportGetRequestsGet
+      - AdminReport
+      operationId: AdminReportUserResiveTodaySumGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            format: int32
+            type: integer
+  "/admin/Report/UserPersonalResiveTodayCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPersonalResiveTodayCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            format: int32
+            type: integer
+  "/admin/Report/UserBusinessResiveTodayCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserBusinessResiveTodayCountGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+  "/admin/Report/UserResiveWeekSum":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserResiveWeekSumGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            format: int32
+            type: integer
+  "/admin/Report/UserPersonalResiveWeekCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserPersonalResiveWeekCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            format: int32
+            type: integer
+  "/admin/Report/UserBusinessResiveWeekCount":
+    get:
+      tags:
+      - AdminReport
+      operationId: AdminReportUserBusinessResiveWeekCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            format: int32
+            type: integer
+  "/admin/Withdraw/CreatePersonalWithdraw":
+    get:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawCreatePersonalWithdrawGet
+      consumes: []
+      produces: []
+      responses:
+        '200':
+          description: Success
+  "/admin/Withdraws":
+    get:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawsGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/WithdrawAdminVM"
+  "/admin/Withdraw/UnRepaidWithdraws":
+    get:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawUnRepaidWithdrawsGet
       consumes: []
       produces:
       - text/plain
@@ -539,237 +798,282 @@ paths:
         '200':
           description: Success
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/RequestIndexVM"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/v1/Request/CreateMultiRequest":
+            "$ref": "#/definitions/WithdrawAdminVM"
+  "/admin/Withdraw/ExportKey":
     post:
       tags:
-      - Request
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1RequestCreateMultiRequestPost
+      - AdminWithdraw
+      operationId: AdminWithdrawExportKeyPost
       consumes:
       - application/json-patch+json
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
+      produces: []
       parameters:
-      - name: model
+      - name: wIDs
         in: body
-        description: مشخصات آیتم مالی
         required: false
         schema:
-          "$ref": "#/definitions/CreateMultiRequestViewModel"
+          type: array
+          items:
+            format: int32
+            type: integer
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
-          schema:
-            type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Request/CreateRequest":
+          description: Success
+  "/admin/Withdraw/ExportKeyLess10":
     post:
       tags:
-      - Request
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1RequestCreateRequestPost
+      - AdminWithdraw
+      operationId: AdminWithdrawExportKeyLess10Post
       consumes:
       - application/json-patch+json
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - text/plain
+      produces: []
+      parameters:
+      - name: wIDs
+        in: body
+        required: false
+        schema:
+          type: array
+          items:
+            format: int32
+            type: integer
+      responses:
+        '200':
+          description: Success
+  "/admin/Withdraw/ExportKeyMore10":
+    post:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawExportKeyMore10Post
+      consumes:
+      - application/json-patch+json
       - application/json
       - text/json
+      - application/*+json
+      produces: []
+      parameters:
+      - name: wIDs
+        in: body
+        required: false
+        schema:
+          type: array
+          items:
+            format: int32
+            type: integer
+      responses:
+        '200':
+          description: Success
+  "/admin/Withdraw":
+    delete:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawDelete
+      consumes: []
+      produces: []
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        type: string
+      responses:
+        '200':
+          description: Success
+  "/admin/Withdraw/SendMasterCode":
+    post:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawSendMasterCodePost
+      consumes: []
+      produces: []
+      responses:
+        '200':
+          description: Success
+  "/admin/Withdraw/SubmitWithdraw":
+    post:
+      tags:
+      - AdminWithdraw
+      operationId: AdminWithdrawSubmitWithdrawPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces: []
       parameters:
       - name: model
         in: body
-        description: مشخصات آیتم مالی
         required: false
         schema:
-          "$ref": "#/definitions/CreateRequestViewModel"
+          "$ref": "#/definitions/AdminWithdrawViewModel"
       responses:
         '200':
-          description: آیتم مالی با موفقیت ساخته شد
-          schema:
-            type: string
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Request/SendReminder":
-    post:
-      tags:
-      - Request
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1RequestSendReminderPost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت ساخته شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Request/CancelRequest":
-    post:
-      tags:
-      - Request
-      summary: ساخت یک آیتم‌ مالی جدید
-      operationId: V1RequestCancelRequestPost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: آیتم مالی با موفقیت ساخته شد
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/api/Withdraw/Details":
+          description: Success
+  "/admin/Withdraw/DownloadExcel":
     get:
       tags:
-      - Withdraw
-      operationId: ApiWithdrawDetailsGet
+      - AdminWithdraw
+      operationId: AdminWithdrawDownloadExcelGet
       consumes: []
       produces:
       - text/plain
       - application/json
       - text/json
+      parameters:
+      - name: less10
+        in: query
+        required: false
+        type: boolean
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/VirtualFileResult"
+  "/admin/Withdraw/AllUserWithdrawsPagination":
+    get:
+      tags:
+      - AdminWithdraw
+      summary: یک آیم فاکتور ایجاد می کند
+      operationId: AdminWithdrawAllUserWithdrawsPaginationGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      - name: offset
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        required: false
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت ساخته شد
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/WithdrawsPagingVM"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/admin/Withdraw/AllUserWithdrawsCount":
+    get:
+      tags:
+      - AdminWithdraw
+      summary: یک آیم فاکتور ایجاد می کند
+      operationId: AdminWithdrawAllUserWithdrawsCountGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت ساخته شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/admin/Withdraw/BusinessUserCanWithdraw":
+    get:
+      tags:
+      - AdminWithdraw
+      summary: یک آیم فاکتور ایجاد می کند
+      operationId: AdminWithdrawBusinessUserCanWithdrawGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت ساخته شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/admin/Withdraw/CheckUserWithdraws":
+    get:
+      tags:
+      - AdminWithdraw
+      summary: یک آیم فاکتور ایجاد می کند
+      operationId: AdminWithdrawCheckUserWithdrawsGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: آیتم مالی با موفقیت ساخته شد
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: دسترسی غیرمجاز
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/admin/Withdraw/FindWithdraw":
+    get:
+      tags:
+      - AdminWithdraw
+      summary: یک آیم فاکتور ایجاد می کند
+      operationId: AdminWithdrawFindWithdrawGet
+      consumes: []
+      produces: []
       parameters:
       - name: id
         in: query
         required: true
         type: integer
         format: int32
-      responses:
-        '200':
-          description: Success
-          schema:
-            "$ref": "#/definitions/Withdraw"
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/api/Withdraw/GetBalance":
-    get:
-      tags:
-      - Withdraw
-      operationId: ApiWithdrawGetBalanceGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Success
-          schema:
-            format: int32
-            type: integer
-        '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Server Error
-  "/api/Withdraw/Create":
-    post:
-      tags:
-      - Withdraw
-      operationId: ApiWithdrawCreatePost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: WithdrawAmount
-        in: query
-        required: false
-        type: string
-      - name: VerfiedPhone
-        in: query
-        required: true
-        type: boolean
-      - name: HaveShaba
-        in: query
-        required: true
-        type: boolean
-      - name: UserCanDraw
+      - name: userId
         in: query
         required: true
         type: integer
         format: int32
-      - name: ShouldVerifyLocalInfo
-        in: query
-        required: true
-        type: boolean
       responses:
         '200':
-          description: Success
+          description: آیتم مالی با موفقیت ساخته شد
         '400':
-          description: Bad Request
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+          description: مشکلی در ارسال درخواست وجود دارد
+        '401':
+          description: دسترسی غیرمجاز
         '500':
-          description: Server Error
+          description: مشکلی در سرور رخ داده است
+
+          
+
+
 
 
   "/v1/Account/GetVersion":
@@ -6233,106 +6537,94 @@ paths:
           schema:
             type: string
 
+
+
 definitions:
 
 
-  RequestTokenViewModel:
+
+  AdminCreatePaymentViewModel:
     type: object
     properties:
+      userId:
+        format: int32
+        type: integer
       returnUrl:
         type: string
       payerName:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
+      clientId:
+        type: string
+      isBusiness:
+        type: boolean
+      payerId:
+        format: int32
+        type: integer
       amount:
         format: int32
-        maximum: 50000000
-        minimum: 100
         type: integer
-  VerifyPaymentViewModel:
+      payerIdentity:
+        type: string
+  PaymentResult:
     type: object
     properties:
-      userKey:
+      code:
         type: string
-      refId:
-        type: string
-  PaymentDetailsViewModel:
-    required:
-    - amount
-    - repayDate
-    - isPaid
-    - refId
-    - description
-    - payerName
+  ResultVM:
+    type: object
+    properties:
+      result:
+        format: int32
+        type: integer
+  Payment:
     type: object
     properties:
       id:
         format: int32
         type: integer
+      userId:
+        format: int32
+        type: integer
       amount:
         format: int32
         type: integer
+      ipgToken:
+        type: string
+      ipgTokenDate:
+        format: date-time
+        type: string
+      ipgRefId:
+        type: string
       payDate:
         format: date-time
         type: string
-      repayDate:
+      createdDate:
         format: date-time
         type: string
       isPaid:
         type: boolean
-      refId:
-        type: string
       description:
         type: string
       payerName:
         type: string
-      code:
-        type: string
-      isBusiness:
-        type: boolean
-      requestDate:
-        format: date-time
-        type: string
-      isRepaid:
-        type: boolean
-      isMultiple:
-        type: boolean
-      isRequest:
-        type: boolean
-      name:
-        type: string
-      payerIdentity:
-        type: string
-      platform:
-        type: string
-      browser:
-        type: string
       payerId:
         format: int32
         type: integer
-      userId:
-        format: int32
-        type: integer
-      username:
+      payerIdentity:
         type: string
-      wage:
-        format: double
-        type: number
-      pWage:
-        format: int32
-        type: integer
-      isIranIP:
+      isRequest:
         type: boolean
-      payerIP:
+      lastIpgWatch:
+        format: date-time
         type: string
-      rrn:
+      code:
         type: string
-      bWage:
-        format: double
-        type: number
+      isDeleted:
+        type: boolean
       ipgType:
         format: int32
         enum:
@@ -6346,6 +6638,7 @@ definitions:
         - 7
         - 8
         - 14
+        - 99
         - 101
         - 102
         - 103
@@ -6353,33 +6646,130 @@ definitions:
         - 105
         - 201
         type: integer
-      redirecturl:
-        type: string
+      isBusiness:
+        type: boolean
+      clientApiVerified:
+        type: boolean
       clientId:
         type: string
       clientRefId:
         type: string
-      paidWithApp:
+      clientRedirectUrl:
+        type: string
+      userIpgId:
+        format: int32
+        type: integer
+      repayRefId:
+        type: string
+      isRepaid:
         type: boolean
+      repayDate:
+        format: date-time
+        type: string
+      pWage:
+        format: int32
+        type: integer
+      bWage:
+        format: double
+        type: number
+      isMultiple:
+        type: boolean
+      isMultiplePaid:
+        type: boolean
+      isOwnerIpg:
+        type: boolean
+      ipgResult:
+        type: string
+      invoiceNo:
+        type: string
+        readOnly: true
       userPaid:
         format: int32
         type: integer
         readOnly: true
-      invoiceNo:
+      xmin:
         type: string
-        readOnly: true
-  CheckVerifyViewModel:
+      gateWayPage:
+        type: string
+      useripg:
+        "$ref": "#/definitions/UserIpg"
+      multipayments:
+        type: array
+        items:
+          "$ref": "#/definitions/MultiPayment"
+  UserIpg:
     type: object
     properties:
+      id:
+        format: int32
+        type: integer
+      userId:
+        format: int32
+        type: integer
+      ipgType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 14
+        - 99
+        - 101
+        - 102
+        - 103
+        - 104
+        - 105
+        - 201
+        type: integer
+      key:
+        type: string
+        readOnly: true
+      isDeleted:
+        type: boolean
+      isShaparakWithdraw:
+        type: boolean
+      merchantId:
+        type: string
+  MultiPayment:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      paymentId:
+        format: int32
+        type: integer
       amount:
         format: int32
         type: integer
-      refId:
-        type: string
-      referenceId:
-        type: string
-      payDate:
-        format: int64
+      userId:
+        format: int32
+        type: integer
+      isPaid:
+        type: boolean
+      payment:
+        "$ref": "#/definitions/Payment"
+  ReportsPagintionVM:
+    type: object
+    properties:
+      total:
+        format: int32
+        type: integer
+      rows:
+        type: array
+        items:
+          "$ref": "#/definitions/ReportsReciveVM"
+      current:
+        format: int32
+        type: integer
+      rowCount:
+        format: int32
         type: integer
   ReportsReciveVM:
     type: object
@@ -6406,29 +6796,104 @@ definitions:
       payDateVM:
         type: string
         readOnly: true
-  ReportPayVM:
+  WithdrawAdminVM:
     type: object
     properties:
-      userId:
+      total:
+        format: int32
+        type: integer
+      rows:
+        type: array
+        items:
+          "$ref": "#/definitions/WithdrawAlertsVM"
+  WithdrawAlertsVM:
+    type: object
+    properties:
+      id:
         format: int32
         type: integer
       amount:
+        type: string
+      reqDate:
+        type: string
+      userId:
         format: int32
         type: integer
-      payDate:
-        format: date-time
-        type: string
       name:
         type: string
-      code:
+      status:
         type: string
-      payStatus:
+      bName:
         type: string
-      amountDisplay:
+      isNegative:
+        type: boolean
+      mustCheck:
+        type: boolean
+      price:
+        format: int32
+        type: integer
+      isPersonal:
+        type: boolean
+  AdminWithdrawViewModel:
+    type: object
+    properties:
+      wIDs:
+        type: array
+        items:
+          format: int32
+          type: integer
+      master:
+        type: string
+  VirtualFileResult:
+    type: object
+    properties:
+      fileName:
+        type: string
+      fileProvider:
+        "$ref": "#/definitions/IFileProvider"
+      contentType:
         type: string
         readOnly: true
-      payDateDisplay:
+      fileDownloadName:
         type: string
+      lastModified:
+        format: date-time
+        type: string
+      entityTag:
+        "$ref": "#/definitions/EntityTagHeaderValue"
+      enableRangeProcessing:
+        type: boolean
+  IFileProvider:
+    type: object
+    properties: {}
+  EntityTagHeaderValue:
+    type: object
+    properties:
+      tag:
+        "$ref": "#/definitions/StringSegment"
+        readOnly: true
+      isWeak:
+        type: boolean
+        readOnly: true
+  StringSegment:
+    type: object
+    properties:
+      buffer:
+        type: string
+        readOnly: true
+      offset:
+        format: int32
+        type: integer
+        readOnly: true
+      length:
+        format: int32
+        type: integer
+        readOnly: true
+      value:
+        type: string
+        readOnly: true
+      hasValue:
+        type: boolean
         readOnly: true
   WithdrawsPagingVM:
     type: object
@@ -6469,156 +6934,7 @@ definitions:
       withdrawStatusVM:
         type: string
         readOnly: true
-  RequestIndexVM:
-    type: object
-    properties:
-      amount:
-        format: int32
-        type: integer
-      requestDate:
-        format: date-time
-        type: string
-      payDate:
-        format: date-time
-        type: string
-      payerName:
-        type: string
-      code:
-        type: string
-      payStatus:
-        type: string
-      amountDisplay:
-        type: string
-        readOnly: true
-      authDateVM:
-        type: string
-        readOnly: true
-      payDateDisplay:
-        type: string
-        readOnly: true
-  CreateMultiRequestViewModel:
-    type: object
-    properties:
-      amount:
-        format: int32
-        type: integer
-      returnUrl:
-        type: string
-      description:
-        type: string
-      referenceId:
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      pairs:
-        type: array
-        items:
-          "$ref": "#/definitions/MultiPayPair"
-  MultiPayPair:
-    type: object
-    properties:
-      amount:
-        format: int32
-        type: integer
-      name:
-        type: string
-      userName:
-        type: string
-  CreateRequestViewModel:
-    type: object
-    properties:
-      username:
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      returnUrl:
-        type: string
-      name:
-        type: string
-      description:
-        type: string
-      referenceId:
-        type: string
-      amount:
-        format: int32
-        type: integer
-      productId:
-        format: int32
-        type: integer
-      payerIdentity:
-        type: string
-      payerId:
-        format: int32
-        type: integer
-      isPreDefiened:
-        type: boolean
-  Withdraw:
-    type: object
-    properties:
-      id:
-        format: int32
-        type: integer
-      userPosition:
-        format: int32
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      reqDate:
-        format: date-time
-        type: string
-      isRepaid:
-        type: boolean
-      repayDate:
-        format: date-time
-        type: string
-      refId:
-        type: string
-      isDeleted:
-        type: boolean
-      balance:
-        format: int32
-        type: integer
-      isFromApp:
-        type: boolean
-      partnerId:
-        format: int32
-        type: integer
-      repayPayaListId:
-        type: string
-      repayPayaId:
-        type: string
-      payaType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      isPersonal:
-        type: boolean
-      shaba:
-        type: string
-      userId:
-        format: int32
-        type: integer
-      rowVersion:
-        format: byte
-        type: string
-      withdrawStatus:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
+
 
 
   AppAndApiVersionViewModel:
