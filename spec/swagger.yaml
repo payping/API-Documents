@@ -87,56 +87,54 @@ tags:
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
 
     - name: Payment
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: متدهای مرتبط با تراکنش‌های مالی که شامل پرداخت پول، پرداخت تسهیمی و تمام فرآیندهای تایید یک تراکنش می‌باشد. 
     - name: Report
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: متدهای مرتبط با گزارش تراکنش‌های درخواست و یا پرداخت پول.
     - name: Request
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: متدهای مرتبط با درخواست پول از دیگران به صورتیکه برای آنها یک لینک پرداخت به صورت ایمیل و یا پیامک ارسال می‌شود. 
     - name: Withdraw
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: متدهای مرتبط با درخواست تسویه حساب.
 
 x-tagGroups:
     - name: سرویس پرداخت
       tags:
         - Payment
-        - Report
         - Request
         - Withdraw
+        - Report
     - name: سرویس آیتم‌های مالی
       tags:
         - Product
         - Campaign
         - Coupon
-        - Category
         - PermaLink
-        - ItemPay
     - name: سرویس فاکتور
       tags:
         - Account
         - AddressBooks
         - BusinessInfoes
         - Invoices
-        - Items
-        - UploadManager
-    - name: سرویس کاربر
+    - name: سرویس آپلود فایل
       tags:
         - AppManage
         - File
         - Manage
-    - name: سرویس همگام‌سازی
-      tags:
-        - Services
+
 
 
 paths:
 
-
-
-  "/v1/Pay":
+  "/v1/pay":
     post:
       tags:
       - Payment
-      summary: پرداخت پول جدید
+      summary: ساخت پول جدید
+      description: "پس از فراخوانی این متد و ساخت پول، یک کد 4 حرفی تولید می شود که
+        برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه شده است
+        را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می کند که
+        یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس ورودی
+        به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
+        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1PayPost
       consumes:
       - application/json-patch+json
@@ -157,11 +155,17 @@ paths:
           description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/PaymentResult"
-  "/v1/Pay/Multi":
+  "/v1/pay/Multi":
     post:
       tags:
       - Payment
-      summary: پرداخت پول جدید برای چند نفر
+      summary: ساخت پرداخت تسهیمی جدید
+      description: "پس از فراخوانی این متد و ساخت پرداخت تسهیمی، یک کد 4 حرفی تولید
+        می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه
+        شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می
+        کند که یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس
+        ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
+        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1PayMultiPost
       consumes:
       - application/json-patch+json
@@ -181,40 +185,7 @@ paths:
           description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/PaymentResult"
-  "/v1/Pay/GoToIpg":
-    get:
-      tags:
-      - Payment
-      summary: کاربر را برای ورود به درگاه بانکی آماده می کند
-      operationId: V1PayGoToIpgGet
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: query
-        description: کد پرداخت اختصاصی کاربر
-        required: false
-        type: string
-      - name: IsApp
-        in: query
-        description: درون برنامه ای
-        required: false
-        type: boolean
-      - name: phone
-        in: query
-        description: شماره همراه کاربر
-        required: false
-        type: string
-      - name: isTest
-        in: query
-        required: false
-        type: boolean
-      responses:
-        '200':
-          description: Success
-        '302':
-          description: تغییر مسیر به درگاه
-  "/v1/Pay/Verify":
+  "/v1/pay/verify":
     post:
       tags:
       - Payment
@@ -239,120 +210,28 @@ paths:
           description: تاییدیه آیتم مالی با موفقیت انجام شد
           schema:
             "$ref": "#/definitions/VerifyResultVM"
-  "/v1/Pay/Cancel":
-    post:
+  "/v1/pay/{Code}":
+    delete:
       tags:
       - Payment
       summary: لغو پرداخت
-      operationId: V1PayCancelPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - application/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات پرداختی
-        required: false
-        schema:
-          "$ref": "#/definitions/CancelPaymentViewModel"
-      responses:
-        '200':
-          description: عملیات لغو با موفقیت انجام شد
-          schema:
-            format: int32
-            type: integer
-  "/v1/Pay/{code}":
-    get:
-      tags:
-      - Payment
-      summary: نمایش جزئیات پرداخت
-      operationId: V1PayByCodeGet
+      operationId: V1PayByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: code
         in: path
+        description: کد پرداخت
         required: true
         type: string
       responses:
         '200':
-          description: جزئیات پرداخت با موفقیت ساخته شد
-          schema:
-            "$ref": "#/definitions/PaymentDetailsViewModel"
-  "/v1/Pay/UnVerifiedPay":
-    get:
-      tags:
-      - Payment
-      summary: پول های پرداخت نشده
-      operationId: V1PayUnVerifiedPayGet
-      consumes: []
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: جزئیات پرداخت با موفقیت ساخته شد
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CheckVerifyViewModel"
-  "/v1/Pay/AllVerified":
-    get:
-      tags:
-      - Payment
-      summary: لیست تمام پولهای پرداخت شده
-      operationId: V1PayAllVerifiedGet
-      consumes: []
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: لیست پول های پرداخت موفقیت ساخته شد
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CheckVerifyViewModel"
-  "/v1/Pay/AllFromDate":
-    get:
-      tags:
-      - Payment
-      summary: لیست تمام پرداختی ها از تاریخ به بعد
-      operationId: V1PayAllFromDateGet
-      consumes: []
-      produces: []
-      parameters:
-      - name: date
-        in: query
-        required: false
-        type: string
-        format: date-time
-      responses:
-        '200':
-          description: لیست پول های پرداخت موفقیت ساخته شد
-  "/v1/Report/Clients":
+          description: عملیات لغو با موفقیت انجام شد
+  "/v1/report/TransactionReport":
     get:
       tags:
       - Report
-      operationId: V1ReportClientsGet
-      consumes: []
-      produces:
-      - application/json
-      responses:
-        '200':
-          description: Success
-          schema:
-            type: array
-            items:
-              type: string
-  "/v1/Report/TransactionReport":
-    get:
-      tags:
-      - Report
-      summary: گزارش پرداخت/درخواست
+      summary: گزارش تراکنش ها
       operationId: V1ReportTransactionReportGet
       consumes: []
       produces:
@@ -360,17 +239,17 @@ paths:
       parameters:
       - name: ClientId
         in: query
-        description: سرویس
+        description: سازنده تراکنش
         required: false
         type: string
       - name: ClientRefId
         in: query
-        description: ''
+        description: یک مقدار ارسالی از سوی کلاینت
         required: false
         type: string
       - name: transactionType
         in: query
-        description: ''
+        description: نوع تراکنش
         required: false
         type: integer
         format: int32
@@ -383,18 +262,18 @@ paths:
         - 5
       - name: Filter
         in: query
-        description: ''
+        description: فیلتر بر اساس
         required: false
         type: string
       - name: FromDate
         in: query
-        description: ''
+        description: از تاریخ
         required: false
         type: string
         format: date-time
       - name: ToDate
         in: query
-        description: ''
+        description: تا تاریخ
         required: false
         type: string
         format: date-time
@@ -405,61 +284,37 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/Payment"
-  "/v1/Report/WithdrawTransactions":
+  "/v1/report/{code}":
     get:
       tags:
       - Report
-      operationId: V1ReportWithdrawTransactionsGet
+      summary: نمایش جزئیات تراکنش
+      operationId: V1ReportByCodeGet
       consumes: []
       produces:
       - application/json
       parameters:
-      - name: ClientId
-        in: query
-        required: false
+      - name: code
+        in: path
+        description: مشخصات تراکنش
+        required: true
         type: string
-      - name: ClientRefId
-        in: query
-        required: false
-        type: string
-      - name: transactionType
-        in: query
-        required: false
-        type: integer
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-      - name: Filter
-        in: query
-        required: false
-        type: string
-      - name: FromDate
-        in: query
-        required: false
-        type: string
-        format: date-time
-      - name: ToDate
-        in: query
-        required: false
-        type: string
-        format: date-time
       responses:
         '200':
-          description: Success
+          description: جزئیات تراکنش با موفقیت ساخته شد
           schema:
-            type: array
-            items:
-              "$ref": "#/definitions/Withdraw"
-  "/v1/Request":
+            "$ref": "#/definitions/PaymentDetailsVM"
+  "/v1/request":
     post:
       tags:
       - Request
-      summary: درخواست پول جدید
+      summary: ساخت درخواست پول جدید
+      description: "پس از فراخوانی این متد و ساخت درخواست پول، یک کد 4 حرفی تولید
+        می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه
+        شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می
+        کند که یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس
+        ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/request_Code\r\n\r\n\r\nمثال:
+        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1RequestPost
       consumes:
       - application/json-patch+json
@@ -476,14 +331,20 @@ paths:
           "$ref": "#/definitions/CreateRequestViewModel"
       responses:
         '200':
-          description: درخواست پول با موفقیت انجام شد
+          description: ساخت درخواست پول جدید با موفقیت انجام شد
           schema:
             "$ref": "#/definitions/RequestResult"
-  "/v1/Request/Multi":
+  "/v1/request/Multi":
     post:
       tags:
       - Request
-      summary: درخواست پول جدید برای چند نفر
+      summary: ساخت درخواست پول جدید برای چند نفر
+      description: "پس از فراخوانی این متد و ساخت درخواست پول جدید برای چند نفر، یک
+        کد 4 حرفی تولید می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که
+        به همین منظور تهیه شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه
+        بانکی Redirecte می کند که یعنی باید خروجی این متد در Response صفحه مورد نظر
+        قرار داده شود.\r\nآدرس ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/request_Code\r\n\r\n\r\nمثال:
+        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1RequestMultiPost
       consumes:
       - application/json-patch+json
@@ -503,74 +364,41 @@ paths:
           description: درخواست پول با موفقیت انجام شد
           schema:
             "$ref": "#/definitions/RequestResult"
-  "/v1/Request/SendReminder":
+  "/v1/request/SendReminder/{code}":
     post:
       tags:
       - Request
-      summary: ارسال یادآور
-      operationId: V1RequestSendReminderPost
+      summary: یادآوری مجدد درخواست پول
+      operationId: V1RequestSendReminderByCodePost
       consumes: []
       produces: []
-      parameters:
-      - name: code
-        in: query
-        description: کد درخواست
-        required: false
-        type: string
-      responses:
-        '200':
-          description: یادآوری با موفقیت انجام شد
-  "/v1/Request/Cancel":
-    post:
-      tags:
-      - Request
-      summary: کنسل کردن یک درخواست
-      operationId: V1RequestCancelPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: query
-        description: کد درخواست
-        required: false
-        type: string
-      responses:
-        '200':
-          description: درخواست با موفقیت کنسل شد
-  "/v1/Withdraw/{Code}":
-    get:
-      tags:
-      - Withdraw
-      summary: نمایش جزئیات تسویه حساب
-      operationId: V1WithdrawByCodeGet
-      consumes: []
-      produces:
-      - application/json
       parameters:
       - name: code
         in: path
+        description: کد درخواست
         required: true
         type: string
       responses:
         '200':
-          description: جزئیات تسویه حساب با موفقیت نمایش داده شد
-          schema:
-            "$ref": "#/definitions/Withdraw"
-  "/v1/Withdraw/Balance":
-    get:
+          description: یادآوری با موفقیت انجام شد
+  "/v1/request/{code}":
+    delete:
       tags:
-      - Withdraw
-      summary: نمایش موجودی
-      operationId: V1WithdrawBalanceGet
+      - Request
+      summary: لغو درخواست پول
+      operationId: V1RequestByCodeDelete
       consumes: []
-      produces:
-      - application/json
+      produces: []
+      parameters:
+      - name: code
+        in: path
+        description: کد درخواست
+        required: true
+        type: string
       responses:
         '200':
-          description: دریافت موفق موجودی
-          schema:
-            "$ref": "#/definitions/ResultVM"
-  "/v1/Withdraw":
+          description: درخواست با موفقیت کنسل شد
+  "/v1/withdraw":
     post:
       tags:
       - Withdraw
@@ -592,6 +420,82 @@ paths:
       responses:
         '200':
           description: تسویه حساب جدید با موفقیت ساخته شد
+  "/v1/withdraw/{Code}":
+    get:
+      tags:
+      - Withdraw
+      summary: نمایش جزئیات درخواست تسویه
+      operationId: V1WithdrawByCodeGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: code
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: جزئیات تسویه با موفقیت نمایش داده شد
+          schema:
+            "$ref": "#/definitions/WithdrawDetailsViewModel"
+  "/v1/withdraw/WithdrawTransactions":
+    get:
+      tags:
+      - Withdraw
+      summary: دریافت لیست تسویه حساب
+      operationId: V1WithdrawWithdrawTransactionsGet
+      consumes: []
+      produces:
+      - application/json
+      parameters:
+      - name: ClientId
+        in: query
+        description: سازنده تراکنش
+        required: false
+        type: string
+      - name: ClientRefId
+        in: query
+        description: یک مقدار ارسالی از سوی کلاینت
+        required: false
+        type: string
+      - name: transactionType
+        in: query
+        description: نوع تراکنش
+        required: false
+        type: integer
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      - name: Filter
+        in: query
+        description: فیلتر بر اساس
+        required: false
+        type: string
+      - name: FromDate
+        in: query
+        description: از تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: ToDate
+        in: query
+        description: تا تاریخ
+        required: false
+        type: string
+        format: date-time
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/WithdrawDetailsViewModel"
 
 
 
@@ -6077,7 +5981,7 @@ definitions:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
   PaymentResult:
     type: object
@@ -6098,7 +6002,7 @@ definitions:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
   CreateMultiPaymentViewModel:
     type: object
@@ -6111,7 +6015,7 @@ definitions:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
   MultiPayPair:
     type: object
@@ -6155,127 +6059,6 @@ definitions:
     properties:
       code:
         type: string
-  PaymentDetailsViewModel:
-    required:
-    - repayDate
-    - refId
-    - description
-    - payerName
-    type: object
-    properties:
-      id:
-        format: int32
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      payDate:
-        format: date-time
-        type: string
-      repayDate:
-        format: date-time
-        type: string
-      isPaid:
-        type: boolean
-      refId:
-        type: string
-      description:
-        type: string
-      payerName:
-        type: string
-      code:
-        type: string
-      isBusiness:
-        type: boolean
-      requestDate:
-        format: date-time
-        type: string
-      isRepaid:
-        type: boolean
-      isMultiple:
-        type: boolean
-      isRequest:
-        type: boolean
-      name:
-        type: string
-      payerIdentity:
-        type: string
-      platform:
-        type: string
-      browser:
-        type: string
-      payerId:
-        format: int32
-        type: integer
-      userId:
-        format: int32
-        type: integer
-      username:
-        type: string
-      wage:
-        format: double
-        type: number
-      pWage:
-        format: int32
-        type: integer
-      isIranIP:
-        type: boolean
-      payerIP:
-        type: string
-      rrn:
-        type: string
-      bWage:
-        format: double
-        type: number
-      ipgType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        - 6
-        - 7
-        - 8
-        - 14
-        - 99
-        - 101
-        - 102
-        - 103
-        - 104
-        - 105
-        - 201
-        type: integer
-      redirecturl:
-        type: string
-      clientId:
-        type: string
-      clientRefId:
-        type: string
-      paidWithApp:
-        type: boolean
-      userPaid:
-        format: int32
-        type: integer
-        readOnly: true
-      invoiceNo:
-        type: string
-        readOnly: true
-  CheckVerifyViewModel:
-    type: object
-    properties:
-      amount:
-        format: int32
-        type: integer
-      refId:
-        type: string
-      referenceId:
-        type: string
-      payDate:
-        format: int64
-        type: integer
   ReportsReciveVM:
     type: object
     properties:
@@ -6397,6 +6180,14 @@ definitions:
       payDateDisplay:
         type: string
         readOnly: true
+  ClientIdsViewModel:
+    type: object
+    properties:
+      id:
+        format: int32
+        type: integer
+      name:
+        type: string
   Payment:
     type: object
     properties:
@@ -6572,63 +6363,6 @@ definitions:
         type: boolean
       payment:
         "$ref": "#/definitions/Payment"
-  Withdraw:
-    type: object
-    properties:
-      id:
-        format: int32
-        type: integer
-      userPosition:
-        format: int32
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      code:
-        type: string
-      reqDate:
-        format: date-time
-        type: string
-      isRepaid:
-        type: boolean
-      repayDate:
-        format: date-time
-        type: string
-      refId:
-        type: string
-      isDeleted:
-        type: boolean
-      balance:
-        format: int32
-        type: integer
-      clientId:
-        type: string
-      repayPayaListId:
-        type: string
-      repayPayaId:
-        type: string
-      payaType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      isPersonal:
-        type: boolean
-      shaba:
-        type: string
-      userId:
-        format: int32
-        type: integer
-      xmin:
-        type: string
-      withdrawStatus:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
   Last5WithdrawsVM:
     type: object
     properties:
@@ -6643,6 +6377,40 @@ definitions:
       repayDate:
         format: date-time
         type: string
+  PaymentDetailsVM:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      payDate:
+        format: date-time
+        type: string
+      repayDate:
+        format: date-time
+        type: string
+      description:
+        type: string
+      payerName:
+        type: string
+      payerIdentity:
+        type: string
+      platform:
+        type: string
+      browser:
+        type: string
+      payerId:
+        format: int32
+        type: integer
+      rrn:
+        type: string
+      clientId:
+        type: string
+      clientRefId:
+        type: string
+      invoiceNo:
+        type: string
+        readOnly: true
   CreateRequestViewModel:
     type: object
     properties:
@@ -6657,7 +6425,7 @@ definitions:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
   RequestResult:
     type: object
@@ -6675,7 +6443,7 @@ definitions:
         type: string
       description:
         type: string
-      referenceId:
+      clientRefId:
         type: string
   CreateBatchRequestViewModel:
     type: object
@@ -6699,6 +6467,20 @@ definitions:
       amount:
         format: int32
         type: integer
+  WithdrawDetailsViewModel:
+    type: object
+    properties:
+      amount:
+        format: int32
+        type: integer
+      reqDate:
+        format: date-time
+        type: string
+      isRepaid:
+        type: boolean
+      repayDate:
+        format: date-time
+        type: string
 
 
 
@@ -9267,11 +9049,8 @@ securityDefinitions:
     flow: Client Credentials
     tokenUrl: https://oauth.payping.io/connect/token
     scopes:
-      openid: لورم ایپسوم متن ساختگی با تولید سادگی
-      profile: لورم ایپسوم متن ساختگی با تولید سادگی
-      email: لورم ایپسوم متن ساختگی با تولید سادگی
-      role: لورم ایپسوم متن ساختگی با تولید سادگی
-      isbusiness: لورم ایپسوم متن ساختگی با تولید سادگی
+      profile: دسترسی مرتبط با تمام اطلاعات یک کاربر
+      email: دسترسی برای ارسال ایمیل
       pay:read: دسترسی فقط خواندنی در سرویس پرداخت
       pay:write: دسترسی نوشتن و تغییرات در سرویس پرداخت
       user:read: دسترسی فقط خواندنی در سرویس کاربر
@@ -9279,6 +9058,5 @@ securityDefinitions:
       product:write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
       invoice:read: دسترسی فقط خواندنی در سرویس فاکتور
       invoice:write: دسترسی نوشتن و تغییرات در سرویس فاکتور
-      offline_access: لورم ایپسوم متن ساختگی با تولید سادگی
     type: oauth2
-    description: OAuth2 Client Credentials Grant
+    description: حوزه‌های دسترسی برای احراز هویت
