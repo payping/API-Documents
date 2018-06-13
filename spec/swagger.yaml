@@ -19,13 +19,13 @@ info:
 
     # نکاتی برای آپلود فایل‌ها
 
-    برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از سرویس آپلودمنیجر استفاده کنید.
+    برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از سرویس آپلودمنیجر[سروویس](#section) استفاده کنید.
     
     پس از انجام عملیات آپلود توسط سرویس آپلود منیجر، نام فایل آپلود شده به عنوان خروجی به شما برگردانده می‌شود و سپس با آپدیت کردن فیلد مربوط به فایل آبجکت مورد نظر، آن را در دیتابیس ذخیره نمایید.
 
     # جدول کدهای دریافتی از هر سرویس
 
-    بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RestFul یک کدی به شما بازگرداننده می‌شود.
+    بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RESTful یک کدی به شما بازگرداننده می‌شود.
     هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید
 
     |شماره کد|توضیحات|
@@ -70,8 +70,8 @@ tags:
     - name: Manage
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
 
-    - name: Services
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. 
+    - name: Upload
+      description: متدهای مرتبط با آپلودفایل‌ها[آپلود فایل‌ها](#section/).ورودی تمام این سرویس‌ها به صورت IFormFile می‌باشد.  
 
     - name: Account
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
@@ -175,8 +175,9 @@ paths:
       produces:
       - application/json
       parameters:
-      - name: _model
+      - name: model
         in: body
+        description: مشخصات پرداخت
         required: false
         schema:
           "$ref": "#/definitions/CreateMultiPaymentViewModel"
@@ -324,8 +325,9 @@ paths:
       produces:
       - application/json
       parameters:
-      - name: _model
+      - name: model
         in: body
+        description: مشخصات درخواست پول
         required: false
         schema:
           "$ref": "#/definitions/CreateRequestViewModel"
@@ -354,8 +356,9 @@ paths:
       produces:
       - application/json
       parameters:
-      - name: _model
+      - name: model
         in: body
+        description: مشخصات درخواست گنندگان پول
         required: false
         schema:
           "$ref": "#/definitions/CreateMultiRequestViewModel"
@@ -398,25 +401,21 @@ paths:
       responses:
         '200':
           description: درخواست با موفقیت کنسل شد
-  "/v1/withdraw":
+  "/v1/withdraw/{Amount}":
     post:
       tags:
       - Withdraw
       summary: ایجاد یک تسویه حساب جدید
-      operationId: V1WithdrawPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
+      operationId: V1WithdrawByAmountPost
+      consumes: []
       produces: []
       parameters:
-      - name: model
-        in: body
-        description: جزئیات تسویه حساب جدید
-        required: false
-        schema:
-          "$ref": "#/definitions/CreateWithdrawVM"
+      - name: amount
+        in: path
+        description: مبلغ تسویه حساب
+        required: true
+        type: integer
+        format: int32
       responses:
         '200':
           description: تسویه حساب جدید با موفقیت ساخته شد
@@ -432,6 +431,7 @@ paths:
       parameters:
       - name: code
         in: path
+        description: کد درخواست تسویه
         required: true
         type: string
       responses:
@@ -491,12 +491,11 @@ paths:
         format: date-time
       responses:
         '200':
-          description: Success
+          description: جزئیات تسویه با موفقیت نمایش داده شد
           schema:
             type: array
             items:
               "$ref": "#/definitions/WithdrawDetailsViewModel"
-
 
 
 
