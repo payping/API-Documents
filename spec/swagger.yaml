@@ -122,16 +122,21 @@ x-tagGroups:
 
 paths:
 
+
   "/v1/pay":
     post:
       tags:
       - Payment
-      summary: ساخت پول جدید
-      description: "پس از فراخوانی این متد و ساخت پول، یک کد 4 حرفی تولید می شود که
-        برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه شده است
-        را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می کند که
-        یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس ورودی
-        به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
+      summary: ساخت پرداخت جدید
+      description: "به کمک این متد می توانید برای یک نفر و یا یک درخواست ثبت شده،
+        پرداخت پول انجام دهید.\r\nفراخوانی این متد برای شما یک کد 4 حرفی تولید می
+        کند.\r\nپس از ساخت یک پرداخت، برای ورود به درگاه بانک تنها کافیست به متد GoToIpg،
+        Redirect کنید. \r\nاین متد مستقیما شما را به صفحه درگاه بانک هدایت می کند.\r\nپس
+        از اتمام فرایند در درگاه بانکی، به آدرسی که در ReturnUrl توسط کلاینت مشخص
+        شده Redirect می شود \r\nکه حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString
+        آدرس می باشد.\r\nRefid مقداری است که برای تایید پرداخت (متد Verify) باید از
+        آن استفاده کرد و \r\nClientRefId نیز همان مقداری است که در هنگام ساخته شدن
+        پرداخت جدید از کلاینت دریافت شده است\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
         https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1PayPost
       consumes:
@@ -158,11 +163,15 @@ paths:
       tags:
       - Payment
       summary: ساخت پرداخت تسهیمی جدید
-      description: "پس از فراخوانی این متد و ساخت پرداخت تسهیمی، یک کد 4 حرفی تولید
-        می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه
-        شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می
-        کند که یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس
-        ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
+      description: "به کمک این متد می توانید برای چندین نفر پرداخت پول انجام دهید.\r\nفراخوانی
+        این متد برای شما یک کد 4 حرفی تولید می کند.\r\nپس از ساخت یک پرداخت، برای
+        ورود به درگاه بانک تنها کافیست به متد GoToIpg، Redirect کنید. \r\nاین متد
+        مستقیما شما را به صفحه درگاه بانک هدایت می کند.\r\nپس از اتمام فرایند در درگاه
+        بانکی، به آدرسی که در ReturnUrl توسط کلاینت مشخص شده Redirect می شود \r\nکه
+        حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString آدرس می باشد.\r\nRefid
+        مقداری است که برای تایید پرداخت (متد Verify) باید از آن استفاده کرد و \r\nClientRefId
+        نیز همان مقداری است که در هنگام ساخته شدن پرداخت جدید از کلاینت دریافت شده
+        است\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/payment_Code\r\n\r\n\r\nمثال:
         https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1PayMultiPost
       consumes:
@@ -189,6 +198,9 @@ paths:
       tags:
       - Payment
       summary: تایید پرداخت
+      description: "پس از برگشت از درگاه بانک، برای تایید پرداخت از این متد استفاده
+        می شود.\r\nورودی این متد همان مقدار refId در مرحله قبل می باشد که در آدرس
+        صفحه برگشتی به کلاینت در  queryString قرار گرفته است"
       operationId: V1PayVerifyPost
       consumes:
       - application/json-patch+json
@@ -200,7 +212,7 @@ paths:
       parameters:
       - name: model
         in: body
-        description: مشخصات پرداختی
+        description: مشخصات پرداخت
         required: false
         schema:
           "$ref": "#/definitions/VerifyPaymentViewModel"
@@ -276,9 +288,21 @@ paths:
         required: false
         type: string
         format: date-time
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
       responses:
         '200':
-          description: Success
+          description: لیسات تراکنش ها با موفقیت ساخته شد
           schema:
             type: array
             items:
@@ -308,12 +332,6 @@ paths:
       tags:
       - Request
       summary: ساخت درخواست پول جدید
-      description: "پس از فراخوانی این متد و ساخت درخواست پول، یک کد 4 حرفی تولید
-        می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که به همین منظور تهیه
-        شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه بانکی Redirecte می
-        کند که یعنی باید خروجی این متد در Response صفحه مورد نظر قرار داده شود.\r\nآدرس
-        ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/request_Code\r\n\r\n\r\nمثال:
-        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1RequestPost
       consumes:
       - application/json-patch+json
@@ -338,13 +356,6 @@ paths:
     post:
       tags:
       - Request
-      summary: ساخت درخواست پول جدید برای چند نفر
-      description: "پس از فراخوانی این متد و ساخت درخواست پول جدید برای چند نفر، یک
-        کد 4 حرفی تولید می شود که برای ورود به درگاه بانکی باید\r\nمتد GoToIpg که
-        به همین منظور تهیه شده است را فراخوانی کرد.\r\nمتد GoToIpg شما را به درگاه
-        بانکی Redirecte می کند که یعنی باید خروجی این متد در Response صفحه مورد نظر
-        قرار داده شود.\r\nآدرس ورودی به درگاه بانکی مطابق زیر می باشد\r\n\r\n\r\nhttps://api.payping.io/v1/pay/gotoipg/request_Code\r\n\r\n\r\nمثال:
-        https://api.payping.io/v1/pay/gotoipg/XXXX"
       operationId: V1RequestMultiPost
       consumes:
       - application/json-patch+json
@@ -356,15 +367,37 @@ paths:
       parameters:
       - name: model
         in: body
-        description: مشخصات درخواست گنندگان پول
         required: false
         schema:
           "$ref": "#/definitions/CreateMultiRequestViewModel"
       responses:
         '200':
-          description: درخواست پول با موفقیت انجام شد
+          description: Success
           schema:
             "$ref": "#/definitions/RequestResult"
+  "/v1/request/Batch":
+    post:
+      tags:
+      - Request
+      summary: درخواست پول بصورت گروهی
+      operationId: V1RequestBatchPost
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: file
+        in: formData
+        description: Upload File
+        required: true
+        type: file
+      responses:
+        '200':
+          description: لیست حاوی اطلاعات پرداخت کنندگان
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/CreateBatchRequestViewModel"
   "/v1/request/SendReminder/{code}":
     post:
       tags:
@@ -399,7 +432,7 @@ paths:
       responses:
         '200':
           description: درخواست با موفقیت کنسل شد
-  "/v1/withdraw/{Amount}":
+  "/v1/withdraw/{amount}":
     post:
       tags:
       - Withdraw
@@ -487,6 +520,18 @@ paths:
         required: false
         type: string
         format: date-time
+      - name: offset
+        in: query
+        description: نقطه شروع گزارش
+        required: false
+        type: integer
+        format: int32
+      - name: limit
+        in: query
+        description: تعداد آیتم های قابل نمایش
+        required: false
+        type: integer
+        format: int32
       responses:
         '200':
           description: جزئیات تسویه با موفقیت نمایش داده شد
@@ -494,7 +539,6 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/WithdrawDetailsViewModel"
-
 
 
 
