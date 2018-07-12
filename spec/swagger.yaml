@@ -49,7 +49,7 @@ info:
 
     |پارامتر header| محتوا |
     |--------------| ----- |
-    | Authorization |‌ Bearer {TOKEN}|
+    | Authorization |‌ Bearer TOKEN|
 
     اگر شما یک اپلیکیشن و یا وب‌سایت شخصی دارید و قصد استفاده از سرویس‌های مالی ما را برای خود دارید می‌بایست از access token استفاده کنید که روند دریافت آن از کنسول توسعه‌دهنده در لینک زیر آمده است:
 
@@ -60,7 +60,7 @@ info:
 
     [wwww.payping.ir/auth-toturial](wwww.payping.ir/auth-toturial)
     
-    
+
 
     جدول حوزهای دسترسی برای احراز هویت در سرویس‌ها
 
