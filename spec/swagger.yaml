@@ -76,7 +76,7 @@ info:
     | `product:write` | دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی |
     | `invoice:read` | دسترسی فقط خواندنی در سرویس فاکتور |
     | `invoice:write` | دسترسی نوشتن و تغییرات در سرویس فاکتور |
-
+    | `upload:write` | دسترسی مرتبط با سرویس بارگذاری فایل‌ها |
 
     <!-- ReDoc-Inject: <security-definitions> -->
   termsOfService: None
