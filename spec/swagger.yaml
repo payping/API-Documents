@@ -4656,44 +4656,7 @@ paths:
           description: تعداد کمپین‌ها با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/campaign/{code}/ChangeActivation":
-    post:
-      tags:
-      - campaign
-      summary: تغییر وضعیت فعال یا غیرفعال بودن یک کمپین
-      operationId: V1CampaignByCodeChangeActivationPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد کمپین
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت کمپین با موفقیت تغییر کرد
-        '404':
-          description: کمپینی با این کد وجود ندارد
-  "/v1/campaign/{code}/ChangeArchive":
-    post:
-      tags:
-      - campaign
-      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کمپین
-      operationId: V1CampaignByCodeChangeArchivePost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد کمپین
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت کمپین با موفقیت تغییر کرد
-        '404':
-          description: کمپینی با این کد وجود ندارد
+
   "/v1/campaign/{code}/BuyersListCount":
     get:
       tags:
@@ -4902,44 +4865,7 @@ paths:
           description: تعداد کدهای تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/coupon/{code}/ChangeArchive":
-    post:
-      tags:
-      - coupon
-      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک کد تخفیف
-      operationId: V1CouponByCodeChangeArchivePost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: شناسه کد تخفیف
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت کد تخفیف با موفقیت تغییر کرد
-        '404':
-          description: کد تخفیفی با این شناسه وجود ندارد
-  "/v1/coupon/{code}/ChangeActivation":
-    post:
-      tags:
-      - coupon
-      summary: تغییر وضعیت فعال یا غیرفعال بودن یک کد تخفیف
-      operationId: V1CouponByCodeChangeActivationPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: شناسه کد تخفیف
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت کد تخفیف با موفقیت تغییر کرد
-        '404':
-          description: کد تخفیفی با این شناسه وجود ندارد
+
   "/v1/coupon/{code}/BuyersListCount":
     get:
       tags:
@@ -5148,44 +5074,6 @@ paths:
           description: تعداد لینک‌های ثابت با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/permaLink/{code}/ChangeActivation":
-    post:
-      tags:
-      - permaLink
-      summary: تغییر وضعیت فعال یا غیرفعال بودن یک لینک ثابت
-      operationId: V1PermaLinkByCodeChangeActivationPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد لینک ثابت
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت لینک ثابت با موفقیت تغییر کرد
-        '404':
-          description: لینک ثابتی با این شناسه وجود ندارد
-  "/v1/permaLink/{code}/ChangeArchive":
-    post:
-      tags:
-      - permaLink
-      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک لینک ثابت
-      operationId: V1PermaLinkByCodeChangeArchivePost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد لینک ثابت
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت لینک ثابت با موفقیت تغییر کرد
-        '404':
-          description: لینک ثابتی با این شناسه وجود ندارد
   "/v1/permaLink/{payCode}/BuyersList":
     get:
       tags:
@@ -5409,45 +5297,6 @@ paths:
           description: تعداد آیتم‌های مالی با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/product/{code}/ChangeActivation":
-    post:
-      tags:
-      - product
-      summary: تغییر وضعیت فعال یا غیرفعال بودن یک آیتم مالی
-      operationId: V1ProductByCodeChangeActivationPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد آیتم مالی
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت آیتم مالی با موفقیت تغییر کرد
-        '404':
-          description: آیتم مالی با این کد موجود نمی‌باشد
-  "/v1/product/{code}/ChangeArchive":
-    post:
-      tags:
-      - product
-      summary: تغییر وضعیت آرشیو یا غیرآرشیو بودن یک آیتم مالی
-      operationId: V1ProductByCodeChangeArchivePost
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد آیتم مالی
-        required: true
-        type: string
-      responses:
-        '200':
-          description: وضعیت آیتم مالی با موفقیت تغییر کرد
-        '404':
-          description: آیتم مالی با این کد موجود نمی‌باشد
-
 
 
 
