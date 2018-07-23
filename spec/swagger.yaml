@@ -103,17 +103,11 @@ tags:
     - name: Upload
       description: متدهای مرتبط با [آپلود فایل‌ها](#section/) ورودی تمام این سرویس‌ها به صورت formData می‌باشد.  
 
-    - name: Account
+    - name: AddressBook
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: AddressBooks
+    - name: Invoice
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: BusinessInfoes
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: Invoices
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: Items
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-    - name: UploadManager
+    - name: Template
       description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
 
     - name: Payment
@@ -140,10 +134,9 @@ x-tagGroups:
         - permaLink
     - name: سرویس فاکتور
       tags:
-        - Account
-        - AddressBooks
-        - BusinessInfoes
-        - Invoices
+        - AddressBook
+        - Invoice
+        - Template
     - name: سرویس آپلود فایل
       tags:
         - Upload
@@ -447,896 +440,712 @@ paths:
 
 
 
-  "/v1/Account/GetVersion":
+
+
+
+  "/v1/AddressBook/List":
     get:
       tags:
-      - Account
-      summary: Get App and Api Version.
-      operationId: V1AccountGetVersionGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the App and Api Version
-          schema:
-            "$ref": "#/definitions/AppAndApiVersionViewModel"
-        '400':
-          description: If send null, disabled account, bad username or password
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get App and Api Version right now
-  "/v1/Account/Login":
-    post:
-      tags:
-      - Account
-      summary: Login in.
-      description: "Help:\r\n            \r\n    POST /credential\r\n    {\r\n       \"username\":
-        \"\" //عدم حساس بودن به حروف کوچک یا بزرگ,\r\n    }"
-      operationId: V1AccountLoginPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: loginUser
-        in: body
-        required: false
-        schema:
-          "$ref": "#/definitions/LoginRequest"
-      responses:
-        '200':
-          description: Returns the userInfo
-          schema:
-            "$ref": "#/definitions/LoginResponseViewModel"
-        '400':
-          description: If send null, disabled account, bad username or password
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't login right now
-  "/v1/Account/RefreshToken":
-    post:
-      tags:
-      - Account
-      summary: Refresh Token.
-      description: "Help:\r\n            \r\n    POST \r\n    {\r\n       \"refreshToken\":
-        \"\" //فقط رفرش توکن ارسال شود,\r\n    }"
-      operationId: V1AccountRefreshTokenPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: jsonBody
-        in: body
-        required: false
-        schema:
-          type: object
-      responses:
-        '200':
-          description: Returns the userInfo
-          schema:
-            "$ref": "#/definitions/LoginResponseViewModel"
-        '400':
-          description: If send null or expired refresh token
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your userInfo right now
-  "/v1/Account/Logout":
-    post:
-      tags:
-      - Account
-      summary: Log out from account.
-      operationId: V1AccountLogoutPost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Return the bool
-          schema:
-            type: boolean
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't log out from your account right now
-  "/v1/Account/IsAuthenthenticated":
-    post:
-      tags:
-      - Account
-      summary: Is authenthenticated.
-      operationId: V1AccountIsAuthenthenticatedPost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Return the bool
-          schema:
-            type: boolean
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get authenthenticated of your account right now
-  "/v1/Account/GetUserInfo":
-    get:
-      tags:
-      - Account
-      summary: Get user info.
-      operationId: V1AccountGetUserInfoGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Return the user info
-          schema:
-            "$ref": "#/definitions/LoginUserInfoResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get info of your account right now
-  "/v1/AddressBooks":
-    get:
-      tags:
-      - AddressBooks
-      summary: Get List of Address Books.
-      operationId: V1AddressBooksGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the addressBooks
-          schema:
-            "$ref": "#/definitions/ListViewModel[AddressBookIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your addressbooks right now
-    post:
-      tags:
-      - AddressBooks
-      summary: Create an addressbook.
-      description: "Help:\r\n            \r\n    POST /addressbook\r\n    {\r\n       \"code\":
-        \"\" //خالی ارسال نمایید,\r\n       \"userPhotoFileId\": \"\" //پس از آپلود
-        و دریافت کلید فایل را اینجا قرار دهید,\r\n       \"isLegal\": true //حقوقی
-        بودن = true,\r\n       \"clientId\": \"invoiceWeb\",\r\n       \"clientVersion\":
-        \"1.0\"\r\n    }"
-      operationId: V1AddressBooksPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: value
-        in: body
-        description: addressbook you want to create
-        required: false
-        schema:
-          "$ref": "#/definitions/AddressBookCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the addressbook
-          schema:
-            "$ref": "#/definitions/AddressBookIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't create your addressbook right now
-  "/v1/AddressBooks/Pagination/{page},{search},{take}":
-    get:
-      tags:
-      - AddressBooks
-      summary: Get pagination list of addressbooks.
-      operationId: V1AddressBooksPaginationByPage},{search},{takeGet
+      - AddressBook
+      summary: لیست مشتریان
+      operationId: V1AddressBookListGet
       consumes: []
       produces:
       - text/plain
       - application/json
       - text/json
       parameters:
-      - name: page
-        in: path
-        description: begin from 1
-        required: true
-        type: integer
-        format: int32
-      - name: search
-        in: path
-        description: You can type anything
-        required: true
-        type: string
-      - name: take
-        in: path
-        description: You can send 10
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: Returns the addressBooks
-          schema:
-            "$ref": "#/definitions/ListViewModel[AddressBookIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your addressbooks right now
-  "/v1/AddressBooks/{code}":
-    get:
-      tags:
-      - AddressBooks
-      summary: Get address Book.
-      operationId: V1AddressBooksByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of addressbook
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Returns the address book
-          schema:
-            "$ref": "#/definitions/AddressBookIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your address books right now
-    put:
-      tags:
-      - AddressBooks
-      summary: Update an addressbook.
-      description: "Help:\r\n            \r\n    PUT /addressbook\r\n    {\r\n       \"code\":
-        \"IUqk\" //کلید یکتا را حتما باید ارسال نمایید,\r\n       \"userPhotoFileId\":
-        \"\" //پس از آپلود و دریافت کلید فایل را اینجا قرار دهید و اگر خالی رها کنید
-        در صورت موجود بودن فایل های قبلی، آن ها حفظ خواهند ماند,\r\n       \"clientId\":
-        \"invoiceWeb\",\r\n       \"clientVersion\": \"1.0\"\r\n    }"
-      operationId: V1AddressBooksByCodePut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of addressbook
-        required: true
-        type: string
-      - name: value
-        in: body
-        description: addressbook you want to update
-        required: false
-        schema:
-          "$ref": "#/definitions/AddressBookCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the addressbook
-          schema:
-            "$ref": "#/definitions/AddressBookIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't update your addressbook right now
-    delete:
-      tags:
-      - AddressBooks
-      summary: Delete an addressbook.
-      description: "Help:\r\n            \r\n    DELETE /addressbook\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال نمایید,\r\n
-        \   }\r\n    \r\n    Notes: \"فایل های متصل به این مشتری نیز حذف میگردد\""
-      operationId: V1AddressBooksByCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of addressbook
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            type: string
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your addressbook right now
-  "/v1/AddressBooks/DeleteUserPhoto/{code}":
-    delete:
-      tags:
-      - AddressBooks
-      summary: Delete userPhoto of an addressbook.
-      description: "Help:\r\n            \r\n    DELETE /userPhoto of addressbook\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n    }"
-      operationId: V1AddressBooksDeleteUserPhotoByCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of addressbook
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            "$ref": "#/definitions/AttachmentCodeDeleteResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your userPhoto of addressbook right now
-  "/v1/BusinessInfoes":
-    get:
-      tags:
-      - BusinessInfoes
-      summary: Get business info.
-      operationId: V1BusinessInfoesGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the business info
-          schema:
-            "$ref": "#/definitions/BusinessInfoIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your business info right now
-    post:
-      tags:
-      - BusinessInfoes
-      summary: Create an business info.
-      description: "Help:\r\n            \r\n    POST /business info\r\n    {\r\n
-        \      \"economicCode\": \"\" //خالی ارسال نمایید,\r\n       \"signatureFileId\":
-        \"\" //پس از آپلود و دریافت کلید تصویر امضا را اینجا قرار دهید (اجباری است),\r\n
-        \      \"isShowLocationInInvoice\": true //نمایش آدرس در فاکتور,\r\n       \"isShowPhoneInInvoice\":
-        true //نمایش تلفن در فاکتور\r\n    }"
-      operationId: V1BusinessInfoesPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: value
-        in: body
-        required: false
-        schema:
-          "$ref": "#/definitions/BusinessInfoCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the business info
-          schema:
-            "$ref": "#/definitions/BusinessInfoIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't create your business info right now
-  "/v1/BusinessInfoes/{economicCode}":
-    put:
-      tags:
-      - BusinessInfoes
-      summary: Update a business info.
-      description: "Help:\r\n            \r\n    PUT /business info\r\n    {\r\n       \"economicCode\":
-        \"IUqk\" //کلید یکتا را حتما باید ارسال نمایید,\r\n       \"signatureFileId\":
-        \"\" //پس از آپلود و دریافت کلید فایل را اینجا قرار دهید و اگر خالی رها کنید
-        در صورت موجود بودن فایل های قبلی، آن ها حفظ خواهند ماند,\r\n    }"
-      operationId: V1BusinessInfoesByEconomicCodePut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: economicCode
-        in: path
-        description: unique code of business info
-        required: true
-        type: string
-      - name: value
-        in: body
-        description: business info you want to update
-        required: false
-        schema:
-          "$ref": "#/definitions/BusinessInfoCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the business info
-          schema:
-            "$ref": "#/definitions/BusinessInfoIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't update your business info right now
-    delete:
-      tags:
-      - BusinessInfoes
-      summary: Delete an business info.
-      description: "Help:\r\n            \r\n    DELETE /business info\r\n    {\r\n
-        \      \"economicCode\": \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n    }\r\n    \r\n    Notes: \"تصویر امضا نیز حذف میگردد\""
-      operationId: V1BusinessInfoesByEconomicCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: economicCode
-        in: path
-        description: unique code of business info
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            type: string
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your business info right now
-  "/v1/BusinessInfoes/DeleteSignature/{economicCode}":
-    delete:
-      tags:
-      - BusinessInfoes
-      summary: Delete signature photo of an business info.
-      description: "Help:\r\n            \r\n    DELETE /signature photo of business
-        info\r\n    {\r\n       \"economicCode\": \"IUqk\" //کلید یکتا بصورت پارامتر
-        حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1BusinessInfoesDeleteSignatureByEconomicCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: economicCode
-        in: path
-        description: unique code of business info
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            "$ref": "#/definitions/AttachmentCodeDeleteResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your userPhoto of addressbook right now
-  "/v1/Invoices":
-    get:
-      tags:
-      - Invoices
-      summary: Get List of invoices.
-      operationId: V1InvoicesGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the invoices
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your invoices right now
-    post:
-      tags:
-      - Invoices
-      summary: Create an invoice.
-      description: "Help:\r\n            \r\n    POST /invoice\r\n    {\r\n       \"code\":
-        \"\" //خالی ارسال نمایید,\r\n       \"invoiceNumber\" : \"payping_\" // (Note-1),\r\n
-        \      \"isSendAttachmentsAfterPayment\": true //نمایش فایل پس از پرداخت موفق
-        در صفحه نمایش فاکتور,\r\n       \"isSendNotesAndTermsAfterPayment\": true
-        //نمایش پیام پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"billToes\":
-        [\r\n          {\r\n            \"addressBookCode\": \"TrsR\", // حداقل یک
-        مشتری باید ارسال شود\r\n          }\r\n       ],\r\n       \"isPaidManual\":false
-        ,//پرداخت به صورت دستی\r\n       \"paidManualDescription\":\"پرداخت به صورت
-        کارت به کارت انجام شد\" ,//شرح پرداخت به صورت دستی\r\n       \"isDraft\":
-        false,// true = ذخیره در پیش نویس , false = ارسال به مشتری جهت انجام عملیات
-        پرداخت و تسویه\r\n       \"status\": 0,// تاثیری ندارد، به همین صورت ارسال
-        نمایید. صرفا جهت بازگشت اطلاعات قرار داده شده است (Note-2)\r\n       \"invoiceDateTimePersian\":
-        \"1396/01/01\" //تاریخ ایجاد فاکتور,\r\n       \"dueDatePersian\": \"1396/02/01\"
-        // تاریخ سررسید فاکتور,\r\n       \"otherDiscountAmount\": 0 // مبلغ تخفیف
-        کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"otherDiscountPercent\": 0
-        // درصد تخفیف کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"hasOtherDiscount\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"taxtionAmount\":
-        0 // مبلغ مالیات کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"taxtionPercent\":
-        0 // درصد مالیات کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"invoiceHasTax\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"shipping\":
-        0 // مبلغ کرایه و حمل و نقل,\r\n       \"hasShipping\": false, //صرفا جهت
-        بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"partialPaymentPercent\": 0 //
-        مبلغ پرداخت بخشی از مبلغ فاکتور (Note-3),\r\n       \"partialPaymentAmount\":
-        0 // درصد پرداخت بخشی از مبلغ فاکتور (Note-3),\r\n       \"isAllowPartialPayment\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceHasSchulder\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceSchulder\":
-        //در صورت نداشتن زمانبندی null قرار دهید\r\n          {\r\n            \"repeat\":
-        1 ,// تعداد تکرار در هر روز/هفته/ماه/سال\r\n            \"schulderType\":
-        0 ,//نوع زمابندی (Note-4)\r\n            \"schulderDueType\": 0 ,//پایان تکرار
-        (Note-5)\r\n            \"endValue\": \"2\" // (Note-6),\r\n            \"dueDateAfterHowManyDay\":2
-        //تاریخ سررسید پس از N روز از تاریخ ثبت باشد\r\n          },\r\n       \"invoiceItems\":
-        [\r\n          {\r\n            \"code\": \"\" //صرفا جهت بازگشت اطلاعات پس
-        از ثبت می باشد خالی ارسال کنید,\r\n            \"name\": \"کتاب اسرار پی پینگ\",\r\n
-        \           \"description\": \"\",\r\n            \"itemCode\": \"IuQz\" //در
-        صورتی که از بخش آیتم ها موجود انتخاب شده باید کد یکتای آن ثبت شود و تغییر
-        مبلغ فی صرفا فقط در فاکتور ثبت میشود و آیتم اصلی تغییری نخواهد کرد\r\n            \"quantity\":
-        1,\r\n            \"discountPercent\": 0 // درصد تخفیف به ازای هر آیتم (Note-3),\r\n
-        \           \"discountAmount\": 0 // مبلغ تخفیف به ازای هر آیتم (Note-3),\r\n
-        \           \"taxCode\": \"pSws\" //در صورتی که مالیات به صورت اختصاصی به
-        هر آیتم انتخاب شده باید اعمال گردد این گزینه را با کد یکتای موجود در بخش مالیات
-        ها تکمیل نمایید در غیر اینصورت خالی رها کنید\r\n            \"price\": 250000
-        //به تومان می باشد\r\n          }\r\n        ],\r\n        \"itemHasDiscount\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasTax\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasDescription\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"attachmentsIds\":
-        [ \"\", \"\", \"\" ] //کلید فایل(ها) دریافتی پس از آپلود را به صورت آرایه
-        رشته ای در اینجا قرار دهید، اگر خالی ارسال کنید فایل های قبلی حفظ می مانند
-        و اگر کلیدی ارسال شود به فایل های قبلی اضافه خواهد شد,\r\n        \"clientId\":
-        \"invoiceWeb\",\r\n        \"clientVersion\": \"1.0\",\r\n        \"returnUrl\":
-        \"\" //هدایت کاربر پس از پرداخت به آدرس مورد نظر شما\r\n    }\r\n    \r\n
-        \   Note-1:\r\n       {\r\n         شما قادر به وارد نمودن هر متنی هستید اما
-        اگر به شماره بندی خودکار در انتهای\r\n         شماره فاکتور نیاز دارید، کافیست
-        در انتهای متن وارد شده از آندرلاین _ استفاده نمایید\r\n       }\r\n       \r\n
-        \   Note-2:\r\n       {\r\n         0 = Draft (پیش نویس),\r\n         1 =
-        Unpaid (پرداخت نشد),\r\n         2 = Paid (پرداخت شد),\r\n         3 = Expire
-        (معوق),\r\n         4 = Canceled (لغو شده),\r\n       }\r\n       \r\n    Note-3:\r\n
-        \      {\r\n         در صورتی که :\r\n         \"****Percent\"\r\n         را
-        تکمیل نمایید اولویت پردازش با این گزینه خواهد بود و\r\n         \"****Amount\"\r\n
-        \        حتی اگر وارد شود، در پردازش فاکتور تاثیری نخواهد داشت\r\n       }\r\n
-        \      \r\n    Note-4:\r\n       {\r\n         0 = Daily (روز),\r\n         1
-        = Weekly (هفته),\r\n         2 = Monthly  (ماه),\r\n         3 = Yearly  (سالا)\r\n
-        \      }\r\n       \r\n    Note-5:\r\n       {\r\n         0 = After (پایان
-        بعد از N فاکتور),\r\n         1 = In (پایان بعد از تاریخی مشخص),\r\n         2
-        = None  (پایان ندارد)\r\n       }\r\n       \r\n    Note-6:\r\n       {\r\n
-        \        در صورتی که \r\n         schulderDueType = 1 (پایان در تاریخی مشخص)\r\n
-        \        انتخاب شود\r\n         باید تاریخ را در این فیلد \r\n         (مانند
-        : 1396/01/01)\r\n         قرار دهید\r\n       }"
-      operationId: V1InvoicesPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: value
-        in: body
-        description: invoice you want to create
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the invoice
-          schema:
-            "$ref": "#/definitions/InvoiceIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't create your invoice right now
-  "/v1/Invoices/GetSchedule":
-    get:
-      tags:
-      - Invoices
-      summary: Get a schedule invoice.
-      operationId: V1InvoicesGetScheduleGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
+      - name: offset
         in: query
+        description: شروع صفحه از شماره 1
+        required: false
+        type: integer
+        format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: 'تعداد سطر بازگشت داده ها مثال : 10'
+        required: false
+        type: integer
+        format: int32
+        default: 10
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
         required: false
         type: string
       responses:
         '200':
-          description: Returns the schedule invoice with childs
+          description: نمایش لیست مشتریان
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/AddressBookListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/AddressBook/ListCount":
+    get:
+      tags:
+      - AddressBook
+      summary: تعداد مشتریان
+      operationId: V1AddressBookListCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد مشتریان
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/AddressBook/{code}":
+    get:
+      tags:
+      - AddressBook
+      summary: مشخصات مشتری
+      operationId: V1AddressBookByCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کد مشتری ارسال نمایید
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش مشخصات مشتری
+          schema:
+            "$ref": "#/definitions/AddressBookDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    put:
+      tags:
+      - AddressBook
+      summary: بروزرسانی مشخصات مشتری
+      operationId: V1AddressBookByCodePut
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتا مشتری
+        required: true
+        type: string
+      - name: value
+        in: body
+        description: مشخصات بروز شده مشتری
+        required: false
+        schema:
+          "$ref": "#/definitions/AddressBookEditViewModel"
+      responses:
+        '200':
+          description: نمایش مشخصات مشتری
+          schema:
+            "$ref": "#/definitions/AddressBookDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    delete:
+      tags:
+      - AddressBook
+      summary: حذف مشتری
+      operationId: V1AddressBookByCodeDelete
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتا مشتری
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش کلید یکتای مشتری
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/AddressBook":
+    post:
+      tags:
+      - AddressBook
+      summary: مشتری جدید
+      operationId: V1AddressBookPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: value
+        in: body
+        description: مشخصات مشتری
+        required: false
+        schema:
+          "$ref": "#/definitions/AddressBookCreateViewModel"
+      responses:
+        '200':
+          description: نمایش مشخصات مشتری
+          schema:
+            "$ref": "#/definitions/AddressBookDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: مشتری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/RegenerateAllQrCode":
+    get:
+      tags:
+      - Invoice
+      summary: ساخت کامل بارکد های همه ی فاکتور ها
+      operationId: V1InvoiceRegenerateAllQrCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        '200':
+          description: ساخت کامل بارکد های همه ی فاکتور ها
+          schema:
+            "$ref": "#/definitions/IdentityResult"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: گزارشی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/SumPerStatus":
+    get:
+      tags:
+      - Invoice
+      summary: گزارش جمع مبلغ فاکتور ها براساس وضعیت
+      operationId: V1InvoiceSumPerStatusGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        '200':
+          description: جمع مبلغ فاکتور ها براساس وضعیت
+          schema:
+            "$ref": "#/definitions/InvoiceDashboardReportViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: گزارشی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Schedule/{code}":
+    get:
+      tags:
+      - Invoice
+      summary: فاکتور زمانبندی شده
+      operationId: V1InvoiceScheduleByCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: فاکتور زمانبندی شده
           schema:
             "$ref": "#/definitions/ScheduleInvoiceWithChilds"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't get your schedule invoice with childs right now
-  "/v1/Invoices/PaginationSchedule":
-    post:
-      tags:
-      - Invoices
-      summary: Search and pagination list of schedule invoices.
-      description: "Help:\r\n            \r\n    POST /search and pagination parameters\r\n
-        \   {\r\n       \"page\": \"1\" //بیشتر از صفر ارسال نمایید,\r\n       \"status\":
-        \"0\" //پیش نویس (Note-1) ,\r\n       \"searchType\": \"simpleSearch\" //ثابت
-        \ (Note-2),\r\n       \"advanceSearchType\": \"\", //خالی ارسال کنید,\r\n
-        \      \"searchTerm\":\"\", //متن مورد نظر جهت جستجو\r\n       \"take\":10,
-        //تعداد سطر بازگشتی\r\n       \"isArchived\":true, //بازگشت موارد بایگانی
-        شده\r\n       \"isSearchDueDate\":true, //بازگشت موارد با فیلتر از تاریخ تا
-        تاریخ سررسید\r\n       \"isSearchCreateDate\":true, //بازگشت موارد با فیلتر
-        از تاریخ تا تاریخ ثبت فاکتور\r\n       \"searchDateFrom\":\"1397/01/01\",
-        //از تاریخ مورد نظر جهت جستجو\r\n       \"searchDateTo\":\"1397/02/01\", //تا
-        تاریخ مورد نظر جهت جستجو\r\n    }\r\n    \r\n    Note-1:\r\n       {\r\n         all
-        = All (همه),\r\n         0 = Draft (پیش نویس),\r\n         1 = Unpaid (پرداخت
-        نشد),\r\n         2 = Paid (پرداخت شد),\r\n         3 = Expire (معوق),\r\n
-        \        4 = Canceled (لغو شده),\r\n       }\r\n       \r\n    Note-2:\r\n
-        \      {\r\n         simpleSearch = جستجوی ساده,\r\n         advanceSearch
-        = جستجوی پیشرفته,\r\n       }"
-      operationId: V1InvoicesPaginationSchedulePost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: model
-        in: body
-        description: You can type anything
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceSearchViewModel"
-      responses:
-        '200':
-          description: Returns the schedule invoices
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your schedule invoices right now
-  "/v1/Invoices/PaginationNonSchedule":
-    post:
-      tags:
-      - Invoices
-      summary: Search and pagination list of non schedule invoices.
-      description: "Help:\r\n            \r\n    POST /search and pagination parameters\r\n
-        \   {\r\n       \"page\": \"1\" //بیشتر از صفر ارسال نمایید,\r\n       \"status\":
-        \"0\" //پیش نویس (Note-1) ,\r\n       \"searchType\": \"simpleSearch\" //ثابت
-        \ (Note-2),\r\n       \"advanceSearchType\": \"\", //خالی ارسال کنید,\r\n
-        \      \"searchTerm\":\"\" //متن مورد نظر جهت جستجو\r\n       \"take\":10,
-        //تعداد سطر بازگشتی\r\n       \"isArchived\":true, //بازگشت موارد بایگانی
-        شده\r\n       \"isSearchDueDate\":true, //بازگشت موارد با فیلتر از تاریخ تا
-        تاریخ سررسید\r\n       \"isSearchCreateDate\":true, //بازگشت موارد با فیلتر
-        از تاریخ تا تاریخ ثبت فاکتور\r\n       \"searchDateFrom\":\"1397/01/01\",
-        //از تاریخ مورد نظر جهت جستجو\r\n       \"searchDateTo\":\"1397/02/01\", //تا
-        تاریخ مورد نظر جهت جستجو\r\n    }\r\n    \r\n    Note-1:\r\n       {\r\n         all
-        = All (همه),\r\n         0 = Draft (پیش نویس),\r\n         1 = Unpaid (پرداخت
-        نشد),\r\n         2 = Paid (پرداخت شد),\r\n         3 = Expire (معوق),\r\n
-        \        4 = Canceled (لغو شده),\r\n       }\r\n       \r\n    Note-2:\r\n
-        \      {\r\n         simpleSearch = جستجوی ساده,\r\n         advanceSearch
-        = جستجوی پیشرفته,\r\n       }"
-      operationId: V1InvoicesPaginationNonSchedulePost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: model
-        in: body
-        description: You can type anything
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceSearchViewModel"
-      responses:
-        '200':
-          description: Returns the non schedule invoices
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your non schedule invoices right now
-  "/v1/Invoices/Pagination":
-    post:
-      tags:
-      - Invoices
-      summary: Search and pagination list of invoices.
-      description: "Help:\r\n            \r\n    POST /search and pagination parameters\r\n
-        \   {\r\n       \"page\": \"1\" //بیشتر از صفر ارسال نمایید,\r\n       \"status\":
-        \"0\" //پیش نویس (Note-1) ,\r\n       \"searchType\": \"simpleSearch\" //ثابت
-        \ (Note-2),\r\n       \"advanceSearchType\": \"\", //خالی ارسال کنید,\r\n
-        \      \"searchTerm\":\"\" //متن مورد نظر جهت جستجو\r\n    }\r\n    \r\n    Note-1:\r\n
-        \      {\r\n         all = All (همه),\r\n         0 = Draft (پیش نویس),\r\n
-        \        1 = Unpaid (پرداخت نشد),\r\n         2 = Paid (پرداخت شد),\r\n         3
-        = Expire (معوق),\r\n         4 = Canceled (لغو شده),\r\n       }\r\n       \r\n
-        \   Note-2:\r\n       {\r\n         simpleSearch = جستجوی ساده,\r\n         advanceSearch
-        = جستجوی پیشرفته,\r\n       }"
-      operationId: V1InvoicesPaginationPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: model
-        in: body
-        description: You can type anything
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceSearchViewModel"
-      responses:
-        '200':
-          description: Returns the invoices
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your invoices right now
-  "/v1/Invoices/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/List":
     get:
       tags:
-      - Invoices
-      summary: Get invoice.
-      operationId: V1InvoicesByCodeGet
+      - Invoice
+      summary: لیست فاکتور ها
+      operationId: V1InvoiceListGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: offset
+        in: query
+        description: ''
+        required: false
+        type: integer
+        format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: ''
+        required: false
+        type: integer
+        format: int32
+        default: 10
+      - name: status
+        in: query
+        description: فیلتر وضعیت
+        required: false
+        type: integer
+        format: int32
+        default: 5
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      - name: isArchived
+        in: query
+        description: فیلتر بایگانی
+        required: false
+        type: boolean
+        default: false
+      - name: searchByDueDate
+        in: query
+        description: فیلتر با تاریخ سررسید
+        required: false
+        type: boolean
+        default: false
+      - name: searchByCreateDate
+        in: query
+        description: فیلتر با تاریخ ثبت
+        required: false
+        type: boolean
+        default: false
+      - name: searchDateFrom
+        in: query
+        description: شروع از تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: searchDateTo
+        in: query
+        description: تا تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: search
+        in: query
+        description: متن جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش لیست فاکتور ها
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/InvoiceListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/ListCount":
+    get:
+      tags:
+      - Invoice
+      summary: تعداد فاکتور ها
+      operationId: V1InvoiceListCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: status
+        in: query
+        description: فیلتر وضعیت
+        required: false
+        type: integer
+        format: int32
+        default: 5
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      - name: isArchived
+        in: query
+        description: فیلتر بایگانی
+        required: false
+        type: boolean
+        default: false
+      - name: searchByDueDate
+        in: query
+        description: فیلتر با تاریخ سررسید
+        required: false
+        type: boolean
+        default: false
+      - name: searchByCreateDate
+        in: query
+        description: فیلتر با تاریخ ثبت
+        required: false
+        type: boolean
+        default: false
+      - name: searchDateFrom
+        in: query
+        description: شروع از تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: searchDateTo
+        in: query
+        description: تا تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: search
+        in: query
+        description: متن جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد فاکتور ها
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/ListSchedule":
+    get:
+      tags:
+      - Invoice
+      summary: لیست فاکتور ها زمانبندی شده
+      operationId: V1InvoiceListScheduleGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: offset
+        in: query
+        description: ''
+        required: false
+        type: integer
+        format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: ''
+        required: false
+        type: integer
+        format: int32
+        default: 10
+      - name: status
+        in: query
+        description: فیلتر وضعیت
+        required: false
+        type: integer
+        format: int32
+        default: 5
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      - name: isArchived
+        in: query
+        description: فیلتر بایگانی
+        required: false
+        type: boolean
+        default: false
+      - name: searchByDueDate
+        in: query
+        description: فیلتر با تاریخ سررسید
+        required: false
+        type: boolean
+        default: false
+      - name: searchByCreateDate
+        in: query
+        description: فیلتر با تاریخ ثبت
+        required: false
+        type: boolean
+        default: false
+      - name: searchDateFrom
+        in: query
+        description: شروع از تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: searchDateTo
+        in: query
+        description: تا تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: search
+        in: query
+        description: متن جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش لیست فاکتور ها زمانبندی شده
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/InvoiceListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/ListScheduleCount":
+    get:
+      tags:
+      - Invoice
+      summary: تعداد فاکتور ها زمانبندی شده
+      operationId: V1InvoiceListScheduleCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: status
+        in: query
+        description: فیلتر وضعیت
+        required: false
+        type: integer
+        format: int32
+        default: 5
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+      - name: isArchived
+        in: query
+        description: فیلتر بایگانی
+        required: false
+        type: boolean
+        default: false
+      - name: searchByDueDate
+        in: query
+        description: فیلتر با تاریخ سررسید
+        required: false
+        type: boolean
+        default: false
+      - name: searchByCreateDate
+        in: query
+        description: فیلتر با تاریخ ثبت
+        required: false
+        type: boolean
+        default: false
+      - name: searchDateFrom
+        in: query
+        description: شروع از تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: searchDateTo
+        in: query
+        description: تا تاریخ
+        required: false
+        type: string
+        format: date-time
+      - name: search
+        in: query
+        description: متن جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد فاکتور ها زمانبندی شده
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/{code}":
+    get:
+      tags:
+      - Invoice
+      summary: دریافت فاکتور
+      operationId: V1InvoiceByCodeGet
       consumes: []
       produces:
       - text/plain
@@ -1345,92 +1154,33 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return an invoice
+          description: نمایش فاکتور
           schema:
-            "$ref": "#/definitions/InvoiceIndexViewModel"
+            "$ref": "#/definitions/InvoiceDetailViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
-          description: If the invoice is not exist
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't get your invoice right now
+          description: مشکلی در سرور رخ داده است
     put:
       tags:
-      - Invoices
-      summary: Update an invoice.
-      description: "Help:\r\n            \r\n    PUT /invoice\r\n    {\r\n       \"code\":
-        \"JfiW\" //کلید اختصاصی فاکتور را باید ارسال نمایید,\r\n       \"invoiceNumber\"
-        : \"payping_\" // (Note-1),\r\n       \"isSendAttachmentsAfterPayment\": true
-        //نمایش فایل پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"isSendNotesAndTermsAfterPayment\":
-        true //نمایش پیام پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"billToes\":
-        [\r\n          {\r\n            \"addressBookCode\": \"TrsR\", // حداقل یک
-        مشتری باید ارسال شود\r\n          }\r\n       ],\r\n       \"isDraft\": false,//
-        true = ذخیره در پیش نویس , false = ارسال به مشتری جهت انجام عملیات پرداخت
-        و تسویه\r\n       \"isPaidManual\":false ,//پرداخت به صورت دستی\r\n       \"paidManualDescription\":\"پرداخت
-        به صورت کارت به کارت انجام شد\" ,//شرح پرداخت به صورت دستی\r\n       \"invoiceDateTimePersian\":
-        \"1396/01/01\" //تاریخ ایجاد فاکتور,\r\n       \"dueDatePersian\": \"1396/02/01\"
-        // تاریخ سررسید فاکتور,\r\n       \"otherDiscountAmount\": 0 // مبلغ تخفیف
-        کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"otherDiscountPercent\": 0
-        // درصد تخفیف کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"hasOtherDiscount\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"taxtionAmount\":
-        0 // مبلغ مالیات کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"taxtionPercent\":
-        0 // درصد مالیات کلی روی مبلغ نهایی فاکتور (Note-3),\r\n       \"invoiceHasTax\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"shipping\":
-        0 // مبلغ کرایه و حمل و نقل,\r\n       \"hasShipping\": false, //صرفا جهت
-        بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"partialPaymentPercent\": 0 //
-        مبلغ پرداخت بخشی از مبلغ فاکتور (Note-3),\r\n       \"partialPaymentAmount\":
-        0 // درصد پرداخت بخشی از مبلغ فاکتور (Note-3),\r\n       \"isAllowPartialPayment\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceHasSchulder\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceSchulder\":
-        //در صورت نداشتن زمانبندی null قرار دهید\r\n          {\r\n            \"repeat\":
-        1 ,// تعداد تکرار در هر روز/هفته/ماه/سال\r\n            \"schulderType\":
-        0 ,//نوع زمابندی (Note-4)\r\n            \"schulderDueType\": 0 ,//پایان تکرار
-        (Note-5)\r\n            \"endValue\": \"2\" // (Note-6),\r\n            \"dueDateAfterHowManyDay\":2
-        //تاریخ سررسید پس از N روز از تاریخ ثبت باشد\r\n          },\r\n       \"invoiceItems\":
-        [\r\n          {\r\n            \"code\": \"\" //صرفا جهت بازگشت اطلاعات پس
-        از ثبت می باشد خالی ارسال کنید,\r\n            \"name\": \"کتاب اسرار پی پینگ\",\r\n
-        \           \"description\": \"\",\r\n            \"itemCode\": \"IuQz\" //در
-        صورتی که از بخش آیتم ها موجود انتخاب شده باید کد یکتای آن ثبت شود و تغییر
-        مبلغ فی صرفا فقط در فاکتور ثبت میشود و آیتم اصلی تغییری نخواهد کرد\r\n            \"quantity\":
-        1,\r\n            \"discountPercent\": 0 // درصد تخفیف به ازای هر آیتم (Note-3),\r\n
-        \           \"discountAmount\": 0 // مبلغ تخفیف به ازای هر آیتم (Note-3),\r\n
-        \           \"taxCode\": \"pSws\" //در صورتی که مالیات به صورت اختصاصی به
-        هر آیتم انتخاب شده باید اعمال گردد این گزینه را با کد یکتای موجود در بخش مالیات
-        ها تکمیل نمایید در غیر اینصورت خالی رها کنید\r\n            \"price\": 250000
-        //به تومان می باشد\r\n          }\r\n        ],\r\n        \"itemHasDiscount\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasTax\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasDescription\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"attachmentsIds\":
-        [ \"\", \"\", \"\" ] //کلید فایل(ها) دریافتی پس از آپلود را به صورت آرایه
-        رشته ای در اینجا قرار دهید، اگر خالی ارسال کنید فایل های قبلی حفظ می مانند
-        و اگر کلیدی ارسال شود به فایل های قبلی اضافه خواهد شد,\r\n    }\r\n    \r\n
-        \   Note-1:\r\n       {\r\n         شما قادر به وارد نمودن هر متنی هستید اما
-        اگر به شماره بندی خودکار در انتهای\r\n         شماره فاکتور نیاز دارید، کافیست
-        در انتهای متن وارد شده از آندرلاین _ استفاده نمایید\r\n       }\r\n       \r\n
-        \   Note-2:\r\n       {\r\n         0 = Draft (پیش نویس),\r\n         1 =
-        Unpaid (پرداخت نشد),\r\n         2 = Paid (پرداخت شد),\r\n         3 = Expire
-        (معوق),\r\n         4 = Canceled (لغو شده),\r\n       }\r\n       \r\n    Note-3:\r\n
-        \      {\r\n         در صورتی که :\r\n         \"****Percent\"\r\n         را
-        تکمیل نمایید اولویت پردازش با این گزینه خواهد بود و\r\n         \"****Amount\"\r\n
-        \        حتی اگر وارد شود، در پردازش فاکتور تاثیری نخواهد داشت\r\n       }\r\n
-        \      \r\n    Note-4:\r\n       {\r\n         0 = Daily (روز),\r\n         1
-        = Weekly (هفته),\r\n         2 = Monthly  (ماه),\r\n         3 = Yearly  (سالا)\r\n
-        \      }\r\n       \r\n    Note-5:\r\n       {\r\n         0 = After (پایان
-        بعد از N فاکتور),\r\n         1 = In (پایان بعد از تاریخی مشخص),\r\n         2
-        = None  (پایان ندارد)\r\n       }\r\n       \r\n    Note-6:\r\n       {\r\n
-        \        در صورتی که \r\n         schulderDueType = 1 (پایان در تاریخی مشخص)\r\n
-        \        انتخاب شود\r\n         باید تاریخ را در این فیلد \r\n         (مانند
-        : 1396/01/01)\r\n         قرار دهید\r\n       }"
-      operationId: V1InvoicesByCodePut
+      - Invoice
+      summary: بروزرسانی فاکتور
+      operationId: V1InvoiceByCodePut
       consumes:
       - application/json-patch+json
       - application/json
@@ -1443,35 +1193,40 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       - name: value
         in: body
-        description: invoice you want to update
+        description: فاکتور بروز شده
         required: false
         schema:
-          "$ref": "#/definitions/InvoiceCreateOrUpdateViewModel"
+          "$ref": "#/definitions/InvoiceEditViewModel"
       responses:
         '200':
-          description: Returns the invoice
+          description: نمایش فاکتور
           schema:
-            "$ref": "#/definitions/InvoiceIndexViewModel"
+            "$ref": "#/definitions/InvoiceDetailViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست
+            شما پیدا نشد
         '500':
-          description: Oops! Can't create your invoice right now
+          description: مشکلی در سرور رخ داده است
     delete:
       tags:
-      - Invoices
-      summary: Delete an invoice.
-      description: "Help:\r\n            \r\n    DELETE /invoice\r\n    {\r\n       \"code\":
-        \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesByCodeDelete
+      - Invoice
+      summary: حذف فاکتور
+      operationId: V1InvoiceByCodeDelete
       consumes: []
       produces:
       - text/plain
@@ -1480,60 +1235,34 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return the unique code
+          description: نمایش کلید یکتای فاکتور
           schema:
             type: string
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
-        '500':
-          description: Oops! Can't delete your invoice right now
-  "/v1/Invoices/GetByInvoiceCode/{code}":
-    get:
-      tags:
-      - Invoices
-      summary: Get invoice without authorize.
-      operationId: V1InvoicesGetByInvoiceCodeByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return an invoice
-          schema:
-            "$ref": "#/definitions/InvoiceIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
-          description: If the invoice is not exist
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't get your invoice right now
-  "/v1/Invoices/GetByInvoiceCodePublic/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/CallbackDetail/{code}":
     get:
       tags:
-      - Invoices
-      summary: Get invoice with authorize.
-      operationId: V1InvoicesGetByInvoiceCodePublicByCodeGet
+      - Invoice
+      summary: دریافت فاکتور بدون احراز هویت
+      operationId: V1InvoiceCallbackDetailByCodeGet
       consumes: []
       produces:
       - text/plain
@@ -1542,104 +1271,34 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return an invoice
+          description: نمایش فاکتور
           schema:
             "$ref": "#/definitions/InvoiceInPublicShow"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
-          description: If the invoice is not exist
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't get your invoice right now
-  "/v1/Invoices/GetInvoicePayment/{code}":
-    get:
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/SendByTemplate":
+    post:
       tags:
-      - Invoices
-      summary: Get invoice payment url.
-      operationId: V1InvoicesGetInvoicePaymentByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return an url
-          schema:
-            "$ref": "#/definitions/InvoiceIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '404':
-          description: If the code is null or empty
-        '500':
-          description: Oops! Can't get your invoice payment url right now
-  "/v1/Invoices/{code},{itemCode}":
-    delete:
-      tags:
-      - Invoices
-      summary: Delete item of invoice.
-      description: "Help:\r\n            \r\n    DELETE /item of invoice\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n       \"itemCode\": \"IUqk\" //کلید یکتا آیتم فاکتور بصورت پارامتر
-        حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesByCode},{itemCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      - name: itemCode
-        in: path
-        description: unique code of item of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            "$ref": "#/definitions/DeleteInvoiceItemResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your item of invoice right now
-  "/v1/Invoices/DeleteAttachment/{code}":
-    delete:
-      tags:
-      - Invoices
-      summary: Delete attachment of invoice.
-      description: "Help:\r\n            \r\n    DELETE /item of invoice\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n    }"
-      operationId: V1InvoicesDeleteAttachmentByCodeDelete
+      - Invoice
+      summary: ارسال فاکتور جدید با استفاده از قالب
+      operationId: V1InvoiceSendByTemplatePost
       consumes:
       - application/json-patch+json
       - application/json
@@ -1650,137 +1309,80 @@ paths:
       - application/json
       - text/json
       parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
       - name: value
         in: body
-        description: attachment delete request model
+        description: مشخصات فاکتور
         required: false
         schema:
-          "$ref": "#/definitions/AttachmentDeleteRequestViewModel"
+          "$ref": "#/definitions/InvoiceSendByTemplate"
       responses:
         '200':
-          description: Return the response model
+          description: نمایش فاکتور
           schema:
-            "$ref": "#/definitions/InvoiceAttachmentDeleteResponseByCodeViewModel"
+            "$ref": "#/definitions/InvoiceDetailViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
-        '500':
-          description: Oops! Can't delete your attachment of invoice right now
-  "/v1/Invoices/GetOfficialPdf/{code}":
-    get:
-      tags:
-      - Invoices
-      summary: Get official pdf of invoice.
-      description: "Help:\r\n            \r\n    Get /official pdf of invoice\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید
-        ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesGetOfficialPdfByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoicePdfResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get official pdf of invoice right now
-  "/v1/Invoices/GetUnofficialPdf/{code}":
-    get:
-      tags:
-      - Invoices
-      summary: Get unofficial pdf of invoice.
-      description: "Help:\r\n            \r\n    Get /unofficial pdf of invoice\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید
-        ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesGetUnofficialPdfByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoicePdfResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get unofficial pdf of invoice right now
-  "/v1/Invoices/SendCancelInvoice/{code}":
-    post:
-      tags:
-      - Invoices
-      summary: Send Cancel Invoice.
-      operationId: V1InvoicesSendCancelInvoiceByCodePost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return an invoice
-          schema:
-            "$ref": "#/definitions/InvoicePublicIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
-          description: If the invoice is not exist
+          description: فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست
+            شما پیدا نشد
         '500':
-          description: Oops! Can't get your invoice right now
-  "/v1/Invoices/SendReminder/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice":
     post:
       tags:
-      - Invoices
-      summary: Send reminder of invoice.
-      description: "Help:\r\n            \r\n    POST /send reminder of invoice\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید
-        ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesSendReminderByCodePost
+      - Invoice
+      summary: فاکتور جدید
+      operationId: V1InvoicePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: value
+        in: body
+        description: مشخصات فاکتور
+        required: false
+        schema:
+          "$ref": "#/definitions/InvoiceCreateViewModel"
+      responses:
+        '200':
+          description: نمایش فاکتور
+          schema:
+            "$ref": "#/definitions/InvoiceDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست
+            شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/OfficialPdf/{code}":
+    get:
+      tags:
+      - Invoice
+      summary: درخواست فاکتور رسمی
+      operationId: V1InvoiceOfficialPdfByCodeGet
       consumes: []
       produces:
       - text/plain
@@ -1789,30 +1391,142 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return the response model
+          description: نمایش مشخصات فایل فاکتور رسمی
+          schema:
+            "$ref": "#/definitions/InvoicePdfResponseViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Pdf/{code}":
+    get:
+      tags:
+      - Invoice
+      summary: درخواست فاکتور غیر رسمی
+      operationId: V1InvoicePdfByCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای فاکتور
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش مشخصات فایل فاکتور غیر رسمی
+          schema:
+            "$ref": "#/definitions/InvoicePdfResponseViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Cancel/{code}":
+    post:
+      tags:
+      - Invoice
+      summary: درخواست لغو فاکتور
+      operationId: V1InvoiceCancelByCodePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای فاکتور
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش فاکتور
+          schema:
+            "$ref": "#/definitions/InvoicePublicDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Reminder/{code}":
+    post:
+      tags:
+      - Invoice
+      summary: ارسال یادآوری فاکتور
+      operationId: V1InvoiceReminderByCodePost
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای فاکتور
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش وضعیت ارسال یادآوری فاکتور
           schema:
             "$ref": "#/definitions/InvoiceSendReminderResponseViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't send reminder of invoice right now
-  "/v1/Invoices/SendInvoice/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Send/{code}":
     post:
       tags:
-      - Invoices
-      summary: Send invoice.
-      description: "Help:\r\n            \r\n    POST /send invoice\r\n    {\r\n       \"code\":
-        \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesSendInvoiceByCodePost
+      - Invoice
+      summary: ارسال فاکتور
+      operationId: V1InvoiceSendByCodePost
       consumes: []
       produces:
       - text/plain
@@ -1821,31 +1535,34 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return the response model
+          description: نمایش وضعیت ارسال فاکتور
           schema:
             "$ref": "#/definitions/InvoiceSendInvoiceResponseViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't send invoice right now
-  "/v1/Invoices/ArchiveInvoice/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Archive/{code}":
     post:
       tags:
-      - Invoices
-      summary: Archive invoice.
-      description: "Help:\r\n            \r\n    POST /archive invoice\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n    }"
-      operationId: V1InvoicesArchiveInvoiceByCodePost
+      - Invoice
+      summary: درخواست بایگانی فاکتور
+      operationId: V1InvoiceArchiveByCodePost
       consumes: []
       produces:
       - text/plain
@@ -1854,550 +1571,34 @@ paths:
       parameters:
       - name: code
         in: path
-        description: unique code of invoice
+        description: کلید یکتای فاکتور
         required: true
         type: string
       responses:
         '200':
-          description: Return the response model
+          description: نمایش وضعیت بایگانی فاکتور
           schema:
             "$ref": "#/definitions/InvoiceArchiveInvoiceResponseViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
-        '500':
-          description: Oops! Can't archive invoice right now
-  "/v1/Invoices/ConfirmPayment/{invoiceCode},{paymentCode}":
-    post:
-      tags:
-      - Invoices
-      summary: Confirm payment of invoice.
-      description: "Help:\r\n            \r\n    POST /Confirm payment of invoice\r\n
-        \   {\r\n       \"invoiceCode\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر
-        حتما باید ارسال نمایید,\r\n       \"paymentCode\": \"Cusj\" //کلید یکتا پرداخت
-        فاکتور بصورت پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesConfirmPaymentByInvoiceCode},{paymentCodePost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: invoiceCode
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      - name: paymentCode
-        in: path
-        description: unique code of payment
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoiceConfirmPaymentInvoiceResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't confirm payment of invoice right now
-  "/v1/Invoices/SendAgain/{code}":
-    post:
-      tags:
-      - Invoices
-      summary: Send again invoice.
-      description: "Help:\r\n            \r\n    POST /Send again invoice\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید ارسال
-        نمایید,\r\n    }"
-      operationId: V1InvoicesSendAgainByCodePost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoiceSendInvoiceResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't Send again invoice right now
-  "/v1/Invoices/SendVerifyPayment/{refId}":
-    post:
-      tags:
-      - Invoices
-      summary: Send payment verify of invoice.
-      description: "Help:\r\n            \r\n    POST /Send payment verify of invoice\r\n
-        \   {\r\n       \"refId\": \"IUqk\" //کلید یکتا پرداخت بصورت پارامتر حتما
-        باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoicesSendVerifyPaymentByRefIdPost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: refId
-        in: path
-        description: unique refId of payment
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoicePaymentVerifyResponse"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't payment verify of invoice right now
-  "/v1/InvoiceTemplates":
-    get:
-      tags:
-      - InvoiceTemplates
-      summary: Get List of invoice Templates.
-      operationId: V1InvoiceTemplatesGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the invoice Templates
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceTemplateIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your invoice Templates right now
-    post:
-      tags:
-      - InvoiceTemplates
-      summary: Create an invoice template.
-      description: "Help:\r\n            \r\n    POST /invoice template\r\n    {\r\n
-        \      \"code\": \"\" //خالی ارسال نمایید,\r\n       \"templateName\": \"\"
-        //عنوان قالب,\r\n       \"isSendAttachmentsAfterPayment\": true //نمایش فایل
-        پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"isSendNotesAndTermsAfterPayment\":
-        true //نمایش پیام پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"otherDiscountAmount\":
-        0 // مبلغ تخفیف کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"otherDiscountPercent\":
-        0 // درصد تخفیف کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"hasOtherDiscount\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"taxtionAmount\":
-        0 // مبلغ مالیات کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"taxtionPercent\":
-        0 // درصد مالیات کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"invoiceHasTax\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"shipping\":
-        0 // مبلغ کرایه و حمل و نقل,\r\n       \"hasShipping\": false, //صرفا جهت
-        بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"partialPaymentPercent\": 0 //
-        مبلغ پرداخت بخشی از مبلغ فاکتور (Note-1),\r\n       \"partialPaymentAmount\":
-        0 // درصد پرداخت بخشی از مبلغ فاکتور (Note-1),\r\n       \"isAllowPartialPayment\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceHasSchulder\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceSchulder\":
-        //در صورت نداشتن زمانبندی null قرار دهید\r\n          {\r\n            \"repeat\":
-        1 ,// تعداد تکرار در هر روز/هفته/ماه/سال\r\n            \"schulderType\":
-        0 ,//نوع زمابندی (Note-2)\r\n            \"schulderDueType\": 0 ,//پایان تکرار
-        (Note-3)\r\n            \"endValue\": \"2\" // (Note-4),\r\n            \"dueDateAfterHowManyDay\":2
-        //تاریخ سررسید پس از N روز از تاریخ ثبت باشد\r\n          },\r\n       \"invoiceTemplateItems\":
-        [\r\n          {\r\n            \"code\": \"\" //صرفا جهت بازگشت اطلاعات پس
-        از ثبت می باشد خالی ارسال کنید,\r\n            \"name\": \"کتاب اسرار پی پینگ\",\r\n
-        \           \"description\": \"\",\r\n            \"itemCode\": \"IuQz\" //در
-        صورتی که از بخش آیتم ها موجود انتخاب شده باید کد یکتای آن ثبت شود و تغییر
-        مبلغ فی صرفا فقط در فاکتور ثبت میشود و آیتم اصلی تغییری نخواهد کرد\r\n            \"quantity\":
-        1,\r\n            \"discountPercent\": 0 // درصد تخفیف به ازای هر آیتم (Note-1),\r\n
-        \           \"discountAmount\": 0 // مبلغ تخفیف به ازای هر آیتم (Note-1),\r\n
-        \           \"taxCode\": \"pSws\" //در صورتی که مالیات به صورت اختصاصی به
-        هر آیتم انتخاب شده باید اعمال گردد این گزینه را با کد یکتای موجود در بخش مالیات
-        ها تکمیل نمایید در غیر اینصورت خالی رها کنید\r\n            \"price\": 250000
-        //به تومان می باشد\r\n          }\r\n        ],\r\n        \"itemHasDiscount\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasTax\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasDescription\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"attachmentsIds\":
-        [ \"\", \"\", \"\" ], //کلید فایل(ها) دریافتی پس از آپلود را به صورت آرایه
-        رشته ای در اینجا قرار دهید، اگر خالی ارسال کنید فایل های قبلی حفظ می مانند
-        و اگر کلیدی ارسال شود به فایل های قبلی اضافه خواهد شد,\r\n        \"clientId\":
-        \"invoiceWeb\",\r\n        \"clientVersion\": \"1.0\",\r\n        \"returnUrl\":
-        \"\" //هدایت کاربر پس از پرداخت به آدرس مورد نظر شما\r\n    }\r\n       \r\n
-        \   Note-1:\r\n       {\r\n         در صورتی که :\r\n         \"****Percent\"\r\n
-        \        را تکمیل نمایید اولویت پردازش با این گزینه خواهد بود و\r\n         \"****Amount\"\r\n
-        \        حتی اگر وارد شود، در پردازش فاکتور تاثیری نخواهد داشت\r\n       }\r\n
-        \      \r\n    Note-2:\r\n       {\r\n         0 = Daily (روز),\r\n         1
-        = Weekly (هفته),\r\n         2 = Monthly  (ماه),\r\n         3 = Yearly  (سالا)\r\n
-        \      }\r\n       \r\n    Note-3:\r\n       {\r\n         0 = After (پایان
-        بعد از N فاکتور),\r\n         1 = In (پایان بعد از تاریخی مشخص),\r\n         2
-        = None  (پایان ندارد)\r\n       }\r\n       \r\n    Note-4:\r\n       {\r\n
-        \        در صورتی که \r\n         schulderDueType = 1 (پایان در تاریخی مشخص)\r\n
-        \        انتخاب شود\r\n         باید تاریخ را در این فیلد \r\n         (مانند
-        : 1396/01/01)\r\n         قرار دهید\r\n       }"
-      operationId: V1InvoiceTemplatesPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: value
-        in: body
-        description: invoice template you want to create
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceTemplateCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the invoice template
-          schema:
-            "$ref": "#/definitions/InvoiceTemplateIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't create your invoice template right now
-  "/v1/InvoiceTemplates/Pagination/{page},{search},{take}":
-    get:
-      tags:
-      - InvoiceTemplates
-      summary: Get pagination list of invoice Templates.
-      operationId: V1InvoiceTemplatesPaginationByPage},{search},{takeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: page
-        in: path
-        description: begin from 1
-        required: true
-        type: integer
-        format: int32
-      - name: search
-        in: path
-        description: You can type anything
-        required: true
-        type: string
-      - name: take
-        in: path
-        description: You can send 10
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: Returns the invoice Templates
-          schema:
-            "$ref": "#/definitions/ListViewModel[InvoiceTemplateIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your invoice Templates right now
-  "/v1/InvoiceTemplates/{code}":
-    get:
-      tags:
-      - InvoiceTemplates
-      summary: Get invoice template.
-      operationId: V1InvoiceTemplatesByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice template
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return an invoice template
-          schema:
-            "$ref": "#/definitions/InvoiceTemplateIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
         '404':
-          description: If the invoice template is not exist
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't get your invoice template right now
-    put:
-      tags:
-      - InvoiceTemplates
-      summary: Update an invoice template.
-      description: "Help:\r\n            \r\n    PUT /invoice template\r\n    {\r\n
-        \      \"code\": \"JfiW\" //کلید اختصاصی فاکتور را باید ارسال نمایید,\r\n
-        \      \"templateName\": \"\" //عنوان قالب,\r\n       \"isSendAttachmentsAfterPayment\":
-        true //نمایش فایل پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"isSendNotesAndTermsAfterPayment\":
-        true //نمایش پیام پس از پرداخت موفق در صفحه نمایش فاکتور,\r\n       \"invoiceDateTimePersian\":
-        \"1396/01/01\" //تاریخ ایجاد فاکتور,\r\n       \"dueDatePersian\": \"1396/02/01\"
-        // تاریخ سررسید فاکتور,\r\n       \"otherDiscountAmount\": 0 // مبلغ تخفیف
-        کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"otherDiscountPercent\": 0
-        // درصد تخفیف کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"hasOtherDiscount\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"taxtionAmount\":
-        0 // مبلغ مالیات کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"taxtionPercent\":
-        0 // درصد مالیات کلی روی مبلغ نهایی فاکتور (Note-1),\r\n       \"invoiceHasTax\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"shipping\":
-        0 // مبلغ کرایه و حمل و نقل,\r\n       \"hasShipping\": false, //صرفا جهت
-        بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"partialPaymentPercent\": 0 //
-        مبلغ پرداخت بخشی از مبلغ فاکتور (Note-1),\r\n       \"partialPaymentAmount\":
-        0 // درصد پرداخت بخشی از مبلغ فاکتور (Note-1),\r\n       \"isAllowPartialPayment\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceHasSchulder\":
-        false, //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n       \"invoiceSchulder\":
-        //در صورت نداشتن زمانبندی null قرار دهید\r\n          {\r\n            \"repeat\":
-        1 ,// تعداد تکرار در هر روز/هفته/ماه/سال\r\n            \"schulderType\":
-        0 ,//نوع زمابندی (Note-2)\r\n            \"schulderDueType\": 0 ,//پایان تکرار
-        (Note-3)\r\n            \"endValue\": \"2\" // (Note-4),\r\n            \"dueDateAfterHowManyDay\":2
-        //تاریخ سررسید پس از N روز از تاریخ ثبت باشد\r\n          },\r\n       \"invoiceTemplateItems\":
-        [\r\n          {\r\n            \"code\": \"\" //صرفا جهت بازگشت اطلاعات پس
-        از ثبت می باشد خالی ارسال کنید,\r\n            \"name\": \"کتاب اسرار پی پینگ\",\r\n
-        \           \"description\": \"\",\r\n            \"itemCode\": \"IuQz\" //در
-        صورتی که از بخش آیتم ها موجود انتخاب شده باید کد یکتای آن ثبت شود و تغییر
-        مبلغ فی صرفا فقط در فاکتور ثبت میشود و آیتم اصلی تغییری نخواهد کرد\r\n            \"quantity\":
-        1,\r\n            \"discountPercent\": 0 // درصد تخفیف به ازای هر آیتم (Note-1),\r\n
-        \           \"discountAmount\": 0 // مبلغ تخفیف به ازای هر آیتم (Note-1),\r\n
-        \           \"taxCode\": \"pSws\" //در صورتی که مالیات به صورت اختصاصی به
-        هر آیتم انتخاب شده باید اعمال گردد این گزینه را با کد یکتای موجود در بخش مالیات
-        ها تکمیل نمایید در غیر اینصورت خالی رها کنید\r\n            \"price\": 250000
-        //به تومان می باشد\r\n          }\r\n        ],\r\n        \"itemHasDiscount\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasTax\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"itemHasDescription\":
-        false //صرفا جهت بازگشت اطلاعات پس از ثبت می باشد,\r\n        \"attachmentsIds\":
-        [ \"\", \"\", \"\" ] //کلید فایل(ها) دریافتی پس از آپلود را به صورت آرایه
-        رشته ای در اینجا قرار دهید، اگر خالی ارسال کنید فایل های قبلی حفظ می مانند
-        و اگر کلیدی ارسال شود به فایل های قبلی اضافه خواهد شد,\r\n    }\r\n       \r\n
-        \   Note-1:\r\n       {\r\n         در صورتی که :\r\n         \"****Percent\"\r\n
-        \        را تکمیل نمایید اولویت پردازش با این گزینه خواهد بود و\r\n         \"****Amount\"\r\n
-        \        حتی اگر وارد شود، در پردازش فاکتور تاثیری نخواهد داشت\r\n       }\r\n
-        \      \r\n    Note-2:\r\n       {\r\n         0 = Daily (روز),\r\n         1
-        = Weekly (هفته),\r\n         2 = Monthly  (ماه),\r\n         3 = Yearly  (سالا)\r\n
-        \      }\r\n       \r\n    Note-3:\r\n       {\r\n         0 = After (پایان
-        بعد از N فاکتور),\r\n         1 = In (پایان بعد از تاریخی مشخص),\r\n         2
-        = None  (پایان ندارد)\r\n       }\r\n       \r\n    Note-4:\r\n       {\r\n
-        \        در صورتی که \r\n         schulderDueType = 1 (پایان در تاریخی مشخص)\r\n
-        \        انتخاب شود\r\n         باید تاریخ را در این فیلد \r\n         (مانند
-        : 1396/01/01)\r\n         قرار دهید\r\n       }"
-      operationId: V1InvoiceTemplatesByCodePut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: invoice template you want to create
-        required: true
-        type: string
-      - name: value
-        in: body
-        description: invoice template you want to create
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceTemplateCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the invoice template
-          schema:
-            "$ref": "#/definitions/InvoiceTemplateIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't create your invoice template right now
-    delete:
-      tags:
-      - InvoiceTemplates
-      summary: Delete an invoice template.
-      description: "Help:\r\n            \r\n    DELETE /invoice template\r\n    {\r\n
-        \      \"code\": \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال نمایید,\r\n
-        \   }"
-      operationId: V1InvoiceTemplatesByCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice template
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            type: string
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your invoice template right now
-  "/v1/InvoiceTemplates/{code},{itemCode}":
-    delete:
-      tags:
-      - InvoiceTemplates
-      summary: Delete item of invoice template.
-      description: "Help:\r\n            \r\n    DELETE /item of invoice template\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید
-        ارسال نمایید,\r\n       \"itemCode\": \"IUqk\" //کلید یکتا آیتم فاکتور بصورت
-        پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1InvoiceTemplatesByCode},{itemCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice template
-        required: true
-        type: string
-      - name: itemCode
-        in: path
-        description: unique code of item of invoice template
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            "$ref": "#/definitions/DeleteInvoiceItemResponseViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your item of invoice template right now
-  "/v1/InvoiceTemplates/DeleteAttachment/{code}":
-    delete:
-      tags:
-      - InvoiceTemplates
-      summary: Delete attachment of invoice template.
-      description: "Help:\r\n            \r\n    DELETE /item of invoice template\r\n
-        \   {\r\n       \"code\": \"IUqk\" //کلید یکتا فاکتور بصورت پارامتر حتما باید
-        ارسال نمایید,\r\n    }"
-      operationId: V1InvoiceTemplatesDeleteAttachmentByCodeDelete
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of invoice template
-        required: true
-        type: string
-      - name: value
-        in: body
-        description: attachment delete request model
-        required: false
-        schema:
-          "$ref": "#/definitions/AttachmentDeleteRequestViewModel"
-      responses:
-        '200':
-          description: Return the response model
-          schema:
-            "$ref": "#/definitions/InvoiceAttachmentDeleteResponseByCodeViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your attachment of invoice template right
-            now
-  "/v1/Items":
-    get:
-      tags:
-      - Items
-      summary: Get list of items.
-      operationId: V1ItemsGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      responses:
-        '200':
-          description: Returns the items
-          schema:
-            "$ref": "#/definitions/ListViewModel[ItemIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your items right now
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/ConfirmPayment":
     post:
       tags:
-      - Items
-      summary: Create an item.
-      description: "Help:\r\n            \r\n    POST /item\r\n    {\r\n       \"code\":
-        \"\" //خالی ارسال نمایید,\r\n       \"hasTax\": true, //مالیات بر ارزش افزوده\r\n
-        \      \"amountHasSetWithCustomer\": true //در صورتی که میخواهید مبلغ توسط
-        مشتری وارد شود = true\r\n    }"
-      operationId: V1ItemsPost
+      - Invoice
+      summary: تایید پرداخت فاکتور
+      operationId: V1InvoiceConfirmPaymentPost
       consumes:
       - application/json-patch+json
       - application/json
@@ -2410,263 +1611,281 @@ paths:
       parameters:
       - name: value
         in: body
+        description: ''
         required: false
         schema:
-          "$ref": "#/definitions/ItemCreateOrUpdateViewModel"
+          "$ref": "#/definitions/InvoiceConfirmPaymentRequestViewModel"
       responses:
         '200':
-          description: Returns the item
+          description: نمایش وضعیت تایید پرداخت فاکتور
           schema:
-            "$ref": "#/definitions/ItemIndexViewModel"
+            "$ref": "#/definitions/InvoiceConfirmPaymentResponseViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't create your item right now
-  "/v1/Items/{code}":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/List":
     get:
       tags:
-      - Items
-      summary: Get item.
-      operationId: V1ItemsByCodeGet
+      - Template
+      summary: قالب ها
+      operationId: V1TemplateListGet
       consumes: []
       produces:
       - text/plain
       - application/json
       - text/json
       parameters:
-      - name: code
-        in: path
-        description: unique code of item
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Returns the item
-          schema:
-            "$ref": "#/definitions/ItemIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your item right now
-    put:
-      tags:
-      - Items
-      summary: Update an item.
-      description: "Help:\r\n            \r\n    PUT /item\r\n    {\r\n       \"code\":
-        \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1ItemsByCodePut
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of item
-        required: true
-        type: string
-      - name: value
-        in: body
-        description: item you want to update
+      - name: offset
+        in: query
+        description: شروع صفحه از شماره 1
         required: false
-        schema:
-          "$ref": "#/definitions/ItemCreateOrUpdateViewModel"
-      responses:
-        '200':
-          description: Returns the item
-          schema:
-            "$ref": "#/definitions/ItemIndexViewModel"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't update your item right now
-    delete:
-      tags:
-      - Items
-      summary: Delete an item.
-      description: "Help:\r\n            \r\n    DELETE /item\r\n    {\r\n       \"code\":
-        \"IUqk\" //کلید یکتا بصورت پارامتر حتما باید ارسال نمایید,\r\n    }"
-      operationId: V1ItemsByCodeDelete
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: unique code of item
-        required: true
-        type: string
-      responses:
-        '200':
-          description: Return the unique code
-          schema:
-            type: string
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't delete your item right now
-  "/v1/Items/Pagination/{page},{search},{take}":
-    get:
-      tags:
-      - Items
-      summary: Get pagination list of items.
-      operationId: V1ItemsPaginationByPage},{search},{takeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: page
-        in: path
-        description: begin from 1
-        required: true
         type: integer
         format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: 'تعداد سطر بازگشت داده ها مثال : 10'
+        required: false
+        type: integer
+        format: int32
+        default: 10
       - name: search
-        in: path
-        description: You can type anything
-        required: true
-        type: string
-      - name: take
-        in: path
-        description: You can send 10
-        required: true
-        type: integer
-        format: int32
-      responses:
-        '200':
-          description: Returns the addressBooks
-          schema:
-            "$ref": "#/definitions/ListViewModel[ItemIndexViewModel]"
-        '400':
-          description: If the Jwt token authorize is fail
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '500':
-          description: Oops! Can't get your addressbooks right now
-  "/v1/Items/CreateBulkItems":
-    post:
-      tags:
-      - Items
-      summary: Create items.
-      description: "Help:\r\n            \r\n    POST /item\r\n    {\r\n       \"code\":
-        \"\" //خالی ارسال نمایید,\r\n       \"hasTax\": true, //مالیات بر ارزش افزوده\r\n
-        \      \"amountHasSetWithCustomer\": true //در صورتی که میخواهید مبلغ توسط
-        مشتری وارد شود = true\r\n    }"
-      operationId: V1ItemsCreateBulkItemsPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: values
-        in: body
+        in: query
+        description: متن مورد نظر جهت جستجو
         required: false
-        schema:
-          type: array
-          items:
-            "$ref": "#/definitions/ItemCreateOrUpdateViewModel"
+        type: string
       responses:
         '200':
-          description: Returns the items
+          description: نمایش قالب ها
           schema:
+            uniqueItems: false
             type: array
             items:
-              "$ref": "#/definitions/ItemIndexViewModel"
+              "$ref": "#/definitions/InvoiceTemplateListItemViewModel"
         '400':
-          description: If the Jwt token authorize is fail
+          description: مشکلی در ارسال درخواست وجود دارد
           schema:
             type: object
             additionalProperties:
               type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
         '500':
-          description: Oops! Can't create your item right now
-  "/v1/UploadManager":
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/ListCount":
     get:
       tags:
-      - UploadManager
-      operationId: V1UploadManagerGet
+      - Template
+      summary: تعداد قالب ها
+      operationId: V1TemplateListCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد قالب ها
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/{code}":
+    get:
+      tags:
+      - Template
+      summary: قالب
+      operationId: V1TemplateByCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای قالب
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش قالب
+          schema:
+            "$ref": "#/definitions/InvoiceTemplateDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+    put:
+      tags:
+      - Template
+      summary: بروزرسانی قالب
+      operationId: V1TemplateByCodePut
       consumes:
       - application/json-patch+json
       - application/json
       - text/json
       - application/*+json
-      produces: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
       parameters:
-      - name: modelvm
+      - name: code
+        in: path
+        description: کلید یکتای قالب
+        required: true
+        type: string
+      - name: value
         in: body
+        description: قالب بروز شده
         required: false
         schema:
-          "$ref": "#/definitions/RequestFileViewModel"
+          "$ref": "#/definitions/InvoiceTemplateEditViewModel"
       responses:
         '200':
-          description: Success
-    post:
-      tags:
-      - UploadManager
-      operationId: V1UploadManagerPost
-      consumes: []
-      produces: []
-      parameters:
-      - name: files
-        in: query
-        required: false
-        type: array
-        items: {}
-        collectionFormat: multi
-      responses:
-        '200':
-          description: Success
+          description: نمایش قالب
+          schema:
+            "$ref": "#/definitions/InvoiceTemplateDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما
+            پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
     delete:
       tags:
-      - UploadManager
-      operationId: V1UploadManagerDelete
+      - Template
+      summary: حذف قالب
+      operationId: V1TemplateByCodeDelete
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای قالب
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش کلید یکتای قالب
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template":
+    post:
+      tags:
+      - Template
+      summary: قالب جدید
+      operationId: V1TemplatePost
       consumes:
       - application/json-patch+json
       - application/json
       - text/json
       - application/*+json
-      produces: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
       parameters:
-      - name: modelvm
+      - name: value
         in: body
+        description: مشخصات قالب
         required: false
         schema:
-          "$ref": "#/definitions/RequestFileViewModel"
+          "$ref": "#/definitions/InvoiceTemplateCreateViewModel"
       responses:
         '200':
-          description: Success
+          description: نمایش قالب
+          schema:
+            "$ref": "#/definitions/InvoiceTemplateDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست
+            شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+
+
+
+
 
 
   "/v1/Services/RemoveService":
@@ -5645,294 +4864,180 @@ definitions:
 
 
 
-  AppAndApiVersionViewModel:
+
+
+  AddressBookListItemViewModel:
     type: object
     properties:
-      iosVersion:
+      code:
         type: string
-      iosVersionLatest:
+      email:
         type: string
-      androidVersion:
+      phone:
         type: string
-      androidVersionLatest:
+      firstName:
         type: string
-      webAppVersion:
+      lastName:
         type: string
-      apiVersion:
+      businessName:
         type: string
-  LoginRequest:
+  ListCountViewModel:
     type: object
     properties:
-      username:
-        type: string
-      password:
-        type: string
-  LoginResponseViewModel:
+      count:
+        format: int32
+        type: integer
+  AddressBookDetailViewModel:
+    required:
+    - firstName
+    - lastName
     type: object
     properties:
-      isAuth:
-        type: boolean
-      accessToken:
+      code:
         type: string
-      refreshToken:
+      userPhotoFileId:
         type: string
-      userInfo:
-        "$ref": "#/definitions/LoginUserInfoResponseViewModel"
-  LoginUserInfoResponseViewModel:
-    type: object
-    properties:
-      username:
+      userPhotoFileAddress:
         type: string
-      displayName:
+      email:
         type: string
-      businessLogo:
+      phone:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      businessName:
+        type: string
+      additionalInfo:
+        type: string
+      zipCode:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      location:
+        type: string
+      memo:
         type: string
       isBusiness:
         type: boolean
-      businessName:
-        type: string
-      isVerified:
-        type: boolean
-  ListViewModel[AddressBookIndexViewModel]:
-    type: object
-    properties:
-      models:
-        type: array
-        items:
-          "$ref": "#/definitions/AddressBookIndexViewModel"
-      pageIndex:
-        format: int32
-        type: integer
-      totalItemCount:
-        format: int32
-        type: integer
-      taken:
-        format: int32
-        type: integer
-      from:
-        format: int32
-        type: integer
-      to:
-        format: int32
-        type: integer
-  AddressBookIndexViewModel:
-    required:
-    - firstName
-    - lastName
-    type: object
-    properties:
-      code:
-        type: string
-      userPhotoFileId:
-        type: string
-      userPhotoFileAddress:
-        type: string
-      email:
-        type: string
-      phone:
-        type: string
-      firstName:
-        type: string
-      lastName:
-        type: string
-      businessName:
-        type: string
-      additionalInfo:
-        type: string
-      zipCode:
-        type: string
-      state:
-        type: string
-      city:
-        type: string
-      location:
-        type: string
-      memo:
-        type: string
-      isLegal:
-        type: boolean
       nationalId:
         type: string
-      clientId:
-        type: string
-      clientVersion:
-        type: string
-  AddressBookCreateOrUpdateViewModel:
+  AddressBookEditViewModel:
     required:
     - firstName
     - lastName
     type: object
     properties:
       code:
-        default: ''
         type: string
       userPhotoFileId:
-        default: ''
         type: string
       userPhotoFileAddress:
-        default: ''
         type: string
       email:
-        default: ''
         type: string
       phone:
-        default: ''
         type: string
       firstName:
-        default: پوریا
         type: string
       lastName:
-        default: منفرد
         type: string
       businessName:
-        default: ''
         type: string
       additionalInfo:
-        default: ''
         type: string
       zipCode:
-        default: ''
         type: string
       state:
-        default: ''
         type: string
       city:
-        default: ''
         type: string
       location:
-        default: ''
         type: string
       memo:
-        default: ''
         type: string
-      isLegal:
+      isBusiness:
         default: false
         type: boolean
       nationalId:
-        default: ''
         type: string
-      clientId:
-        default: invoiceWebApp
-        type: string
-      clientVersion:
-        default: '1.0'
-        type: string
-  AttachmentCodeDeleteResponseViewModel:
-    type: object
-    properties:
-      code:
-        type: string
-      message:
-        type: string
-      success:
-        type: boolean
-  BusinessInfoIndexViewModel:
+  AddressBookCreateViewModel:
     required:
     - firstName
     - lastName
-    - phone
     type: object
     properties:
-      economicCode:
+      userPhotoFileId:
         type: string
-      signatureFileId:
+      email:
         type: string
-      signatureFileAddress:
-        type: string
-      businessName:
+      phone:
         type: string
       firstName:
         type: string
       lastName:
         type: string
-      location:
-        type: string
-      isShowLocationInInvoice:
-        type: boolean
-      phone:
-        type: string
-      isShowPhoneInInvoice:
-        type: boolean
-      fax:
-        type: string
-      email:
-        type: string
-      webSite:
-        type: string
-      additionalInfo:
-        type: string
-  BusinessInfoCreateOrUpdateViewModel:
-    required:
-    - firstName
-    - lastName
-    - phone
-    type: object
-    properties:
-      economicCode:
-        default: ''
-        type: string
-      signatureFileId:
-        default: ''
-        type: string
-      signatureFileAddress:
-        default: ''
-        type: string
       businessName:
-        default: ''
-        type: string
-      firstName:
-        default: ''
-        type: string
-      lastName:
-        default: ''
-        type: string
-      location:
-        default: ''
-        type: string
-      isShowLocationInInvoice:
-        default: true
-        type: boolean
-      phone:
-        default: ''
-        type: string
-      isShowPhoneInInvoice:
-        default: ''
-        type: boolean
-      fax:
-        default: ''
-        type: string
-      email:
-        default: ''
-        type: string
-      webSite:
-        default: ''
         type: string
       additionalInfo:
-        default: ''
         type: string
-  ListViewModel[InvoiceIndexViewModel]:
+      zipCode:
+        type: string
+      state:
+        type: string
+      city:
+        type: string
+      location:
+        type: string
+      memo:
+        type: string
+      isBusiness:
+        default: false
+        type: boolean
+      nationalId:
+        type: string
+  InvoiceDashboardReportViewModel:
     type: object
     properties:
-      models:
+      draftAmount:
+        format: double
+        type: number
+      paidAmount:
+        format: double
+        type: number
+      unpaidAmount:
+        format: double
+        type: number
+      expiredAmount:
+        format: double
+        type: number
+      cancelAmount:
+        format: double
+        type: number
+      draftAmountStr:
+        type: string
+      paidAmountStr:
+        type: string
+      unpaidAmountStr:
+        type: string
+      expiredAmountStr:
+        type: string
+      cancelAmountStr:
+        type: string
+  ScheduleInvoiceWithChilds:
+    type: object
+    properties:
+      parentInvoice:
+        "$ref": "#/definitions/InvoiceDetailViewModel"
+      childInvoices:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceIndexViewModel"
-      pageIndex:
-        format: int32
-        type: integer
-      totalItemCount:
-        format: int32
-        type: integer
-      taken:
-        format: int32
-        type: integer
-      from:
-        format: int32
-        type: integer
-      to:
-        format: int32
-        type: integer
-  InvoiceIndexViewModel:
+          "$ref": "#/definitions/InvoiceDetailViewModel"
+  InvoiceDetailViewModel:
     type: object
     properties:
       code:
@@ -5941,18 +5046,16 @@ definitions:
         type: string
       paymentCode:
         type: string
-      isPaidManual:
-        type: boolean
-      paidManualDescription:
-        type: string
       ccToes:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceCcToIndexViewModel"
+          "$ref": "#/definitions/InvoiceCcToDetailViewModel"
       billToes:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceBillToIndexViewModel"
+          "$ref": "#/definitions/InvoiceBillToDetailViewModel"
       status:
         format: int32
         enum:
@@ -5961,19 +5064,18 @@ definitions:
         - 2
         - 3
         - 4
+        - 5
         type: integer
+      paidManualDescription:
+        type: string
       saveToTemplate:
         type: boolean
       invoiceNumber:
         type: string
       invoiceTitle:
         type: string
-      invoiceDateTimePersian:
-        type: string
       invoiceDateTime:
         format: date-time
-        type: string
-      dueDatePersian:
         type: string
       dueDate:
         format: date-time
@@ -5987,27 +5089,27 @@ definitions:
       itemDiscounts:
         format: double
         type: number
-      otherDiscountAmount:
+      totalDiscountAmount:
         format: double
         type: number
-      otherDiscountPercent:
+      totalDiscountPercent:
         format: int32
         type: integer
-      hasOtherDiscount:
-        type: boolean
-      otherDiscountType:
+      totalDiscountType:
         format: int32
         enum:
         - 0
         - 1
         type: integer
-      taxtionAmount:
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionAmount:
         format: double
         type: number
-      taxtionPercent:
+      totalTaxtionPercent:
         format: int32
         type: integer
-      taxtionType:
+      totalTaxtionType:
         format: int32
         enum:
         - 0
@@ -6016,76 +5118,49 @@ definitions:
       shipping:
         format: double
         type: number
-      hasShipping:
-        type: boolean
       total:
         format: double
         type: number
-      isAllowPartialPayment:
-        type: boolean
-      partialPaymentPercent:
-        format: int32
-        type: integer
-      partialPaymentAmount:
-        format: double
-        type: number
-      partialPaymentType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       notes:
         type: string
       termsAndConditions:
         type: string
       memo:
         type: string
-      invoiceHasSchulder:
-        type: boolean
       invoiceSchulder:
-        "$ref": "#/definitions/InvoiceSchulderIndexViewModel"
+        "$ref": "#/definitions/InvoiceSchulderDetailViewModel"
       invoiceItems:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceItemIndexViewModel"
-      itemHasDiscount:
-        type: boolean
-      itemHasTax:
-        type: boolean
-      itemHasDescription:
-        type: boolean
-      invoiceHasTax:
-        type: boolean
-      templateCode:
-        type: string
+          "$ref": "#/definitions/InvoiceItemDetailViewModel"
       isSendAttachmentsAfterPayment:
         type: boolean
       isSendNotesAndTermsAfterPayment:
         type: boolean
       attachFileIds:
+        uniqueItems: false
         type: array
         items:
           type: string
       attachFileAddresses:
+        uniqueItems: false
         type: array
         items:
           type: string
-      clientId:
+      qrCodeFileName:
         type: string
-      clientVersion:
-        type: string
-  InvoiceCcToIndexViewModel:
+  InvoiceCcToDetailViewModel:
     type: object
     properties:
       emailAddress:
         type: string
-  InvoiceBillToIndexViewModel:
+  InvoiceBillToDetailViewModel:
     type: object
     properties:
       addressBook:
-        "$ref": "#/definitions/AddressBookIndexViewModel"
-  InvoiceSchulderIndexViewModel:
+        "$ref": "#/definitions/AddressBookDetailViewModel"
+  InvoiceSchulderDetailViewModel:
     type: object
     properties:
       repeat:
@@ -6112,10 +5187,11 @@ definitions:
         format: int32
         type: integer
       invoiceSubSchulders:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceSubSchulderIndexViewModel"
-  InvoiceItemIndexViewModel:
+          "$ref": "#/definitions/InvoiceSubSchulderDetailViewModel"
+  InvoiceItemDetailViewModel:
     type: object
     properties:
       code:
@@ -6150,41 +5226,85 @@ definitions:
       amount:
         format: double
         type: number
-  InvoiceSubSchulderIndexViewModel:
+  InvoiceSubSchulderDetailViewModel:
     type: object
     properties:
-      dueDatePersian:
-        type: string
       dueDate:
         format: date-time
-        type: string
-      mustBeCreateInDateTimePersian:
         type: string
       mustBeCreateInDateTime:
         format: date-time
         type: string
       isInvoiceCreated:
         type: boolean
-  InvoiceCreateOrUpdateViewModel:
+  InvoiceListItemViewModel:
     type: object
     properties:
       code:
-        default: ''
+        type: string
+      invoiceNumber:
+        type: string
+      invoiceDateTime:
+        type: string
+      invoiceTitle:
+        type: string
+      status:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        type: integer
+      total:
+        format: double
+        type: number
+      ccToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceCcToListItemViewModel"
+      billToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceBillToListItemViewModel"
+  InvoiceCcToListItemViewModel:
+    type: object
+    properties:
+      emailAddress:
+        type: string
+  InvoiceBillToListItemViewModel:
+    type: object
+    properties:
+      addressBook:
+        "$ref": "#/definitions/AddressBookListItemViewModel"
+  InvoiceEditViewModel:
+    required:
+    - code
+    type: object
+    properties:
+      code:
         type: string
       ccToes:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
       billToes:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
-      isDraft:
-        default: true
-        type: boolean
-      isPaidManual:
-        default: false
-        type: boolean
+      createStatus:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
       paidManualDescription:
         default: ''
         type: string
@@ -6195,48 +5315,36 @@ definitions:
         default: ''
         type: string
       invoiceNumber:
-        default: MyInvoice_
         type: string
       invoiceTitle:
-        default: PayPingInvoice
         type: string
-      invoiceDateTimePersian:
-        default: 1396/01/01
+      invoiceDateTime:
+        format: date-time
         type: string
-      dueDatePersian:
-        default: 1396/02/03
+      dueDate:
+        format: date-time
         type: string
-      otherDiscountAmount:
+      totalDiscountValue:
         format: double
         type: number
-      otherDiscountPercent:
+      totalDiscountType:
         format: int32
+        enum:
+        - 0
+        - 1
         type: integer
-      hasOtherDiscount:
-        default: false
-        type: boolean
-      taxtionAmount:
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionValue:
         format: double
         type: number
-      taxtionPercent:
+      totalTaxtionType:
         format: int32
+        enum:
+        - 0
+        - 1
         type: integer
-      invoiceHasTax:
-        default: false
-        type: boolean
       shipping:
-        format: double
-        type: number
-      hasShipping:
-        default: false
-        type: boolean
-      isAllowPartialPayment:
-        default: false
-        type: boolean
-      partialPaymentPercent:
-        format: int32
-        type: integer
-      partialPaymentAmount:
         format: double
         type: number
       notes:
@@ -6248,24 +5356,13 @@ definitions:
       memo:
         default: ''
         type: string
-      invoiceHasSchulder:
-        default: false
-        type: boolean
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceSchulderCreateOrUpdateViewModel"
       invoiceItems:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceItemCreateOrUpdateViewModel"
-      itemHasDiscount:
-        default: false
-        type: boolean
-      itemHasTax:
-        default: false
-        type: boolean
-      itemHasDescription:
-        default: false
-        type: boolean
+          "$ref": "#/definitions/InvoiceItemCreateViewModel"
       isSendAttachmentsAfterPayment:
         default: false
         type: boolean
@@ -6273,18 +5370,13 @@ definitions:
         default: false
         type: boolean
       attachmentsIds:
+        uniqueItems: false
         type: array
         items:
           type: string
-      clientId:
-        default: invoiceWeb
-        type: string
-      clientVersion:
-        default: '1.0'
-        type: string
-      returnUrl:
-        default: ''
-        type: string
+      isDevicePayment:
+        default: false
+        type: boolean
   InvoiceCcToCreateOrUpdateViewModel:
     type: object
     properties:
@@ -6328,19 +5420,16 @@ definitions:
         format: int32
         default: 2
         type: integer
-  InvoiceItemCreateOrUpdateViewModel:
+  InvoiceItemCreateViewModel:
     type: object
     properties:
       code:
         default: ''
         type: string
       name:
-        default: ''
+        default: ItemName_1
         type: string
       description:
-        default: ''
-        type: string
-      itemCode:
         default: ''
         type: string
       tax:
@@ -6350,81 +5439,39 @@ definitions:
         format: int32
         default: 1
         type: integer
-      discountPercent:
-        format: int32
-        type: integer
-      discountAmount:
+      discountValue:
         format: double
         type: number
+      discountType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      discountCouponCode:
+        type: string
       price:
         format: double
         default: 0
         type: number
-  ScheduleInvoiceWithChilds:
-    type: object
-    properties:
-      parentInvoice:
-        "$ref": "#/definitions/InvoiceIndexViewModel"
-      childInvoices:
-        type: array
-        items:
-          "$ref": "#/definitions/InvoiceIndexViewModel"
-  InvoiceSearchViewModel:
-    type: object
-    properties:
-      page:
-        format: int32
-        default: 1
-        type: integer
-      status:
-        default: all
-        type: string
-      searchType:
-        default: simpleSearch
-        type: string
-      advanceSearchType:
-        default: ''
-        type: string
-      searchTerm:
-        default: ''
-        type: string
-      take:
-        format: int32
-        default: 10
-        type: integer
-      isArchived:
-        default: false
-        type: boolean
-      isSearchDueDate:
-        default: false
-        type: boolean
-      isSearchCreateDate:
-        default: false
-        type: boolean
-      searchDateFrom:
-        default: 1397/01/01
-        type: string
-      searchDateTo:
-        default: 1397/02/01
-        type: string
-      clientId:
-        default: invoicewebapp
-        type: string
   InvoiceInPublicShow:
     type: object
     properties:
       invoice:
-        "$ref": "#/definitions/InvoicePublicIndexViewModel"
+        "$ref": "#/definitions/InvoicePublicDetailViewModel"
       ownerInfo:
         "$ref": "#/definitions/UserInfoInPublicShow"
-  InvoicePublicIndexViewModel:
+  InvoicePublicDetailViewModel:
     type: object
     properties:
-      payedDateTimePersian:
+      payedDateTime:
+        format: date-time
         type: string
-      canceledDateTimePersian:
+      canceledDateTime:
+        format: date-time
         type: string
-      expiredDateTimePersian:
+      expiredDateTime:
+        format: date-time
         type: string
       code:
         type: string
@@ -6432,18 +5479,16 @@ definitions:
         type: string
       paymentCode:
         type: string
-      isPaidManual:
-        type: boolean
-      paidManualDescription:
-        type: string
       ccToes:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceCcToIndexViewModel"
+          "$ref": "#/definitions/InvoiceCcToDetailViewModel"
       billToes:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceBillToIndexViewModel"
+          "$ref": "#/definitions/InvoiceBillToDetailViewModel"
       status:
         format: int32
         enum:
@@ -6452,19 +5497,18 @@ definitions:
         - 2
         - 3
         - 4
+        - 5
         type: integer
+      paidManualDescription:
+        type: string
       saveToTemplate:
         type: boolean
       invoiceNumber:
         type: string
       invoiceTitle:
         type: string
-      invoiceDateTimePersian:
-        type: string
       invoiceDateTime:
         format: date-time
-        type: string
-      dueDatePersian:
         type: string
       dueDate:
         format: date-time
@@ -6478,27 +5522,27 @@ definitions:
       itemDiscounts:
         format: double
         type: number
-      otherDiscountAmount:
+      totalDiscountAmount:
         format: double
         type: number
-      otherDiscountPercent:
+      totalDiscountPercent:
         format: int32
         type: integer
-      hasOtherDiscount:
-        type: boolean
-      otherDiscountType:
+      totalDiscountType:
         format: int32
         enum:
         - 0
         - 1
         type: integer
-      taxtionAmount:
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionAmount:
         format: double
         type: number
-      taxtionPercent:
+      totalTaxtionPercent:
         format: int32
         type: integer
-      taxtionType:
+      totalTaxtionType:
         format: int32
         enum:
         - 0
@@ -6507,68 +5551,44 @@ definitions:
       shipping:
         format: double
         type: number
-      hasShipping:
-        type: boolean
       total:
         format: double
         type: number
-      isAllowPartialPayment:
-        type: boolean
-      partialPaymentPercent:
-        format: int32
-        type: integer
-      partialPaymentAmount:
-        format: double
-        type: number
-      partialPaymentType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       notes:
         type: string
       termsAndConditions:
         type: string
       memo:
         type: string
-      invoiceHasSchulder:
-        type: boolean
       invoiceSchulder:
-        "$ref": "#/definitions/InvoiceSchulderIndexViewModel"
+        "$ref": "#/definitions/InvoiceSchulderDetailViewModel"
       invoiceItems:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceItemIndexViewModel"
-      itemHasDiscount:
-        type: boolean
-      itemHasTax:
-        type: boolean
-      itemHasDescription:
-        type: boolean
-      invoiceHasTax:
-        type: boolean
-      templateCode:
-        type: string
+          "$ref": "#/definitions/InvoiceItemDetailViewModel"
       isSendAttachmentsAfterPayment:
         type: boolean
       isSendNotesAndTermsAfterPayment:
         type: boolean
       attachFileIds:
+        uniqueItems: false
         type: array
         items:
           type: string
       attachFileAddresses:
+        uniqueItems: false
         type: array
         items:
           type: string
-      clientId:
-        type: string
-      clientVersion:
+      qrCodeFileName:
         type: string
   UserInfoInPublicShow:
     type: object
     properties:
+      userId:
+        format: int32
+        type: integer
       isBusiness:
         type: boolean
       businessLogo:
@@ -6577,31 +5597,118 @@ definitions:
         type: string
       displayName:
         type: string
-  DeleteInvoiceItemResponseViewModel:
+  InvoiceSendByTemplate:
+    required:
+    - templateCode
     type: object
     properties:
-      code:
+      templateCode:
         type: string
-      itemCode:
-        type: string
-  AttachmentDeleteRequestViewModel:
-    type: object
-    properties:
-      fileId:
-        type: string
-  InvoiceAttachmentDeleteResponseByCodeViewModel:
-    type: object
-    properties:
-      success:
+      ccToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
+      billToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
+      isDevicePayment:
+        default: false
         type: boolean
-      message:
+  InvoiceCreateViewModel:
+    type: object
+    properties:
+      ccToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
+      billToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
+      createStatus:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      paidManualDescription:
+        default: ''
         type: string
-      modelCode:
+      saveToTemplate:
+        default: false
+        type: boolean
+      templateCode:
+        default: ''
         type: string
-      fileId:
+      invoiceNumber:
         type: string
-      fileAddress:
+      invoiceTitle:
         type: string
+      invoiceDateTime:
+        format: date-time
+        type: string
+      dueDate:
+        format: date-time
+        type: string
+      totalDiscountValue:
+        format: double
+        type: number
+      totalDiscountType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionValue:
+        format: double
+        type: number
+      totalTaxtionType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      shipping:
+        format: double
+        type: number
+      notes:
+        default: ''
+        type: string
+      termsAndConditions:
+        default: ''
+        type: string
+      memo:
+        default: ''
+        type: string
+      invoiceSchulder:
+        "$ref": "#/definitions/InvoiceSchulderCreateOrUpdateViewModel"
+      invoiceItems:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceItemCreateViewModel"
+      isSendAttachmentsAfterPayment:
+        default: false
+        type: boolean
+      isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      attachmentsIds:
+        uniqueItems: false
+        type: array
+        items:
+          type: string
+      isDevicePayment:
+        default: false
+        type: boolean
   InvoicePdfResponseViewModel:
     type: object
     properties:
@@ -6649,7 +5756,16 @@ definitions:
         type: integer
       archiveDatePersian:
         type: string
-  InvoiceConfirmPaymentInvoiceResponseViewModel:
+  InvoiceConfirmPaymentRequestViewModel:
+    type: object
+    properties:
+      invoiceCode:
+        type: string
+      refId:
+        type: string
+      customer:
+        "$ref": "#/definitions/AddressBookCreateViewModel"
+  InvoiceConfirmPaymentResponseViewModel:
     type: object
     properties:
       success:
@@ -6661,43 +5777,16 @@ definitions:
       modelId:
         format: int32
         type: integer
-      paymentCode:
-        type: string
-  InvoicePaymentVerifyResponse:
-    type: object
-    properties:
-      success:
-        type: boolean
-      message:
-        type: string
       refId:
         type: string
-      amount:
-        format: int32
-        type: integer
-  ListViewModel[InvoiceTemplateIndexViewModel]:
+  InvoiceTemplateListItemViewModel:
     type: object
     properties:
-      models:
-        type: array
-        items:
-          "$ref": "#/definitions/InvoiceTemplateIndexViewModel"
-      pageIndex:
-        format: int32
-        type: integer
-      totalItemCount:
-        format: int32
-        type: integer
-      taken:
-        format: int32
-        type: integer
-      from:
-        format: int32
-        type: integer
-      to:
-        format: int32
-        type: integer
-  InvoiceTemplateIndexViewModel:
+      code:
+        type: string
+      templateName:
+        type: string
+  InvoiceTemplateDetailViewModel:
     type: object
     properties:
       code:
@@ -6710,27 +5799,27 @@ definitions:
       itemDiscounts:
         format: double
         type: number
-      otherDiscountAmount:
+      totalDiscountAmount:
         format: double
         type: number
-      otherDiscountPercent:
+      totalDiscountPercent:
         format: int32
         type: integer
-      hasOtherDiscount:
-        type: boolean
-      otherDiscountType:
+      totalDiscountType:
         format: int32
         enum:
         - 0
         - 1
         type: integer
-      taxtionAmount:
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionAmount:
         format: double
         type: number
-      taxtionPercent:
+      totalTaxtionPercent:
         format: int32
         type: integer
-      taxtionType:
+      totalTaxtionType:
         format: int32
         enum:
         - 0
@@ -6739,25 +5828,9 @@ definitions:
       shipping:
         format: double
         type: number
-      hasShipping:
-        type: boolean
       total:
         format: double
         type: number
-      isAllowPartialPayment:
-        type: boolean
-      partialPaymentPercent:
-        format: int32
-        type: integer
-      partialPaymentAmount:
-        format: double
-        type: number
-      partialPaymentType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       notes:
         type: string
       termsAndConditions:
@@ -6765,26 +5838,19 @@ definitions:
       memo:
         type: string
       invoiceTemplateItems:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceTemplateItemIndexViewModel"
-      invoiceHasSchulder:
-        type: boolean
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceTemplateSchulderIndexViewModel"
-      itemHasDiscount:
-        type: boolean
-      itemHasTax:
-        type: boolean
-      itemHasDescription:
-        type: boolean
-      invoiceHasTax:
-        type: boolean
       attachFileAddresses:
+        uniqueItems: false
         type: array
         items:
           type: string
       attachFileIds:
+        uniqueItems: false
         type: array
         items:
           type: string
@@ -6792,10 +5858,6 @@ definitions:
         type: boolean
       isSendNotesAndTermsAfterPayment:
         type: boolean
-      clientId:
-        type: string
-      clientVersion:
-        type: string
   InvoiceTemplateItemIndexViewModel:
     type: object
     properties:
@@ -6856,52 +5918,35 @@ definitions:
         format: int32
         default: 2
         type: integer
-  InvoiceTemplateCreateOrUpdateViewModel:
+  InvoiceTemplateEditViewModel:
     type: object
     properties:
       code:
         default: ''
         type: string
       templateName:
-        default: Template_1
         type: string
-      subTotal:
-        format: double
-        type: number
-      itemDiscounts:
-        format: double
-        type: number
-      otherDiscountAmount:
-        format: double
-        type: number
-      otherDiscountPercent:
+      totalDiscountValue:
         format: int32
         type: integer
-      hasOtherDiscount:
-        default: false
-        type: boolean
-      taxtionAmount:
-        format: double
-        type: number
-      taxtionPercent:
+      totalDiscountType:
         format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionValue:
+        format: int32
+        type: integer
+      totalTaxtionType:
+        format: int32
+        enum:
+        - 0
+        - 1
         type: integer
       shipping:
-        format: double
-        type: number
-      hasShipping:
-        default: false
-        type: boolean
-      total:
-        format: double
-        type: number
-      isAllowPartialPayment:
-        default: false
-        type: boolean
-      partialPaymentPercent:
-        format: int32
-        type: integer
-      partialPaymentAmount:
         format: double
         type: number
       notes:
@@ -6914,27 +5959,14 @@ definitions:
         default: ''
         type: string
       invoiceTemplateItems:
+        uniqueItems: false
         type: array
         items:
-          "$ref": "#/definitions/InvoiceTemplateItemCreateOrUpdateViewModel"
-      invoiceHasSchulder:
-        default: false
-        type: boolean
+          "$ref": "#/definitions/InvoiceTemplateItemCreateViewModel"
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
-      itemHasDiscount:
-        default: false
-        type: boolean
-      itemHasTax:
-        default: false
-        type: boolean
-      itemHasDescription:
-        default: false
-        type: boolean
-      invoiceHasTax:
-        default: false
-        type: boolean
       attachmentsIds:
+        uniqueItems: false
         type: array
         items:
           type: string
@@ -6944,13 +5976,7 @@ definitions:
       isSendNotesAndTermsAfterPayment:
         default: false
         type: boolean
-      clientId:
-        default: invoiceWeb
-        type: string
-      clientVersion:
-        default: '1.0'
-        type: string
-  InvoiceTemplateItemCreateOrUpdateViewModel:
+  InvoiceTemplateItemCreateViewModel:
     type: object
     properties:
       code:
@@ -6962,9 +5988,6 @@ definitions:
       description:
         default: ''
         type: string
-      itemCode:
-        default: ''
-        type: string
       tax:
         default: false
         type: boolean
@@ -6972,12 +5995,17 @@ definitions:
         format: int32
         default: 1
         type: integer
-      discountPercent:
-        format: int32
-        type: integer
-      discountAmount:
+      discountValue:
         format: double
         type: number
+      discountType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      discountCouponCode:
+        type: string
       price:
         format: double
         default: 0
@@ -7013,79 +6041,68 @@ definitions:
         format: int32
         default: 2
         type: integer
-  ListViewModel[ItemIndexViewModel]:
+  InvoiceTemplateCreateViewModel:
     type: object
     properties:
-      models:
-        type: array
-        items:
-          "$ref": "#/definitions/ItemIndexViewModel"
-      pageIndex:
-        format: int32
-        type: integer
-      totalItemCount:
-        format: int32
-        type: integer
-      taken:
-        format: int32
-        type: integer
-      from:
-        format: int32
-        type: integer
-      to:
-        format: int32
-        type: integer
-  ItemIndexViewModel:
-    type: object
-    properties:
-      code:
+      templateName:
+        default: Template_1
         type: string
-      title:
+      totalDiscountValue:
+        format: int32
+        type: integer
+      totalDiscountType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      totalDiscountCouponCode:
         type: string
-      description:
-        type: string
-      amount:
+      totalTaxtionValue:
+        format: int32
+        type: integer
+      totalTaxtionType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      shipping:
         format: double
         type: number
-      tax:
-        type: boolean
-      taxRate:
-        format: int32
-        type: integer
-      amountHasSetWithCustomer:
-        type: boolean
-  ItemCreateOrUpdateViewModel:
-    type: object
-    properties:
-      code:
+      notes:
         default: ''
         type: string
-      title:
-        default: Item_1
+      termsAndConditions:
+        default: ''
         type: string
-      description:
-        default: Item_1_Description
+      memo:
+        default: ''
         type: string
-      amount:
-        format: double
-        default: 10000
-        type: number
-      amountHasSetWithCustomer:
-        default: false
-        type: boolean
-      tax:
-        default: false
-        type: boolean
-  RequestFileViewModel:
-    required:
-    - ids
-    type: object
-    properties:
-      ids:
+      invoiceTemplateItems:
+        uniqueItems: false
         type: array
         items:
-          format: uuid
+          "$ref": "#/definitions/InvoiceTemplateItemCreateViewModel"
+      invoiceSchulder:
+        "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+      attachmentsIds:
+        uniqueItems: false
+        type: array
+        items:
           type: string
+      isSendAttachmentsAfterPayment:
+        default: false
+        type: boolean
+      isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+
+
+
+
+
+
 
 
   ServiceViewModel:
