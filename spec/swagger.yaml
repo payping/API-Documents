@@ -443,6 +443,7 @@ paths:
 
 
 
+
   "/v1/AddressBook/List":
     get:
       tags:
@@ -689,37 +690,6 @@ paths:
           description: مشتری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/RegenerateAllQrCode":
-    get:
-      tags:
-      - Invoice
-      summary: ساخت کامل بارکد های همه ی فاکتور ها
-      operationId: V1InvoiceRegenerateAllQrCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters: []
-      responses:
-        '200':
-          description: ساخت کامل بارکد های همه ی فاکتور ها
-          schema:
-            "$ref": "#/definitions/IdentityResult"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: گزارشی با داده های ورودی درخواست شما پیدا نشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Invoice/SumPerStatus":
     get:
       tags:
@@ -755,7 +725,7 @@ paths:
     get:
       tags:
       - Invoice
-      summary: فاکتور زمانبندی شده
+      summary: دریافت فاکتور زمانبندی شده
       operationId: V1InvoiceScheduleByCodeGet
       consumes: []
       produces:
@@ -1257,42 +1227,6 @@ paths:
           description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/CallbackDetail/{code}":
-    get:
-      tags:
-      - Invoice
-      summary: دریافت فاکتور بدون احراز هویت
-      operationId: V1InvoiceCallbackDetailByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: کلید یکتای فاکتور
-        required: true
-        type: string
-      responses:
-        '200':
-          description: نمایش فاکتور
-          schema:
-            "$ref": "#/definitions/InvoiceInPublicShow"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Invoice/SendByTemplate":
     post:
       tags:
@@ -1375,42 +1309,6 @@ paths:
         '404':
           description: فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست
             شما پیدا نشد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/OfficialPdf/{code}":
-    get:
-      tags:
-      - Invoice
-      summary: درخواست فاکتور رسمی
-      operationId: V1InvoiceOfficialPdfByCodeGet
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: کلید یکتای فاکتور
-        required: true
-        type: string
-      responses:
-        '200':
-          description: نمایش مشخصات فایل فاکتور رسمی
-          schema:
-            "$ref": "#/definitions/InvoicePdfResponseViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
   "/v1/Invoice/Pdf/{code}":
@@ -1557,88 +1455,11 @@ paths:
           description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/Archive/{code}":
-    post:
-      tags:
-      - Invoice
-      summary: درخواست بایگانی فاکتور
-      operationId: V1InvoiceArchiveByCodePost
-      consumes: []
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: code
-        in: path
-        description: کلید یکتای فاکتور
-        required: true
-        type: string
-      responses:
-        '200':
-          description: نمایش وضعیت بایگانی فاکتور
-          schema:
-            "$ref": "#/definitions/InvoiceArchiveInvoiceResponseViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
-        '500':
-          description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/ConfirmPayment":
-    post:
-      tags:
-      - Invoice
-      summary: تایید پرداخت فاکتور
-      operationId: V1InvoiceConfirmPaymentPost
-      consumes:
-      - application/json-patch+json
-      - application/json
-      - text/json
-      - application/*+json
-      produces:
-      - text/plain
-      - application/json
-      - text/json
-      parameters:
-      - name: value
-        in: body
-        description: ''
-        required: false
-        schema:
-          "$ref": "#/definitions/InvoiceConfirmPaymentRequestViewModel"
-      responses:
-        '200':
-          description: نمایش وضعیت تایید پرداخت فاکتور
-          schema:
-            "$ref": "#/definitions/InvoiceConfirmPaymentResponseViewModel"
-        '400':
-          description: مشکلی در ارسال درخواست وجود دارد
-          schema:
-            type: object
-            additionalProperties:
-              type: string
-        '401':
-          description: عدم دسترسی
-        '403':
-          description: دسترسی غیرمجاز
-        '404':
-          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
-        '500':
-          description: مشکلی در سرور رخ داده است
   "/v1/Template/List":
     get:
       tags:
       - Template
-      summary: قالب ها
+      summary: لیست قالب ها
       operationId: V1TemplateListGet
       consumes: []
       produces:
@@ -1723,11 +1544,189 @@ paths:
           description: قالبی با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
+  "/v1/Template/ListSchedule":
+    get:
+      tags:
+      - Template
+      summary: لیست قالب های زمانبندی
+      operationId: V1TemplateListScheduleGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: offset
+        in: query
+        description: شروع صفحه از شماره 1
+        required: false
+        type: integer
+        format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: 'تعداد سطر بازگشت داده ها مثال : 10'
+        required: false
+        type: integer
+        format: int32
+        default: 10
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش قالب ها
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/InvoiceTemplateListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/ListScheduleCount":
+    get:
+      tags:
+      - Template
+      summary: تعداد قالب های زمانبندی
+      operationId: V1TemplateListScheduleCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد قالب ها
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/ListNonSchedule":
+    get:
+      tags:
+      - Template
+      summary: لیست قالب های غیر زمانبندی
+      operationId: V1TemplateListNonScheduleGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: offset
+        in: query
+        description: شروع صفحه از شماره 1
+        required: false
+        type: integer
+        format: int32
+        default: 0
+      - name: limit
+        in: query
+        description: 'تعداد سطر بازگشت داده ها مثال : 10'
+        required: false
+        type: integer
+        format: int32
+        default: 10
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش قالب ها
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/InvoiceTemplateListItemViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Template/ListNonScheduleCount":
+    get:
+      tags:
+      - Template
+      summary: تعداد قالب های غیر زمانبندی
+      operationId: V1TemplateListNonScheduleCountGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: search
+        in: query
+        description: متن مورد نظر جهت جستجو
+        required: false
+        type: string
+      responses:
+        '200':
+          description: نمایش تعداد قالب ها
+          schema:
+            "$ref": "#/definitions/ListCountViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: قالبی با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
   "/v1/Template/{code}":
     get:
       tags:
       - Template
-      summary: قالب
+      summary: دریافت قالب
       operationId: V1TemplateByCodeGet
       consumes: []
       produces:
@@ -1882,6 +1881,7 @@ paths:
             شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
+
 
 
 
