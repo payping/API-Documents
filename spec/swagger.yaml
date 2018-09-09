@@ -213,6 +213,39 @@ paths:
           description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/PaymentResult"
+  "/v1/pay/gotoipg/{code}":
+    get:
+      tags:
+      - Payment
+      summary: کاربر را برای ورود به درگاه بانکی آماده می کند
+      operationId: V1PayGotoipgByCodeGet
+      consumes: []
+      produces: []
+      parameters:
+      - name: code
+        in: path
+        description: کد پرداخت اختصاصی کاربر
+        required: true
+        type: string
+      - name: IsApp
+        in: query
+        required: false
+        type: boolean
+        default: false
+      - name: phone
+        in: query
+        required: false
+        type: string
+      - name: isTest
+        in: query
+        required: false
+        type: boolean
+        default: false
+      responses:
+        '200':
+          description: Success
+        '302':
+          description: تغییر مسیر به درگاه
   "/v1/pay/verify":
     post:
       tags:
@@ -240,7 +273,7 @@ paths:
         '200':
           description: تاییدیه آیتم مالی با موفقیت انجام شد
           schema:
-            "$ref": "#/definitions/VerifyResultVM"
+            "$ref": "#/definitions/PPPaymentDetailsVM"
   "/v1/pay/{Code}":
     delete:
       tags:
@@ -282,9 +315,33 @@ paths:
         '200':
           description: لیسات تراکنش ها با موفقیت ساخته شد
           schema:
+            uniqueItems: false
             type: array
             items:
               "$ref": "#/definitions/TransactionReportViewModel"
+  "/v1/report/TransactionReportCount":
+    post:
+      tags:
+      - Report
+      operationId: V1ReportTransactionReportCountPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - application/json
+      parameters:
+      - name: model
+        in: body
+        required: false
+        schema:
+          "$ref": "#/definitions/BaseTransactionReport"
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ResultVM"
   "/v1/report/{code}":
     get:
       tags:
@@ -358,7 +415,10 @@ paths:
         '200':
           description: درخواست پول با موفقیت انجام شد
           schema:
-            "$ref": "#/definitions/RequestResult"
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/MultiRequestViewModel"
   "/v1/request/{code}/SendReminder":
     post:
       tags:
@@ -437,6 +497,13 @@ paths:
           description: جزئیات تسویه با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/WithdrawDetailsViewModel"
+
+
+
+
+
+
+
 
 
 
@@ -1311,6 +1378,84 @@ paths:
             شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Schedule":
+    post:
+      tags:
+      - Invoice
+      summary: فاکتور زمانبندی شده جدید
+      operationId: V1InvoiceSchedulePost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: value
+        in: body
+        description: مشخصات فاکتور زمانبندی شده
+        required: false
+        schema:
+          "$ref": "#/definitions/InvoiceCreateScheduleViewModel"
+      responses:
+        '200':
+          description: نمایش فاکتور زمانبندی شده
+          schema:
+            "$ref": "#/definitions/InvoiceDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست
+            شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/DeleteSchedule/{code}":
+    delete:
+      tags:
+      - Invoice
+      summary: حذف فاکتور زمانبندی شده
+      operationId: V1InvoiceDeleteScheduleByCodeDelete
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        description: کلید یکتای فاکتور زمانبندی شده
+        required: true
+        type: string
+      responses:
+        '200':
+          description: نمایش کلید یکتای فاکتور زمانبندی شده
+          schema:
+            type: string
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
   "/v1/Invoice/Pdf/{code}":
     get:
       tags:
@@ -1347,28 +1492,33 @@ paths:
           description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
-  "/v1/Invoice/Cancel/{code}":
+  "/v1/Invoice/Cancel":
     post:
       tags:
       - Invoice
       summary: درخواست لغو فاکتور
-      operationId: V1InvoiceCancelByCodePost
-      consumes: []
+      operationId: V1InvoiceCancelPost
+      consumes:
+      - application/json-patch+json
+      - application/json
+      - text/json
+      - application/*+json
       produces:
       - text/plain
       - application/json
       - text/json
       parameters:
-      - name: code
-        in: path
-        description: کلید یکتای فاکتور
-        required: true
-        type: string
+      - name: value
+        in: body
+        description: ''
+        required: false
+        schema:
+          "$ref": "#/definitions/InvoiceCancelRequest"
       responses:
         '200':
           description: نمایش فاکتور
           schema:
-            "$ref": "#/definitions/InvoicePublicDetailViewModel"
+            "$ref": "#/definitions/InvoiceCancelResponse"
         '400':
           description: مشکلی در ارسال درخواست وجود دارد
           schema:
@@ -1881,6 +2031,21 @@ paths:
             شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4641,13 +4806,17 @@ definitions:
 
 
 
+
+
   CreatePaymentViewModel:
     type: object
     properties:
-      name:
+      payerName:
         type: string
       amount:
         format: int32
+        maximum: 2147483647
+        minimum: 100
         type: integer
       payerIdentity:
         type: string
@@ -4666,6 +4835,7 @@ definitions:
     type: object
     properties:
       pairs:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/MultiPayPair"
@@ -4680,22 +4850,40 @@ definitions:
     properties:
       amount:
         format: int32
+        maximum: 2147483647
+        minimum: 100
         type: integer
       name:
         type: string
       userName:
         type: string
+      description:
+        type: string
   VerifyPaymentViewModel:
+    required:
+    - refId
     type: object
     properties:
       refId:
         type: string
-  VerifyResultVM:
+      amount:
+        format: int32
+        maximum: 2147483647
+        minimum: 100
+        type: integer
+  PPPaymentDetailsVM:
     type: object
     properties:
+      userId:
+        format: int32
+        type: integer
       amount:
         format: int32
         type: integer
+      description:
+        type: string
+      payerName:
+        type: string
   TransactionReportModel:
     type: object
     properties:
@@ -4705,14 +4893,13 @@ definitions:
       limit:
         format: int32
         type: integer
-      userId:
-        format: int32
-        type: integer
       clientsInfos:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/ClientsInfo"
       filter:
+        uniqueItems: false
         type: array
         items:
           type: string
@@ -4769,18 +4956,73 @@ definitions:
         type: string
       invoiceNo:
         type: string
+      userId:
+        format: int32
+        type: integer
+      payerId:
+        format: int32
+        type: integer
+      createdDate:
+        format: date-time
+        type: string
+      avatar:
+        type: string
+  BaseTransactionReport:
+    type: object
+    properties:
+      clientsInfos:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/ClientsInfo"
+      filter:
+        uniqueItems: false
+        type: array
+        items:
+          type: string
+      transactionType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        type: integer
+      fromDate:
+        format: date-time
+        type: string
+      toDate:
+        format: date-time
+        type: string
+  ResultVM:
+    type: object
+    properties:
+      result:
+        format: int64
+        type: integer
   PaymentDetailsVM:
     type: object
     properties:
       amount:
         format: int32
         type: integer
+      reqDate:
+        format: date-time
+        type: string
       payDate:
         format: date-time
         type: string
       repayDate:
         format: date-time
         type: string
+      isBusiness:
+        type: boolean
+      isRequest:
+        type: boolean
+      isPaid:
+        type: boolean
       description:
         type: string
       payerName:
@@ -4803,6 +5045,8 @@ definitions:
       userId:
         format: int32
         type: integer
+      avatar:
+        type: string
       invoiceNo:
         type: string
         readOnly: true
@@ -4813,6 +5057,8 @@ definitions:
         type: string
       amount:
         format: int32
+        maximum: 2147483647
+        minimum: 100
         type: integer
       payerIdentity:
         type: string
@@ -4831,6 +5077,7 @@ definitions:
     type: object
     properties:
       pairs:
+        uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/MultiPayPair"
@@ -4839,6 +5086,13 @@ definitions:
       description:
         type: string
       clientRefId:
+        type: string
+  MultiRequestViewModel:
+    type: object
+    properties:
+      username:
+        type: string
+      code:
         type: string
   WithdrawResult:
     type: object
@@ -4859,6 +5113,20 @@ definitions:
       repayDate:
         format: date-time
         type: string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4927,6 +5195,8 @@ definitions:
         type: string
   AddressBookEditViewModel:
     required:
+    - code
+    - phone
     - firstName
     - lastName
     type: object
@@ -4966,6 +5236,7 @@ definitions:
         type: string
   AddressBookCreateViewModel:
     required:
+    - phone
     - firstName
     - lastName
     type: object
@@ -5071,13 +5342,20 @@ definitions:
       saveToTemplate:
         type: boolean
       invoiceNumber:
-        type: string
+        format: int32
+        type: integer
       invoiceTitle:
         type: string
       invoiceDateTime:
         format: date-time
         type: string
       dueDate:
+        format: date-time
+        type: string
+      payedDateTime:
+        format: date-time
+        type: string
+      canceledDateTime:
         format: date-time
         type: string
       amountDue:
@@ -5223,6 +5501,9 @@ definitions:
       price:
         format: double
         type: number
+      totalPrice:
+        format: double
+        type: number
       amount:
         format: double
         type: number
@@ -5235,16 +5516,34 @@ definitions:
       mustBeCreateInDateTime:
         format: date-time
         type: string
+      deActiveDateTime:
+        format: date-time
+        type: string
       isInvoiceCreated:
         type: boolean
+      isActive:
+        type: boolean
+      invoiceCode:
+        type: string
   InvoiceListItemViewModel:
     type: object
     properties:
       code:
         type: string
       invoiceNumber:
-        type: string
+        format: int32
+        type: integer
       invoiceDateTime:
+        format: date-time
+        type: string
+      dueDate:
+        format: date-time
+        type: string
+      payedDateTime:
+        format: date-time
+        type: string
+      canceledDateTime:
+        format: date-time
         type: string
       invoiceTitle:
         type: string
@@ -5315,7 +5614,8 @@ definitions:
         default: ''
         type: string
       invoiceNumber:
-        type: string
+        format: int32
+        type: integer
       invoiceTitle:
         type: string
       invoiceDateTime:
@@ -5356,8 +5656,6 @@ definitions:
       memo:
         default: ''
         type: string
-      invoiceSchulder:
-        "$ref": "#/definitions/InvoiceSchulderCreateOrUpdateViewModel"
       invoiceItems:
         uniqueItems: false
         type: array
@@ -5389,37 +5687,6 @@ definitions:
       addressBookCode:
         default: ''
         type: string
-  InvoiceSchulderCreateOrUpdateViewModel:
-    type: object
-    properties:
-      repeat:
-        format: int32
-        default: 1
-        type: integer
-      schulderType:
-        format: int32
-        default: 0
-        enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        type: integer
-      dueType:
-        format: int32
-        default: 0
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      endValue:
-        default: '1'
-        type: string
-      dueDateAfterHowManyDay:
-        format: int32
-        default: 2
-        type: integer
   InvoiceItemCreateViewModel:
     type: object
     properties:
@@ -5454,149 +5721,6 @@ definitions:
         format: double
         default: 0
         type: number
-  InvoiceInPublicShow:
-    type: object
-    properties:
-      invoice:
-        "$ref": "#/definitions/InvoicePublicDetailViewModel"
-      ownerInfo:
-        "$ref": "#/definitions/UserInfoInPublicShow"
-  InvoicePublicDetailViewModel:
-    type: object
-    properties:
-      payedDateTime:
-        format: date-time
-        type: string
-      canceledDateTime:
-        format: date-time
-        type: string
-      expiredDateTime:
-        format: date-time
-        type: string
-      code:
-        type: string
-      parentCode:
-        type: string
-      paymentCode:
-        type: string
-      ccToes:
-        uniqueItems: false
-        type: array
-        items:
-          "$ref": "#/definitions/InvoiceCcToDetailViewModel"
-      billToes:
-        uniqueItems: false
-        type: array
-        items:
-          "$ref": "#/definitions/InvoiceBillToDetailViewModel"
-      status:
-        format: int32
-        enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        - 4
-        - 5
-        type: integer
-      paidManualDescription:
-        type: string
-      saveToTemplate:
-        type: boolean
-      invoiceNumber:
-        type: string
-      invoiceTitle:
-        type: string
-      invoiceDateTime:
-        format: date-time
-        type: string
-      dueDate:
-        format: date-time
-        type: string
-      amountDue:
-        format: double
-        type: number
-      subTotal:
-        format: double
-        type: number
-      itemDiscounts:
-        format: double
-        type: number
-      totalDiscountAmount:
-        format: double
-        type: number
-      totalDiscountPercent:
-        format: int32
-        type: integer
-      totalDiscountType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionAmount:
-        format: double
-        type: number
-      totalTaxtionPercent:
-        format: int32
-        type: integer
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      shipping:
-        format: double
-        type: number
-      total:
-        format: double
-        type: number
-      notes:
-        type: string
-      termsAndConditions:
-        type: string
-      memo:
-        type: string
-      invoiceSchulder:
-        "$ref": "#/definitions/InvoiceSchulderDetailViewModel"
-      invoiceItems:
-        uniqueItems: false
-        type: array
-        items:
-          "$ref": "#/definitions/InvoiceItemDetailViewModel"
-      isSendAttachmentsAfterPayment:
-        type: boolean
-      isSendNotesAndTermsAfterPayment:
-        type: boolean
-      attachFileIds:
-        uniqueItems: false
-        type: array
-        items:
-          type: string
-      attachFileAddresses:
-        uniqueItems: false
-        type: array
-        items:
-          type: string
-      qrCodeFileName:
-        type: string
-  UserInfoInPublicShow:
-    type: object
-    properties:
-      userId:
-        format: int32
-        type: integer
-      isBusiness:
-        type: boolean
-      businessLogo:
-        type: string
-      businessName:
-        type: string
-      displayName:
-        type: string
   InvoiceSendByTemplate:
     required:
     - templateCode
@@ -5647,7 +5771,98 @@ definitions:
         default: ''
         type: string
       invoiceNumber:
+        format: int32
+        type: integer
+      invoiceTitle:
         type: string
+      invoiceDateTime:
+        format: date-time
+        type: string
+      dueDate:
+        format: date-time
+        type: string
+      totalDiscountValue:
+        format: double
+        type: number
+      totalDiscountType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      totalDiscountCouponCode:
+        type: string
+      totalTaxtionValue:
+        format: double
+        type: number
+      totalTaxtionType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      shipping:
+        format: double
+        type: number
+      notes:
+        default: ''
+        type: string
+      termsAndConditions:
+        default: ''
+        type: string
+      memo:
+        default: ''
+        type: string
+      invoiceItems:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceItemCreateViewModel"
+      isSendAttachmentsAfterPayment:
+        default: false
+        type: boolean
+      isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      attachmentsIds:
+        uniqueItems: false
+        type: array
+        items:
+          type: string
+      isDevicePayment:
+        default: false
+        type: boolean
+  InvoiceCreateScheduleViewModel:
+    type: object
+    properties:
+      ccToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
+      billToes:
+        uniqueItems: false
+        type: array
+        items:
+          "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
+      createStatus:
+        format: int32
+        enum:
+        - 1
+        - 2
+        type: integer
+      paidManualDescription:
+        default: ''
+        type: string
+      saveToTemplate:
+        default: false
+        type: boolean
+      templateCode:
+        default: ''
+        type: string
+      invoiceNumber:
+        format: int32
+        type: integer
       invoiceTitle:
         type: string
       invoiceDateTime:
@@ -5709,6 +5924,37 @@ definitions:
       isDevicePayment:
         default: false
         type: boolean
+  InvoiceSchulderCreateOrUpdateViewModel:
+    type: object
+    properties:
+      repeat:
+        format: int32
+        default: 1
+        type: integer
+      schulderType:
+        format: int32
+        default: 0
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        type: integer
+      dueType:
+        format: int32
+        default: 0
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      endValue:
+        default: '1'
+        type: string
+      dueDateAfterHowManyDay:
+        format: int32
+        default: 2
+        type: integer
   InvoicePdfResponseViewModel:
     type: object
     properties:
@@ -5717,6 +5963,22 @@ definitions:
       message:
         type: string
       fileAddress:
+        type: string
+  InvoiceCancelRequest:
+    required:
+    - code
+    type: object
+    properties:
+      code:
+        type: string
+      previewKey:
+        type: string
+  InvoiceCancelResponse:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
         type: string
   InvoiceSendReminderResponseViewModel:
     type: object
@@ -5742,43 +6004,6 @@ definitions:
       modelId:
         format: int32
         type: integer
-  InvoiceArchiveInvoiceResponseViewModel:
-    type: object
-    properties:
-      success:
-        type: boolean
-      message:
-        type: string
-      modelCode:
-        type: string
-      modelId:
-        format: int32
-        type: integer
-      archiveDatePersian:
-        type: string
-  InvoiceConfirmPaymentRequestViewModel:
-    type: object
-    properties:
-      invoiceCode:
-        type: string
-      refId:
-        type: string
-      customer:
-        "$ref": "#/definitions/AddressBookCreateViewModel"
-  InvoiceConfirmPaymentResponseViewModel:
-    type: object
-    properties:
-      success:
-        type: boolean
-      message:
-        type: string
-      modelCode:
-        type: string
-      modelId:
-        format: int32
-        type: integer
-      refId:
-        type: string
   InvoiceTemplateListItemViewModel:
     type: object
     properties:
@@ -5786,6 +6011,8 @@ definitions:
         type: string
       templateName:
         type: string
+      hasSchulder:
+        type: boolean
   InvoiceTemplateDetailViewModel:
     type: object
     properties:
@@ -5882,6 +6109,9 @@ definitions:
         format: int32
         type: integer
       price:
+        format: double
+        type: number
+      totalPrice:
         format: double
         type: number
       amount:
@@ -6097,6 +6327,23 @@ definitions:
       isSendNotesAndTermsAfterPayment:
         default: false
         type: boolean
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
