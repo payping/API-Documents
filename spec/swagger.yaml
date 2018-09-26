@@ -1,5 +1,8 @@
 ---
 swagger: '2.0'
+servers:
+  - url: https://api.payping.ir
+    description: Host URL
 info:
   version: نسخه اول
   title: سرویس‌های پلتفرم مالی پی‌پینگ
@@ -53,12 +56,12 @@ info:
 
     اگر شما یک اپلیکیشن و یا وب‌سایت شخصی دارید و قصد استفاده از سرویس‌های مالی ما را برای خود دارید می‌بایست از access token استفاده کنید که روند دریافت آن از کنسول توسعه‌دهنده در لینک زیر آمده است:
 
-    [https://landing.payping.io/oauth](https://landing.payping.io/oauth.html)
+    [https://payping.ir/oauth.html](https://payping.ir/oauth.html)
 
 
     اما اگر وب‌سایت و اپلیکیشن شما قصد دسترسی به اطلاعات سایر کاربران پی‌پینگ را دارد، شما می‌بایست از سرویس OAuth ما استفاده کنید که به شما اجازه یک احراز هویت امن با استفاده از یک متد استاندارد و ساده به اپلیکیشن‌های وب، موبایل و دسکتاپ میدهد. روند اعطای دسترسی و روند کار در لینک زیر توضیح داده شده است:
 
-    [https://landing.payping.io/oauth](https://landing.payping.io/oauth.html)
+    [https://payping.ir/oauth.html](https://payping.ir/oauth.html)
 
 
 
@@ -69,9 +72,12 @@ info:
     |--------------|-------|
     | `profile` | دسترسی مرتبط با تمام اطلاعات یک کاربر | 
     | `email` | دسترسی برای ارسال ایمیل |
+    | ‍‍`nationalcode` | دسترسی به مشاهده کدملی کاربر |
+    | `birthday` | دسترسی به تاریخ تولد کاربر |
+    | `shaba` | دسترسی به شبای بانکی کاربر |
+    | `phone` | دسترسی به شماره تماس کاربر |
     | `pay:read` | دسترسی فقط خواندنی در سرویس پرداخت |
     | `pay:write` | دسترسی نوشتن و تغییرات در سرویس پرداخت |
-    | `user:read` | دسترسی فقط خواندنی در سرویس کاربر |
     | `product:read` | دسترسی فقط خواندنی در سرویس آیتم‌های مالی |
     | `product:write` | دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی |
     | `invoice:read` | دسترسی فقط خواندنی در سرویس فاکتور |
@@ -80,7 +86,7 @@ info:
 
     <!-- ReDoc-Inject: <security-definitions> -->
   termsOfService: None
-host: api.payping.io
+
 tags:
     - name: product
       description: سرویس‌های عمومی بخش آیتم‌های مالی، لینک ثابت و سرویس‌های مربوط به پروسه پرداخت آنها 
@@ -144,6 +150,7 @@ x-tagGroups:
 
 
 paths:
+
 
 
   "/v1/pay":
@@ -213,39 +220,6 @@ paths:
           description: پرداخت پول جدید با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/PaymentResult"
-  "/v1/pay/gotoipg/{code}":
-    get:
-      tags:
-      - Payment
-      summary: کاربر را برای ورود به درگاه بانکی آماده می کند
-      operationId: V1PayGotoipgByCodeGet
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد پرداخت اختصاصی کاربر
-        required: true
-        type: string
-      - name: IsApp
-        in: query
-        required: false
-        type: boolean
-        default: false
-      - name: phone
-        in: query
-        required: false
-        type: string
-      - name: isTest
-        in: query
-        required: false
-        type: boolean
-        default: false
-      responses:
-        '200':
-          description: Success
-        '302':
-          description: تغییر مسیر به درگاه
   "/v1/pay/verify":
     post:
       tags:
@@ -260,8 +234,7 @@ paths:
       - application/json
       - text/json
       - application/*+json
-      produces:
-      - application/json
+      produces: []
       parameters:
       - name: model
         in: body
@@ -272,8 +245,6 @@ paths:
       responses:
         '200':
           description: تاییدیه آیتم مالی با موفقیت انجام شد
-          schema:
-            "$ref": "#/definitions/PPPaymentDetailsVM"
   "/v1/pay/{Code}":
     delete:
       tags:
@@ -497,6 +468,7 @@ paths:
           description: جزئیات تسویه با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/WithdrawDetailsViewModel"
+
 
 
 
@@ -4813,6 +4785,8 @@ definitions:
     properties:
       payerName:
         type: string
+        description: >-
+            نام پرداخت‌کننده
       amount:
         format: int32
         maximum: 2147483647
