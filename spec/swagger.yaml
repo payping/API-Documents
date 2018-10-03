@@ -18,7 +18,10 @@ info:
     تمامی وب‌ سرویس‌های توضیح داده شده در این مستندات به صورت [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) هستند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.    
     جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.
 
-
+    # POSTMAN
+    برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید
+    
+    [https://os.payping.ir/files/PayPing API - v1.postman_collection.json](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)
 
     # توضیحات تکمیلی برای تمام سرویس‌ها
 
@@ -56,12 +59,12 @@ info:
 
     اگر شما یک اپلیکیشن و یا وب‌سایت شخصی دارید و قصد استفاده از سرویس‌های مالی ما را برای خود دارید می‌بایست از access token استفاده کنید که روند دریافت آن از کنسول توسعه‌دهنده در لینک زیر آمده است:
 
-    [https://www.payping.ir/oauth.html#accesstoken](https://www.payping.ir/oauth.html)
+    [https://www.payping.ir/oauth.html](https://www.payping.ir/oauth.html#accesstoken)
 
 
     اما اگر وب‌سایت و اپلیکیشن شما قصد دسترسی به اطلاعات سایر کاربران پی‌پینگ را دارد، شما می‌بایست از سرویس OAuth ما استفاده کنید که به شما اجازه یک احراز هویت امن با استفاده از یک متد استاندارد و ساده به اپلیکیشن‌های وب، موبایل و دسکتاپ میدهد. روند اعطای دسترسی و روند کار در لینک زیر توضیح داده شده است:
 
-    [https://www.payping.ir/oauth.html#application](https://www.payping.ir/oauth.html)
+    [https://www.payping.ir/oauth.html](https://www.payping.ir/oauth.html#application)
 
 
 
@@ -2729,65 +2732,6 @@ paths:
       responses:
         '200':
           description: فایل ضمیمه فاکتور با موفقیت آپلود شد
-  "/v1/Upload/Misc":
-    post:
-      tags:
-      - Upload
-      summary: آپلود مدارک تایید هویت کاربر و سایر فایل‌ها
-      description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nJPG, PNG, JPEG, PDF"
-      operationId: V1UploadMiscPost
-      consumes:
-      - multipart/form-data
-      produces: []
-      parameters:
-      - name: file
-        in: formData
-        description: Upload File
-        required: true
-        type: file
-      responses:
-        '200':
-          description: مدارک کاربر با موفقیت آپلود شد
-  "/v1/Upload/BatchPay":
-    post:
-      tags:
-      - Upload
-      summary: آپلود گزارش پرداخت‌های کاربر
-      description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nXLS"
-      operationId: V1UploadBatchPayPost
-      consumes:
-      - multipart/form-data
-      produces: []
-      parameters:
-      - name: file
-        in: formData
-        description: Upload File
-        required: true
-        type: file
-      responses:
-        '200':
-          description: گزارش پرداخت با موفقیت آپلود شد
-  "/v1/Upload/BatchRequest":
-    post:
-      tags:
-      - Upload
-      summary: آپلود گزارش درخواست‌های پول کاربر
-      description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nXLS"
-      operationId: V1UploadBatchRequestPost
-      consumes:
-      - multipart/form-data
-      produces: []
-      parameters:
-      - name: file
-        in: formData
-        description: Upload File
-        required: true
-        type: file
-      responses:
-        '200':
-          description: گزارش درخواست با موفقیت آپلود شد
-
-
 
 
 definitions:
