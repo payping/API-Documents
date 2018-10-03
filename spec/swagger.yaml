@@ -113,11 +113,11 @@ tags:
       description: متدهای مرتبط با [آپلود فایل‌ها](#section/) ورودی تمام این سرویس‌ها به صورت formData می‌باشد.  
 
     - name: AddressBook
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: در این بخش میتوانید مشتریان خود را به صورت یک دفترچه سنتی مدیریت و در زمان صدور فاکتور از این لیست استفاده کنید.
     - name: Invoice
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: در این بخش میتوانید فاکتور های ساده و زمانبندی شده بسازید و با انتخاب یک یا چند مشتری و حتی پست الکترونیک برای آنها فاکتور را ارسال کنید تا نسبت به پرداخت آن اقدام کنند.
     - name: Template
-      description: لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+      description: در این بخش میتوانید قالب های آماده ای از فاکتور بسازید و در زمان ساخت فاکتور دیگر نیازی به تکمیل همه ی گزینه های فاکتور ندارید و فقط با انتخاب قالب فاکتور سریعتر فاکتور بسازید.
 
     - name: Payment
       description: متدهای مرتبط با تراکنش‌های مالی که شامل پرداخت پول، پرداخت تسهیمی و تمام فرآیندهای تایید یک تراکنش می‌باشد. 
@@ -453,19 +453,6 @@ paths:
           description: جزئیات تسویه با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/WithdrawDetailsViewModel"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   "/v1/AddressBook/List":
@@ -3074,22 +3061,29 @@ definitions:
     properties:
       code:
         type: string
+        description: کلید یکتا مشتری
       email:
         type: string
+        description:  پست الکترونیک
       phone:
         type: string
+        description: تلفن همراه
       firstName:
         type: string
+        description: نام
       lastName:
         type: string
+        description: نام خانوادگی
       businessName:
         type: string
+        description: نام کسب و کار
   ListCountViewModel:
     type: object
     properties:
       count:
         format: int32
         type: integer
+        description: تعداد
   AddressBookDetailViewModel:
     required:
     - firstName
@@ -3098,113 +3092,152 @@ definitions:
     properties:
       code:
         type: string
-      userPhotoFileId:
-        type: string
+        description: کد یکتای مشتری
       userPhotoFileAddress:
         type: string
+        description: آدرس تصویر مشتری بازگشت داده میشود
       email:
         type: string
+        description: پست الکترونیک
       phone:
         type: string
+        description: تلفن
       firstName:
         type: string
+        description: نام
       lastName:
         type: string
+        description: نام خانوادگی
       businessName:
         type: string
+        description: نام کسب و کار
       additionalInfo:
         type: string
+        description: اطلاعات اضافی
       zipCode:
         type: string
+        description: کد پستی
       state:
         type: string
+        description: نام استان
       city:
         type: string
+        description: نام شهر
       location:
         type: string
+        description: آدرس
       memo:
         type: string
+        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
       isBusiness:
         type: boolean
+        description: حقوقی=true/حقیقی=false
       nationalId:
         type: string
+        description: کدملی
   AddressBookEditViewModel:
     required:
     - code
-    - phone
     - firstName
     - lastName
     type: object
     properties:
       code:
         type: string
+        description: کد یکتا مشتری
       userPhotoFileId:
         type: string
-      userPhotoFileAddress:
-        type: string
+        description: کد دریافتی از سرویس آپلود را اینجا قرار دهید یا خالی رها کنید
       email:
         type: string
+        description: پست الکترونیک
       phone:
         type: string
+        description: تلفن
       firstName:
         type: string
+        description: نام
       lastName:
         type: string
+        description: نام خانوادگی
       businessName:
         type: string
+        description: نام کسب و کار
       additionalInfo:
         type: string
+        description: اطلاعات اضافی
       zipCode:
         type: string
+        description: کد پستی
       state:
         type: string
+        description: نام استان
       city:
         type: string
+        description: نام شهر
       location:
         type: string
+        description: آدرس
       memo:
         type: string
+        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
       isBusiness:
         default: false
         type: boolean
+        description: حقوقی=true/حقیقی=false
       nationalId:
         type: string
+        description: کدملی
   AddressBookCreateViewModel:
     required:
-    - phone
     - firstName
     - lastName
     type: object
     properties:
       userPhotoFileId:
         type: string
+        description: کد دریافتی از سرویس آپلود را اینجا قرار دهید یا خالی رها کنید
       email:
         type: string
+        description: پست الکترونیک
       phone:
         type: string
+        description: تلفن
       firstName:
         type: string
+        description: نام
       lastName:
         type: string
+        description: نام خانوادگی
       businessName:
         type: string
+        description: نام کسب و کار
       additionalInfo:
         type: string
+        description: اطلاعات اضافی
       zipCode:
         type: string
+        description: کد پستی
       state:
         type: string
+        description: نام استان
       city:
         type: string
+        description: نام شهر
       location:
         type: string
+        description: آدرس
       memo:
         type: string
+        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
       isBusiness:
         default: false
         type: boolean
+        description: حقوقی=true/حقیقی=false
       nationalId:
         type: string
+        description: کدملی
+  
   InvoiceDashboardReportViewModel:
     type: object
     properties:
@@ -3939,6 +3972,8 @@ definitions:
       modelId:
         format: int32
         type: integer
+  
+  
   InvoiceTemplateListItemViewModel:
     type: object
     properties:
