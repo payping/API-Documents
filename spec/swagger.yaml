@@ -3038,24 +3038,6 @@ definitions:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   AddressBookListItemViewModel:
     type: object
     properties:
@@ -3332,7 +3314,7 @@ definitions:
       subTotal:
         format: double
         type: number
-      itemDiscounts:
+      itemsDiscountAmount:
         format: double
         type: number
       totalDiscountAmount:
@@ -3347,20 +3329,12 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
+      sumDiscountAmount:
+        format: double
+        type: number
       totalTaxtionAmount:
         format: double
         type: number
-      totalTaxtionPercent:
-        format: int32
-        type: integer
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -3383,6 +3357,8 @@ definitions:
       isSendAttachmentsAfterPayment:
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        type: boolean
+      isSendTermsAfterPayment:
         type: boolean
       attachFileIds:
         uniqueItems: false
@@ -3601,17 +3577,6 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionValue:
-        format: double
-        type: number
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -3633,6 +3598,9 @@ definitions:
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
         default: false
         type: boolean
       attachmentsIds:
@@ -3758,17 +3726,6 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionValue:
-        format: double
-        type: number
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -3790,6 +3747,9 @@ definitions:
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
         default: false
         type: boolean
       attachmentsIds:
@@ -3848,17 +3808,6 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionValue:
-        format: double
-        type: number
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -3882,6 +3831,9 @@ definitions:
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
         default: false
         type: boolean
       attachmentsIds:
@@ -3972,8 +3924,6 @@ definitions:
       modelId:
         format: int32
         type: integer
-  
-  
   InvoiceTemplateListItemViewModel:
     type: object
     properties:
@@ -3993,7 +3943,7 @@ definitions:
       subTotal:
         format: double
         type: number
-      itemDiscounts:
+      itemsDiscountAmount:
         format: double
         type: number
       totalDiscountAmount:
@@ -4008,20 +3958,12 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
+      sumDiscountAmount:
+        format: double
+        type: number
       totalTaxtionAmount:
         format: double
         type: number
-      totalTaxtionPercent:
-        format: int32
-        type: integer
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -4054,6 +3996,8 @@ definitions:
       isSendAttachmentsAfterPayment:
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        type: boolean
+      isSendTermsAfterPayment:
         type: boolean
   InvoiceTemplateItemIndexViewModel:
     type: object
@@ -4135,17 +4079,6 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionValue:
-        format: int32
-        type: integer
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -4174,6 +4107,9 @@ definitions:
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
         default: false
         type: boolean
   InvoiceTemplateItemCreateViewModel:
@@ -4256,17 +4192,6 @@ definitions:
         - 0
         - 1
         type: integer
-      totalDiscountCouponCode:
-        type: string
-      totalTaxtionValue:
-        format: int32
-        type: integer
-      totalTaxtionType:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
       shipping:
         format: double
         type: number
@@ -4297,28 +4222,9 @@ definitions:
       isSendNotesAndTermsAfterPayment:
         default: false
         type: boolean
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      isSendTermsAfterPayment:
+        default: false
+        type: boolean
 
 
 
