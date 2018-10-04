@@ -4853,7 +4853,7 @@ definitions:
         example: null
       code:
         type: string
-      description: >-
+        description: >-
            شناسه کد تخفیف
   CouponDetailViewModel:
     type: object
@@ -4990,16 +4990,28 @@ definitions:
     properties:
       code:
         type: string
+        description: >-
+            کد آیتم‌مالی
       redirectPage:
         type: string
+        description: >-
+            صفحه بازگشت لینک‌ثابت پس از پرداخت
       getAddress:
         type: boolean
+        description: >-
+            دریافت آدرس و محل سکونت از پرداخت کننده
       mailerLiteListId:
         type: string
+        description: >-
+            لیست قالب‌های میلرلایت
       smsText:
         type: string
+        description: >-
+            متن پیامک ارسالی به پرداخت کننده
       customDescriptionText:
         type: string
+        description: >-
+            متن سوال سفارشی
       emailOption:
         format: int32
         enum:
@@ -5007,6 +5019,8 @@ definitions:
         - 1
         - 2
         type: integer
+        description: >-
+            دریافت ایمیل (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)
       phoneOption:
         format: int32
         enum:
