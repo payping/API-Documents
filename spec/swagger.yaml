@@ -463,7 +463,9 @@ paths:
       operationId: V1AddressBookListGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -514,7 +516,9 @@ paths:
       operationId: V1AddressBookListCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: search
         in: query
@@ -548,7 +552,9 @@ paths:
       operationId: V1AddressBookByCodeGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -580,9 +586,14 @@ paths:
       summary: بروزرسانی مشخصات مشتری
       operationId: V1AddressBookByCodePut
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -621,7 +632,9 @@ paths:
       operationId: V1AddressBookByCodeDelete
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -654,9 +667,14 @@ paths:
       summary: مشتری جدید
       operationId: V1AddressBookPost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -691,7 +709,9 @@ paths:
       operationId: V1InvoiceSumPerStatusGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters: []
       responses:
         '200':
@@ -720,7 +740,9 @@ paths:
       operationId: V1InvoiceScheduleByCodeGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -745,6 +767,44 @@ paths:
           description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
+  "/v1/Invoice/Subschedulers/{code}":
+    get:
+      tags:
+      - Invoice
+      summary: دریافت اطلاعات زمانبندی شده فاکتور
+      operationId: V1InvoiceSubschedulersByCodeGet
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: code
+        in: path
+        required: true
+        type: string
+      responses:
+        '200':
+          description: اطلاعات زمانبندی شده فاکتور
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/InvoiceSubSchulderDetailViewModel"
+        '400':
+          description: مشکلی در ارسال درخواست وجود دارد
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+        '401':
+          description: عدم دسترسی
+        '403':
+          description: دسترسی غیرمجاز
+        '404':
+          description: فاکتوری با داده های ورودی درخواست شما پیدا نشد
+        '500':
+          description: مشکلی در سرور رخ داده است
   "/v1/Invoice/List":
     get:
       tags:
@@ -753,7 +813,9 @@ paths:
       operationId: V1InvoiceListGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -848,7 +910,9 @@ paths:
       operationId: V1InvoiceListCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: status
         in: query
@@ -926,7 +990,9 @@ paths:
       operationId: V1InvoiceListScheduleGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -1021,7 +1087,9 @@ paths:
       operationId: V1InvoiceListScheduleCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: status
         in: query
@@ -1099,7 +1167,9 @@ paths:
       operationId: V1InvoiceByCodeGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1131,9 +1201,14 @@ paths:
       summary: بروزرسانی فاکتور
       operationId: V1InvoiceByCodePut
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1173,7 +1248,9 @@ paths:
       operationId: V1InvoiceByCodeDelete
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1206,9 +1283,14 @@ paths:
       summary: ارسال فاکتور جدید با استفاده از قالب
       operationId: V1InvoiceSendByTemplatePost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -1243,9 +1325,14 @@ paths:
       summary: فاکتور جدید
       operationId: V1InvoicePost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -1280,9 +1367,14 @@ paths:
       summary: فاکتور زمانبندی شده جدید
       operationId: V1InvoiceSchedulePost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -1318,7 +1410,9 @@ paths:
       operationId: V1InvoiceDeleteScheduleByCodeDelete
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1352,7 +1446,9 @@ paths:
       operationId: V1InvoicePdfByCodeGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1385,9 +1481,14 @@ paths:
       summary: درخواست لغو فاکتور
       operationId: V1InvoiceCancelPost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -1422,7 +1523,9 @@ paths:
       operationId: V1InvoiceReminderByCodePost
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1456,7 +1559,9 @@ paths:
       operationId: V1InvoiceSendByCodePost
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1490,7 +1595,9 @@ paths:
       operationId: V1TemplateListGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -1541,7 +1648,9 @@ paths:
       operationId: V1TemplateListCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: search
         in: query
@@ -1575,7 +1684,9 @@ paths:
       operationId: V1TemplateListScheduleGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -1626,7 +1737,9 @@ paths:
       operationId: V1TemplateListScheduleCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: search
         in: query
@@ -1660,7 +1773,9 @@ paths:
       operationId: V1TemplateListNonScheduleGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: offset
         in: query
@@ -1711,7 +1826,9 @@ paths:
       operationId: V1TemplateListNonScheduleCountGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: search
         in: query
@@ -1745,7 +1862,9 @@ paths:
       operationId: V1TemplateByCodeGet
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1777,9 +1896,14 @@ paths:
       summary: بروزرسانی قالب
       operationId: V1TemplateByCodePut
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1819,7 +1943,9 @@ paths:
       operationId: V1TemplateByCodeDelete
       consumes: []
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: code
         in: path
@@ -1852,9 +1978,14 @@ paths:
       summary: قالب جدید
       operationId: V1TemplatePost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
+      - text/plain
       - application/json
+      - text/json
       parameters:
       - name: value
         in: body
@@ -1882,7 +2013,6 @@ paths:
             شما پیدا نشد
         '500':
           description: مشکلی در سرور رخ داده است
-
 
 
 
@@ -3039,85 +3169,35 @@ definitions:
 
 
   AddressBookListItemViewModel:
+    description: مشخصات مشتری
     type: object
     properties:
       code:
-        type: string
         description: کلید یکتا مشتری
+        type: string
       email:
+        description: پست الکترونیک
         type: string
-        description:  پست الکترونیک
       phone:
+        description: تلفن
         type: string
-        description: تلفن همراه
       firstName:
-        type: string
         description: نام
+        type: string
       lastName:
-        type: string
         description: نام خانوادگی
-      businessName:
         type: string
+      businessName:
         description: نام کسب و کار
+        type: string
   ListCountViewModel:
     type: object
     properties:
       count:
         format: int32
         type: integer
-        description: تعداد
   AddressBookDetailViewModel:
-    required:
-    - firstName
-    - lastName
-    type: object
-    properties:
-      code:
-        type: string
-        description: کد یکتای مشتری
-      userPhotoFileAddress:
-        type: string
-        description: آدرس تصویر مشتری بازگشت داده میشود
-      email:
-        type: string
-        description: پست الکترونیک
-      phone:
-        type: string
-        description: تلفن
-      firstName:
-        type: string
-        description: نام
-      lastName:
-        type: string
-        description: نام خانوادگی
-      businessName:
-        type: string
-        description: نام کسب و کار
-      additionalInfo:
-        type: string
-        description: اطلاعات اضافی
-      zipCode:
-        type: string
-        description: کد پستی
-      state:
-        type: string
-        description: نام استان
-      city:
-        type: string
-        description: نام شهر
-      location:
-        type: string
-        description: آدرس
-      memo:
-        type: string
-        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
-      isBusiness:
-        type: boolean
-        description: حقوقی=true/حقیقی=false
-      nationalId:
-        type: string
-        description: کدملی
-  AddressBookEditViewModel:
+    description: جزییات مشخصات مشتری
     required:
     - code
     - firstName
@@ -3125,160 +3205,276 @@ definitions:
     type: object
     properties:
       code:
+        description: کلید یکتای مشتری
         type: string
-        description: کد یکتا مشتری
+      userPhotoFileAddress:
+        description: پس از آپلود و دریافت کلید فایل را اینجا قرار دهید
+        type: string
       userPhotoFileId:
+        description: لیست کلیدهای یکتا فایل تصویر پرسنلی
         type: string
-        description: کد دریافتی از سرویس آپلود را اینجا قرار دهید یا خالی رها کنید
       email:
-        type: string
         description: پست الکترونیک
+        type: string
+        example: info@example.com
       phone:
-        type: string
         description: تلفن
+        type: string
+        example: 09110000000
       firstName:
-        type: string
         description: نام
+        type: string
+        example: پوریا
       lastName:
-        type: string
         description: نام خانوادگی
+        type: string
+        example: منفرد
       businessName:
-        type: string
         description: نام کسب و کار
+        type: string
+        example: پی پینگ
       additionalInfo:
-        type: string
         description: اطلاعات اضافی
+        type: string
+        example: او یک وکیل است
       zipCode:
+        description: کدپستی
         type: string
-        description: کد پستی
+        example: '46169696164'
       state:
+        description: استان
         type: string
-        description: نام استان
+        example: تهران
       city:
+        description: شهر
         type: string
-        description: نام شهر
+        example: تهران
       location:
-        type: string
         description: آدرس
-      memo:
         type: string
-        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
+        example: خیابان جمهوری
+      memo:
+        description: متن یادآوری
+        type: string
+        example: به او مبلغی بدهکار می باشم
       isBusiness:
+        description: حقوقی = true, حقیقی = false
+        type: boolean
+        example: 'false'
+      nationalId:
+        description: کدملی
+        type: string
+        example: '22266655591'
+  AddressBookEditViewModel:
+    description: بروزرسانی مشتری
+    required:
+    - code
+    - firstName
+    - lastName
+    type: object
+    properties:
+      code:
+        description: کلید یکتای مشتری
+        type: string
+      userPhotoFileId:
+        description: پس از آپلود و دریافت کلید فایل را اینجا قرار دهید
+        type: string
+      email:
+        description: پست الکترونیک
+        type: string
+        example: info@example.com
+      phone:
+        description: تلفن
+        type: string
+        example: 09110000000
+      firstName:
+        description: نام
+        type: string
+        example: پوریا
+      lastName:
+        description: نام خانوادگی
+        type: string
+        example: منفرد
+      businessName:
+        description: نام کسب و کار
+        type: string
+        example: پی پینگ
+      additionalInfo:
+        description: اطلاعات اضافی
+        type: string
+        example: او یک وکیل است
+      zipCode:
+        description: کدپستی
+        type: string
+        example: '46169696164'
+      state:
+        description: استان
+        type: string
+        example: تهران
+      city:
+        description: شهر
+        type: string
+        example: تهران
+      location:
+        description: آدرس
+        type: string
+        example: خیابان جمهوری
+      memo:
+        description: متن یادآوری
+        type: string
+        example: به او مبلغی بدهکار می باشم
+      isBusiness:
+        description: حقوقی = true, حقیقی = false
         default: false
         type: boolean
-        description: حقوقی=true/حقیقی=false
+        example: 'false'
       nationalId:
-        type: string
         description: کدملی
+        type: string
+        example: '22266655591'
   AddressBookCreateViewModel:
+    description: ثبت مشتری جدید
     required:
     - firstName
     - lastName
     type: object
     properties:
       userPhotoFileId:
+        description: پس از آپلود و دریافت کلید فایل را اینجا قرار دهید
         type: string
-        description: کد دریافتی از سرویس آپلود را اینجا قرار دهید یا خالی رها کنید
       email:
-        type: string
         description: پست الکترونیک
+        type: string
+        example: info@example.com
       phone:
-        type: string
         description: تلفن
+        type: string
+        example: 09110000000
       firstName:
-        type: string
         description: نام
+        type: string
+        example: پوریا
       lastName:
-        type: string
         description: نام خانوادگی
+        type: string
+        example: منفرد
       businessName:
-        type: string
         description: نام کسب و کار
+        type: string
+        example: پی پینگ
       additionalInfo:
-        type: string
         description: اطلاعات اضافی
+        type: string
+        example: او یک وکیل است
       zipCode:
+        description: کدپستی
         type: string
-        description: کد پستی
+        example: '46169696164'
       state:
+        description: استان
         type: string
-        description: نام استان
+        example: تهران
       city:
+        description: شهر
         type: string
-        description: نام شهر
+        example: تهران
       location:
-        type: string
         description: آدرس
-      memo:
         type: string
-        description: متن یادآوری مثال «به این مشتری بدهکار هستم»
+        example: خیابان جمهوری
+      memo:
+        description: متن یادآوری
+        type: string
+        example: به او مبلغی بدهکار می باشم
       isBusiness:
+        description: حقوقی = true, حقیقی = false
         default: false
         type: boolean
-        description: حقوقی=true/حقیقی=false
+        example: 'false'
       nationalId:
-        type: string
         description: کدملی
-  
+        type: string
+        example: '22266655591'
   InvoiceDashboardReportViewModel:
+    description: گزارش لیست مبلغ کل فاکتور ها به تفکیک وضعیت
     type: object
     properties:
       draftAmount:
         format: double
+        description: جمع پیش نویش
         type: number
       paidAmount:
         format: double
+        description: جمع پرداخت شده
         type: number
       unpaidAmount:
         format: double
+        description: جمع در انتظار پرداخت
         type: number
       expiredAmount:
         format: double
+        description: جمع معوق شده
         type: number
       cancelAmount:
         format: double
+        description: جمع لغو شده
         type: number
       draftAmountStr:
+        description: جمع پیش نویش
         type: string
       paidAmountStr:
+        description: جمع پرداخت شده
         type: string
       unpaidAmountStr:
+        description: جمع در انتظار پرداخت
         type: string
       expiredAmountStr:
+        description: جمع معوق شده
         type: string
       cancelAmountStr:
+        description: جمع لغو شده
         type: string
   ScheduleInvoiceWithChilds:
+    description: جزییات کامل فاکتور زمابندی شده
     type: object
     properties:
       parentInvoice:
         "$ref": "#/definitions/InvoiceDetailViewModel"
+        description: فاکتور زمانبندی والد
       childInvoices:
+        description: فاکتورهای ساخته شده توسط فاکتور زمابندی والد
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceDetailViewModel"
   InvoiceDetailViewModel:
+    description: جزییات فاکتور
     type: object
     properties:
       code:
+        description: کلید یکتای فاکتور
         type: string
       parentCode:
+        description: کلید والد بودن فاکتور
         type: string
       paymentCode:
+        description: کد یکتای پرداخت
         type: string
       ccToes:
+        description: لیست ایمیل
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToDetailViewModel"
       billToes:
+        description: لیست مشتری
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToDetailViewModel"
       status:
         format: int32
+        description: وضعیت فاکتور
         enum:
         - 0
         - 1
@@ -3288,108 +3484,143 @@ definitions:
         - 5
         type: integer
       paidManualDescription:
+        description: شرح پرداخت دستی
         type: string
       saveToTemplate:
+        description: ذخیره به عنوان قالب فاکتور
         type: boolean
       invoiceNumber:
         format: int32
+        description: شماره فاکتور
         type: integer
       invoiceTitle:
+        description: عنوان فاکتور
         type: string
       invoiceDateTime:
         format: date-time
+        description: تاریخ ثبت
         type: string
       dueDate:
         format: date-time
+        description: تاریخ سررسید
         type: string
       payedDateTime:
         format: date-time
+        description: تاریخ پرداخت
         type: string
       canceledDateTime:
         format: date-time
+        description: تاریخ لغو
         type: string
-      amountDue:
-        format: double
-        type: number
       subTotal:
         format: double
+        description: جمع مبلغ پرداختی آیتم های مالی
         type: number
       itemsDiscountAmount:
         format: double
+        description: جمع مبلغ تخفیف آیتم های مالی
         type: number
       totalDiscountAmount:
         format: double
+        description: مبلغ تخفیف به کل فاکتور
         type: number
       totalDiscountPercent:
         format: int32
+        description: درصد تخفیف به کل فاکتور
         type: integer
       totalDiscountType:
         format: int32
+        description: نوع تخفیف به کل فاکتور به صورت مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       sumDiscountAmount:
         format: double
+        description: جمع کل تخفیف اعمال شده روی فاکتور
         type: number
       totalTaxtionAmount:
         format: double
+        description: مبلغ مالیات
         type: number
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       total:
         format: double
+        description: مبلغ کل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         type: string
       memo:
+        description: متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         type: string
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceSchulderDetailViewModel"
+        description: ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد
       invoiceItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceItemDetailViewModel"
       isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
         type: boolean
       isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
         type: boolean
       attachFileIds:
+        description: لیست کلید یکتای فایل های ضمیمه
         uniqueItems: false
         type: array
         items:
           type: string
       attachFileAddresses:
+        description: لیست آدرس فایل های ضمیمه
         uniqueItems: false
         type: array
         items:
           type: string
       qrCodeFileName:
+        description: آدرس تصویر بارکد فاکتور
         type: string
   InvoiceCcToDetailViewModel:
+    description: CC
     type: object
     properties:
       emailAddress:
+        description: آدرس ایمیل
         type: string
   InvoiceBillToDetailViewModel:
+    description: مشتری یا پرداخت کننده
     type: object
     properties:
       addressBook:
         "$ref": "#/definitions/AddressBookDetailViewModel"
+        description: مشخصات مشتری یا پرداخت کننده
   InvoiceSchulderDetailViewModel:
+    description: جزییات اطلاعات ساخت زمانبندی فاکتور
     type: object
     properties:
       repeat:
         format: int32
+        description: تکرار در هر X روز/هفته/ماه/سال
         type: integer
       schulderType:
         format: int32
+        description: نوع زمانبندی
         enum:
         - 0
         - 1
@@ -3398,101 +3629,133 @@ definitions:
         type: integer
       dueType:
         format: int32
+        description: نوع پایان زمانبندی
         enum:
         - 0
         - 1
         - 2
         type: integer
       endValue:
+        description: تعداد/تاریخ پایان، تولید فاکتور
         type: string
       dueDateAfterHowManyDay:
         format: int32
+        description: سررسید بعد از X روز
         type: integer
       invoiceSubSchulders:
+        description: لیست دستور ساخت فاکتورهای زمانبندی شده و وضعیت آن ها
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceSubSchulderDetailViewModel"
   InvoiceItemDetailViewModel:
+    description: جزییات آیتم مالی فاکتور
     type: object
     properties:
       code:
+        description: کد یکتا
         type: string
       name:
+        description: عنوان
         type: string
       description:
+        description: توضیحات
         type: string
       quantity:
         format: int32
+        description: تعداد
         type: integer
       discountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       discountPercent:
         format: int32
+        description: درصد تخفیف
         type: integer
       discountAmount:
         format: double
+        description: مبلغ تخفیف
         type: number
       tax:
+        description: دارای مالیات = true, نداشتن مالیات = false
         type: boolean
       taxRate:
         format: int32
+        description: مقدار درصد مالیات
         type: integer
       price:
         format: double
+        description: مبلغ فی
         type: number
       totalPrice:
         format: double
+        description: مبلغ فی - مبلغ تخفیف) * تعداد = مجموع)
         type: number
       amount:
         format: double
+        description: مجموع + مالیات = پرداختی
         type: number
   InvoiceSubSchulderDetailViewModel:
+    description: جزییات دستور ساخت فاکتورهای زمانبندی شده و وضعیت آن ها
     type: object
     properties:
       dueDate:
         format: date-time
+        description: تاریخ سررسید فاکتوری که باید ساخته شود
         type: string
       mustBeCreateInDateTime:
         format: date-time
+        description: تاریخ روزی که فاکتور باید ساخته شود
         type: string
       deActiveDateTime:
         format: date-time
+        description: تاریخ غیر فعال شدن ساخت فاکتور
         type: string
       isInvoiceCreated:
+        description: ساخته شد = true, در صف انتظار= false
         type: boolean
       isActive:
+        description: فعال بود = true, غیر فعال = false
         type: boolean
       invoiceCode:
+        description: کلید یکتا فاکتور ساخته شده
         type: string
   InvoiceListItemViewModel:
     type: object
     properties:
       code:
+        description: کلید یکتای فاکتور
         type: string
       invoiceNumber:
         format: int32
+        description: شماره فاکتور
         type: integer
       invoiceDateTime:
         format: date-time
+        description: تاریخ ثبت فاکتور
         type: string
       dueDate:
         format: date-time
+        description: تاریخ سررسید فاکتور
         type: string
       payedDateTime:
         format: date-time
+        description: تاریخ پرداخت
         type: string
       canceledDateTime:
         format: date-time
+        description: تاریخ لغو
         type: string
       invoiceTitle:
+        description: عنوان
         type: string
       status:
         format: int32
+        description: وضعیت فاکتور
         enum:
         - 0
         - 1
@@ -3503,356 +3766,470 @@ definitions:
         type: integer
       total:
         format: double
+        description: مبلغ نهایی یا قابل پرداخت
         type: number
       ccToes:
+        description: دریافت کننده های ایمیلی
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToListItemViewModel"
       billToes:
+        description: دریافت کننده ها - مشتریان
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToListItemViewModel"
   InvoiceCcToListItemViewModel:
+    description: CC
     type: object
     properties:
       emailAddress:
+        description: آدرس ایمیل
         type: string
   InvoiceBillToListItemViewModel:
+    description: مشتری یا پرداخت کننده
     type: object
     properties:
       addressBook:
         "$ref": "#/definitions/AddressBookListItemViewModel"
+        description: مشخصات مشتری یا پرداخت کننده
   InvoiceEditViewModel:
+    description: بروزرسانی فاکتور ساده
     required:
     - code
     type: object
     properties:
       code:
+        description: کلید یکتای فاکتور
         type: string
       ccToes:
+        description: ایمیل ها
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
       billToes:
+        description: مشتریان
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
       createStatus:
         format: int32
+        description: "0 = Draft(پیش نویس),\r\n1 = Send(ارسال),\r\n2 = PaidManual(دستی
+          پرداخت شد)"
         enum:
         - 0
         - 1
         - 2
         type: integer
       paidManualDescription:
+        description: شرح پرداخت دستی
         default: ''
         type: string
       saveToTemplate:
+        description: ذخیره به عنوان قالب
         default: false
         type: boolean
       templateCode:
+        description: کد یکتای قالب فاکتور
         default: ''
         type: string
       invoiceNumber:
         format: int32
+        description: شماره فاکتور
         type: integer
       invoiceTitle:
+        description: عنوان فاکتور
         type: string
       invoiceDateTime:
         format: date-time
+        description: تاریخ ثبت
         type: string
       dueDate:
         format: date-time
+        description: تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد
         type: string
       totalDiscountValue:
         format: double
+        description: تخفیف به کل فاکتور
         type: number
       totalDiscountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       notes:
+        description: متن جهت ارسال به دریافت کننده
         default: ''
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت ارسال به دریافت کننده
         default: ''
         type: string
       memo:
+        description: ایجاد یک متن دلخواه جهت یادآوری فقط برای کاربر ثبت کننده
         default: ''
         type: string
       invoiceItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceItemCreateViewModel"
       isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       attachmentsIds:
+        description: کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته
+          ها قرار دهید
         uniqueItems: false
         type: array
         items:
           type: string
       isDevicePayment:
+        description: ثبت فاکتور بدون مشتری = true, با مشتری = false
         default: false
         type: boolean
   InvoiceCcToCreateOrUpdateViewModel:
+    description: CC
     type: object
     properties:
       emailAddress:
+        description: آدرس ایمیل
         default: ''
         type: string
   InvoiceBillToCreateOrUpdateViewModel:
+    description: ثبت یا بروزرسانی مشتری
     type: object
     properties:
       addressBookCode:
+        description: کلید یکتای مشتری
         default: ''
         type: string
   InvoiceItemCreateViewModel:
+    description: ثبت آیتم مالی فاکتور
     type: object
     properties:
       code:
+        description: کلید یکتا
         default: ''
         type: string
       name:
-        default: ItemName_1
+        description: عنوان
+        default: ''
         type: string
       description:
+        description: توضیحات
         default: ''
         type: string
       tax:
+        description: دارای مالیات = true, نداشتن مالیات = false
         default: false
         type: boolean
       quantity:
         format: int32
+        description: تعداد
         default: 1
         type: integer
       discountValue:
         format: double
+        description: مقدار تخفیف
         type: number
       discountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       discountCouponCode:
+        description: کد یکتا تخفیف از بخش تخفیف ها
         type: string
       price:
         format: double
+        description: مبلغ فی
         default: 0
         type: number
   InvoiceSendByTemplate:
+    description: ثبت فاکتور با استفاده از قالب فاکتور
     required:
     - templateCode
     type: object
     properties:
       templateCode:
+        description: کلید یکتای قالب فاکتور
         type: string
       ccToes:
+        description: لیست آدرس ایمیل
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
       billToes:
+        description: لیست مشتری
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
       isDevicePayment:
+        description: ثبت فاکتور بدون مشتری = true, با مشتری = false
         default: false
         type: boolean
   InvoiceCreateViewModel:
+    description: ثبت فاکتور ساده
     type: object
     properties:
       ccToes:
+        description: ایمیل ها
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
       billToes:
+        description: مشتریان
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
       createStatus:
         format: int32
+        description: "0 = Draft(پیش نویس),\r\n1 = Send(ارسال),\r\n2 = PaidManual(دستی
+          پرداخت شد)"
         enum:
         - 0
         - 1
         - 2
         type: integer
       paidManualDescription:
+        description: شرح پرداخت دستی
         default: ''
         type: string
       saveToTemplate:
+        description: ذخیره به عنوان قالب
         default: false
         type: boolean
       templateCode:
+        description: کد یکتای قالب فاکتور
         default: ''
         type: string
       invoiceNumber:
         format: int32
+        description: شماره فاکتور
         type: integer
       invoiceTitle:
+        description: عنوان فاکتور
         type: string
       invoiceDateTime:
         format: date-time
+        description: تاریخ ثبت
         type: string
       dueDate:
         format: date-time
+        description: تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد
         type: string
       totalDiscountValue:
         format: double
+        description: تخفیف به کل فاکتور
         type: number
       totalDiscountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         default: ''
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         default: ''
         type: string
       memo:
+        description: ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         default: ''
         type: string
       invoiceItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceItemCreateViewModel"
       isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       attachmentsIds:
+        description: کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته
+          ها قرار دهید
         uniqueItems: false
         type: array
         items:
           type: string
       isDevicePayment:
+        description: ثبت فاکتور بدون مشتری = true, با مشتری = false
         default: false
         type: boolean
   InvoiceCreateScheduleViewModel:
+    description: ثبت فاکتور زمانبندی شده
     type: object
     properties:
       ccToes:
+        description: ایمیل ها
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceCcToCreateOrUpdateViewModel"
       billToes:
+        description: مشتریان
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceBillToCreateOrUpdateViewModel"
       createStatus:
         format: int32
+        description: "1 = Send(ارسال),\r\n2 = PaidManual(دستی پرداخت شد)"
         enum:
         - 1
         - 2
         type: integer
       paidManualDescription:
+        description: شرح پرداخت دستی
         default: ''
         type: string
       saveToTemplate:
+        description: ذخیره به عنوان قالب
         default: false
         type: boolean
       templateCode:
+        description: کد یکتای قالب فاکتور
         default: ''
         type: string
       invoiceNumber:
         format: int32
+        description: شماره فاکتور
         type: integer
       invoiceTitle:
+        description: عنوان فاکتور
         type: string
       invoiceDateTime:
         format: date-time
+        description: تاریخ ثبت
         type: string
       dueDate:
         format: date-time
+        description: تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد
         type: string
       totalDiscountValue:
         format: double
+        description: تخفیف به کل فاکتور
         type: number
       totalDiscountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         default: ''
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         default: ''
         type: string
       memo:
+        description: ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         default: ''
         type: string
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceSchulderCreateOrUpdateViewModel"
+        description: ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد
       invoiceItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceItemCreateViewModel"
       isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
         default: false
         type: boolean
       isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
         default: false
         type: boolean
       attachmentsIds:
+        description: کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته
+          ها قرار دهید
         uniqueItems: false
         type: array
         items:
           type: string
       isDevicePayment:
+        description: ثبت فاکتور بدون مشتری = true, با مشتری = false
         default: false
         type: boolean
   InvoiceSchulderCreateOrUpdateViewModel:
+    description: ثبت اطلاعات زمانبندی فاکتور
     type: object
     properties:
       repeat:
         format: int32
+        description: تکرار در هر X روز/هفته/ماه/سال
         default: 1
         type: integer
       schulderType:
         format: int32
+        description: نوع زمانبندی
         default: 0
         enum:
         - 0
@@ -3862,6 +4239,7 @@ definitions:
         type: integer
       dueType:
         format: int32
+        description: نوع پایان زمانبندی
         default: 0
         enum:
         - 0
@@ -3869,20 +4247,26 @@ definitions:
         - 2
         type: integer
       endValue:
+        description: تعداد/تاریخ پایان، تولید فاکتور
         default: '1'
         type: string
       dueDateAfterHowManyDay:
         format: int32
+        description: سررسید بعد از X روز
         default: 2
         type: integer
   InvoicePdfResponseViewModel:
+    description: مشخصات بازگشت درخواست فایل پی دی اف فاکتور
     type: object
     properties:
       success:
+        description: موفقیت آمیز بودن درخواست = true, ناموفق بودن = false
         type: boolean
       message:
+        description: پیام خطا یا موفقیت
         type: string
       fileAddress:
+        description: آدرس فایل
         type: string
   InvoiceCancelRequest:
     required:
@@ -3894,152 +4278,208 @@ definitions:
       previewKey:
         type: string
   InvoiceCancelResponse:
+    description: بازگشت مشخصات درخواست لغو فاکتور
     type: object
     properties:
       code:
+        description: کلید یکتا فاکتور
         type: string
       message:
+        description: پیام نتیجه انجام درخواست
         type: string
   InvoiceSendReminderResponseViewModel:
+    description: بازگشت مشخصات ارسال یادآوری فاکتور
     type: object
     properties:
       success:
+        description: موفقیت آمیز بودن درخواست = true, ناموفق بودن = false
         type: boolean
       message:
+        description: پیام خطا یا موفقیت
         type: string
       modelCode:
+        description: کلید یکتا فاکتور
         type: string
-      modelId:
-        format: int32
-        type: integer
   InvoiceSendInvoiceResponseViewModel:
+    description: بازگشت مشخصات درخواست ارسال فاکتور
     type: object
     properties:
       success:
+        description: موفقیت آمیز بودن درخواست = true, ناموفق بودن = false
         type: boolean
       message:
+        description: پیام خطا یا موفقیت
         type: string
       modelCode:
+        description: کلید یکتا
         type: string
-      modelId:
-        format: int32
-        type: integer
   InvoiceTemplateListItemViewModel:
+    description: مشخصات قالب فاکتور
     type: object
     properties:
       code:
+        description: کلید یکتا
         type: string
       templateName:
+        description: عنوان
         type: string
       hasSchulder:
+        description: دارای زمانبندی = true, بدون زمانبندی = false
         type: boolean
   InvoiceTemplateDetailViewModel:
+    description: جزییات قالب فاکتور
     type: object
     properties:
       code:
+        description: کد یکتا
         type: string
       templateName:
+        description: عنوان
         type: string
       subTotal:
         format: double
+        description: جمع مبلغ پرداختی آیتم های مالی
         type: number
       itemsDiscountAmount:
         format: double
+        description: جمع مبلغ تخفیف آیتم های مالی
         type: number
       totalDiscountAmount:
         format: double
+        description: جمع مبلغ تخفیف آیتم های مالی
         type: number
       totalDiscountPercent:
         format: int32
+        description: درصد تخفیف به کل فاکتور
         type: integer
       totalDiscountType:
         format: int32
+        description: نوع تخفیف به کل فاکتور به صورت مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       sumDiscountAmount:
         format: double
+        description: جمع کل تخفیف اعمال شده روی فاکتور
         type: number
       totalTaxtionAmount:
         format: double
+        description: مبلغ مالیات
         type: number
       shipping:
         format: double
+        description: مبلغ حمل و نقل
         type: number
       total:
         format: double
+        description: مبلغ کل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         type: string
       memo:
+        description: متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         type: string
       invoiceTemplateItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceTemplateItemIndexViewModel"
       invoiceSchulder:
         "$ref": "#/definitions/InvoiceTemplateSchulderIndexViewModel"
-      attachFileAddresses:
-        uniqueItems: false
-        type: array
-        items:
-          type: string
-      attachFileIds:
-        uniqueItems: false
-        type: array
-        items:
-          type: string
+        description: ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد
       isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
         type: boolean
       isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
         type: boolean
       isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
         type: boolean
+      attachFileIds:
+        description: لیست کلید یکتای فایل های ضمیمه
+        uniqueItems: false
+        type: array
+        items:
+          type: string
+      attachFileAddresses:
+        description: لیست آدرس فایل های ضمیمه
+        uniqueItems: false
+        type: array
+        items:
+          type: string
   InvoiceTemplateItemIndexViewModel:
+    description: جزییات آیتم مالی قالب فاکتور
     type: object
     properties:
       code:
+        description: کد یکتا
         type: string
       name:
+        description: عنوان
         type: string
       description:
+        description: توضیحات
         type: string
       quantity:
         format: int32
+        description: تعداد
+        type: integer
+      discountType:
+        format: int32
+        description: نوع تخفیف به مبلغ یا درصد
+        enum:
+        - 0
+        - 1
         type: integer
       discountPercent:
         format: int32
+        description: درصد تخفیف
         type: integer
       discountAmount:
         format: double
+        description: مبلغ تخفیف
         type: number
       tax:
+        description: دارای مالیات = true, نداشتن مالیات = false
         type: boolean
       taxRate:
         format: int32
+        description: مقدار درصد مالیات
         type: integer
       price:
         format: double
+        description: مبلغ فی
         type: number
       totalPrice:
         format: double
+        description: مبلغ فی - مبلغ تخفیف) * تعداد = مجموع)
         type: number
       amount:
         format: double
+        description: مجموع + مالیات = پرداختی
         type: number
   InvoiceTemplateSchulderIndexViewModel:
+    description: جزییات مشخصات ساخت زمانبندی قالب فاکتور
     type: object
     properties:
       repeat:
         format: int32
+        description: تکرار در هر X روز/هفته/ماه/سال
         default: 1
         type: integer
       schulderType:
         format: int32
+        description: نوع زمانبندی
         default: 0
         enum:
         - 0
@@ -4049,6 +4489,7 @@ definitions:
         type: integer
       dueType:
         format: int32
+        description: نوع پایان زمانبندی
         default: 0
         enum:
         - 0
@@ -4056,175 +4497,236 @@ definitions:
         - 2
         type: integer
       endValue:
+        description: تعداد/تاریخ پایان، تولید فاکتور
         default: '1'
         type: string
       dueDateAfterHowManyDay:
         format: int32
+        description: سررسید بعد از X روز
         default: 2
         type: integer
   InvoiceTemplateEditViewModel:
+    description: بروزرسانی قالب فاکتور
+    required:
+    - code
+    - templateName
     type: object
     properties:
       code:
+        description: کلید یکتای فاکتور
         default: ''
         type: string
       templateName:
+        description: عنوان
+        default: ''
         type: string
       totalDiscountValue:
         format: int32
+        description: تخفیف به کل فاکتور
         type: integer
       totalDiscountType:
         format: int32
+        description: نوع تخفیف مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         default: ''
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         default: ''
         type: string
       memo:
+        description: ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         default: ''
         type: string
+      invoiceSchulder:
+        "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+        description: ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد
       invoiceTemplateItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceTemplateItemCreateViewModel"
-      invoiceSchulder:
-        "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+      isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
+      isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
       attachmentsIds:
+        description: کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته
+          ها قرار دهید
         uniqueItems: false
         type: array
         items:
           type: string
-      isSendAttachmentsAfterPayment:
-        default: false
-        type: boolean
-      isSendNotesAndTermsAfterPayment:
-        default: false
-        type: boolean
-      isSendTermsAfterPayment:
-        default: false
-        type: boolean
+  InvoiceTemplateSchulderCreateOrUpdateViewModel:
+    description: ثبت اطلاعات زمانبندی قالب فاکتور
+    type: object
+    properties:
+      repeat:
+        format: int32
+        description: تکرار در هر X روز/هفته/ماه/سال
+        default: 1
+        type: integer
+      schulderType:
+        format: int32
+        description: نوع زمانبندی
+        default: 0
+        enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        type: integer
+      dueType:
+        format: int32
+        description: نوع پایان زمانبندی
+        default: 0
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      endValue:
+        description: تعداد/تاریخ پایان، تولید فاکتور
+        default: '1'
+        type: string
+      dueDateAfterHowManyDay:
+        format: int32
+        description: سررسید بعد از X روز
+        default: 2
+        type: integer
   InvoiceTemplateItemCreateViewModel:
+    description: ثبت آیتم مالی قالب فاکتور
     type: object
     properties:
       code:
+        description: کلید یکتا
         default: ''
         type: string
       name:
-        default: ItemName_1
+        description: عنوان
+        default: ''
         type: string
       description:
+        description: توضیحات
         default: ''
         type: string
       tax:
+        description: دارای مالیات = true, نداشتن مالیات = false
         default: false
         type: boolean
       quantity:
         format: int32
+        description: تعداد
         default: 1
         type: integer
       discountValue:
         format: double
+        description: مقدار تخفیف
         type: number
       discountType:
         format: int32
+        description: نوع تخفیف به مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       discountCouponCode:
+        description: کد یکتا تخفیف از بخش تخفیف ها
         type: string
       price:
         format: double
+        description: مبلغ فی
         default: 0
         type: number
-  InvoiceTemplateSchulderCreateOrUpdateViewModel:
-    type: object
-    properties:
-      repeat:
-        format: int32
-        default: 1
-        type: integer
-      schulderType:
-        format: int32
-        default: 0
-        enum:
-        - 0
-        - 1
-        - 2
-        - 3
-        type: integer
-      dueType:
-        format: int32
-        default: 0
-        enum:
-        - 0
-        - 1
-        - 2
-        type: integer
-      endValue:
-        default: '1'
-        type: string
-      dueDateAfterHowManyDay:
-        format: int32
-        default: 2
-        type: integer
   InvoiceTemplateCreateViewModel:
+    description: قالب فاکتور جدید
+    required:
+    - templateName
     type: object
     properties:
       templateName:
-        default: Template_1
+        description: عنوان
+        default: ''
         type: string
       totalDiscountValue:
         format: int32
+        description: تخفیف به کل فاکتور
         type: integer
       totalDiscountType:
         format: int32
+        description: نوع تخفیف مبلغ یا درصد
         enum:
         - 0
         - 1
         type: integer
       shipping:
         format: double
+        description: هزینه حمل و نقل
         type: number
       notes:
+        description: پیامی جهت نمایش به پرداخت کننده
         default: ''
         type: string
       termsAndConditions:
+        description: متن شرایط و قوانین جهت نمایش به پرداخت کننده
         default: ''
         type: string
       memo:
+        description: ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور
         default: ''
         type: string
+      invoiceSchulder:
+        "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+        description: ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد
       invoiceTemplateItems:
+        description: آیتم های مالی فاکتور
         uniqueItems: false
         type: array
         items:
           "$ref": "#/definitions/InvoiceTemplateItemCreateViewModel"
-      invoiceSchulder:
-        "$ref": "#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+      isSendAttachmentsAfterPayment:
+        description: نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,
+          نمایش در قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
+      isSendNotesAndTermsAfterPayment:
+        description: نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در
+          قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
+      isSendTermsAfterPayment:
+        description: نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =
+          true, نمایش در قبل و بعد از پرداخت = false
+        default: false
+        type: boolean
       attachmentsIds:
+        description: کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته
+          ها قرار دهید
         uniqueItems: false
         type: array
         items:
           type: string
-      isSendAttachmentsAfterPayment:
-        default: false
-        type: boolean
-      isSendNotesAndTermsAfterPayment:
-        default: false
-        type: boolean
-      isSendTermsAfterPayment:
-        default: false
-        type: boolean
 
 
 
