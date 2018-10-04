@@ -98,3 +98,7 @@ h1,h2,h3,h4,h5,h6 {
 .dfaAQb table th {
   text-align: right !important;
 }
+
+#Authentication{
+  display: none;
+}

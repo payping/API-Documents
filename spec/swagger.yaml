@@ -71,7 +71,7 @@ info:
     جدول حوزهای دسترسی برای احراز هویت در سرویس‌ها
 
 
-    |حوزه‌های دسترسی|توصیحات|
+    |حوزه‌های دسترسی (Scopes)|توصیحات|
     |--------------|-------|
     | `profile` | دسترسی مرتبط با تمام اطلاعات یک کاربر | 
     | `email` | دسترسی به مشاهده ایمیل |
@@ -1931,6 +1931,12 @@ paths:
 
 
 
+
+
+
+
+
+
   "/v1/coupon":
     post:
       tags:
@@ -1954,7 +1960,7 @@ paths:
           schema:
             "$ref": "#/definitions/CodeVM"
       security:
-        - oauth2:
+        - scopes:
             - 'product:write'
     put:
       tags:
@@ -2052,11 +2058,6 @@ paths:
         description: کیلدواژه جستجو در کدهای تخفیف
         required: false
         type: string
-      - name: productcode
-        in: query
-        description: ''
-        required: false
-        type: string
       responses:
         '200':
           description: لیست کدهای تخفیف با موفقیت نمایش داده شد
@@ -2080,10 +2081,12 @@ paths:
         required: false
         type: boolean
         default: false
+        description: اضافه شدن کدهای تخفیف‌ آرشیو شده
       - name: search
         in: query
         required: false
         type: string
+        description: کیلدواژه جستجو در کدهای تخفیف
       responses:
         '200':
           description: تعداد کدهای تخفیف با موفقیت نمایش داده شد
@@ -4800,31 +4803,58 @@ definitions:
     properties:
       name:
         type: string
+        description: >-
+            نام کدتخفیف
+        example: "کدتخفیف تستی"        
       userCouponCode:
         type: string
+        description: >-
+            کد تخفیف
+        example: "TakhfifCode"        
       type:
         format: int32
         enum:
         - 0
         - 1
         type: integer
+        description: >-
+             نوع کدتخفیف (۰ درصدی - ۱ مقداری)
       amount:
         format: int32
         type: integer
-      code:
-        type: string
+        description: >-
+            مقدار تخفیف
+        example: "50"
       redeemDate:
         format: date-time
         type: string
+        description: >-
+            تاریخ انقضا
+        example: "2018-10-04"
       redeemTime:
         type: string
+        description: >-
+            زمان انقضا
+        example: "21:15:00"
       maxRedemption:
         format: int32
         type: integer
+        description: >-
+            تعداد استفاده مجاز
+        example: 10
       isActive:
         type: boolean
+        description: >-
+           وضعیت کد تخفیف
       activeProductCode:
         type: string
+        description: >-
+            آیتمی که قصد اعمال کدتخفیف روی آن دارید - در صورت ارسال null این کد برای همه آیتم‌ها در نظر گرفته می‌شود.
+        example: null
+      code:
+        type: string
+      description: >-
+           شناسه کد تخفیف
   CouponDetailViewModel:
     type: object
     properties:
@@ -5300,7 +5330,7 @@ definitions:
 
 
 securityDefinitions:
-  oauth2:
+  scopes:
     tokenUrl: 
 
 
