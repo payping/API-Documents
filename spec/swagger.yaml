@@ -87,8 +87,7 @@ info:
     | `invoice:write` | دسترسی نوشتن و تغییرات در سرویس فاکتور |
     | `upload:write` | دسترسی مرتبط با سرویس بارگذاری فایل‌ها |
 
-    <!-- ReDoc-Inject: <security-definitions> -->
-  termsOfService: None
+    <security-definitions /> 
 
 tags:
     - name: product
@@ -187,7 +186,7 @@ paths:
           schema:
             "$ref": "#/definitions/PaymentResult"
       security:
-        - petstore_auth:
+        - payping_auth:
             - 'pay:write'
   "/v1/pay/Multi":
     post:
@@ -2752,6 +2751,7 @@ definitions:
         maximum: 50000000
         minimum: 100
         type: integer
+        required: true
       payerIdentity:
         type: string
         description: شماره تلفن یا ایمیل پرداخت کننده - اختیاری
@@ -2768,6 +2768,9 @@ definitions:
         type: string
   CreateMultiPaymentViewModel:
     type: object
+    required:
+      - returnUrl
+      - clientRefId
     properties:
       pairs:
         uniqueItems: false
@@ -2782,6 +2785,9 @@ definitions:
         type: string
   MultiPayPair:
     type: object
+    required:
+      - amount
+      - userName
     properties:
       amount:
         format: int32
@@ -5202,10 +5208,9 @@ definitions:
         type: string
         readOnly: true
   securitySchemes:
-    petstore_auth:
+    payping_auth:
       description: |
-        Get access to data while protecting your account credentials.
-        OAuth2 is also a safer and more secure way to give you access.
+        سطوح دسترسی (scopes)
       type: oauth2
       flows:
         implicit:
