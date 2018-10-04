@@ -21,7 +21,7 @@ info:
     # POSTMAN
     برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید
     
-    [https://os.payping.ir/files/PayPing API - v1.postman_collection.json](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)
+    [دانلود قالب postman](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)
 
     # توضیحات تکمیلی برای تمام سرویس‌ها
 
@@ -87,7 +87,7 @@ info:
     | `invoice:write` | دسترسی نوشتن و تغییرات در سرویس فاکتور |
     | `upload:write` | دسترسی مرتبط با سرویس بارگذاری فایل‌ها |
 
-    <!-- ReDoc-Inject: <security-definitions> -->
+
   termsOfService: None
 
 tags:
@@ -138,9 +138,8 @@ x-tagGroups:
     - name: سرویس آیتم‌های مالی
       tags:
         - product
-        - campaign
-        - coupon
         - permaLink
+        - coupon
     - name: سرویس فاکتور
       tags:
         - AddressBook
@@ -2022,209 +2021,11 @@ paths:
 
 
 
-  "/v1/campaign":
-    post:
-      tags:
-      - campaign
-      summary: ساخت یک کمپین جدید
-      operationId: V1CampaignPost
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات کمپین
-        required: false
-        schema:
-          "$ref": "#/definitions/CampaignCreateViewModel"
-      responses:
-        '200':
-          description: کمپین با موفقیت ساخته شد
-          schema:
-            "$ref": "#/definitions/CodeVM"
-    put:
-      tags:
-      - campaign
-      summary: بروزرسانی کمپین
-      operationId: V1CampaignPut
-      consumes:
-      - application/json
-      produces: []
-      parameters:
-      - name: model
-        in: body
-        description: مشخصات کمپین
-        required: false
-        schema:
-          "$ref": "#/definitions/CampaignEditViewModel"
-      responses:
-        '200':
-          description: کمپین با موفقیت بروزرسانی شد
-        '404':
-          description: کمپینی با این کد وجود ندارد
-  "/v1/campaign/{code}":
-    get:
-      tags:
-      - campaign
-      summary: نمایش یک کمپین
-      operationId: V1CampaignByCodeGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: code
-        in: path
-        description: کد کمپین
-        required: true
-        type: string
-      responses:
-        '200':
-          description: کمپین با موفقیت نمایش داده شد
-          schema:
-            "$ref": "#/definitions/CampaignDetailViewModel"
-        '404':
-          description: کمپینی با این کد وجود ندارد
-    delete:
-      tags:
-      - campaign
-      summary: حذف یک کمپین
-      operationId: V1CampaignByCodeDelete
-      consumes: []
-      produces: []
-      parameters:
-      - name: code
-        in: path
-        description: کد کمپین
-        required: true
-        type: string
-      responses:
-        '200':
-          description: کمپین با موفقیت حذف شد
-        '404':
-          description: کمپینی با این کد وجود ندارد
-  "/v1/campaign/List":
-    get:
-      tags:
-      - campaign
-      summary: نمایش لیست کمپین‌ها
-      operationId: V1CampaignListGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: offset
-        in: query
-        description: شماره ابتدا لیست
-        required: false
-        type: integer
-        format: int32
-      - name: limit
-        in: query
-        description: شماره انتها لیست
-        required: false
-        type: integer
-        format: int32
-      - name: witharchived
-        in: query
-        description: اضافه شدن کمپین‌های‌ آرشیو شده
-        required: false
-        type: boolean
-      - name: search
-        in: query
-        description: کیلدواژه جستجو در کمپین‌ها
-        required: false
-        type: string
-      responses:
-        '200':
-          description: لیست کمپین‌ها با موفقیت نمایش داده شد
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CampaignListItemViewModel"
-  "/v1/campaign/ListCount":
-    get:
-      tags:
-      - campaign
-      summary: دریافت تعداد کمپین‌ها
-      operationId: V1CampaignListCountGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: witharchived
-        in: query
-        required: false
-        type: boolean
-      - name: search
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: تعداد کمپین‌ها با موفقیت نمایش داده شد
-          schema:
-            "$ref": "#/definitions/CountVM"
 
-  "/v1/campaign/{code}/BuyersListCount":
-    get:
-      tags:
-      - campaign
-      summary: دریافت تعداد خرید‌های کمپین
-      operationId: V1CampaignByCodeBuyersListCountGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: code
-        in: path
-        description: شناسه کمپین
-        required: true
-        type: string
-      responses:
-        '200':
-          description: تعداد خریدهای کمپین با موفقیت نمایش داده شد
-          schema:
-            "$ref": "#/definitions/CountVM"
-  "/v1/campaign/{code}/BuyersList":
-    get:
-      tags:
-      - campaign
-      summary: دریافت لیست پرداخت‌های انجام شده کمپین
-      operationId: V1CampaignByCodeBuyersListGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: campaignCode
-        in: query
-        description: شناسه کمپین
-        required: false
-        type: string
-      - name: offset
-        in: query
-        description: شماره ابتدا لیست
-        required: false
-        type: integer
-        format: int32
-      - name: limit
-        in: query
-        description: شماره انتها لیست
-        required: false
-        type: integer
-        format: int32
-      - name: code
-        in: path
-        required: true
-        type: string
-      responses:
-        '200':
-          description: لیست خریدهای این کمپین با موفقیت نمایش داده شد
-          schema:
-            type: array
-            items:
-              "$ref": "#/definitions/CampaignBuyerViewModel"
+
+
+
+
   "/v1/coupon":
     post:
       tags:
@@ -2247,6 +2048,9 @@ paths:
           description: کد تخفیف با موفقیت ساخته شد
           schema:
             "$ref": "#/definitions/CodeVM"
+      security:
+        - oauth2:
+            - 'product:write'
     put:
       tags:
       - coupon
@@ -2267,6 +2071,7 @@ paths:
           description: کد تخفیف با موفقیت بروزرسانی شد
         '404':
           description: کد تخفیفی با این شناسه وجود ندارد
+
   "/v1/coupon/{code}":
     get:
       tags:
@@ -2323,26 +2128,35 @@ paths:
         required: false
         type: integer
         format: int32
+        default: 0
       - name: limit
         in: query
         description: شماره انتها لیست
         required: false
         type: integer
         format: int32
+        default: 10
       - name: witharchived
         in: query
         description: اضافه شدن کدهای تخفیف‌ آرشیو شده
         required: false
         type: boolean
+        default: false
       - name: search
         in: query
         description: کیلدواژه جستجو در کدهای تخفیف
+        required: false
+        type: string
+      - name: productcode
+        in: query
+        description: ''
         required: false
         type: string
       responses:
         '200':
           description: لیست کدهای تخفیف با موفقیت نمایش داده شد
           schema:
+            uniqueItems: false
             type: array
             items:
               "$ref": "#/definitions/CouponListItemViewModel"
@@ -2360,6 +2174,7 @@ paths:
         in: query
         required: false
         type: boolean
+        default: false
       - name: search
         in: query
         required: false
@@ -2369,18 +2184,17 @@ paths:
           description: تعداد کدهای تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-
-  "/v1/coupon/{code}/BuyersListCount":
+  "/v1/coupon/{couponCode}/BuyersListCount":
     get:
       tags:
       - coupon
       summary: دریافت تعداد خرید‌های یک کد تخفیف
-      operationId: V1CouponByCodeBuyersListCountGet
+      operationId: V1CouponByCouponCodeBuyersListCountGet
       consumes: []
       produces:
       - application/json
       parameters:
-      - name: code
+      - name: couponCode
         in: path
         description: شناسه کد تخفیف
         required: true
@@ -2390,20 +2204,20 @@ paths:
           description: تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/coupon/{code}/BuyersList":
+  "/v1/coupon/{couponCode}/BuyersList":
     get:
       tags:
       - coupon
       summary: دریافت لیست پرداخت‌های انجام شده یک کد تخفیف
-      operationId: V1CouponByCodeBuyersListGet
+      operationId: V1CouponByCouponCodeBuyersListGet
       consumes: []
       produces:
       - application/json
       parameters:
       - name: couponCode
-        in: query
+        in: path
         description: شناسه کد تخفیف
-        required: false
+        required: true
         type: string
       - name: offset
         in: query
@@ -2411,23 +2225,22 @@ paths:
         required: false
         type: integer
         format: int32
+        default: 0
       - name: limit
         in: query
         description: شماره انتها لیست
         required: false
         type: integer
         format: int32
-      - name: code
-        in: path
-        required: true
-        type: string
+        default: 10
       responses:
         '200':
           description: لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد
           schema:
+            uniqueItems: false
             type: array
             items:
-              "$ref": "#/definitions/CouponListItemViewModel"
+              "$ref": "#/definitions/BuyerDetailsViewModel"
   "/v1/permaLink":
     post:
       tags:
@@ -2435,7 +2248,10 @@ paths:
       summary: ساخت یک لینک ثابت جدید
       operationId: V1PermaLinkPost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
       - application/json
       parameters:
@@ -2456,7 +2272,10 @@ paths:
       summary: بروزرسانی لینک ثابت
       operationId: V1PermaLinkPut
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces: []
       parameters:
       - name: model
@@ -2470,6 +2289,7 @@ paths:
           description: لینک ثابت با موفقیت بروزرسانی شد
         '404':
           description: لینک ثابتی با این شناسه وجود ندارد
+
   "/v1/permaLink/{code}":
     get:
       tags:
@@ -2526,17 +2346,20 @@ paths:
         required: false
         type: integer
         format: int32
+        default: 0
       - name: limit
         in: query
         description: شماره انتها لیست
         required: false
         type: integer
         format: int32
+        default: 10
       - name: witharchived
         in: query
         description: اضافه شدن لینک‌های ثابت‌ آرشیو شده
         required: false
         type: boolean
+        default: false
       - name: search
         in: query
         description: کیلدواژه جستجو در لینک‌های ثابت
@@ -2546,6 +2369,7 @@ paths:
         '200':
           description: لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد
           schema:
+            uniqueItems: false
             type: array
             items:
               "$ref": "#/definitions/PermanentListItemViewModel"
@@ -2563,6 +2387,7 @@ paths:
         in: query
         required: false
         type: boolean
+        default: false
       - name: search
         in: query
         required: false
@@ -2572,19 +2397,19 @@ paths:
           description: تعداد لینک‌های ثابت با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
-  "/v1/permaLink/{payCode}/BuyersList":
+  "/v1/permaLink/{productCode}/BuyersList":
     get:
       tags:
       - permaLink
       summary: دریافت لیست پرداخت‌های انجام شده یک لینک‌ثابت
-      operationId: V1PermaLinkByPayCodeBuyersListGet
+      operationId: V1PermaLinkByProductCodeBuyersListGet
       consumes: []
       produces:
       - application/json
       parameters:
-      - name: payCode
+      - name: productCode
         in: path
-        description: کد پرداخت
+        description: کد آیتم‌مالی
         required: true
         type: string
       - name: offset
@@ -2593,43 +2418,47 @@ paths:
         required: false
         type: integer
         format: int32
+        default: 0
       - name: limit
         in: query
         description: شماره انتها لیست
         required: false
         type: integer
         format: int32
+        default: 10
       responses:
         '200':
           description: لیست با موفقیت نمایش داده شد
           schema:
+            uniqueItems: false
             type: array
             items:
               "$ref": "#/definitions/ProductBuyerViewModel"
-  "/v1/permaLink/{payCode}/BuyersListCount":
+  "/v1/permaLink/{productCode}/BuyersListCount":
     get:
       tags:
       - permaLink
-      summary: دریافت تعداد پرداختی‌های یک آیتم‌مالی
-      operationId: V1PermaLinkByPayCodeBuyersListCountGet
+      summary: دریافت تعداد پرداختی‌های یک لینک‌ثابت
+      operationId: V1PermaLinkByProductCodeBuyersListCountGet
       consumes: []
       produces:
       - application/json
       parameters:
-      - name: payCode
+      - name: productCode
         in: path
+        description: کد آیتم‌مالی
         required: true
         type: string
       responses:
         '200':
-          description: تعداد پرداختی‌های یک آیتم‌مالی با موفقیت نمایش داده شد
+          description: تعداد پرداختی‌های یک لینک‌ثابت با موفقیت نمایش داده شد
           schema:
             "$ref": "#/definitions/CountVM"
   "/v1/permaLink/{payCode}/Buyer":
     get:
       tags:
       - permaLink
-      summary: دریافت جزئیات پرداخت یک آیتم‌مالی
+      summary: دریافت جزئیات پرداخت یک لینک‌ثابت
       operationId: V1PermaLinkByPayCodeBuyerGet
       consumes: []
       produces:
@@ -2652,7 +2481,10 @@ paths:
       summary: ساخت یک آیتم‌ مالی جدید
       operationId: V1ProductPost
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces:
       - application/json
       parameters:
@@ -2673,7 +2505,10 @@ paths:
       summary: بروزرسانی آیتم مالی
       operationId: V1ProductPut
       consumes:
+      - application/json-patch+json
       - application/json
+      - text/json
+      - application/*+json
       produces: []
       parameters:
       - name: model
@@ -2687,6 +2522,7 @@ paths:
           description: آیتم‌ مالی با موفقیت بروزرسانی شد
         '404':
           description: آیتم مالی با این کد موجود نمی‌باشد
+
   "/v1/product/{code}":
     get:
       tags:
@@ -2743,17 +2579,20 @@ paths:
         required: false
         type: integer
         format: int32
+        default: 0
       - name: limit
         in: query
         description: شماره انتها لیست
         required: false
         type: integer
         format: int32
+        default: 10
       - name: witharchived
         in: query
         description: اضافه شدن آیتم‌های آرشیو شده
         required: false
         type: boolean
+        default: false
       - name: search
         in: query
         description: کیلدواژه جستجو در آیتم‌های مالی
@@ -2763,32 +2602,32 @@ paths:
         '200':
           description: لیست آیتم‌های مالی با موفقیت نمایش داده شد
           schema:
+            uniqueItems: false
             type: array
             items:
               "$ref": "#/definitions/ProductListItemViewModel"
-  "/v1/product/ListCount":
-    get:
-      tags:
-      - product
-      summary: دریافت تعداد آیتم‌های مالی
-      operationId: V1ProductListCountGet
-      consumes: []
-      produces:
-      - application/json
-      parameters:
-      - name: witharchived
-        in: query
-        required: false
-        type: boolean
-      - name: search
-        in: query
-        required: false
-        type: string
-      responses:
-        '200':
-          description: تعداد آیتم‌های مالی با موفقیت نمایش داده شد
-          schema:
-            "$ref": "#/definitions/CountVM"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4970,231 +4809,86 @@ definitions:
 
 
 
-  CampaignCreateViewModel:
-    required:
-    - name
-    - startTime
-    - endTime
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  CouponCreateViewModel:
     type: object
     properties:
       name:
         type: string
-      startDate:
-        format: date-time
+        description: >-
+            نام کدتخفیف
+        example: "کدتخفیف تستی"        
+      userCouponCode:
         type: string
-      startTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
-        type: string
-      endDate:
-        format: date-time
-        type: string
-      endTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
-        type: string
+        description: >-
+            کد تخفیف
+        example: "TakhfifCode"        
       type:
         format: int32
         enum:
         - 0
         - 1
         type: integer
+        description: >-
+             نوع کدتخفیف (۰ درصدی - ۱ مقداری)
       amount:
         format: int32
         type: integer
+        description: >-
+            مقدار تخفیف
+        example: "50"
+      redeemDate:
+        format: date-time
+        type: string
+        description: >-
+            تاریخ انقضا
+        example: "2018-10-04"
+      redeemTime:
+        type: string
+        description: >-
+            زمان انقضا
+        example: "21:15:00"
+      maxRedemption:
+        format: int32
+        type: integer
+        description: >-
+            تعداد استفاده مجاز
+        example: 10
       isActive:
         type: boolean
-      priority:
-        format: int32
-        maximum: 50000000
-        minimum: 1
-        type: integer
+        description: >-
+           وضعیت کد تخفیف
       activeProductCode:
         type: string
+        description: >-
+            آیتمی که قصد اعمال کدتخفیف روی آن دارید - در صورت ارسال null این کد برای همه آیتم‌ها در نظر گرفته می‌شود.
+        example: null
   CodeVM:
     type: object
     properties:
       code:
         type: string
-  CampaignEditViewModel:
-    required:
-    - name
-    - startTime
-    - endTime
-    type: object
-    properties:
-      code:
-        type: string
-      name:
-        type: string
-      startDate:
-        format: date-time
-        type: string
-      startTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
-        type: string
-      endDate:
-        format: date-time
-        type: string
-      endTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      isActive:
-        type: boolean
-      priority:
-        format: int32
-        maximum: 50000000
-        minimum: 1
-        type: integer
-      activeProductCode:
-        type: string
-  CampaignDetailViewModel:
-    type: object
-    properties:
-      code:
-        type: string
-      name:
-        type: string
-      startDate:
-        format: date-time
-        type: string
-      startTime:
-        type: string
-      endDate:
-        format: date-time
-        type: string
-      endTime:
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      isActive:
-        type: boolean
-      priority:
-        format: int32
-        type: integer
-      activeProductCode:
-        type: string
-      usedFor:
-        type: string
-      usedCount:
-        format: int32
-        type: integer
-      isArchived:
-        type: boolean
-  CampaignListItemViewModel:
-    type: object
-    properties:
-      code:
-        type: string
-      amount:
-        format: int32
-        type: integer
-      name:
-        type: string
-      isActive:
-        type: boolean
-      startDate:
-        format: date-time
-        type: string
-      endDate:
-        format: date-time
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      amountDisplay:
-        type: string
-        readOnly: true
-      startDateDisplay:
-        type: string
-        readOnly: true
-      endDateDisplay:
-        type: string
-        readOnly: true
-  CountVM:
-    type: object
-    properties:
-      count:
-        format: int32
-        type: integer
-  CampaignBuyerViewModel:
-    type: object
-    properties:
-      amount:
-        format: int32
-        type: integer
-      productTitle:
-        type: string
-      name:
-        type: string
-      payDate:
-        format: date-time
-        type: string
-      code:
-        type: string
-      amountDisplay:
-        type: string
-        readOnly: true
-      payDateDisplay:
-        type: string
-        readOnly: true
-  CouponCreateViewModel:
-    required:
-    - name
-    - redeemTime
-    type: object
-    properties:
-      name:
-        type: string
-      type:
-        format: int32
-        enum:
-        - 0
-        - 1
-        type: integer
-      amount:
-        format: int32
-        type: integer
-      redeemDate:
-        format: date-time
-        type: string
-      redeemTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
-        type: string
-      maxRedemption:
-        format: int32
-        maximum: 50000000
-        minimum: 1
-        type: integer
-      isActive:
-        type: boolean
-      activeProductCode:
-        type: string
   CouponEditViewModel:
-    required:
-    - name
-    - code
-    - redeemTime
     type: object
     properties:
       name:
+        type: string
+      userCouponCode:
         type: string
       type:
         format: int32
@@ -5206,18 +4900,14 @@ definitions:
         format: int32
         type: integer
       code:
-        pattern: "^[a-zA-Z0-9]+$"
         type: string
       redeemDate:
         format: date-time
         type: string
       redeemTime:
-        pattern: "(([0-1][0-9])|([2][0-3])):([0-5][0-9])"
         type: string
       maxRedemption:
         format: int32
-        maximum: 50000000
-        minimum: 1
         type: integer
       isActive:
         type: boolean
@@ -5249,18 +4939,18 @@ definitions:
         type: integer
       isActive:
         type: boolean
-      usedTime:
-        format: int32
-        type: integer
       activeProductCode:
         type: string
-      usedFor:
-        type: string
-      usedCount:
-        format: int32
-        type: integer
       isArchived:
         type: boolean
+      userCouponCode:
+        type: string
+      buyerCounts:
+        format: int32
+        type: integer
+      buyerSum:
+        format: int32
+        type: integer
   CouponListItemViewModel:
     type: object
     properties:
@@ -5279,9 +4969,80 @@ definitions:
         type: string
       isActive:
         type: boolean
+      activeProductCode:
+        type: string
+      activeProductName:
+        type: string
+      userCouponCode:
+        type: string
       amountDisplay:
         type: string
         readOnly: true
+  CountVM:
+    type: object
+    properties:
+      count:
+        format: int32
+        type: integer
+  BuyerDetailsViewModel:
+    type: object
+    properties:
+      code:
+        type: string
+      amount:
+        format: int32
+        type: integer
+      addressLine:
+        type: string
+      postalCode:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      city:
+        type: string
+      phone:
+        type: string
+      customDescription:
+        type: string
+      permanLinkCode:
+        type: string
+      productInfo:
+        "$ref": "#/definitions/ProductInfo"
+      couponCode:
+        type: string
+      productCode:
+        type: string
+      campaignCode:
+        type: string
+      isPaid:
+        type: boolean
+      payerId:
+        format: int32
+        type: integer
+      invoiceNo:
+        type: string
+      payDate:
+        format: date-time
+        type: string
+      fullName:
+        type: string
+        readOnly: true
+  ProductInfo:
+    type: object
+    properties:
+      code:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      realAmount:
+        format: int32
+        type: integer
   PermanentCreateViewModel:
     type: object
     properties:
@@ -5297,8 +5058,6 @@ definitions:
         type: string
       customDescriptionText:
         type: string
-      isActive:
-        type: boolean
       emailOption:
         format: int32
         enum:
@@ -5348,8 +5107,6 @@ definitions:
         type: string
       isActive:
         type: boolean
-      isArchived:
-        type: boolean
       emailOption:
         format: int32
         enum:
@@ -5378,10 +5135,6 @@ definitions:
         - 1
         - 2
         type: integer
-      clientId:
-        type: string
-      clientRefId:
-        type: string
       permanentType:
         format: int32
         enum:
@@ -5442,21 +5195,44 @@ definitions:
         type: string
       clientRefId:
         type: string
+      qrLink:
+        type: string
       permanentType:
         format: int32
         enum:
         - 0
         - 1
         type: integer
+      buyerCounts:
+        format: int32
+        type: integer
+      buyerSum:
+        format: int32
+        type: integer
   PermanentListItemViewModel:
     type: object
     properties:
       code:
         type: string
-      title:
+      customDescriptionText:
         type: string
-      clientRefId:
-        type: string
+      isActive:
+        type: boolean
+      permanentType:
+        format: int32
+        enum:
+        - 0
+        - 1
+        type: integer
+      amount:
+        format: int32
+        type: integer
+      defineAmountByUser:
+        type: boolean
+      itemIsActive:
+        type: boolean
+      itemIsAvailable:
+        type: boolean
   ProductBuyerViewModel:
     type: object
     properties:
@@ -5485,52 +5261,10 @@ definitions:
       phoneVM:
         type: string
         readOnly: true
-  BuyerDetailsViewModel:
-    type: object
-    properties:
-      code:
-        type: string
-      amount:
-        format: int32
-        type: integer
-      addressLine:
-        type: string
-      postalCode:
-        type: string
-      firstName:
-        type: string
-      lastName:
-        type: string
-      email:
-        type: string
-      city:
-        type: string
-      phone:
-        type: string
-      customDescription:
-        type: string
-      productCode:
-        type: string
-      couponCode:
-        type: string
-      campaignCode:
-        type: string
-      isPaid:
-        type: boolean
-      payerId:
-        format: int32
-        type: integer
-      invoiceNo:
-        type: string
-      payDate:
-        format: date-time
-        type: string
-      fullName:
-        type: string
-        readOnly: true
   ProductCreateViewModel:
     required:
     - title
+    - amount
     type: object
     properties:
       title:
@@ -5549,11 +5283,12 @@ definitions:
         type: boolean
       unlimited:
         type: boolean
-      isActive:
-        type: boolean
+      imageLink:
+        type: string
   ProductEditViewModel:
     required:
     - title
+    - amount
     type: object
     properties:
       code:
@@ -5574,10 +5309,8 @@ definitions:
         type: integer
       unlimited:
         type: boolean
-      isActive:
-        type: boolean
-      isArchived:
-        type: boolean
+      imageLink:
+        type: string
   ProductFullDeatilViewModel:
     type: object
     properties:
@@ -5644,21 +5377,18 @@ definitions:
       quantityVM:
         type: string
         readOnly: true
-  securitySchemes:
-    petstore_auth:
-      description: |
-        Get access to data while protecting your account credentials.
-        OAuth2 is also a safer and more secure way to give you access.
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'https://oauth.payping.ir'
-          scopes:
-            'pay:write': دسترسی ساخت پرداخت
-    api_key:
-      description: >
-        For this sample, you can use the api key `special-key` to test the
-        authorization filters.
-      type: apiKey
-      name: api_key
-      in: header
+      isActive:
+        type: boolean
+      haveTax:
+        type: boolean
+      havePerma:
+        type: boolean
+
+
+
+
+securityDefinitions:
+  oauth2:
+    tokenUrl: 
+
+
