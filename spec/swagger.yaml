@@ -186,7 +186,7 @@ paths:
           schema:
             "$ref": "#/definitions/PaymentResult"
       security:
-        - petstore_auth:
+        - payping_auth:
             - 'pay:write'
   "/v1/pay/Multi":
     post:
@@ -462,9 +462,7 @@ paths:
       operationId: V1AddressBookListGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -515,9 +513,7 @@ paths:
       operationId: V1AddressBookListCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: search
         in: query
@@ -551,9 +547,7 @@ paths:
       operationId: V1AddressBookByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -585,14 +579,9 @@ paths:
       summary: بروزرسانی مشخصات مشتری
       operationId: V1AddressBookByCodePut
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -631,9 +620,7 @@ paths:
       operationId: V1AddressBookByCodeDelete
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -666,14 +653,9 @@ paths:
       summary: مشتری جدید
       operationId: V1AddressBookPost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -708,9 +690,7 @@ paths:
       operationId: V1InvoiceSumPerStatusGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters: []
       responses:
         '200':
@@ -739,9 +719,7 @@ paths:
       operationId: V1InvoiceScheduleByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -774,9 +752,7 @@ paths:
       operationId: V1InvoiceSubschedulersByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -812,9 +788,7 @@ paths:
       operationId: V1InvoiceListGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -909,9 +883,7 @@ paths:
       operationId: V1InvoiceListCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: status
         in: query
@@ -989,9 +961,7 @@ paths:
       operationId: V1InvoiceListScheduleGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -1086,9 +1056,7 @@ paths:
       operationId: V1InvoiceListScheduleCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: status
         in: query
@@ -1166,9 +1134,7 @@ paths:
       operationId: V1InvoiceByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1200,14 +1166,9 @@ paths:
       summary: بروزرسانی فاکتور
       operationId: V1InvoiceByCodePut
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1247,9 +1208,7 @@ paths:
       operationId: V1InvoiceByCodeDelete
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1282,14 +1241,9 @@ paths:
       summary: ارسال فاکتور جدید با استفاده از قالب
       operationId: V1InvoiceSendByTemplatePost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -1324,14 +1278,9 @@ paths:
       summary: فاکتور جدید
       operationId: V1InvoicePost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -1366,14 +1315,9 @@ paths:
       summary: فاکتور زمانبندی شده جدید
       operationId: V1InvoiceSchedulePost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -1409,9 +1353,7 @@ paths:
       operationId: V1InvoiceDeleteScheduleByCodeDelete
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1445,9 +1387,7 @@ paths:
       operationId: V1InvoicePdfByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1480,14 +1420,9 @@ paths:
       summary: درخواست لغو فاکتور
       operationId: V1InvoiceCancelPost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -1522,9 +1457,7 @@ paths:
       operationId: V1InvoiceReminderByCodePost
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1558,9 +1491,7 @@ paths:
       operationId: V1InvoiceSendByCodePost
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1594,9 +1525,7 @@ paths:
       operationId: V1TemplateListGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -1647,9 +1576,7 @@ paths:
       operationId: V1TemplateListCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: search
         in: query
@@ -1683,9 +1610,7 @@ paths:
       operationId: V1TemplateListScheduleGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -1736,9 +1661,7 @@ paths:
       operationId: V1TemplateListScheduleCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: search
         in: query
@@ -1772,9 +1695,7 @@ paths:
       operationId: V1TemplateListNonScheduleGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: offset
         in: query
@@ -1825,9 +1746,7 @@ paths:
       operationId: V1TemplateListNonScheduleCountGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: search
         in: query
@@ -1861,9 +1780,7 @@ paths:
       operationId: V1TemplateByCodeGet
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1895,14 +1812,9 @@ paths:
       summary: بروزرسانی قالب
       operationId: V1TemplateByCodePut
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1942,9 +1854,7 @@ paths:
       operationId: V1TemplateByCodeDelete
       consumes: []
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: code
         in: path
@@ -1977,14 +1887,9 @@ paths:
       summary: قالب جدید
       operationId: V1TemplatePost
       consumes:
-      - application/json-patch+json
       - application/json
-      - text/json
-      - application/*+json
       produces:
-      - text/plain
       - application/json
-      - text/json
       parameters:
       - name: value
         in: body
@@ -2708,6 +2613,7 @@ definitions:
         maximum: 50000000
         minimum: 100
         type: integer
+        required: true
       payerIdentity:
         type: string
         description: شماره تلفن یا ایمیل پرداخت کننده - اختیاری
@@ -2724,6 +2630,9 @@ definitions:
         type: string
   CreateMultiPaymentViewModel:
     type: object
+    required:
+      - returnUrl
+      - clientRefId
     properties:
       pairs:
         uniqueItems: false
@@ -2738,6 +2647,9 @@ definitions:
         type: string
   MultiPayPair:
     type: object
+    required:
+      - amount
+      - payerIdentity
     properties:
       amount:
         format: int32
@@ -2746,7 +2658,7 @@ definitions:
         type: integer
       name:
         type: string
-      userName:
+      payerIdentity:
         type: string
       description:
         type: string
@@ -2981,7 +2893,7 @@ definitions:
   MultiRequestViewModel:
     type: object
     properties:
-      username:
+      payerIdentity:
         type: string
       code:
         type: string
