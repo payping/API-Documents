@@ -214,8 +214,8 @@ paths:
             summary: 'لیست مشتریان'
             operationId: V1AddressBookListGet
             consumes: []
-            produces: [application/json]
-            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
+            produces: [text/plain, application/json, text/json]
+            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: "", required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/AddressBook/ListCount:
         get:
@@ -223,8 +223,8 @@ paths:
             summary: 'تعداد مشتریان'
             operationId: V1AddressBookListCountGet
             consumes: []
-            produces: [application/json]
-            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
+            produces: [text/plain, application/json, text/json]
+            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: "", required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/AddressBook/{code}':
         get:
@@ -232,15 +232,15 @@ paths:
             summary: 'مشخصات مشتری'
             operationId: V1AddressBookByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         put:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
             operationId: V1AddressBookByCodePut
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         delete:
@@ -248,7 +248,7 @@ paths:
             summary: 'حذف مشتری'
             operationId: V1AddressBookByCodeDelete
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/AddressBook:
@@ -256,8 +256,8 @@ paths:
             tags: [AddressBook]
             summary: 'مشتری جدید'
             operationId: V1AddressBookPost
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/SumPerStatus:
@@ -266,7 +266,7 @@ paths:
             summary: 'گزارش جمع مبلغ فاکتور ها براساس وضعیت'
             operationId: V1InvoiceSumPerStatusGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: []
             responses: {'200': {description: 'جمع مبلغ فاکتور ها براساس وضعیت', schema: {$ref: '#/definitions/InvoiceDashboardReportViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'گزارشی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Schedule/{code}':
@@ -275,7 +275,7 @@ paths:
             summary: 'دریافت فاکتور زمانبندی شده'
             operationId: V1InvoiceScheduleByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'فاکتور زمانبندی شده', schema: {$ref: '#/definitions/ScheduleInvoiceWithChilds'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Subschedulers/{code}':
@@ -284,7 +284,7 @@ paths:
             summary: 'دریافت اطلاعات زمانبندی شده فاکتور'
             operationId: V1InvoiceSubschedulersByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'اطلاعات زمانبندی شده فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceSubSchulderDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/List:
@@ -293,7 +293,7 @@ paths:
             summary: 'لیست فاکتور ها'
             operationId: V1InvoiceListGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/ListCount:
@@ -302,7 +302,7 @@ paths:
             summary: 'تعداد فاکتور ها'
             operationId: V1InvoiceListCountGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/ListSchedule:
@@ -311,7 +311,7 @@ paths:
             summary: 'لیست فاکتور ها زمانبندی شده'
             operationId: V1InvoiceListScheduleGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها زمانبندی شده', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/ListScheduleCount:
@@ -320,7 +320,7 @@ paths:
             summary: 'تعداد فاکتور ها زمانبندی شده'
             operationId: V1InvoiceListScheduleCountGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها زمانبندی شده', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/{code}':
@@ -329,59 +329,68 @@ paths:
             summary: 'دریافت فاکتور'
             operationId: V1InvoiceByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         put:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
             operationId: V1InvoiceByCodePut
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
-            responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست\nشما پیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور'
             operationId: V1InvoiceByCodeDelete
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-    /v1/Invoice/SendByTemplate:
+    /v1/Invoice/SendByTemplateAdvance:
         post:
             tags: [Invoice]
-            summary: 'ارسال فاکتور جدید با استفاده از قالب'
-            operationId: V1InvoiceSendByTemplatePost
-            consumes: [application/json]
-            produces: [application/json]
+            summary: 'ارسال فاکتور جدید با استفاده از قالب - پیشرفته'
+            operationId: V1InvoiceSendByTemplateAdvancePost
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
-            responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست\nشما پیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+    /v1/Invoice/SendByTemplateSimple:
+        post:
+            tags: [Invoice]
+            summary: 'ارسال فاکتور جدید با استفاده از قالب - سریع'
+            operationId: V1InvoiceSendByTemplateSimplePost
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
+            parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
+            responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice:
         post:
             tags: [Invoice]
             summary: 'فاکتور جدید'
             operationId: V1InvoicePost
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
-            responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست\nشما پیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/Schedule:
         post:
             tags: [Invoice]
             summary: 'فاکتور زمانبندی شده جدید'
             operationId: V1InvoiceSchedulePost
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
-            responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست\nشما پیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/DeleteSchedule/{code}':
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور زمانبندی شده'
             operationId: V1InvoiceDeleteScheduleByCodeDelete
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور زمانبندی شده', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور زمانبندی شده', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Pdf/{code}':
@@ -390,7 +399,7 @@ paths:
             summary: 'درخواست فاکتور غیر رسمی'
             operationId: V1InvoicePdfByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات فایل فاکتور غیر رسمی', schema: {$ref: '#/definitions/InvoicePdfResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Invoice/Cancel:
@@ -398,8 +407,8 @@ paths:
             tags: [Invoice]
             summary: 'درخواست لغو فاکتور'
             operationId: V1InvoiceCancelPost
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceCancelRequest'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceCancelResponse'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Reminder/{code}':
@@ -408,7 +417,7 @@ paths:
             summary: 'ارسال یادآوری فاکتور'
             operationId: V1InvoiceReminderByCodePost
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال یادآوری فاکتور', schema: {$ref: '#/definitions/InvoiceSendReminderResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Send/{code}':
@@ -417,16 +426,25 @@ paths:
             summary: 'ارسال فاکتور'
             operationId: V1InvoiceSendByCodePost
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال فاکتور', schema: {$ref: '#/definitions/InvoiceSendInvoiceResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+    /v1/Invoice/SetCustomer:
+        post:
+            tags: [Invoice]
+            summary: 'ثبت مشتری به فاکتور'
+            operationId: V1InvoiceSetCustomerPost
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
+            parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceSetCustomerRequestViewModel'}}]
+            responses: {'200': {description: 'نمایش وضعیت ثبت مشتری فاکتور', schema: {$ref: '#/definitions/InvoiceConfirmPaymentResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/List:
         get:
             tags: [Template]
             summary: 'لیست قالب ها'
             operationId: V1TemplateListGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/ListCount:
@@ -435,7 +453,7 @@ paths:
             summary: 'تعداد قالب ها'
             operationId: V1TemplateListCountGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/ListSchedule:
@@ -444,7 +462,7 @@ paths:
             summary: 'لیست قالب های زمانبندی'
             operationId: V1TemplateListScheduleGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/ListScheduleCount:
@@ -453,7 +471,7 @@ paths:
             summary: 'تعداد قالب های زمانبندی'
             operationId: V1TemplateListScheduleCountGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/ListNonSchedule:
@@ -462,7 +480,7 @@ paths:
             summary: 'لیست قالب های غیر زمانبندی'
             operationId: V1TemplateListNonScheduleGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/ListNonScheduleCount:
@@ -471,7 +489,7 @@ paths:
             summary: 'تعداد قالب های غیر زمانبندی'
             operationId: V1TemplateListNonScheduleCountGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Template/{code}':
@@ -480,23 +498,23 @@ paths:
             summary: 'دریافت قالب'
             operationId: V1TemplateByCodeGet
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         put:
             tags: [Template]
             summary: 'بروزرسانی قالب'
             operationId: V1TemplateByCodePut
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
-            responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما\nپیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
         delete:
             tags: [Template]
             summary: 'حذف قالب'
             operationId: V1TemplateByCodeDelete
             consumes: []
-            produces: [application/json]
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای قالب', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template:
@@ -504,10 +522,10 @@ paths:
             tags: [Template]
             summary: 'قالب جدید'
             operationId: V1TemplatePost
-            consumes: [application/json]
-            produces: [application/json]
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
-            responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: "اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست\nشما پیدا نشد"}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/coupon:
         post:
             tags: [coupon]
@@ -877,6 +895,8 @@ definitions:
             firstName: {description: نام, type: string}
             lastName: {description: 'نام خانوادگی', type: string}
             businessName: {description: 'نام کسب و کار', type: string}
+            nationalId: {description: 'کد ملی/شماره اقتصادی', type: string}
+            isBusiness: {description: 'حقوقی = true, حقیقی = false', type: string}
     ListCountViewModel:
         type: object
         properties:
@@ -893,18 +913,18 @@ definitions:
             userPhotoFileAddress: {description: 'پس از آپلود و دریافت کلید فایل را اینجا قرار دهید', type: string}
             userPhotoFileId: {description: 'لیست کلیدهای یکتا فایل تصویر پرسنلی', type: string}
             email: {description: 'پست الکترونیک', type: string, example: info@example.com}
-            phone: {description: تلفن, type: string, example: 18874368}
+            phone: {description: تلفن, type: string, example: '09110000000'}
             firstName: {description: نام, type: string, example: پوریا}
             lastName: {description: 'نام خانوادگی', type: string, example: منفرد}
             businessName: {description: 'نام کسب و کار', type: string, example: 'پی پینگ'}
             additionalInfo: {description: 'اطلاعات اضافی', type: string, example: 'او یک وکیل است'}
+            memo: {description: یادآوری, type: string, example: 'در پی پینگ با ایشان آشنا شدم'}
             zipCode: {description: کدپستی, type: string, example: '46169696164'}
             state: {description: استان, type: string, example: تهران}
             city: {description: شهر, type: string, example: تهران}
             location: {description: آدرس, type: string, example: 'خیابان جمهوری'}
-            memo: {description: 'متن یادآوری', type: string, example: 'به او مبلغی بدهکار می باشم'}
             isBusiness: {description: 'حقوقی = true, حقیقی = false', type: boolean, example: 'false'}
-            nationalId: {description: کدملی, type: string, example: '22266655591'}
+            nationalId: {description: 'کد ملی/شماره اقتصادی', type: string, example: '22266655591'}
     AddressBookEditViewModel:
         description: 'بروزرسانی مشتری'
         required:
@@ -916,7 +936,7 @@ definitions:
             code: {description: 'کلید یکتای مشتری', type: string}
             userPhotoFileId: {description: 'پس از آپلود و دریافت کلید فایل را اینجا قرار دهید', type: string}
             email: {description: 'پست الکترونیک', type: string, example: info@example.com}
-            phone: {description: تلفن, type: string, example: 18874368}
+            phone: {description: تلفن, type: string, example: '09110000000'}
             firstName: {description: نام, type: string, example: پوریا}
             lastName: {description: 'نام خانوادگی', type: string, example: منفرد}
             businessName: {description: 'نام کسب و کار', type: string, example: 'پی پینگ'}
@@ -937,7 +957,7 @@ definitions:
         properties:
             userPhotoFileId: {description: 'پس از آپلود و دریافت کلید فایل را اینجا قرار دهید', type: string}
             email: {description: 'پست الکترونیک', type: string, example: info@example.com}
-            phone: {description: تلفن, type: string, example: 18874368}
+            phone: {description: تلفن, type: string, example: '09110000000'}
             firstName: {description: نام, type: string, example: پوریا}
             lastName: {description: 'نام خانوادگی', type: string, example: منفرد}
             businessName: {description: 'نام کسب و کار', type: string, example: 'پی پینگ'}
@@ -978,10 +998,10 @@ definitions:
             paymentCode: {description: 'کد یکتای پرداخت', type: string}
             ccToes: {description: 'لیست ایمیل', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToDetailViewModel'}}
             billToes: {description: 'لیست مشتری', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToDetailViewModel'}}
-            status: {format: int32, description: 'وضعیت فاکتور', enum: [0, 1, 2, 3, 4, 5], type: integer}
+            status: {format: int32, description: "وضعیت فاکتور:\r\n0 = پیش نویس\r\n1 = در انتظار پرداخت\r\n2 = پرداخت شد\r\n3 = معوق\r\n4 = لغو شده\r\n5 = همه", enum: [0, 1, 2, 3, 4, 5], type: integer}
             paidManualDescription: {description: 'شرح پرداخت دستی', type: string}
             saveToTemplate: {description: 'ذخیره به عنوان قالب فاکتور', type: boolean}
-            invoiceNumber: {format: int32, description: 'شماره فاکتور', type: integer}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
             invoiceTitle: {description: 'عنوان فاکتور', type: string}
             invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
             dueDate: {format: date-time, description: 'تاریخ سررسید', type: string}
@@ -991,7 +1011,7 @@ definitions:
             itemsDiscountAmount: {format: double, description: 'جمع مبلغ تخفیف آیتم های مالی', type: number}
             totalDiscountAmount: {format: double, description: 'مبلغ تخفیف به کل فاکتور', type: number}
             totalDiscountPercent: {format: int32, description: 'درصد تخفیف به کل فاکتور', type: integer}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف به کل فاکتور به صورت مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             sumDiscountAmount: {format: double, description: 'جمع کل تخفیف اعمال شده روی فاکتور', type: number}
             totalTaxtionAmount: {format: double, description: 'مبلغ مالیات', type: number}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
@@ -1001,9 +1021,9 @@ definitions:
             memo: {description: 'متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', type: string}
             invoiceSchulder: {$ref: '#/definitions/InvoiceSchulderDetailViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
             invoiceItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceItemDetailViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", type: boolean}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
             attachFileIds: {description: 'لیست کلید یکتای فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
             attachFileAddresses: {description: 'لیست آدرس فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
             qrCodeFileName: {description: 'آدرس تصویر بارکد فاکتور', type: string}
@@ -1022,8 +1042,8 @@ definitions:
         type: object
         properties:
             repeat: {format: int32, description: 'تکرار در هر X روز/هفته/ماه/سال', type: integer}
-            schulderType: {format: int32, description: 'نوع زمانبندی', enum: [0, 1, 2, 3], type: integer}
-            dueType: {format: int32, description: 'نوع پایان زمانبندی', enum: [0, 1, 2], type: integer}
+            schulderType: {format: int32, description: "نوع زمانبندی:\r\n0 = روزانه\r\n1 = هفتگی\r\n2 = ماهانه\r\n3 = سالانه", enum: [0, 1, 2, 3], type: integer}
+            dueType: {format: int32, description: "نوع پایان زمانبندی:\r\n0 = پس از ساخت X فاکتور\r\n1 = پایان دادن به ساخت فاکتور در تاریخ X\r\n2 = ساخت نامحدود فاکتور", enum: [0, 1, 2], type: integer}
             endValue: {description: 'تعداد/تاریخ پایان، تولید فاکتور', type: string}
             dueDateAfterHowManyDay: {format: int32, description: 'سررسید بعد از X روز', type: integer}
             invoiceSubSchulders: {description: 'لیست دستور ساخت فاکتورهای زمانبندی شده و وضعیت آن ها', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceSubSchulderDetailViewModel'}}
@@ -1035,7 +1055,7 @@ definitions:
             name: {description: عنوان, type: string}
             description: {description: توضیحات, type: string}
             quantity: {format: int32, description: تعداد, type: integer}
-            discountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            discountType: {format: int32, description: "نوع تخفیف:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             discountPercent: {format: int32, description: 'درصد تخفیف', type: integer}
             discountAmount: {format: double, description: 'مبلغ تخفیف', type: number}
             tax: {description: 'دارای مالیات = true, نداشتن مالیات = false', type: boolean}
@@ -1057,13 +1077,13 @@ definitions:
         type: object
         properties:
             code: {description: 'کلید یکتای فاکتور', type: string}
-            invoiceNumber: {format: int32, description: 'شماره فاکتور', type: integer}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
             invoiceDateTime: {format: date-time, description: 'تاریخ ثبت فاکتور', type: string}
             dueDate: {format: date-time, description: 'تاریخ سررسید فاکتور', type: string}
             payedDateTime: {format: date-time, description: 'تاریخ پرداخت', type: string}
             canceledDateTime: {format: date-time, description: 'تاریخ لغو', type: string}
             invoiceTitle: {description: عنوان, type: string}
-            status: {format: int32, description: 'وضعیت فاکتور', enum: [0, 1, 2, 3, 4, 5], type: integer}
+            status: {format: int32, description: "وضعیت فاکتور\r\n0 = پیش نویس\r\n1 = در انتظار پرداخت\r\n2 = پرداخت شد\r\n3 = معوق\r\n4 = لغو شده\r\n5 = همه", enum: [0, 1, 2, 3, 4, 5], type: integer}
             total: {format: double, description: 'مبلغ نهایی یا قابل پرداخت', type: number}
             ccToes: {description: 'دریافت کننده های ایمیلی', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToListItemViewModel'}}
             billToes: {description: 'دریافت کننده ها - مشتریان', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToListItemViewModel'}}
@@ -1086,25 +1106,25 @@ definitions:
             code: {description: 'کلید یکتای فاکتور', type: string}
             ccToes: {description: 'ایمیل ها', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToCreateOrUpdateViewModel'}}
             billToes: {description: مشتریان, uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToCreateOrUpdateViewModel'}}
-            createStatus: {format: int32, description: "0 = Draft(پیش نویس),\r\n1 = Send(ارسال),\r\n2 = PaidManual(دستی\nپرداخت شد)", enum: [0, 1, 2], type: integer}
+            createStatus: {format: int32, description: "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد", enum: [0, 1, 2], type: integer}
             paidManualDescription: {description: 'شرح پرداخت دستی', default: "", type: string}
             saveToTemplate: {description: 'ذخیره به عنوان قالب', default: false, type: boolean}
             templateCode: {description: 'کد یکتای قالب فاکتور', default: "", type: string}
-            invoiceNumber: {format: int32, description: 'شماره فاکتور', type: integer}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
             invoiceTitle: {description: 'عنوان فاکتور', type: string}
             invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
             dueDate: {format: date-time, description: 'تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد', type: string}
             totalDiscountValue: {format: double, description: 'تخفیف به کل فاکتور', type: number}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به مبلغ یا درصد\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
             notes: {description: 'متن جهت ارسال به دریافت کننده', default: "", type: string}
             termsAndConditions: {description: 'متن شرایط و قوانین جهت ارسال به دریافت کننده', default: "", type: string}
             memo: {description: 'ایجاد یک متن دلخواه جهت یادآوری فقط برای کاربر ثبت کننده', default: "", type: string}
             invoiceItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceItemCreateViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            attachmentsIds: {description: "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته\nها قرار دهید", uniqueItems: false, type: array, items: {type: string}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            attachmentsIds: {description: 'کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید', uniqueItems: false, type: array, items: {type: string}}
             isDevicePayment: {description: 'ثبت فاکتور بدون مشتری = true, با مشتری = false', default: false, type: boolean}
     InvoiceCcToCreateOrUpdateViewModel:
         description: CC
@@ -1126,7 +1146,7 @@ definitions:
             tax: {description: 'دارای مالیات = true, نداشتن مالیات = false', default: false, type: boolean}
             quantity: {format: int32, description: تعداد, default: 1, type: integer}
             discountValue: {format: double, description: 'مقدار تخفیف', type: number}
-            discountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            discountType: {format: int32, description: "نوع تخفیف:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             discountCouponCode: {description: 'کد یکتا تخفیف از بخش تخفیف ها', type: string}
             price: {format: double, description: 'مبلغ فی', default: 0, type: number}
     InvoiceSendByTemplate:
@@ -1136,34 +1156,47 @@ definitions:
         type: object
         properties:
             templateCode: {description: 'کلید یکتای قالب فاکتور', type: string}
+            invoiceTitle: {description: 'عنوان فاکتور', type: string}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', default: 1, type: integer}
+            invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
+            dueDate: {format: date-time, description: 'تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد', type: string}
             ccToes: {description: 'لیست آدرس ایمیل', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToCreateOrUpdateViewModel'}}
             billToes: {description: 'لیست مشتری', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToCreateOrUpdateViewModel'}}
             isDevicePayment: {description: 'ثبت فاکتور بدون مشتری = true, با مشتری = false', default: false, type: boolean}
+    InvoiceSendByTemplateSimple:
+        description: 'ثبت فاکتور با استفاده از قالب فاکتور'
+        required:
+            - templateCode
+        type: object
+        properties:
+            templateCode: {description: 'کلید یکتای قالب فاکتور', type: string}
+            emailAddresses: {description: 'لیست آدرس ایمیل', uniqueItems: false, type: array, items: {type: string}}
+            addressBook: {$ref: '#/definitions/AddressBookCreateViewModel', description: 'مشخصات مشتری'}
     InvoiceCreateViewModel:
         description: 'ثبت فاکتور ساده'
         type: object
         properties:
             ccToes: {description: 'ایمیل ها', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToCreateOrUpdateViewModel'}}
             billToes: {description: مشتریان, uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToCreateOrUpdateViewModel'}}
-            createStatus: {format: int32, description: "0 = Draft(پیش نویس),\r\n1 = Send(ارسال),\r\n2 = PaidManual(دستی\nپرداخت شد)", enum: [0, 1, 2], type: integer}
+            createStatus: {format: int32, description: "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد", enum: [0, 1, 2], type: integer}
             paidManualDescription: {description: 'شرح پرداخت دستی', default: "", type: string}
             saveToTemplate: {description: 'ذخیره به عنوان قالب', default: false, type: boolean}
             templateCode: {description: 'کد یکتای قالب فاکتور', default: "", type: string}
-            invoiceNumber: {format: int32, description: 'شماره فاکتور', type: integer}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
             invoiceTitle: {description: 'عنوان فاکتور', type: string}
             invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
             dueDate: {format: date-time, description: 'تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد', type: string}
             totalDiscountValue: {format: double, description: 'تخفیف به کل فاکتور', type: number}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
             notes: {description: 'پیامی جهت نمایش به پرداخت کننده', default: "", type: string}
             termsAndConditions: {description: 'متن شرایط و قوانین جهت نمایش به پرداخت کننده', default: "", type: string}
             memo: {description: 'ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', default: "", type: string}
             invoiceItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceItemCreateViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            attachmentsIds: {description: "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته\nها قرار دهید", uniqueItems: false, type: array, items: {type: string}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            attachmentsIds: {description: 'کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید', uniqueItems: false, type: array, items: {type: string}}
             isDevicePayment: {description: 'ثبت فاکتور بدون مشتری = true, با مشتری = false', default: false, type: boolean}
     InvoiceCreateScheduleViewModel:
         description: 'ثبت فاکتور زمانبندی شده'
@@ -1171,34 +1204,34 @@ definitions:
         properties:
             ccToes: {description: 'ایمیل ها', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToCreateOrUpdateViewModel'}}
             billToes: {description: مشتریان, uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToCreateOrUpdateViewModel'}}
-            createStatus: {format: int32, description: "1 = Send(ارسال),\r\n2 = PaidManual(دستی پرداخت شد)", enum: [1, 2], type: integer}
+            createStatus: {format: int32, description: "نوع ثبت:\r\n1 = ارسال\r\n2 = دستی پرداخت شد", enum: [1, 2], type: integer}
             paidManualDescription: {description: 'شرح پرداخت دستی', default: "", type: string}
             saveToTemplate: {description: 'ذخیره به عنوان قالب', default: false, type: boolean}
             templateCode: {description: 'کد یکتای قالب فاکتور', default: "", type: string}
-            invoiceNumber: {format: int32, description: 'شماره فاکتور', type: integer}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
             invoiceTitle: {description: 'عنوان فاکتور', type: string}
             invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
             dueDate: {format: date-time, description: 'تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد', type: string}
             totalDiscountValue: {format: double, description: 'تخفیف به کل فاکتور', type: number}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
             notes: {description: 'پیامی جهت نمایش به پرداخت کننده', default: "", type: string}
             termsAndConditions: {description: 'متن شرایط و قوانین جهت نمایش به پرداخت کننده', default: "", type: string}
             memo: {description: 'ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', default: "", type: string}
             invoiceSchulder: {$ref: '#/definitions/InvoiceSchulderCreateOrUpdateViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
             invoiceItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceItemCreateViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            attachmentsIds: {description: "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته\nها قرار دهید", uniqueItems: false, type: array, items: {type: string}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            attachmentsIds: {description: 'کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید', uniqueItems: false, type: array, items: {type: string}}
             isDevicePayment: {description: 'ثبت فاکتور بدون مشتری = true, با مشتری = false', default: false, type: boolean}
     InvoiceSchulderCreateOrUpdateViewModel:
         description: 'ثبت اطلاعات زمانبندی فاکتور'
         type: object
         properties:
             repeat: {format: int32, description: 'تکرار در هر X روز/هفته/ماه/سال', default: 1, type: integer}
-            schulderType: {format: int32, description: 'نوع زمانبندی', default: 0, enum: [0, 1, 2, 3], type: integer}
-            dueType: {format: int32, description: 'نوع پایان زمانبندی', default: 0, enum: [0, 1, 2], type: integer}
+            schulderType: {format: int32, description: "نوع زمانبندی:\r\n0 = روزانه\r\n1 = هفتگی\r\n2 = ماهانه\r\n3 = سالانه", default: 0, enum: [0, 1, 2, 3], type: integer}
+            dueType: {format: int32, description: "نوع پایان زمانبندی:\r\n0 = پس از ساخت X فاکتور\r\n1 = پایان دادن به ساخت فاکتور در تاریخ X\r\n2 = ساخت نامحدود فاکتور", default: 0, enum: [0, 1, 2], type: integer}
             endValue: {description: 'تعداد/تاریخ پایان، تولید فاکتور', default: '1', type: string}
             dueDateAfterHowManyDay: {format: int32, description: 'سررسید بعد از X روز', default: 2, type: integer}
     InvoicePdfResponseViewModel:
@@ -1235,6 +1268,81 @@ definitions:
             success: {description: 'موفقیت آمیز بودن درخواست = true, ناموفق بودن = false', type: boolean}
             message: {description: 'پیام خطا یا موفقیت', type: string}
             modelCode: {description: 'کلید یکتا', type: string}
+    InvoiceSetCustomerRequestViewModel:
+        type: object
+        properties:
+            invoiceCode: {type: string}
+            customer: {$ref: '#/definitions/AddressBookCreateViewModel'}
+    InvoiceConfirmPaymentResponseViewModel:
+        type: object
+        properties:
+            success: {type: boolean}
+            message: {type: string}
+            modelCode: {type: string}
+            refId: {type: string}
+            previewKey: {type: string}
+            invoice: {$ref: '#/definitions/InvoiceInPublicShow'}
+    InvoiceInPublicShow:
+        type: object
+        properties:
+            previewKey: {type: string}
+            invoice: {$ref: '#/definitions/InvoicePublicDetailViewModel'}
+            ownerInfo: {$ref: '#/definitions/UserInfoInPublicShow'}
+    InvoicePublicDetailViewModel:
+        description: 'جزییات فاکتور به صورت عمومی'
+        type: object
+        properties:
+            payedDateTime: {format: date-time, description: 'تاریخ پرداخت', type: string}
+            canceledDateTime: {format: date-time, description: 'تاریخ لغو', type: string}
+            expiredDateTime: {format: date-time, description: 'تاریخ معوق شدن', type: string}
+            code: {description: 'کلید یکتای فاکتور', type: string}
+            parentCode: {description: 'کلید والد بودن فاکتور', type: string}
+            paymentCode: {description: 'کد یکتای پرداخت', type: string}
+            ccToes: {description: 'لیست ایمیل', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceCcToDetailViewModel'}}
+            billToes: {description: 'لیست مشتری', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceBillToDetailViewModel'}}
+            status: {format: int32, description: "وضعیت فاکتور:\r\n0 = پیش نویس\r\n1 = در انتظار پرداخت\r\n2 = پرداخت شد\r\n3 = معوق\r\n4 = لغو شده\r\n5 = همه", enum: [0, 1, 2, 3, 4, 5], type: integer}
+            paidManualDescription: {description: 'شرح پرداخت دستی', type: string}
+            saveToTemplate: {description: 'ذخیره به عنوان قالب فاکتور', type: boolean}
+            invoiceNumber: {format: int64, description: 'شماره فاکتور', type: integer}
+            invoiceTitle: {description: 'عنوان فاکتور', type: string}
+            invoiceDateTime: {format: date-time, description: 'تاریخ ثبت', type: string}
+            dueDate: {format: date-time, description: 'تاریخ سررسید', type: string}
+            subTotal: {format: double, description: 'جمع مبلغ پرداختی آیتم های مالی', type: number}
+            itemsDiscountAmount: {format: double, description: 'جمع مبلغ تخفیف آیتم های مالی', type: number}
+            totalDiscountAmount: {format: double, description: 'مبلغ تخفیف به کل فاکتور', type: number}
+            totalDiscountPercent: {format: int32, description: 'درصد تخفیف به کل فاکتور', type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
+            sumDiscountAmount: {format: double, description: 'جمع کل تخفیف اعمال شده روی فاکتور', type: number}
+            totalTaxtionAmount: {format: double, description: 'مبلغ مالیات', type: number}
+            shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
+            total: {format: double, description: 'مبلغ کل', type: number}
+            notes: {description: 'پیامی جهت نمایش به پرداخت کننده', type: string}
+            termsAndConditions: {description: 'متن شرایط و قوانین جهت نمایش به پرداخت کننده', type: string}
+            memo: {description: 'متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', type: string}
+            invoiceSchulder: {$ref: '#/definitions/InvoiceSchulderDetailViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
+            invoiceItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceItemDetailViewModel'}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            attachFileIds: {description: 'لیست کلید یکتای فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
+            attachFileAddresses: {description: 'لیست آدرس فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
+            qrCodeFileName: {description: 'آدرس تصویر بارکد فاکتور', type: string}
+    UserInfoInPublicShow:
+        type: object
+        properties:
+            name: {type: string}
+            profilePicture: {type: string}
+            isBusiness: {type: boolean}
+            verifyType: {format: int32, type: integer}
+            socials: {$ref: '#/definitions/SocialUserInfoExtraViewModel'}
+    SocialUserInfoExtraViewModel:
+        type: object
+        properties:
+            site: {type: string}
+            instagram: {type: string}
+            telegram: {type: string}
+            twitter: {type: string}
+            allSocialIsNull: {type: boolean, readOnly: true}
     InvoiceTemplateListItemViewModel:
         description: 'مشخصات قالب فاکتور'
         type: object
@@ -1252,7 +1360,7 @@ definitions:
             itemsDiscountAmount: {format: double, description: 'جمع مبلغ تخفیف آیتم های مالی', type: number}
             totalDiscountAmount: {format: double, description: 'جمع مبلغ تخفیف آیتم های مالی', type: number}
             totalDiscountPercent: {format: int32, description: 'درصد تخفیف به کل فاکتور', type: integer}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف به کل فاکتور به صورت مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             sumDiscountAmount: {format: double, description: 'جمع کل تخفیف اعمال شده روی فاکتور', type: number}
             totalTaxtionAmount: {format: double, description: 'مبلغ مالیات', type: number}
             shipping: {format: double, description: 'مبلغ حمل و نقل', type: number}
@@ -1262,9 +1370,9 @@ definitions:
             memo: {description: 'متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', type: string}
             invoiceTemplateItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateItemIndexViewModel'}}
             invoiceSchulder: {$ref: '#/definitions/InvoiceTemplateSchulderIndexViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", type: boolean}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', type: boolean}
             attachFileIds: {description: 'لیست کلید یکتای فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
             attachFileAddresses: {description: 'لیست آدرس فایل های ضمیمه', uniqueItems: false, type: array, items: {type: string}}
     InvoiceTemplateItemIndexViewModel:
@@ -1275,7 +1383,7 @@ definitions:
             name: {description: عنوان, type: string}
             description: {description: توضیحات, type: string}
             quantity: {format: int32, description: تعداد, type: integer}
-            discountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            discountType: {format: int32, description: "نوع تخفیف:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             discountPercent: {format: int32, description: 'درصد تخفیف', type: integer}
             discountAmount: {format: double, description: 'مبلغ تخفیف', type: number}
             tax: {description: 'دارای مالیات = true, نداشتن مالیات = false', type: boolean}
@@ -1288,8 +1396,8 @@ definitions:
         type: object
         properties:
             repeat: {format: int32, description: 'تکرار در هر X روز/هفته/ماه/سال', default: 1, type: integer}
-            schulderType: {format: int32, description: 'نوع زمانبندی', default: 0, enum: [0, 1, 2, 3], type: integer}
-            dueType: {format: int32, description: 'نوع پایان زمانبندی', default: 0, enum: [0, 1, 2], type: integer}
+            schulderType: {format: int32, description: "نوع زمانبندی:\r\n0 = روزانه\r\n1 = هفتگی\r\n2 = ماهانه\r\n3 = سالانه", default: 0, enum: [0, 1, 2, 3], type: integer}
+            dueType: {format: int32, description: "نوع پایان زمانبندی:\r\n0 = پس از ساخت X فاکتور\r\n1 = پایان دادن به ساخت فاکتور در تاریخ X\r\n2 = ساخت نامحدود فاکتور", default: 0, enum: [0, 1, 2], type: integer}
             endValue: {description: 'تعداد/تاریخ پایان، تولید فاکتور', default: '1', type: string}
             dueDateAfterHowManyDay: {format: int32, description: 'سررسید بعد از X روز', default: 2, type: integer}
     InvoiceTemplateEditViewModel:
@@ -1302,24 +1410,24 @@ definitions:
             code: {description: 'کلید یکتای فاکتور', default: "", type: string}
             templateName: {description: عنوان, default: "", type: string}
             totalDiscountValue: {format: int32, description: 'تخفیف به کل فاکتور', type: integer}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
             notes: {description: 'پیامی جهت نمایش به پرداخت کننده', default: "", type: string}
             termsAndConditions: {description: 'متن شرایط و قوانین جهت نمایش به پرداخت کننده', default: "", type: string}
             memo: {description: 'ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', default: "", type: string}
             invoiceSchulder: {$ref: '#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
             invoiceTemplateItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateItemCreateViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            attachmentsIds: {description: "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته\nها قرار دهید", uniqueItems: false, type: array, items: {type: string}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            attachmentsIds: {description: 'کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید', uniqueItems: false, type: array, items: {type: string}}
     InvoiceTemplateSchulderCreateOrUpdateViewModel:
         description: 'ثبت اطلاعات زمانبندی قالب فاکتور'
         type: object
         properties:
             repeat: {format: int32, description: 'تکرار در هر X روز/هفته/ماه/سال', default: 1, type: integer}
-            schulderType: {format: int32, description: 'نوع زمانبندی', default: 0, enum: [0, 1, 2, 3], type: integer}
-            dueType: {format: int32, description: 'نوع پایان زمانبندی', default: 0, enum: [0, 1, 2], type: integer}
+            schulderType: {format: int32, description: "نوع زمانبندی:\r\n0 = روزانه\r\n1 = هفتگی\r\n2 = ماهانه\r\n3 = سالانه", default: 0, enum: [0, 1, 2, 3], type: integer}
+            dueType: {format: int32, description: "نوع پایان زمانبندی:\r\n0 = پس از ساخت X فاکتور\r\n1 = پایان دادن به ساخت فاکتور در تاریخ X\r\n2 = ساخت نامحدود فاکتور", default: 0, enum: [0, 1, 2], type: integer}
             endValue: {description: 'تعداد/تاریخ پایان، تولید فاکتور', default: '1', type: string}
             dueDateAfterHowManyDay: {format: int32, description: 'سررسید بعد از X روز', default: 2, type: integer}
     InvoiceTemplateItemCreateViewModel:
@@ -1332,7 +1440,7 @@ definitions:
             tax: {description: 'دارای مالیات = true, نداشتن مالیات = false', default: false, type: boolean}
             quantity: {format: int32, description: تعداد, default: 1, type: integer}
             discountValue: {format: double, description: 'مقدار تخفیف', type: number}
-            discountType: {format: int32, description: 'نوع تخفیف به مبلغ یا درصد', enum: [0, 1], type: integer}
+            discountType: {format: int32, description: "نوع تخفیف:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             discountCouponCode: {description: 'کد یکتا تخفیف از بخش تخفیف ها', type: string}
             price: {format: double, description: 'مبلغ فی', default: 0, type: number}
     InvoiceTemplateCreateViewModel:
@@ -1343,17 +1451,17 @@ definitions:
         properties:
             templateName: {description: عنوان, default: "", type: string}
             totalDiscountValue: {format: int32, description: 'تخفیف به کل فاکتور', type: integer}
-            totalDiscountType: {format: int32, description: 'نوع تخفیف مبلغ یا درصد', enum: [0, 1], type: integer}
+            totalDiscountType: {format: int32, description: "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد", enum: [0, 1], type: integer}
             shipping: {format: double, description: 'هزینه حمل و نقل', type: number}
             notes: {description: 'پیامی جهت نمایش به پرداخت کننده', default: "", type: string}
             termsAndConditions: {description: 'متن شرایط و قوانین جهت نمایش به پرداخت کننده', default: "", type: string}
             memo: {description: 'ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور', default: "", type: string}
             invoiceSchulder: {$ref: '#/definitions/InvoiceTemplateSchulderCreateOrUpdateViewModel', description: 'ارسال زماندار که رابطه (یک به یک) یا (یک به صفر) دارد'}
             invoiceTemplateItems: {description: 'آیتم های مالی فاکتور', uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateItemCreateViewModel'}}
-            isSendAttachmentsAfterPayment: {description: "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true,\nنمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendNotesAndTermsAfterPayment: {description: "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در\nقبل و بعد از پرداخت = false", default: false, type: boolean}
-            isSendTermsAfterPayment: {description: "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق =\ntrue, نمایش در قبل و بعد از پرداخت = false", default: false, type: boolean}
-            attachmentsIds: {description: "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته\nها قرار دهید", uniqueItems: false, type: array, items: {type: string}}
+            isSendAttachmentsAfterPayment: {description: 'نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendNotesAndTermsAfterPayment: {description: 'نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            isSendTermsAfterPayment: {description: 'نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false', default: false, type: boolean}
+            attachmentsIds: {description: 'کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید', uniqueItems: false, type: array, items: {type: string}}
     ServiceViewModel:
         type: object
         properties:
