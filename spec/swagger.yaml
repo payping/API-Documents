@@ -647,7 +647,7 @@ paths:
             operationId: V1PermaLinkListCountGet
             consumes: []
             produces: [application/json]
-            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
+            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false, description: 'همراه با آرشیوشده‌ها'}, {name: search, in: query, required: false, type: string, description: 'کلیدواژه مورد جستجو'}]
             responses: {'200': {description: 'تعداد لینک‌های ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
     '/v1/permaLink/{productCode}/BuyersList':
         get:
@@ -1683,33 +1683,30 @@ definitions:
     PermanentCreateViewModel:
         type: object
         properties:
-            code: {type: string, description: 'کد آیتم‌مالی'}
-            redirectPage: {type: string, description: 'صفحه بازگشت لینک‌ثابت پس از پرداخت'}
-            getAddress: {type: boolean, description: 'دریافت آدرس و محل سکونت از پرداخت کننده'}
-            mailerLiteListId: {type: string, description: 'لیست قالب‌های میلرلایت'}
-            smsText: {type: string, description: 'متن پیامک ارسالی به پرداخت کننده'}
-            customDescriptionText: {type: string, description: 'متن سوال سفارشی'}
+            code: {type: string, description: 'کد آیتم‌مالی که قصد ساخت لینک‌ثابت برای آن دارید', default: "c10J"}
+            redirectPage: {type: string, description: 'صفحه بازگشت لینک‌ثابت پس از پرداخت', default: "https://payping.ir"}
+            getAddress: {type: boolean, description: 'دریافت آدرس و محل سکونت از پرداخت کننده', default: false}
+            mailerLiteListId: {type: string, description: 'لیست قالب‌های میلرلایت', default: "25698711"}
+            smsText: {type: string, description: 'متن پیامک ارسالی به پرداخت کننده', default: "باتشکر از پرداخت شما"}
+            customDescriptionText: {type: string, description: 'متن سوال سفارشی', default: "لطفا نام پدر خود را وارد کنید"}
             emailOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت ایمیل (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            phoneOption: {format: int32, enum: [0, 1, 2], type: integer}
-            nameOption: {format: int32, enum: [0, 1, 2], type: integer}
-            customDesOption: {format: int32, enum: [0, 1, 2], type: integer}
-            clientId: {type: string}
-            clientRefId: {type: string}
+            phoneOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت تلفن (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
+            nameOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت نام (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
+            customDesOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت سوال سفارشی (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)', default: 1}
     PermanentEditViewModel:
         type: object
         properties:
-            code: {type: string}
-            redirectPage: {type: string}
-            getAddress: {type: boolean}
-            mailerLiteListId: {type: string}
-            smsText: {type: string}
-            customDescriptionText: {type: string}
-            isActive: {type: boolean}
-            emailOption: {format: int32, enum: [0, 1, 2], type: integer}
-            phoneOption: {format: int32, enum: [0, 1, 2], type: integer}
-            nameOption: {format: int32, enum: [0, 1, 2], type: integer}
-            customDesOption: {format: int32, enum: [0, 1, 2], type: integer}
-            permanentType: {format: int32, enum: [0, 1], type: integer}
+            code: {type: string, description: 'کد آیتم‌مالی که قصد ساخت لینک‌ثابت برای آن دارید', default: "c10J"}
+            redirectPage: {type: string, description: 'صفحه بازگشت لینک‌ثابت پس از پرداخت', default: "https://payping.ir"}
+            getAddress: {type: boolean, description: 'دریافت آدرس و محل سکونت از پرداخت کننده', default: false}
+            mailerLiteListId: {type: string, description: 'لیست قالب‌های میلرلایت', default: "25698711"}
+            smsText: {type: string, description: 'متن پیامک ارسالی به پرداخت کننده', default: "باتشکر از پرداخت شما"}
+            customDescriptionText: {type: string, description: 'متن سوال سفارشی', default: "لطفا نام پدر خود را وارد کنید"}
+            emailOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت ایمیل (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
+            phoneOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت تلفن (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
+            nameOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت نام (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
+            customDesOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت سوال سفارشی (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)', default: 1}
+            isActive: {type: boolean, description: 'وضعیت لینک‌ثابت'}
     PermanentDetailViewModel:
         type: object
         properties:
@@ -1762,29 +1759,29 @@ definitions:
             - amount
         type: object
         properties:
-            title: {type: string}
-            description: {type: string}
-            amount: {format: int32, type: integer}
-            defineAmountByUser: {type: boolean}
-            quantity: {format: int32, type: integer}
-            haveTax: {type: boolean}
-            unlimited: {type: boolean}
-            imageLink: {type: string}
+            title: {type: string, description: 'نام آیتم‌مالی', default: "عینک ری‌بن"}
+            description: {type: string, description: 'توضیحات مرتبط با آیتم‌مالی', default: "عینک آفتابی مردانه"}
+            amount: {format: int32, type: integer, description: 'قیمت محصول یا آیتم‌مالی به تومان می‌باشد', default: "145000"}
+            defineAmountByUser: {type: boolean, description: 'قیمت دلخواه توسط پرداخت‌کننده مشخص شود', default: false}
+            quantity: {format: int32, type: integer, description: 'تعداد', default: 12}
+            haveTax: {type: boolean, description: 'مالیات دارد یا خیر - فقط در ساخت فاکتور کاربرد دارد', default: false}
+            unlimited: {type: boolean, description: 'تعداد نامحدود', default: false}
+            imageLink: {type: string, description: 'آدرس تصویر آیتم‌مالی', default: "https://os.payping.ir/files/1/item/a2a71ceb-5343-42f7-90ce-e54db60f068d.jpg"}
     ProductEditViewModel:
         required:
             - title
             - amount
         type: object
         properties:
-            code: {type: string}
-            title: {type: string}
-            description: {type: string}
-            amount: {format: int32, type: integer}
-            defineAmountByUser: {type: boolean}
-            haveTax: {type: boolean}
-            quantity: {format: int32, type: integer}
-            unlimited: {type: boolean}
-            imageLink: {type: string}
+            code: {type: string, description: 'کد آیتم‌مالی', default: "x10K"}
+            title: {type: string, description: 'نام آیتم‌مالی', default: "عینک ری‌بن"}
+            description: {type: string, description: 'توضیحات مرتبط با آیتم‌مالی', default: "عینک آفتابی مردانه"}
+            amount: {format: int32, type: integer, description: 'قیمت محصول یا آیتم‌مالی به تومان می‌باشد', default: "145000"}
+            defineAmountByUser: {type: boolean, description: 'قیمت دلخواه توسط پرداخت‌کننده مشخص شود', default: false}
+            quantity: {format: int32, type: integer, description: 'تعداد', default: 12}
+            haveTax: {type: boolean, description: 'مالیات دارد یا خیر - فقط در ساخت فاکتور کاربرد دارد', default: false}
+            unlimited: {type: boolean, description: 'تعداد نامحدود', default: false}
+            imageLink: {type: string, description: 'آدرس تصویر آیتم‌مالی', default: "https://os.payping.ir/files/1/item/a2a71ceb-5343-42f7-90ce-e54db60f068d.jpg"}
     ProductFullDeatilViewModel:
         type: object
         properties:
