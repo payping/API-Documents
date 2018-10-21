@@ -90,7 +90,7 @@ paths:
             summary: 'ساخت پرداخت'
             description: "به کمک این متد می توانید برای یک نفر کد پرداخت ایجاد کنید.\r\nفراخوانی این متد برای شما یک کد 4 حرفی تولید می کند.\r\nپس از ساخت یک پرداخت، برای ورود به درگاه بانک تنها کافیست کاربر را به همراه کد ساخته شده به آدرس https://api.payping.ir/v1/pay/gotoipg/{code} هدایت نمایید.\r\nپس از اتمام فرایند در درگاه بانکی، کاربر به آدرسی که در ReturnUrl توسط شما مشخص شده است هدایت می شود\r\nکه حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString آدرس می باشد.\r\nRefid مقداری است که برای تایید پرداخت (متد Verify) باید از آن استفاده کرد و \r\nClientRefId نیز همان مقداری است که در هنگام ساخته شدن پرداخت جدید از شما دریافت شده است."
             operationId: V1PayPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -100,7 +100,7 @@ paths:
             summary: 'ساخت پرداخت تسهیمی'
             description: "به کمک این متد می توانید برای یک پرداخت چند نفره (تسهیمی) کد پرداخت ایجاد کنید.\r\nفراخوانی این متد برای شما یک کد 4 حرفی تولید می کند.\r\nپس از ساخت یک پرداخت، برای ورود به درگاه بانک تنها کافیست کاربر را به همراه کد ساخته شده به آدرس https://api.payping.ir/v1/pay/gotoipg/{code} هدایت نمایید.\r\nپس از اتمام فرایند در درگاه بانکی، کاربر به آدرسی که در ReturnUrl توسط شما مشخص شده است هدایت می شود\r\nکه حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString آدرس می باشد.\r\nRefid مقداری است که برای تایید پرداخت (متد Verify) باید از آن استفاده کرد و \r\nClientRefId نیز همان مقداری است که در هنگام ساخته شدن پرداخت جدید از شما دریافت شده است."
             operationId: V1PayMultiPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -110,7 +110,7 @@ paths:
             summary: 'تایید پرداخت'
             description: "از این متد برای تایید پرداخت موفق پس از بازگشت از درگاه بانکی استفاده می شود.\r\nدر صورتی که این متد تا 10 دقیقه پس از پرداخت فراخوانی نشود پرداخت باطل شده و پول به حساب پرداخت کننده باز خواهد گشت"
             operationId: V1PayVerifyPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
@@ -128,7 +128,7 @@ paths:
             tags: [Report]
             summary: 'گزارش تراکنش ها'
             operationId: V1ReportTransactionReportPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
@@ -137,7 +137,7 @@ paths:
             tags: [Report]
             summary: 'تعداد تراکنش ها'
             operationId: V1ReportTransactionReportCountPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
@@ -156,7 +156,7 @@ paths:
             summary: 'ارسال درخواست پول'
             description: 'از این متد برای ارسال لینک درخواست پول برای یک نفر بصورت  پیامک یا ایمیل استفاده می شود'
             operationId: V1RequestPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
@@ -166,7 +166,7 @@ paths:
             summary: 'ارسال درخواست پول برای چند نفر'
             description: 'از این متد برای ارسال لینک درخواست پول برای چند نفر بصورت  پیامک یا ایمیل استفاده می شود'
             operationId: V1RequestMultiPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
@@ -239,7 +239,7 @@ paths:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
             operationId: V1AddressBookByCodePut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -256,7 +256,7 @@ paths:
             tags: [AddressBook]
             summary: 'مشتری جدید'
             operationId: V1AddressBookPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -336,7 +336,7 @@ paths:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
             operationId: V1InvoiceByCodePut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -353,7 +353,7 @@ paths:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - پیشرفته'
             operationId: V1InvoiceSendByTemplateAdvancePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -362,7 +362,7 @@ paths:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - سریع'
             operationId: V1InvoiceSendByTemplateSimplePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -371,7 +371,7 @@ paths:
             tags: [Invoice]
             summary: 'فاکتور جدید'
             operationId: V1InvoicePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -380,7 +380,7 @@ paths:
             tags: [Invoice]
             summary: 'فاکتور زمانبندی شده جدید'
             operationId: V1InvoiceSchedulePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -407,7 +407,7 @@ paths:
             tags: [Invoice]
             summary: 'درخواست لغو فاکتور'
             operationId: V1InvoiceCancelPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceCancelRequest'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceCancelResponse'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -434,7 +434,7 @@ paths:
             tags: [Invoice]
             summary: 'ثبت مشتری به فاکتور'
             operationId: V1InvoiceSetCustomerPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceSetCustomerRequestViewModel'}}]
             responses: {'200': {description: 'نمایش وضعیت ثبت مشتری فاکتور', schema: {$ref: '#/definitions/InvoiceConfirmPaymentResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -505,7 +505,7 @@ paths:
             tags: [Template]
             summary: 'بروزرسانی قالب'
             operationId: V1TemplateByCodePut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -522,7 +522,7 @@ paths:
             tags: [Template]
             summary: 'قالب جدید'
             operationId: V1TemplatePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [text/plain, application/json, text/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -609,7 +609,7 @@ paths:
             tags: [permaLink]
             summary: 'ساخت یک لینک ثابت جدید'
             operationId: V1PermaLinkPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
@@ -618,7 +618,7 @@ paths:
             tags: [permaLink]
             summary: 'بروزرسانی لینک ثابت'
             operationId: V1PermaLinkPut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
@@ -697,7 +697,7 @@ paths:
             tags: [product]
             summary: 'ساخت یک آیتم‌ مالی جدید'
             operationId: V1ProductPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
             responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
@@ -706,7 +706,7 @@ paths:
             tags: [product]
             summary: 'بروزرسانی آیتم مالی'
             operationId: V1ProductPut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
