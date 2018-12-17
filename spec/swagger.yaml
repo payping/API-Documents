@@ -210,7 +210,7 @@ paths:
         get:
             tags: [AddressBook]
             summary: 'لیست مشتریان'
-            operationId: List
+            operationId: AddressBookList
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
@@ -220,7 +220,7 @@ paths:
         get:
             tags: [AddressBook]
             summary: 'تعداد مشتریان'
-            operationId: ListCount
+            operationId: AddressBookListCount
             consumes: []
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
@@ -230,7 +230,7 @@ paths:
         get:
             tags: [AddressBook]
             summary: 'مشخصات مشتری'
-            operationId: Get
+            operationId: AddressBookGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
@@ -239,7 +239,7 @@ paths:
         put:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
-            operationId: Put
+            operationId: AddressBookPut
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
@@ -248,7 +248,7 @@ paths:
         delete:
             tags: [AddressBook]
             summary: 'حذف مشتری'
-            operationId: Delete
+            operationId: AddressBookDelete
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
@@ -258,7 +258,7 @@ paths:
         post:
             tags: [AddressBook]
             summary: 'مشتری جدید'
-            operationId: Post
+            operationId: AddressBookPost
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
@@ -268,7 +268,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'گزارش جمع مبلغ فاکتور ها براساس وضعیت'
-            operationId: SumPerStatus
+            operationId: InvoiceSumPerStatus
             consumes: []
             produces: [application/json]
             parameters: []
@@ -278,7 +278,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'دریافت مشخصات پرداخت کننده فاکتور'
-            operationId: Buyer
+            operationId: InvoiceBuyer
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
@@ -288,7 +288,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'دریافت فاکتور زمانبندی شده'
-            operationId: Schedule
+            operationId: InvoiceSchedule
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
@@ -298,7 +298,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'دریافت اطلاعات زمانبندی شده فاکتور'
-            operationId: Subschedulers
+            operationId: InvoiceSubschedulers
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
@@ -308,7 +308,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'لیست فاکتور ها'
-            operationId: List
+            operationId: InvoiceList
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
@@ -318,7 +318,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'تعداد فاکتور ها'
-            operationId: ListCount
+            operationId: InvoiceListCount
             consumes: []
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
@@ -328,7 +328,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'لیست فاکتور ها زمانبندی شده'
-            operationId: ListSchedule
+            operationId: InvoiceListSchedule
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
@@ -338,7 +338,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'تعداد فاکتور ها زمانبندی شده'
-            operationId: ListScheduleCount
+            operationId: InvoiceListScheduleCount
             consumes: []
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
@@ -348,7 +348,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'دریافت فاکتور'
-            operationId: Get
+            operationId: InvoiceGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
@@ -357,7 +357,7 @@ paths:
         put:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
-            operationId: Put
+            operationId: InvoicePut
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
@@ -366,7 +366,7 @@ paths:
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور'
-            operationId: Delete
+            operationId: InvoiceDelete
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
@@ -376,7 +376,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - پیشرفته'
-            operationId: SendByTemplateAdvance
+            operationId: InvoiceSendByTemplateAdvance
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
@@ -386,7 +386,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - سریع'
-            operationId: SendByTemplateSimple
+            operationId: InvoiceSendByTemplateSimple
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
@@ -396,7 +396,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'فاکتور جدید'
-            operationId: Post
+            operationId: InvoicePost
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
@@ -406,7 +406,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'فاکتور زمانبندی شده جدید'
-            operationId: Schedule
+            operationId: InvoiceSchedule
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
@@ -416,7 +416,7 @@ paths:
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور زمانبندی شده'
-            operationId: DeleteSchedule
+            operationId: InvoiceDeleteSchedule
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور زمانبندی شده', required: true, type: string}]
@@ -426,7 +426,7 @@ paths:
         get:
             tags: [Invoice]
             summary: 'درخواست فاکتور غیر رسمی'
-            operationId: Pdf
+            operationId: InvoicePdf
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
@@ -436,7 +436,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'درخواست لغو فاکتور'
-            operationId: Cancel
+            operationId: InvoiceCancel
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceCancelRequest'}}]
@@ -445,7 +445,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'ارسال یادآوری فاکتور'
-            operationId: Reminder
+            operationId: InvoiceReminder
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
@@ -455,7 +455,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور'
-            operationId: Send
+            operationId: InvoiceSend
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
@@ -465,7 +465,7 @@ paths:
         post:
             tags: [Invoice]
             summary: 'ثبت مشتری به فاکتور'
-            operationId: SetCustomer
+            operationId: InvoiceSetCustomer
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceSetCustomerRequestViewModel'}}]
@@ -473,8 +473,7 @@ paths:
     /v1/Template/List:
         get:
             tags: [Template]
-            summary: 'دریافت لیست قالب های فاکتور'
-            description: 'نیاز به احراز هویت می باشد'
+            summary: 'لیست قالب ها'
             operationId: TemplateList
             consumes: []
             produces: [application/json]
@@ -484,8 +483,7 @@ paths:
     /v1/Template/ListCount:
         get:
             tags: [Template]
-            summary: 'دریافت تعداد قالب های فاکتور'
-            description: 'نیاز به احراز هویت می باشد'
+            summary: 'تعداد قالب ها'
             operationId: TemplateListCount
             consumes: []
             produces: [application/json]
@@ -496,7 +494,7 @@ paths:
         get:
             tags: [Template]
             summary: 'لیست قالب های زمانبندی'
-            operationId: ListSchedule
+            operationId: TemplateListSchedule
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
@@ -506,7 +504,7 @@ paths:
         get:
             tags: [Template]
             summary: 'تعداد قالب های زمانبندی'
-            operationId: ListScheduleCount
+            operationId: TemplateListScheduleCount
             consumes: []
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
@@ -516,7 +514,7 @@ paths:
         get:
             tags: [Template]
             summary: 'لیست قالب های غیر زمانبندی'
-            operationId: ListNonSchedule
+            operationId: TemplateListNonSchedule
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
@@ -526,7 +524,7 @@ paths:
         get:
             tags: [Template]
             summary: 'تعداد قالب های غیر زمانبندی'
-            operationId: ListNonScheduleCount
+            operationId: TemplateListNonScheduleCount
             consumes: []
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
@@ -536,7 +534,7 @@ paths:
         get:
             tags: [Template]
             summary: 'دریافت قالب'
-            operationId: Get
+            operationId: TemplateGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
@@ -545,7 +543,7 @@ paths:
         put:
             tags: [Template]
             summary: 'بروزرسانی قالب'
-            operationId: Put
+            operationId: TemplatePut
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
@@ -554,7 +552,7 @@ paths:
         delete:
             tags: [Template]
             summary: 'حذف قالب'
-            operationId: Delete
+            operationId: TemplateDelete
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
@@ -564,7 +562,7 @@ paths:
         post:
             tags: [Template]
             summary: 'قالب جدید'
-            operationId: Post
+            operationId: TemplatePost
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
