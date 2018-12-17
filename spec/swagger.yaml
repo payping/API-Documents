@@ -6,7 +6,7 @@ info:
     title: 'سرویس‌های پلتفرم مالی پی‌پینگ'
     x-logo:
         url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/7acf03754958b2cd9778771ff5e02cbc0cb8e68b/logo/logo.png'
-    description: "مستندات سرویس‌های عمومی پلت‌فرم مالی پی‌پینگ\n\n لینک‌های پشتیبانی: تلگرام: [t.me/payping](t.me/payping) | ایمیل: [info@payping.ir]() | تلفن: 02175038797\n # مقدمه\n\n تمامی وب‌ سرویس‌های توضیح داده شده در این مستندات به صورت [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) هستند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.    \n جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.\n\n # POSTMAN\n برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید\n \n [دانلود قالب postman](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)\n\n # توضیحات تکمیلی برای تمام سرویس‌ها\n\n برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید. همینطور توجه داشته باشین واحد پول در تمام سرویس‌ها تومان می‌باشد و منطقه زمانی تمامی‌ تاریخ و ساعت‌ها برابر با ساعت جهانی یا UTC می‌باشد.\n\n # نکاتی برای آپلود فایل‌ها\n\n برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از [سرویس بارگذاری فایل](#tag/Upload) استفاده کنید.\n \n پس از انجام عملیات آپلود توسط سرویس بارگذاری فایل، تنها کافیست نام فایل آپلود شده که در خروجی سرویس به شما برگردانده می‌شود را ذخیره نمایید.\n\n # جدول کدهای دریافتی از هر سرویس\n\n بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RESTful یک کدی به شما بازگرداننده می‌شود.\n هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید\n\n |شماره کد|توضیحات|\n |-------|--------|\n |`200`| عملیات با موفقیت انجام شد |\n |`400`| مشکلی در ارسال درخواست وجود دارد |\n |`500`| مشکلی در سرور رخ داده است |\n |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |\n |`401`| عدم دسترسی|\n |`403`| دسترسی غیر مجاز |\n |`404`| آیتم درخواستی مورد نظر موجود نمی‌باشد |\n\n"
+    description: "مستندات سرویس‌های عمومی پلت‌فرم مالی پی‌پینگ\n\n لینک‌های پشتیبانی: تلگرام: [t.me/payping](t.me/payping) | ایمیل: [info@payping.ir]() | تلفن: 02175038797\n # مقدمه\n\n تمامی وب‌ سرویس‌های توضیح داده شده در این مستندات به صورت [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) هستند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.    \n جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.\n\n # POSTMAN\n برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید\n \n [دانلود قالب postman](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)\n\n # توضیحات تکمیلی برای تمام سرویس‌ها\n\n برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید. همینطور توجه داشته باشین واحد پول در تمام سرویس‌ها تومان می‌باشد و منطقه زمانی تمامی‌ تاریخ و ساعت‌ها برابر با ساعت جهانی یا UTC می‌باشد.\n\n # نکاتی برای آپلود فایل‌ها\n\n برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از [سرویس بارگذاری فایل](#tag/Upload) استفاده کنید.\n \n پس از انجام عملیات آپلود توسط سرویس بارگذاری فایل، تنها کافیست نام فایل آپلود شده که در خروجی سرویس به شما برگردانده می‌شود را ذخیره نمایید.\n\n # جدول کدهای دریافتی از هر سرویس\n\n بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RESTful یک کدی به شما بازگرداننده می‌شود.\n هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید\n\n |شماره کد|توضیحات|\n |-------|--------|\n |`200`| عملیات با موفقیت انجام شد |\n |`400`| مشکلی در ارسال درخواست وجود دارد |\n |`500`| مشکلی در سرور رخ داده است |\n |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |\n |`401`| عدم دسترسی|\n |`403`| دسترسی غیر مجاز |\n |`404`| آیتم درخواستی مورد نظر موجود نمی‌باشد |\n\n # پروتکل احراز هویت\n\n"
     termsOfService: None
 tags:
     -
@@ -210,320 +210,366 @@ paths:
         get:
             tags: [AddressBook]
             summary: 'لیست مشتریان'
-            operationId: V1AddressBookListGet
+            operationId: List
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: "", required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}]
+            produces: [application/json]
+            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/AddressBook/ListCount:
         get:
             tags: [AddressBook]
             summary: 'تعداد مشتریان'
-            operationId: V1AddressBookListCountGet
+            operationId: ListCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: "", required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}]
+            produces: [application/json]
+            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     '/v1/AddressBook/{code}':
         get:
             tags: [AddressBook]
             summary: 'مشخصات مشتری'
-            operationId: V1AddressBookByCodeGet
+            operationId: Get
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
         put:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
-            operationId: V1AddressBookByCodePut
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Put
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
         delete:
             tags: [AddressBook]
             summary: 'حذف مشتری'
-            operationId: V1AddressBookByCodeDelete
+            operationId: Delete
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/AddressBook:
         post:
             tags: [AddressBook]
             summary: 'مشتری جدید'
-            operationId: V1AddressBookPost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Post
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice/SumPerStatus:
         get:
             tags: [Invoice]
             summary: 'گزارش جمع مبلغ فاکتور ها براساس وضعیت'
-            operationId: V1InvoiceSumPerStatusGet
+            operationId: SumPerStatus
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: []
             responses: {'200': {description: 'جمع مبلغ فاکتور ها براساس وضعیت', schema: {$ref: '#/definitions/InvoiceDashboardReportViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'گزارشی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
+    '/v1/Invoice/Buyer/{code}':
+        get:
+            tags: [Invoice]
+            summary: 'دریافت مشخصات پرداخت کننده فاکتور'
+            operationId: Buyer
+            consumes: []
+            produces: [application/json]
+            parameters: [{name: code, in: path, required: true, type: string}]
+            responses: {'200': {description: 'مشخصات پرداخت کننده فاکتور', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     '/v1/Invoice/Schedule/{code}':
         get:
             tags: [Invoice]
             summary: 'دریافت فاکتور زمانبندی شده'
-            operationId: V1InvoiceScheduleByCodeGet
+            operationId: Schedule
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'فاکتور زمانبندی شده', schema: {$ref: '#/definitions/ScheduleInvoiceWithChilds'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     '/v1/Invoice/Subschedulers/{code}':
         get:
             tags: [Invoice]
             summary: 'دریافت اطلاعات زمانبندی شده فاکتور'
-            operationId: V1InvoiceSubschedulersByCodeGet
+            operationId: Subschedulers
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'اطلاعات زمانبندی شده فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceSubSchulderDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Invoice/List:
         get:
             tags: [Invoice]
             summary: 'لیست فاکتور ها'
-            operationId: V1InvoiceListGet
+            operationId: List
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListCount:
         get:
             tags: [Invoice]
             summary: 'تعداد فاکتور ها'
-            operationId: V1InvoiceListCountGet
+            operationId: ListCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListSchedule:
         get:
             tags: [Invoice]
             summary: 'لیست فاکتور ها زمانبندی شده'
-            operationId: V1InvoiceListScheduleGet
+            operationId: ListSchedule
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها زمانبندی شده', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListScheduleCount:
         get:
             tags: [Invoice]
             summary: 'تعداد فاکتور ها زمانبندی شده'
-            operationId: V1InvoiceListScheduleCountGet
+            operationId: ListScheduleCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها زمانبندی شده', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     '/v1/Invoice/{code}':
         get:
             tags: [Invoice]
             summary: 'دریافت فاکتور'
-            operationId: V1InvoiceByCodeGet
+            operationId: Get
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
         put:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
-            operationId: V1InvoiceByCodePut
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Put
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور'
-            operationId: V1InvoiceByCodeDelete
+            operationId: Delete
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice/SendByTemplateAdvance:
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - پیشرفته'
-            operationId: V1InvoiceSendByTemplateAdvancePost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: SendByTemplateAdvance
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice/SendByTemplateSimple:
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - سریع'
-            operationId: V1InvoiceSendByTemplateSimplePost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: SendByTemplateSimple
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice:
         post:
             tags: [Invoice]
             summary: 'فاکتور جدید'
-            operationId: V1InvoicePost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Post
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice/Schedule:
         post:
             tags: [Invoice]
             summary: 'فاکتور زمانبندی شده جدید'
-            operationId: V1InvoiceSchedulePost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Schedule
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     '/v1/Invoice/DeleteSchedule/{code}':
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور زمانبندی شده'
-            operationId: V1InvoiceDeleteScheduleByCodeDelete
+            operationId: DeleteSchedule
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور زمانبندی شده', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور زمانبندی شده', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     '/v1/Invoice/Pdf/{code}':
         get:
             tags: [Invoice]
             summary: 'درخواست فاکتور غیر رسمی'
-            operationId: V1InvoicePdfByCodeGet
+            operationId: Pdf
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات فایل فاکتور غیر رسمی', schema: {$ref: '#/definitions/InvoicePdfResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Invoice/Cancel:
         post:
             tags: [Invoice]
             summary: 'درخواست لغو فاکتور'
-            operationId: V1InvoiceCancelPost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Cancel
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceCancelRequest'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceCancelResponse'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     '/v1/Invoice/Reminder/{code}':
         post:
             tags: [Invoice]
             summary: 'ارسال یادآوری فاکتور'
-            operationId: V1InvoiceReminderByCodePost
+            operationId: Reminder
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال یادآوری فاکتور', schema: {$ref: '#/definitions/InvoiceSendReminderResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     '/v1/Invoice/Send/{code}':
         post:
             tags: [Invoice]
             summary: 'ارسال فاکتور'
-            operationId: V1InvoiceSendByCodePost
+            operationId: Send
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال فاکتور', schema: {$ref: '#/definitions/InvoiceSendInvoiceResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Invoice/SetCustomer:
         post:
             tags: [Invoice]
             summary: 'ثبت مشتری به فاکتور'
-            operationId: V1InvoiceSetCustomerPost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: SetCustomer
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceSetCustomerRequestViewModel'}}]
             responses: {'200': {description: 'نمایش وضعیت ثبت مشتری فاکتور', schema: {$ref: '#/definitions/InvoiceConfirmPaymentResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
     /v1/Template/List:
         get:
             tags: [Template]
-            summary: 'لیست قالب ها'
-            operationId: V1TemplateListGet
+            summary: 'دریافت لیست قالب های فاکتور'
+            description: 'نیاز به احراز هویت می باشد'
+            operationId: TemplateList
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Template/ListCount:
         get:
             tags: [Template]
-            summary: 'تعداد قالب ها'
-            operationId: V1TemplateListCountGet
+            summary: 'دریافت تعداد قالب های فاکتور'
+            description: 'نیاز به احراز هویت می باشد'
+            operationId: TemplateListCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
-            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
+            produces: [application/json]
+            parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Template/ListSchedule:
         get:
             tags: [Template]
             summary: 'لیست قالب های زمانبندی'
-            operationId: V1TemplateListScheduleGet
+            operationId: ListSchedule
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Template/ListScheduleCount:
         get:
             tags: [Template]
             summary: 'تعداد قالب های زمانبندی'
-            operationId: V1TemplateListScheduleCountGet
+            operationId: ListScheduleCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Template/ListNonSchedule:
         get:
             tags: [Template]
             summary: 'لیست قالب های غیر زمانبندی'
-            operationId: V1TemplateListNonScheduleGet
+            operationId: ListNonSchedule
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     /v1/Template/ListNonScheduleCount:
         get:
             tags: [Template]
             summary: 'تعداد قالب های غیر زمانبندی'
-            operationId: V1TemplateListNonScheduleCountGet
+            operationId: ListNonScheduleCount
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
     '/v1/Template/{code}':
         get:
             tags: [Template]
             summary: 'دریافت قالب'
-            operationId: V1TemplateByCodeGet
+            operationId: Get
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.read]}]
         put:
             tags: [Template]
             summary: 'بروزرسانی قالب'
-            operationId: V1TemplateByCodePut
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Put
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
         delete:
             tags: [Template]
             summary: 'حذف قالب'
-            operationId: V1TemplateByCodeDelete
+            operationId: Delete
             consumes: []
-            produces: [text/plain, application/json, text/json]
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای قالب', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/Template:
         post:
             tags: [Template]
             summary: 'قالب جدید'
-            operationId: V1TemplatePost
-            consumes: [application/json]
-            produces: [text/plain, application/json, text/json]
+            operationId: Post
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
+            security: [{bearerAuth: null}, {oauth2: [invoice.write]}]
     /v1/coupon:
         post:
             tags: [coupon]
@@ -1845,7 +1891,7 @@ securityDefinitions:
     in: header
     name: Authorization
     description: "برای احراز هویت در سرویس‌های مختلف باید از توکن Bearer در header درخواست‌ها به صورت زیر استفاده کنید \n\n\n ساختار ارسال توکن: (Bearer TOKEN) \n\n\n 
-    اگر شما یک اپلیکیشن و یا وب‌سایت شخصی دارید و قصد استفاده از سرویس‌های مالی ما را برای خود دارید می‌بایست از access token استفاده کنید، جهت مطالعه روند دریافت آن از کنسول توسعه‌دهنده،   [لطفا اینجا کلیک نمایید.](https://www.payping.ir/oauth.html#accesstoken)"
+    اگر شما یک اپلیکیشن و یا وب‌سایت شخصی دارید و قصد استفاده از سرویس‌های مالی ما را برای خود دارید می‌بایست از access token استفاده کنید،  جهت مطالعه روند دریافت آن از کنسول توسعه‌دهنده،   [لطفا اینجا کلیک نمایید.](https://www.payping.ir/oauth.html#accesstoken)"
   oauth2:
     type: oauth2
     flow: accessCode
