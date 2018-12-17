@@ -1839,3 +1839,45 @@ definitions:
             havePerma: {type: boolean}
 schemes:
  - https
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: Enter your bearer token in the format **Bearer &lt;token>**
+  oauth2:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: 'https://oauth.simple.api/authorization'
+    tokenUrl: 'https://oauth.simple.api/token'
+    description: This API uses OAuth 2
+    scopes:
+      profile: دسترسی مرتبط با تمام اطلاعات یک کاربر
+      email: دسترسی به مشاهده ایمیل
+      nationalcode: دسترسی به مشاهده کدملی کاربر
+      birthday: دسترسی به مشاهده تاریخ تولد کاربر
+      shaba: دسترسی به مشاهده شبای بانکی کاربر
+      phone: دسترسی به مشاهده شماره تماس کاربر
+      pay:read: دسترسی فقط خواندنی در سرویس پرداخت
+      pay:write: دسترسی نوشتن و تغییرات در سرویس پرداخت
+      product:read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
+      product:write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
+      invoice.read: دسترسی فقط خواندنی به سرویس فاکتور ها
+      invoice.write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
+      upload:write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
+security:
+  - bearerAuth: []
+  - oauth2: [
+    profile,
+    email,
+    nationalcode,
+    birthday,
+    shaba,
+    phone,
+    pay:read,
+    pay:write,
+    product:read,
+    product:write,
+    invoice:read, 
+    invoice:write,
+    upload:write]
