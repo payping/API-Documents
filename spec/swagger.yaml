@@ -1,10 +1,8 @@
 swagger: '2.0'
-servers:
-    -
-        url: 'https://api.payping.ir'
-        description: 'Host URL'
+host: api.payping.ir
+basePath: /
 info:
-    version: 'نسخه اول'
+    version: '1.0.0'
     title: 'سرویس‌های پلتفرم مالی پی‌پینگ'
     x-logo:
         url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/7acf03754958b2cd9778771ff5e02cbc0cb8e68b/logo/logo.png'
@@ -114,7 +112,7 @@ paths:
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
-    '/v1/pay/{Code}':
+    '/v1/pay/{code}':
         delete:
             tags: [Payment]
             summary: 'برای لغو کردن یک کد پرداخت می توانید از این متد استفاده کنید'
@@ -199,7 +197,7 @@ paths:
             produces: [application/json]
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
-    '/v1/withdraw/{Code}':
+    '/v1/withdraw/{code}':
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
@@ -535,7 +533,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{scopes: ['product:write']}]
+            
         put:
             tags: [coupon]
             summary: 'بروزرسانی کد تخفیف'
@@ -544,7 +542,7 @@ paths:
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponEditViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت بروزرسانی شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:write']}]
+            
     '/v1/coupon/{code}':
         get:
             tags: [coupon]
@@ -554,7 +552,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponDetailViewModel'}}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:read']}]
+            
         delete:
             tags: [coupon]
             summary: 'حذف یک کد تخفیف'
@@ -563,7 +561,7 @@ paths:
             produces: []
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت حذف شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:write']}]
+            
     /v1/coupon/List:
         get:
             tags: [coupon]
@@ -573,7 +571,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در کدهای تخفیف', required: false, type: string}]
             responses: {'200': {description: 'لیست کدهای تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/CouponListItemViewModel'}}}}
-            security: [{scopes: ['product:read']}]
+            
     /v1/coupon/ListCount:
         get:
             tags: [coupon]
@@ -583,7 +581,7 @@ paths:
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده'}, {name: search, in: query, required: false, type: string, description: 'کیلدواژه جستجو در کدهای تخفیف'}]
             responses: {'200': {description: 'تعداد کدهای تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{scopes: ['product:read']}]
+            
     '/v1/coupon/{couponCode}/BuyersListCount':
         get:
             tags: [coupon]
@@ -593,7 +591,7 @@ paths:
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{scopes: ['product:read']}]
+            
     '/v1/coupon/{couponCode}/BuyersList':
         get:
             tags: [coupon]
@@ -603,7 +601,7 @@ paths:
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/BuyerDetailsViewModel'}}}}
-            security: [{scopes: ['product:read']}]
+            
     /v1/permaLink:
         post:
             tags: [permaLink]
@@ -613,7 +611,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{scopes: ['product:write']}]
+            
         put:
             tags: [permaLink]
             summary: 'بروزرسانی لینک ثابت'
@@ -622,7 +620,7 @@ paths:
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:write']}]
+            
     '/v1/permaLink/{code}':
         get:
             tags: [permaLink]
@@ -632,7 +630,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PermanentDetailViewModel'}}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:read']}]
+            
         delete:
             tags: [permaLink]
             summary: 'حذف یک لینک ثابت'
@@ -641,7 +639,7 @@ paths:
             produces: []
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت حذف شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{scopes: ['product:write']}]
+            
     /v1/permaLink/List:
         get:
             tags: [permaLink]
@@ -651,7 +649,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن لینک‌های ثابت‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در لینک‌های ثابت', required: false, type: string}]
             responses: {'200': {description: 'لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/PermanentListItemViewModel'}}}}
-            security: [{scopes: ['product:read']}]
+            
     /v1/permaLink/ListCount:
         get:
             tags: [permaLink]
@@ -661,7 +659,7 @@ paths:
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false, description: 'همراه با آرشیوشده‌ها'}, {name: search, in: query, required: false, type: string, description: 'کلیدواژه مورد جستجو'}]
             responses: {'200': {description: 'تعداد لینک‌های ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{scopes: ['product:read']}]
+            
     '/v1/permaLink/{productCode}/BuyersList':
         get:
             tags: [permaLink]
@@ -671,7 +669,7 @@ paths:
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductBuyerViewModel'}}}}
-            security: [{scopes: ['product:read']}]
+            
     '/v1/permaLink/{productCode}/BuyersListCount':
         get:
             tags: [permaLink]
@@ -681,7 +679,7 @@ paths:
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}]
             responses: {'200': {description: 'تعداد پرداختی‌های یک لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{scopes: ['product:read']}]
+            
     '/v1/permaLink/{payCode}/Buyer':
         get:
             tags: [permaLink]
@@ -691,7 +689,7 @@ paths:
             produces: [application/json]
             parameters: [{name: payCode, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات پرداخت یک آیتم‌مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/BuyerDetailsViewModel'}}}
-            security: [{scopes: ['product:read']}]
+            
     /v1/product:
         post:
             tags: [product]
@@ -701,7 +699,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
             responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{scopes: ['product:write']}]
+            
         put:
             tags: [product]
             summary: 'بروزرسانی آیتم مالی'
@@ -710,7 +708,7 @@ paths:
             produces: []
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{scopes: ['product:write']}]
+            
     '/v1/product/{code}':
         get:
             tags: [product]
@@ -720,7 +718,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ProductFullDeatilViewModel'}}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{scopes: ['product:read']}]
+            
         delete:
             tags: [product]
             summary: 'حذف یک آیتم مالی'
@@ -729,7 +727,7 @@ paths:
             produces: []
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت حذف شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{scopes: ['product:write']}]
+            
     /v1/product/List:
         get:
             tags: [product]
@@ -739,7 +737,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن آیتم‌های آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در آیتم‌های مالی', required: false, type: string}]
             responses: {'200': {description: 'لیست آیتم‌های مالی با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductListItemViewModel'}}}}
-            security: [{scopes: ['product:read']}]
+            
     /v1/Upload/ProfiePic:
         post:
             tags: [Upload]
@@ -1839,6 +1837,5 @@ definitions:
             isActive: {type: boolean}
             haveTax: {type: boolean}
             havePerma: {type: boolean}
-securityDefinitions:
-    scopes:
-        tokenUrl: null
+schemes:
+ - https
