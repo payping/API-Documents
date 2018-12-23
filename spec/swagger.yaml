@@ -938,7 +938,7 @@ definitions:
             limit: {format: int32, description: 'نقطه پایان گزارش', type: integer}
             clientsInfos: {description: 'لیست ClientId,ClientInfo', uniqueItems: false, type: array, items: {$ref: '#/definitions/ClientsInfo'}}
             filter: {description: "اعمال فیلتر بر روی فلگ های \r\nکد پرداخت\r\nمبلغ\r\nتاریخ پرداخت\r\nکد ارسالی مشتری به پی پینگ\r\nتوضیحات\r\nنام یا شناسه پرداخت کننده", uniqueItems: false, type: array, items: {type: string}}
-            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7\r\nتسویه=5\r\n0 = All\r\n1 = IPaid\r\n2 = IGetPaid\r\n3 = RequestSent\r\n4 = RequestRevice\r\n5 = Withdraw\r\n6 = Daryaftha\r\n7 = Pardakhtha", enum: [0, 1, 2, 3, 4, 5, 6, 7], type: integer}
+            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7", enum: [6, 7], type: integer}
             fromDate: {format: date-time, description: 'تاریخ شروع گزارش', type: string}
             toDate: {format: date-time, description: 'تاریخ پایان گزارش', type: string}
     ClientsInfo:
@@ -966,7 +966,7 @@ definitions:
         properties:
             clientsInfos: {description: 'لیست ClientId,ClientInfo', uniqueItems: false, type: array, items: {$ref: '#/definitions/ClientsInfo'}}
             filter: {description: "اعمال فیلتر بر روی فلگ های \r\nکد پرداخت\r\nمبلغ\r\nتاریخ پرداخت\r\nکد ارسالی مشتری به پی پینگ\r\nتوضیحات\r\nنام یا شناسه پرداخت کننده", uniqueItems: false, type: array, items: {type: string}}
-            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7\r\nتسویه=5\r\n0 = All\r\n1 = IPaid\r\n2 = IGetPaid\r\n3 = RequestSent\r\n4 = RequestRevice\r\n5 = Withdraw\r\n6 = Daryaftha\r\n7 = Pardakhtha", enum: [0, 1, 2, 3, 4, 5, 6, 7], type: integer}
+            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7", enum: [6, 7], type: integer}
             fromDate: {format: date-time, description: 'تاریخ شروع گزارش', type: string}
             toDate: {format: date-time, description: 'تاریخ پایان گزارش', type: string}
     ResultVM:
