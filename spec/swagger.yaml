@@ -87,46 +87,83 @@ paths:
             tags: [Payment]
             summary: 'ساخت پرداخت'
             description: "به کمک این متد می توانید برای یک نفر کد پرداخت ایجاد کنید.\r\nفراخوانی این متد برای شما یک کد 4 حرفی تولید می کند.\r\nپس از ساخت یک پرداخت، برای ورود به درگاه بانک تنها کافیست کاربر را به همراه کد ساخته شده به آدرس https://api.payping.ir/v1/pay/gotoipg/{code} هدایت نمایید.\r\nپس از اتمام فرایند در درگاه بانکی، کاربر به آدرسی که در ReturnUrl توسط شما مشخص شده است هدایت می شود\r\nکه حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString آدرس می باشد.\r\nRefid مقداری است که برای تایید پرداخت (متد Verify) باید از آن استفاده کرد و \r\nClientRefId نیز همان مقداری است که در هنگام ساخته شدن پرداخت جدید از شما دریافت شده است."
-            operationId: V1PayPost
-            consumes: [application/json]
+            operationId: PaymentCreatePayment
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+    /v1/pay/BlockMoney:
+        post:
+            tags: [Payment]
+            summary: 'ساخت پرداخت مسدود شده'
+            description: "به کمک این متد می تواندی برای پرادخت به چند نفر، کد پرداخت تولید کنید، که \r\nاین یک پرادخت مسدود شده می باشد و امکان جابجایی آن تا فراخوانی متد UnBlockMoney امکان پذیر نمی باشد."
+            operationId: PaymentBlockMoney
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
+            responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+    /v1/pay/UnBlockMoney:
+        post:
+            tags: [Payment]
+            summary: 'آزاد سازی پول مسدود شده'
+            description: 'به کمک این متد، می توانید پول مسدود شده توسط متد BlockMoney را از حالت مسدودی آزاد نمایید.'
+            operationId: PaymentUnBlockMoney
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/UnBlockMoneyViewModel'}}]
+            responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
     /v1/pay/Multi:
         post:
             tags: [Payment]
             summary: 'ساخت پرداخت تسهیمی'
             description: "به کمک این متد می توانید برای یک پرداخت چند نفره (تسهیمی) کد پرداخت ایجاد کنید.\r\nفراخوانی این متد برای شما یک کد 4 حرفی تولید می کند.\r\nپس از ساخت یک پرداخت، برای ورود به درگاه بانک تنها کافیست کاربر را به همراه کد ساخته شده به آدرس https://api.payping.ir/v1/pay/gotoipg/{code} هدایت نمایید.\r\nپس از اتمام فرایند در درگاه بانکی، کاربر به آدرسی که در ReturnUrl توسط شما مشخص شده است هدایت می شود\r\nکه حاوی دو پارامتر Refid, ClientRefId در قسمت QueryString آدرس می باشد.\r\nRefid مقداری است که برای تایید پرداخت (متد Verify) باید از آن استفاده کرد و \r\nClientRefId نیز همان مقداری است که در هنگام ساخته شدن پرداخت جدید از شما دریافت شده است."
-            operationId: V1PayMultiPost
-            consumes: [application/json]
+            operationId: PaymentCreateMultiPayment
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
     /v1/pay/verify:
         post:
             tags: [Payment]
             summary: 'تایید پرداخت'
             description: "از این متد برای تایید پرداخت موفق پس از بازگشت از درگاه بانکی استفاده می شود.\r\nدر صورتی که این متد تا 10 دقیقه پس از پرداخت فراخوانی نشود پرداخت باطل شده و پول به حساب پرداخت کننده باز خواهد گشت"
-            operationId: V1PayVerifyPost
-            consumes: [application/json]
-            produces: []
+            operationId: PaymentVerifyPayment
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
     '/v1/pay/{code}':
         delete:
             tags: [Payment]
             summary: 'برای لغو کردن یک کد پرداخت می توانید از این متد استفاده کنید'
-            operationId: V1PayByCodeDelete
+            operationId: PaymentCancelPayment
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'عملیات لغو با موفقیت انجام شد'}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+    /v1/pos:
+        post:
+            tags: [Pos]
+            summary: 'ساخت پرداخت شناسه دار'
+            description: 'از این متد می تواند برای ساخت یک پرادخت شناسه دار که به کمک دستگاه Pos پرداخت آن انجام می شود، استفاده کرد'
+            operationId: PosCreatePayment
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
+            responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/IPosPayResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
     /v1/report/TransactionReport:
         post:
             tags: [Report]
             summary: 'گزارش تراکنش ها'
-            operationId: V1ReportTransactionReportPost
-            consumes: [application/json]
+            operationId: ReportTransactionReport
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
@@ -134,8 +171,8 @@ paths:
         post:
             tags: [Report]
             summary: 'تعداد تراکنش ها'
-            operationId: V1ReportTransactionReportCountPost
-            consumes: [application/json]
+            operationId: ReportTransactionReportCount
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
@@ -143,69 +180,75 @@ paths:
         get:
             tags: [Report]
             summary: 'نمایش جزئیات تراکنش'
-            operationId: V1ReportByCodeGet
+            operationId: ReportPaymentDetails
             consumes: []
             produces: [application/json]
-            parameters: [{name: code, in: path, description: 'مشخصات تراکنش', required: true, type: string}]
+            parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تراکنش با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentDetailsVM'}}}
     /v1/request:
         post:
             tags: [Request]
             summary: 'ارسال درخواست پول'
             description: 'از این متد برای ارسال لینک درخواست پول برای یک نفر بصورت  پیامک یا ایمیل استفاده می شود'
-            operationId: V1RequestPost
-            consumes: [application/json]
+            operationId: RequestCreateRequest
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
     /v1/request/Multi:
         post:
             tags: [Request]
             summary: 'ارسال درخواست پول برای چند نفر'
             description: 'از این متد برای ارسال لینک درخواست پول برای چند نفر بصورت  پیامک یا ایمیل استفاده می شود'
-            operationId: V1RequestMultiPost
-            consumes: [application/json]
+            operationId: RequestCreateMultiRequest
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
     '/v1/request/{code}/SendReminder':
         post:
             tags: [Request]
             summary: 'یادآوری مجدد درخواست پول'
             description: 'از این متد برای ارسال مجدد پیامک یا ایمیل لینک درخواست پول استفاده می شود'
-            operationId: V1RequestByCodeSendReminderPost
+            operationId: RequestSendReminder
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'یادآوری با موفقیت انجام شد'}}
+            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
     '/v1/request/{code}':
         delete:
             tags: [Request]
             summary: 'لغو درخواست پول'
             description: 'برای لغو کردن یک کد درخواست می توانید از این متد استفاده کنید'
-            operationId: V1RequestByCodeDelete
+            operationId: RequestCancelRequest
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'درخواست با موفقیت کنسل شد'}}
+            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
     '/v1/withdraw/{amount}':
         post:
             tags: [Withdraw]
             summary: 'درخواست تسویه حساب'
-            operationId: V1WithdrawByAmountPost
+            operationId: WithdrawCreate
             consumes: []
             produces: [application/json]
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
     '/v1/withdraw/{code}':
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
-            operationId: V1WithdrawByCodeGet
+            operationId: WithdrawDetails
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست تسویه', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/WithdrawDetailsViewModel'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
     /v1/AddressBook/List:
         get:
             tags: [AddressBook]
@@ -815,11 +858,13 @@ paths:
 definitions:
     CreatePaymentViewModel:
         required:
+            - amount
             - returnUrl
         type: object
         properties:
             amount: {format: int32, description: مبلغ, maximum: 50000000, minimum: 100, type: integer}
             payerIdentity: {description: 'نام کاربری پرداخت کنند (در صورت وجود)', type: string}
+            payerName: {description: 'نام پرداخت کننده', type: string}
             description: {description: توضیحات, type: string}
             returnUrl: {description: 'آدرس صفحه برگشت', type: string}
             clientRefId: {description: 'کد ارسالی توسط کاربر', type: string}
@@ -837,19 +882,33 @@ definitions:
             returnUrl: {description: 'آدرس صفحه برگشت', type: string}
             clientRefId: {description: 'کد ارسالی توسط کاربر', type: string}
     MultiPayPair:
+        required:
+            - amount
+            - userIdentity
         type: object
         properties:
             amount: {format: int32, description: مبلغ, type: integer}
             name: {description: نام, type: string}
             userIdentity: {description: 'نام کاربری/ایمیل کاربری', type: string}
             description: {description: توضیحات, type: string}
+    UnBlockMoneyViewModel:
+        type: object
+        properties:
+            clientId: {description: 'شناسه مشتری', type: string}
+            code: {description: 'کد پرداخت', type: string}
     VerifyPaymentViewModel:
         required:
             - refId
+            - amount
         type: object
         properties:
             refId: {description: 'شماره فاکتور', type: string}
-            amount: {format: int32, description: 'مبلغ تراکنش', maximum: 2147483647, minimum: 100, type: integer}
+            amount: {format: int32, description: 'مبلغ تراکنش', maximum: 50000000, minimum: 100, type: integer}
+    IPosPayResult:
+        type: object
+        properties:
+            itd: {format: int32, type: integer}
+            code: {type: string}
     TransactionReportModel:
         type: object
         properties:
@@ -909,6 +968,9 @@ definitions:
             clientRefId: {description: 'کد ارسالی مشتری به پی پینگ', type: string}
             invoiceNo: {description: 'شناسه پرداخت', type: string}
             wage: {format: int32, description: کارمزد, type: integer}
+            ipgName: {description: 'درگاه پرداخت کننده', type: string}
+            isBlocked: {type: boolean}
+            name: {type: string}
     CreateRequestViewModel:
         required:
             - returnUrl
