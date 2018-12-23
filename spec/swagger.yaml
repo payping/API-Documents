@@ -1985,7 +1985,7 @@ securityDefinitions:
   oauth2:
     type: oauth2
     flow: accessCode
-    authorizationUrl: 'https://oauth.payping.ir'
+    authorizationUrl: 'https://oauth.payping.ir/connect/authorize'
     tokenUrl: 'https://oauth.payping.ir/connect/token'
     description: "اما اگر وب‌سایت و اپلیکیشن شما قصد دسترسی به اطلاعات سایر کاربران پی‌پینگ را دارد، شما می‌بایست از سرویس OAuth ما استفاده کنید که به شما اجازه یک احراز هویت امن با استفاده از یک متد استاندارد و ساده به اپلیکیشن‌های وب، موبایل و دسکتاپ میدهد. جهت مطالعه روند اعطای دسترسی و روند کار [لطفا اینجا کلیک نمایید.](https://www.payping.ir/oauth.html#accesstoken)"
     scopes:
