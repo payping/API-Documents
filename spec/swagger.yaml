@@ -137,7 +137,7 @@ paths:
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
             security: [{bearerAuth: null}, {oauth2: [pay.write]}]
-    '/v1/pay/{code}':
+    '/v1/pay/{Code}':
         delete:
             tags: [Payment]
             summary: 'برای لغو کردن یک کد پرداخت می توانید از این متد استفاده کنید'
@@ -167,6 +167,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
     /v1/report/TransactionReportCount:
         post:
             tags: [Report]
@@ -176,6 +177,26 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+    /v1/report/WithdrawTransactions:
+        post:
+            tags: [Report]
+            summary: 'دریافت لیست تسویه حساب'
+            operationId: ReportWithdrawTransactions
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
+            responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionWithdrawDetailsViewModel'}}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+    /v1/report/WithdrawTransactionsCount:
+        post:
+            tags: [Report]
+            operationId: ReportWithdrawTransactionsCount
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
+            responses: {'200': {description: Success, schema: {$ref: '#/definitions/ResultVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
     '/v1/report/{code}':
         get:
             tags: [Report]
@@ -185,6 +206,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تراکنش با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentDetailsVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
     /v1/request:
         post:
             tags: [Request]
@@ -239,7 +261,7 @@ paths:
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
             security: [{bearerAuth: null}, {oauth2: [pay.write]}]
-    '/v1/withdraw/{code}':
+    '/v1/withdraw/{Code}':
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
@@ -951,6 +973,14 @@ definitions:
         type: object
         properties:
             result: {format: int64, description: تعداد, type: integer}
+    TransactionWithdrawDetailsViewModel:
+        type: object
+        properties:
+            reqDate: {format: date-time, type: string}
+            code: {type: string}
+            isRepaid: {type: boolean}
+            repayDate: {format: date-time, type: string}
+            amount: {format: int32, type: integer}
     PaymentDetailsVM:
         type: object
         properties:
