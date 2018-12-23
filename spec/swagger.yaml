@@ -96,7 +96,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/pay/BlockMoney:
         post:
             tags: [Payment]
@@ -107,7 +107,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/pay/UnBlockMoney:
         post:
             tags: [Payment]
@@ -118,7 +118,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/UnBlockMoneyViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/pay/Multi:
         post:
             tags: [Payment]
@@ -129,7 +129,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/pay/verify:
         post:
             tags: [Payment]
@@ -140,7 +140,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     '/v1/pay/{Code}':
         delete:
             tags: [Payment]
@@ -150,7 +150,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'عملیات لغو با موفقیت انجام شد'}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/pos:
         post:
             tags: [Pos]
@@ -161,7 +161,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/IPosPayResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/report/TransactionReport:
         post:
             tags: [Report]
@@ -172,7 +172,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     /v1/report/TransactionReportCount:
         post:
             tags: [Report]
@@ -183,7 +183,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     /v1/report/WithdrawTransactions:
         post:
             tags: [Report]
@@ -194,7 +194,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionWithdrawDetailsViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     /v1/report/WithdrawTransactionsCount:
         post:
             tags: [Report]
@@ -205,7 +205,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ResultVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     '/v1/report/{code}':
         get:
             tags: [Report]
@@ -215,7 +215,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تراکنش با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentDetailsVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     /v1/request:
         post:
             tags: [Request]
@@ -226,7 +226,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.Write]}]
     /v1/request/Multi:
         post:
             tags: [Request]
@@ -237,7 +237,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.Write]}]
     '/v1/request/{code}/SendReminder':
         post:
             tags: [Request]
@@ -248,7 +248,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'یادآوری با موفقیت انجام شد'}}
-            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.Write]}]
     '/v1/request/{code}':
         delete:
             tags: [Request]
@@ -259,7 +259,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'درخواست با موفقیت کنسل شد'}}
-            security: [{bearerAuth: null}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.Write]}]
     '/v1/withdraw/{amount}':
         post:
             tags: [Withdraw]
@@ -270,7 +270,7 @@ paths:
             produces: [application/json]
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     '/v1/withdraw/{Code}':
         get:
             tags: [Withdraw]
@@ -281,7 +281,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست تسویه', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/WithdrawDetailsViewModel'}}}
-            security: [{bearerAuth: null}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay.read]}]
     /v1/AddressBook/List:
         get:
             tags: [AddressBook]
@@ -653,7 +653,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponEditViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت بروزرسانی شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
         post:
             tags: [coupon]
             summary: 'ساخت یک کد تخفیف جدید'
@@ -662,7 +662,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     '/v1/coupon/{code}':
         get:
             tags: [coupon]
@@ -672,7 +672,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponDetailViewModel'}}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
         delete:
             tags: [coupon]
             summary: 'حذف یک کد تخفیف'
@@ -681,7 +681,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت حذف شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     /v1/coupon/List:
         get:
             tags: [coupon]
@@ -691,7 +691,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در کدهای تخفیف', required: false, type: string}, {name: productcode, in: query, description: "", required: false, type: string}]
             responses: {'200': {description: 'لیست کدهای تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/CouponListItemViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     /v1/coupon/ListCount:
         get:
             tags: [coupon]
@@ -701,7 +701,7 @@ paths:
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد کدهای تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/coupon/{couponCode}/BuyersListCount':
         get:
             tags: [coupon]
@@ -711,7 +711,7 @@ paths:
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/coupon/{couponCode}/BuyersList':
         get:
             tags: [coupon]
@@ -721,7 +721,7 @@ paths:
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/BuyerDetailsViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/ItemPay/{code}':
         get:
             tags: [ItemPay]
@@ -767,7 +767,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
         post:
             tags: [permaLink]
             summary: 'ساخت یک لینک ثابت جدید'
@@ -776,7 +776,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     '/v1/permaLink/{code}':
         get:
             tags: [permaLink]
@@ -786,7 +786,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PermanentDetailViewModel'}}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
         delete:
             tags: [permaLink]
             summary: 'حذف یک لینک ثابت'
@@ -795,7 +795,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت حذف شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     /v1/permaLink/List:
         get:
             tags: [permaLink]
@@ -805,7 +805,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن لینک‌های ثابت‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در لینک‌های ثابت', required: false, type: string}]
             responses: {'200': {description: 'لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/PermanentListItemViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     /v1/permaLink/ListCount:
         get:
             tags: [permaLink]
@@ -815,7 +815,7 @@ paths:
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد لینک‌های ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/permaLink/{productCode}/BuyersList':
         get:
             tags: [permaLink]
@@ -825,7 +825,7 @@ paths:
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductBuyerViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/permaLink/{productCode}/BuyersListCount':
         get:
             tags: [permaLink]
@@ -835,7 +835,7 @@ paths:
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}]
             responses: {'200': {description: 'تعداد پرداختی‌های یک لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     '/v1/permaLink/{payCode}/Buyer':
         get:
             tags: [permaLink]
@@ -845,7 +845,7 @@ paths:
             produces: [application/json]
             parameters: [{name: payCode, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات پرداخت یک آیتم‌مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/BuyerDetailsViewModel'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
     /v1/product:
         put:
             tags: [product]
@@ -855,7 +855,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
         post:
             tags: [product]
             summary: 'ساخت یک آیتم‌ مالی جدید'
@@ -864,7 +864,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
             responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     '/v1/product/{code}':
         get:
             tags: [product]
@@ -874,7 +874,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ProductFullDeatilViewModel'}}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
         delete:
             tags: [product]
             summary: 'حذف یک آیتم مالی'
@@ -883,7 +883,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت حذف شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product.write]}]
     /v1/product/List:
         get:
             tags: [product]
@@ -893,7 +893,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن آیتم‌های آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در آیتم‌های مالی', required: false, type: string}]
             responses: {'200': {description: 'لیست آیتم‌های مالی با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductListItemViewModel'}}}}
-            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product.read]}]
             
     /v1/Upload/ProfilePic:
         post:
@@ -905,7 +905,7 @@ paths:
             produces: [application/json]
             parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'عکس کاربر با موفقیت آپلود شد'}}
-            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
+            security: [{Bearer: []}, {oauth2: [upload.write]}]
     /v1/Upload/Item:
         post:
             tags: [Upload]
@@ -916,7 +916,7 @@ paths:
             produces: [application/json]
             parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'عکس آیتم‌مالی با موفقیت آپلود شد'}}
-            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
+            security: [{Bearer: []}, {oauth2: [upload.write]}]
     /v1/Upload/InvoiceAttachment:
         post:
             tags: [Upload]
@@ -927,7 +927,7 @@ paths:
             produces: [application/json]
             parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'فایل ضمیمه فاکتور با موفقیت آپلود شد'}}
-            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
+            security: [{Bearer: []}, {oauth2: [upload.write]}]
 definitions:
     CreatePaymentViewModel:
         required:
@@ -2137,7 +2137,7 @@ definitions:
 schemes:
  - https
 securityDefinitions:
-  bearerAuth:
+  Bearer:
     type: apiKey
     in: header
     name: Authorization
@@ -2164,7 +2164,7 @@ securityDefinitions:
       invoice.write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
       upload:write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
 security:
-  - bearerAuth: []
+  - Bearer: []
   - oauth2: [
     profile,
     email,
