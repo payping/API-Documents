@@ -895,36 +895,39 @@ paths:
             responses: {'200': {description: 'لیست آیتم‌های مالی با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductListItemViewModel'}}}}
             security: [{bearerAuth: null}, {oauth2: [product.read]}]
             
-    /v1/Upload/ProfiePic:
+    /v1/Upload/ProfilePic:
         post:
             tags: [Upload]
             summary: 'آپلود عکس پروفایل کاربری'
             description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nJPG, PNG, JPEG"
-            operationId: V1UploadProfiePicPost
+            operationId: UploadProfilePic
             consumes: [multipart/form-data]
-            produces: []
-            parameters: [{name: file, in: formData, description: 'Upload File', required: true, type: file}]
+            produces: [application/json]
+            parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'عکس کاربر با موفقیت آپلود شد'}}
+            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
     /v1/Upload/Item:
         post:
             tags: [Upload]
             summary: 'آپلود عکس یک آیتم‌مالی'
             description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nJPG, PNG, JPEG"
-            operationId: V1UploadItemPost
+            operationId: UploadItem
             consumes: [multipart/form-data]
-            produces: []
-            parameters: [{name: file, in: formData, description: 'Upload File', required: true, type: file}]
+            produces: [application/json]
+            parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'عکس آیتم‌مالی با موفقیت آپلود شد'}}
+            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
     /v1/Upload/InvoiceAttachment:
         post:
             tags: [Upload]
             summary: 'آپلود فایل‌ ضمیمه یک فاکتور'
             description: "محدودیت‌های فایل‌های ورودی:\r\n\r\nمحدودیت ندارد."
-            operationId: V1UploadInvoiceAttachmentPost
+            operationId: UploadInvoiceAttachment
             consumes: [multipart/form-data]
-            produces: []
-            parameters: [{name: file, in: formData, description: 'Upload File', required: true, type: file}]
+            produces: [application/json]
+            parameters: [{name: file, in: formData, description: 'بارگزاری فایل', required: true, type: file}]
             responses: {'200': {description: 'فایل ضمیمه فاکتور با موفقیت آپلود شد'}}
+            security: [{bearerAuth: null}, {oauth2: [upload.write]}]
 definitions:
     CreatePaymentViewModel:
         required:
