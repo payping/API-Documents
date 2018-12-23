@@ -57,6 +57,9 @@ tags:
     -
         name: Withdraw
         description: 'متدهای مرتبط با درخواست تسویه حساب.'
+    -
+        name: Pos
+        description: 'تسویه'
 x-tagGroups:
     -
         name: 'سرویس پرداخت'
@@ -634,218 +637,273 @@ paths:
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
     /v1/coupon:
-        post:
-            tags: [coupon]
-            summary: 'ساخت یک کد تخفیف جدید'
-            operationId: V1CouponPost
-            consumes: [application/json]
-            produces: [application/json]
-            parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
-            responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            
         put:
             tags: [coupon]
             summary: 'بروزرسانی کد تخفیف'
-            operationId: V1CouponPut
-            consumes: [application/json]
-            produces: []
+            operationId: couponEdit
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponEditViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت بروزرسانی شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+        post:
+            tags: [coupon]
+            summary: 'ساخت یک کد تخفیف جدید'
+            operationId: couponCreate
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
+            responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     '/v1/coupon/{code}':
         get:
             tags: [coupon]
             summary: 'نمایش یک کد تخفیف'
-            operationId: V1CouponByCodeGet
+            operationId: couponGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponDetailViewModel'}}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
         delete:
             tags: [coupon]
             summary: 'حذف یک کد تخفیف'
-            operationId: V1CouponByCodeDelete
+            operationId: couponDelete
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت حذف شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     /v1/coupon/List:
         get:
             tags: [coupon]
             summary: 'نمایش لیست کدهای تخفیف'
-            operationId: V1CouponListGet
+            operationId: couponGetList
             consumes: []
             produces: [application/json]
-            parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در کدهای تخفیف', required: false, type: string}]
+            parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در کدهای تخفیف', required: false, type: string}, {name: productcode, in: query, description: "", required: false, type: string}]
             responses: {'200': {description: 'لیست کدهای تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/CouponListItemViewModel'}}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     /v1/coupon/ListCount:
         get:
             tags: [coupon]
             summary: 'دریافت تعداد کدهای تخفیف'
-            operationId: V1CouponListCountGet
+            operationId: couponGetListCount
             consumes: []
             produces: [application/json]
-            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده'}, {name: search, in: query, required: false, type: string, description: 'کیلدواژه جستجو در کدهای تخفیف'}]
+            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد کدهای تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     '/v1/coupon/{couponCode}/BuyersListCount':
         get:
             tags: [coupon]
             summary: 'دریافت تعداد خرید‌های یک کد تخفیف'
-            operationId: V1CouponByCouponCodeBuyersListCountGet
+            operationId: couponGetBuyersUseCouponCount
             consumes: []
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     '/v1/coupon/{couponCode}/BuyersList':
         get:
             tags: [coupon]
             summary: 'دریافت لیست پرداخت‌های انجام شده یک کد تخفیف'
-            operationId: V1CouponByCouponCodeBuyersListGet
+            operationId: couponGetBuyersUseCoupon
             consumes: []
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/BuyerDetailsViewModel'}}}}
-            
-    /v1/permaLink:
-        post:
-            tags: [permaLink]
-            summary: 'ساخت یک لینک ثابت جدید'
-            operationId: V1PermaLinkPost
-            consumes: [application/json]
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
+    '/v1/Direct/{code}':
+        get:
+            tags: [Direct]
+            summary: 'دریافت مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت'
+            operationId: DirectPay
+            consumes: []
             produces: [application/json]
-            parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
-            responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            
+            parameters: [{name: code, in: path, required: true, type: string}]
+            responses: {'200': {description: 'مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PayDirectVM'}}}
+    /v1/Direct/VerifyPermaLink:
+        post:
+            tags: [Direct]
+            summary: 'تایید پرداخت لینک‌ثابت یک آیتم‌مالی'
+            operationId: DirectVerifyPermanentLink
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: verfyPermaVM, in: body, required: false, schema: {$ref: '#/definitions/VerfyPermaVM'}}]
+            responses: {'200': {description: 'پرداخت لینک‌ثابت این آیتم‌مالی با موفقیت تایید شد', schema: {$ref: '#/definitions/PayReportViewModel'}}}
+    '/v1/ItemPay/{code}':
+        get:
+            tags: [ItemPay]
+            summary: 'دریافت مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت'
+            operationId: ItemPayPay
+            consumes: []
+            produces: [application/json]
+            parameters: [{name: code, in: path, required: true, type: string}]
+            responses: {'200': {description: 'مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PayGetViewModel'}}}
+    /v1/ItemPay:
+        post:
+            tags: [ItemPay]
+            summary: 'ارسال مشخصات پرداخت آیتم‌مالی برای پرداخت'
+            operationId: ItemPayPay
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/PermanentPaymentViewModel'}}]
+            responses: {'200': {description: 'پرداخت آیتم‌مالی با موفقیت انجام شد'}}
+    /v1/ItemPay/CheckCoupon:
+        post:
+            tags: [ItemPay]
+            summary: 'چک کردن وضعیت یک کد تخفیف برای پرداخت'
+            operationId: ItemPayCheckCoupon
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/CouponViewModel'}}]
+            responses: {'200': {description: 'مشخصات یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponResultVM'}}}
+    /v1/ItemPay/VerifyPermaLink:
+        post:
+            tags: [ItemPay]
+            summary: 'تایید پرداخت لینک‌ثابت یک آیتم‌مالی'
+            operationId: ItemPayVerifyPermanentLink
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: verfyPermaVM, in: body, required: false, schema: {$ref: '#/definitions/VerfyPermaVM'}}]
+            responses: {'200': {description: 'پرداخت لینک‌ثابت این آیتم‌مالی با موفقیت تایید شد', schema: {$ref: '#/definitions/PayReportViewModel'}}}
+    /v1/permaLink:
         put:
             tags: [permaLink]
             summary: 'بروزرسانی لینک ثابت'
-            operationId: V1PermaLinkPut
-            consumes: [application/json]
-            produces: []
+            operationId: permaLinkEdit
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+        post:
+            tags: [permaLink]
+            summary: 'ساخت یک لینک ثابت جدید'
+            operationId: permaLinkCreate
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
+            responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     '/v1/permaLink/{code}':
         get:
             tags: [permaLink]
             summary: 'نمایش یک لینک ثابت'
-            operationId: V1PermaLinkByCodeGet
+            operationId: permaLinkGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PermanentDetailViewModel'}}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
         delete:
             tags: [permaLink]
             summary: 'حذف یک لینک ثابت'
-            operationId: V1PermaLinkByCodeDelete
+            operationId: permaLinkDelete
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت حذف شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     /v1/permaLink/List:
         get:
             tags: [permaLink]
             summary: 'نمایش لیست لینک‌های ثابت'
-            operationId: V1PermaLinkListGet
+            operationId: permaLinkGetList
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن لینک‌های ثابت‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در لینک‌های ثابت', required: false, type: string}]
             responses: {'200': {description: 'لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/PermanentListItemViewModel'}}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     /v1/permaLink/ListCount:
         get:
             tags: [permaLink]
             summary: 'دریافت تعداد لینک‌های ثابت'
-            operationId: V1PermaLinkListCountGet
+            operationId: permaLinkGetListCount
             consumes: []
             produces: [application/json]
-            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false, description: 'همراه با آرشیوشده‌ها'}, {name: search, in: query, required: false, type: string, description: 'کلیدواژه مورد جستجو'}]
+            parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد لینک‌های ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     '/v1/permaLink/{productCode}/BuyersList':
         get:
             tags: [permaLink]
             summary: 'دریافت لیست پرداخت‌های انجام شده یک لینک‌ثابت'
-            operationId: V1PermaLinkByProductCodeBuyersListGet
+            operationId: permaLinkGetPermanentBuyersPaging
             consumes: []
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductBuyerViewModel'}}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     '/v1/permaLink/{productCode}/BuyersListCount':
         get:
             tags: [permaLink]
             summary: 'دریافت تعداد پرداختی‌های یک لینک‌ثابت'
-            operationId: V1PermaLinkByProductCodeBuyersListCountGet
+            operationId: permaLinkGetPermanentBuyersCountByCode
             consumes: []
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}]
             responses: {'200': {description: 'تعداد پرداختی‌های یک لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     '/v1/permaLink/{payCode}/Buyer':
         get:
             tags: [permaLink]
             summary: 'دریافت جزئیات پرداخت یک لینک‌ثابت'
-            operationId: V1PermaLinkByPayCodeBuyerGet
+            operationId: permaLinkGetBuyerDetailByPaymentCode
             consumes: []
             produces: [application/json]
             parameters: [{name: payCode, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات پرداخت یک آیتم‌مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/BuyerDetailsViewModel'}}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
     /v1/product:
-        post:
-            tags: [product]
-            summary: 'ساخت یک آیتم‌ مالی جدید'
-            operationId: V1ProductPost
-            consumes: [application/json]
-            produces: [application/json]
-            parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
-            responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            
         put:
             tags: [product]
             summary: 'بروزرسانی آیتم مالی'
-            operationId: V1ProductPut
-            consumes: [application/json]
-            produces: []
+            operationId: productEdit
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
+        post:
+            tags: [product]
+            summary: 'ساخت یک آیتم‌ مالی جدید'
+            operationId: productCreate
+            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            produces: [application/json]
+            parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
+            responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     '/v1/product/{code}':
         get:
             tags: [product]
             summary: 'نمایش یک آیتم مالی'
-            operationId: V1ProductByCodeGet
+            operationId: productGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ProductFullDeatilViewModel'}}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
         delete:
             tags: [product]
             summary: 'حذف یک آیتم مالی'
-            operationId: V1ProductByCodeDelete
+            operationId: productDelete
             consumes: []
-            produces: []
+            produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت حذف شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            
+            security: [{bearerAuth: null}, {oauth2: [product.write]}]
     /v1/product/List:
         get:
             tags: [product]
             summary: 'دریافت لیست آیتم‌های مالی'
-            operationId: V1ProductListGet
+            operationId: productGetList
             consumes: []
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن آیتم‌های آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در آیتم‌های مالی', required: false, type: string}]
             responses: {'200': {description: 'لیست آیتم‌های مالی با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductListItemViewModel'}}}}
+            security: [{bearerAuth: null}, {oauth2: [product.read]}]
             
     /v1/Upload/ProfiePic:
         post:
@@ -938,7 +996,7 @@ definitions:
             limit: {format: int32, description: 'نقطه پایان گزارش', type: integer}
             clientsInfos: {description: 'لیست ClientId,ClientInfo', uniqueItems: false, type: array, items: {$ref: '#/definitions/ClientsInfo'}}
             filter: {description: "اعمال فیلتر بر روی فلگ های \r\nکد پرداخت\r\nمبلغ\r\nتاریخ پرداخت\r\nکد ارسالی مشتری به پی پینگ\r\nتوضیحات\r\nنام یا شناسه پرداخت کننده", uniqueItems: false, type: array, items: {type: string}}
-            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7", enum: [6, 7], type: integer}
+            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7\r\nتسویه=5\r\n0 = All\r\n1 = IPaid\r\n2 = IGetPaid\r\n3 = RequestSent\r\n4 = RequestRevice\r\n5 = Withdraw\r\n6 = Daryaftha\r\n7 = Pardakhtha", enum: [0, 1, 2, 3, 4, 5, 6, 7], type: integer}
             fromDate: {format: date-time, description: 'تاریخ شروع گزارش', type: string}
             toDate: {format: date-time, description: 'تاریخ پایان گزارش', type: string}
     ClientsInfo:
@@ -966,7 +1024,7 @@ definitions:
         properties:
             clientsInfos: {description: 'لیست ClientId,ClientInfo', uniqueItems: false, type: array, items: {$ref: '#/definitions/ClientsInfo'}}
             filter: {description: "اعمال فیلتر بر روی فلگ های \r\nکد پرداخت\r\nمبلغ\r\nتاریخ پرداخت\r\nکد ارسالی مشتری به پی پینگ\r\nتوضیحات\r\nنام یا شناسه پرداخت کننده", uniqueItems: false, type: array, items: {type: string}}
-            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7", enum: [6, 7], type: integer}
+            transactionType: {format: int32, description: "نوع تراکنش\r\nدریافت ها =6\r\nپرداخت ها=7\r\nتسویه=5\r\n0 = All\r\n1 = IPaid\r\n2 = IGetPaid\r\n3 = RequestSent\r\n4 = RequestRevice\r\n5 = Withdraw\r\n6 = Daryaftha\r\n7 = Pardakhtha", enum: [0, 1, 2, 3, 4, 5, 6, 7], type: integer}
             fromDate: {format: date-time, description: 'تاریخ شروع گزارش', type: string}
             toDate: {format: date-time, description: 'تاریخ پایان گزارش', type: string}
     ResultVM:
@@ -1747,15 +1805,15 @@ definitions:
     CouponCreateViewModel:
         type: object
         properties:
-            name: {type: string, description: 'نام کدتخفیف', example: 'کدتخفیف تستی'}
-            userCouponCode: {type: string, description: 'کد تخفیف', example: TakhfifCode}
-            type: {format: int32, enum: [0, 1], type: integer, description: 'نوع کدتخفیف (۰ درصدی - ۱ مقداری)'}
-            amount: {format: int32, type: integer, description: 'مقدار تخفیف', example: '50'}
-            redeemDate: {format: date-time, type: string, description: 'تاریخ انقضا', example: '2018-10-04'}
-            redeemTime: {type: string, description: 'زمان انقضا', example: '21:15:00'}
-            maxRedemption: {format: int32, type: integer, description: 'تعداد استفاده مجاز', example: 10}
-            isActive: {type: boolean, description: 'وضعیت کد تخفیف'}
-            activeProductCode: {type: string, description: 'آیتمی که قصد اعمال کدتخفیف روی آن دارید - در صورت ارسال null این کد برای همه آیتم‌ها در نظر گرفته می‌شود.', example: null}
+            name: {type: string}
+            userCouponCode: {type: string}
+            type: {format: int32, enum: [0, 1], type: integer}
+            amount: {format: int32, type: integer}
+            redeemDate: {format: date-time, type: string}
+            redeemTime: {type: string}
+            maxRedemption: {format: int32, type: integer}
+            isActive: {type: boolean}
+            activeProductCode: {uniqueItems: false, type: array, items: {type: string}}
     CodeVM:
         type: object
         properties:
@@ -1763,16 +1821,16 @@ definitions:
     CouponEditViewModel:
         type: object
         properties:
-            name: {type: string, description: 'نام کدتخفیف', example: 'کدتخفیف تستی'}
-            userCouponCode: {type: string, description: 'کد تخفیف', example: TakhfifCode}
-            type: {format: int32, enum: [0, 1], type: integer, description: 'نوع کدتخفیف (۰ درصدی - ۱ مقداری)'}
-            amount: {format: int32, type: integer, description: 'مقدار تخفیف', example: '50'}
-            redeemDate: {format: date-time, type: string, description: 'تاریخ انقضا', example: '2018-10-04'}
-            redeemTime: {type: string, description: 'زمان انقضا', example: '21:15:00'}
-            maxRedemption: {format: int32, type: integer, description: 'تعداد استفاده مجاز', example: 10}
-            isActive: {type: boolean, description: 'وضعیت کد تخفیف'}
-            activeProductCode: {type: string, description: 'آیتمی که قصد اعمال کدتخفیف روی آن دارید - در صورت ارسال null این کد برای همه آیتم‌ها در نظر گرفته می‌شود.', example: null}
-            code: {type: string, description: 'شناسه کد تخفیف'}
+            name: {type: string}
+            userCouponCode: {type: string}
+            type: {format: int32, enum: [0, 1], type: integer}
+            amount: {format: int32, type: integer}
+            code: {type: string}
+            redeemDate: {format: date-time, type: string}
+            redeemTime: {type: string}
+            maxRedemption: {format: int32, type: integer}
+            isActive: {type: boolean}
+            activeProductCode: {uniqueItems: false, type: array, items: {type: string}}
     CouponDetailViewModel:
         type: object
         properties:
@@ -1798,7 +1856,7 @@ definitions:
             code: {type: string}
             isActive: {type: boolean}
             activeProductCode: {type: string}
-            activeProductName: {type: string}
+            activeProductName: {uniqueItems: false, type: array, items: {type: string}}
             userCouponCode: {type: string}
             amountDisplay: {type: string, readOnly: true}
     CountVM:
@@ -1835,33 +1893,91 @@ definitions:
             title: {type: string}
             description: {type: string}
             realAmount: {format: int32, type: integer}
-    PermanentCreateViewModel:
+    PayDirectVM:
         type: object
         properties:
-            code: {type: string, description: 'کد آیتم‌مالی که قصد ساخت لینک‌ثابت برای آن دارید', default: "c10J"}
-            redirectPage: {type: string, description: 'صفحه بازگشت لینک‌ثابت پس از پرداخت', default: "https://payping.ir"}
-            getAddress: {type: boolean, description: 'دریافت آدرس و محل سکونت از پرداخت کننده', default: false}
-            mailerLiteListId: {type: string, description: 'لیست قالب‌های میلرلایت', default: "25698711"}
-            smsText: {type: string, description: 'متن پیامک ارسالی به پرداخت کننده', default: "باتشکر از پرداخت شما"}
-            customDescriptionText: {type: string, description: 'متن سوال سفارشی', default: "لطفا نام پدر خود را وارد کنید"}
-            emailOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت ایمیل (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            phoneOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت تلفن (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            nameOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت نام (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            customDesOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت سوال سفارشی (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)', default: 1}
-    PermanentEditViewModel:
+            amount: {type: string}
+            product: {$ref: '#/definitions/ProductFullDeatilViewModel'}
+            userData: {$ref: '#/definitions/PUserData'}
+            payCode: {type: string}
+    ProductFullDeatilViewModel:
         type: object
         properties:
-            code: {type: string, description: 'کد آیتم‌مالی که قصد ساخت لینک‌ثابت برای آن دارید', default: "c10J"}
-            redirectPage: {type: string, description: 'صفحه بازگشت لینک‌ثابت پس از پرداخت', default: "https://payping.ir"}
-            getAddress: {type: boolean, description: 'دریافت آدرس و محل سکونت از پرداخت کننده', default: false}
-            mailerLiteListId: {type: string, description: 'لیست قالب‌های میلرلایت', default: "25698711"}
-            smsText: {type: string, description: 'متن پیامک ارسالی به پرداخت کننده', default: "باتشکر از پرداخت شما"}
-            customDescriptionText: {type: string, description: 'متن سوال سفارشی', default: "لطفا نام پدر خود را وارد کنید"}
-            emailOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت ایمیل (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            phoneOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت تلفن (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            nameOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت نام (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)'}
-            customDesOption: {format: int32, enum: [0, 1, 2], type: integer, description: 'دریافت سوال سفارشی (۰ دریافت نشود - ۱ اختیاری - ۲ اجباری)', default: 1}
-            isActive: {type: boolean, description: 'وضعیت لینک‌ثابت'}
+            code: {type: string}
+            title: {type: string}
+            description: {type: string}
+            quantity: {format: int32, type: integer}
+            unlimited: {type: boolean}
+            userId: {format: int32, type: integer}
+            amount: {format: int32, type: integer}
+            defineAmountByUser: {type: boolean}
+            isActive: {type: boolean}
+            isArchived: {type: boolean}
+            haveTax: {type: boolean}
+            tax: {format: int32, type: integer, readOnly: true}
+            imageLink: {type: string}
+            imageId: {type: string}
+            category: {$ref: '#/definitions/CategoryMinorDetailVM'}
+    PUserData:
+        type: object
+        properties:
+            name: {type: string}
+            userName: {type: string}
+            profilePicture: {type: string}
+            isBusiness: {type: boolean}
+            verifyType: {type: string}
+            socials: {$ref: '#/definitions/PSocialUserExtraViewModel'}
+            customFrontPay: {$ref: '#/definitions/CustomFrontPay'}
+            maxPaymntAmount: {format: int32, type: integer}
+    CategoryMinorDetailVM:
+        type: object
+        properties:
+            code: {type: string}
+            name: {type: string}
+    PSocialUserExtraViewModel:
+        type: object
+        properties:
+            site: {type: string}
+            instagram: {type: string}
+            telegram: {type: string}
+            twitter: {type: string}
+            allSocialIsNull: {type: boolean}
+    CustomFrontPay:
+        type: object
+        properties:
+            bgImage: {type: string}
+            themeColor: {type: string}
+            bgColor: {type: string}
+            priceColor: {type: string}
+            backImageType: {type: string}
+    VerfyPermaVM:
+        type: object
+        properties:
+            payCode: {type: string}
+            clientRefId: {type: string}
+            refId: {type: string}
+    PayReportViewModel:
+        type: object
+        properties:
+            product: {$ref: '#/definitions/ProductDetailViewModel'}
+            permanentLink: {$ref: '#/definitions/PermanentDetailViewModel'}
+            buyer: {$ref: '#/definitions/BuyerDetailsViewModel'}
+            pdfLink: {type: string}
+    ProductDetailViewModel:
+        type: object
+        properties:
+            userId: {format: int32, type: integer}
+            code: {type: string}
+            title: {type: string}
+            description: {type: string}
+            amount: {format: int32, type: integer}
+            defineAmountByUser: {type: boolean}
+            quantity: {format: int32, type: integer}
+            unlimited: {type: boolean}
+            isActive: {type: boolean}
+            isArchived: {type: boolean}
+            haveTax: {type: boolean}
+            imageLink: {type: string}
     PermanentDetailViewModel:
         type: object
         properties:
@@ -1884,6 +2000,81 @@ definitions:
             permanentType: {format: int32, enum: [0, 1], type: integer}
             buyerCounts: {format: int32, type: integer}
             buyerSum: {format: int32, type: integer}
+    PayGetViewModel:
+        type: object
+        properties:
+            emailOption: {format: int32, enum: [0, 1, 2], type: integer}
+            phoneOption: {format: int32, enum: [0, 1, 2], type: integer}
+            nameOption: {format: int32, enum: [0, 1, 2], type: integer}
+            customDesOption: {format: int32, enum: [0, 1, 2], type: integer}
+            customDescriptionText: {type: string}
+            getAddress: {type: boolean}
+            haveCoupon: {type: boolean}
+            amount: {type: string}
+            realAmount: {type: string}
+            product: {$ref: '#/definitions/ProductFullDeatilViewModel'}
+            userData: {$ref: '#/definitions/PUserData'}
+    PermanentPaymentViewModel:
+        type: object
+        properties:
+            productCode: {type: string}
+            amount: {type: string}
+            addressLine: {type: string}
+            postalCode: {type: string}
+            city: {type: string}
+            firstName: {type: string}
+            lastName: {type: string}
+            email: {type: string}
+            phone: {type: string}
+            fullName: {type: string, readOnly: true}
+            customDescription: {type: string}
+            couponCode: {type: string}
+    CouponViewModel:
+        required:
+            - couponCode
+        type: object
+        properties:
+            amount: {format: int32, type: integer}
+            couponCode: {pattern: '^[a-zA-Z0-9]+$', type: string}
+            productCode: {type: string}
+    CouponResultVM:
+        type: object
+        properties:
+            result: {type: string}
+            newAmount: {type: string}
+            couponCode: {type: string}
+            isSuccess: {type: boolean}
+    PermanentCreateViewModel:
+        type: object
+        properties:
+            code: {type: string}
+            redirectPage: {type: string}
+            getAddress: {type: boolean}
+            mailerLiteListId: {type: string}
+            smsText: {type: string}
+            customDescriptionText: {type: string}
+            emailOption: {format: int32, enum: [0, 1, 2], type: integer}
+            phoneOption: {format: int32, enum: [0, 1, 2], type: integer}
+            nameOption: {format: int32, enum: [0, 1, 2], type: integer}
+            customDesOption: {format: int32, enum: [0, 1, 2], type: integer}
+            clientId: {type: string}
+            clientRefId: {type: string}
+            permanentType: {format: int32, enum: [0, 1], type: integer}
+    PermanentEditViewModel:
+        type: object
+        properties:
+            code: {type: string}
+            redirectPage: {type: string}
+            getAddress: {type: boolean}
+            mailerLiteListId: {type: string}
+            smsText: {type: string}
+            customDescriptionText: {type: string}
+            isActive: {type: boolean}
+            emailOption: {format: int32, enum: [0, 1, 2], type: integer}
+            phoneOption: {format: int32, enum: [0, 1, 2], type: integer}
+            nameOption: {format: int32, enum: [0, 1, 2], type: integer}
+            customDesOption: {format: int32, enum: [0, 1, 2], type: integer}
+            permanentType: {format: int32, enum: [0, 1], type: integer}
     PermanentListItemViewModel:
         type: object
         properties:
@@ -1911,54 +2102,31 @@ definitions:
     ProductCreateViewModel:
         required:
             - title
-            - amount
         type: object
         properties:
-            title: {type: string, description: 'نام آیتم‌مالی', default: "عینک ری‌بن"}
-            description: {type: string, description: 'توضیحات مرتبط با آیتم‌مالی', default: "عینک آفتابی مردانه"}
-            amount: {format: int32, type: integer, description: 'قیمت محصول یا آیتم‌مالی به تومان می‌باشد', default: "145000"}
-            defineAmountByUser: {type: boolean, description: 'قیمت دلخواه توسط پرداخت‌کننده مشخص شود', default: false}
-            quantity: {format: int32, type: integer, description: 'تعداد', default: 12}
-            haveTax: {type: boolean, description: 'مالیات دارد یا خیر - فقط در ساخت فاکتور کاربرد دارد', default: false}
-            unlimited: {type: boolean, description: 'تعداد نامحدود', default: false}
-            imageLink: {type: string, description: 'آدرس تصویر آیتم‌مالی', default: "https://os.payping.ir/files/1/item/a2a71ceb-5343-42f7-90ce-e54db60f068d.jpg"}
+            title: {type: string}
+            description: {type: string}
+            amount: {format: int32, type: integer}
+            defineAmountByUser: {type: boolean}
+            quantity: {format: int32, type: integer}
+            haveTax: {type: boolean}
+            unlimited: {type: boolean}
+            imageLink: {type: string}
     ProductEditViewModel:
         required:
             - title
             - amount
         type: object
         properties:
-            code: {type: string, description: 'کد آیتم‌مالی', default: "x10K"}
-            title: {type: string, description: 'نام آیتم‌مالی', default: "عینک ری‌بن"}
-            description: {type: string, description: 'توضیحات مرتبط با آیتم‌مالی', default: "عینک آفتابی مردانه"}
-            amount: {format: int32, type: integer, description: 'قیمت محصول یا آیتم‌مالی به تومان می‌باشد', default: "145000"}
-            defineAmountByUser: {type: boolean, description: 'قیمت دلخواه توسط پرداخت‌کننده مشخص شود', default: false}
-            quantity: {format: int32, type: integer, description: 'تعداد', default: 12}
-            haveTax: {type: boolean, description: 'مالیات دارد یا خیر - فقط در ساخت فاکتور کاربرد دارد', default: false}
-            unlimited: {type: boolean, description: 'تعداد نامحدود', default: false}
-            imageLink: {type: string, description: 'آدرس تصویر آیتم‌مالی', default: "https://os.payping.ir/files/1/item/a2a71ceb-5343-42f7-90ce-e54db60f068d.jpg"}
-    ProductFullDeatilViewModel:
-        type: object
-        properties:
             code: {type: string}
             title: {type: string}
             description: {type: string}
-            quantity: {format: int32, type: integer}
-            unlimited: {type: boolean}
-            userId: {format: int32, type: integer}
             amount: {format: int32, type: integer}
             defineAmountByUser: {type: boolean}
-            isActive: {type: boolean}
-            isArchived: {type: boolean}
             haveTax: {type: boolean}
-            tax: {format: int32, type: integer, readOnly: true}
+            quantity: {format: int32, type: integer}
+            unlimited: {type: boolean}
             imageLink: {type: string}
-            category: {$ref: '#/definitions/CategoryMinorDetailVM'}
-    CategoryMinorDetailVM:
-        type: object
-        properties:
-            code: {type: string}
-            name: {type: string}
     ProductListItemViewModel:
         type: object
         properties:
