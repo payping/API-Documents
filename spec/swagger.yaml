@@ -722,24 +722,6 @@ paths:
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/BuyerDetailsViewModel'}}}}
             security: [{bearerAuth: null}, {oauth2: [product.read]}]
-    '/v1/Direct/{code}':
-        get:
-            tags: [Direct]
-            summary: 'دریافت مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت'
-            operationId: DirectPay
-            consumes: []
-            produces: [application/json]
-            parameters: [{name: code, in: path, required: true, type: string}]
-            responses: {'200': {description: 'مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PayDirectVM'}}}
-    /v1/Direct/VerifyPermaLink:
-        post:
-            tags: [Direct]
-            summary: 'تایید پرداخت لینک‌ثابت یک آیتم‌مالی'
-            operationId: DirectVerifyPermanentLink
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
-            produces: [application/json]
-            parameters: [{name: verfyPermaVM, in: body, required: false, schema: {$ref: '#/definitions/VerfyPermaVM'}}]
-            responses: {'200': {description: 'پرداخت لینک‌ثابت این آیتم‌مالی با موفقیت تایید شد', schema: {$ref: '#/definitions/PayReportViewModel'}}}
     '/v1/ItemPay/{code}':
         get:
             tags: [ItemPay]
