@@ -68,6 +68,7 @@ x-tagGroups:
             - Request
             - Withdraw
             - Report
+            - Pos
     -
         name: 'سرویس آیتم‌های مالی'
         tags:
@@ -165,6 +166,7 @@ paths:
         post:
             tags: [Report]
             summary: 'گزارش تراکنش ها'
+            description: 'از این متد برای نمایش جزئیات تراکنش های کاربر استفاده می شود'
             operationId: ReportTransactionReport
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
@@ -175,6 +177,7 @@ paths:
         post:
             tags: [Report]
             summary: 'تعداد تراکنش ها'
+            description: 'از این متد برای نمایش تعداد تراکنش های برگشت داده شده از متد TransactionReport استفاده می شود'
             operationId: ReportTransactionReportCount
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
@@ -185,6 +188,7 @@ paths:
         post:
             tags: [Report]
             summary: 'دریافت لیست تسویه حساب'
+            description: 'به کمک این متد می توانید لیست درخواست های تسویه شده و در انتظار تسویه را نمایش دهید'
             operationId: ReportWithdrawTransactions
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
@@ -194,11 +198,13 @@ paths:
     /v1/report/WithdrawTransactionsCount:
         post:
             tags: [Report]
+            summary: 'تعداد لیست تسویه حساب'
+            description: 'به کمک این متد می توانید تعداد لیست درخواست های تسویه شده و در انتظار تسویه را که از متد WithdrawTransactions دریافت کرده اید را نمایش دهید'
             operationId: ReportWithdrawTransactionsCount
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
-            responses: {'200': {description: Success, schema: {$ref: '#/definitions/ResultVM'}}}
+            responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ResultVM'}}}
             security: [{bearerAuth: null}, {oauth2: [pay.read]}]
     '/v1/report/{code}':
         get:
@@ -258,6 +264,7 @@ paths:
         post:
             tags: [Withdraw]
             summary: 'درخواست تسویه حساب'
+            description: 'به کمک این متد می توانید یک درخواست تسویه با مبلغ دلخواه ایجاد نمایید'
             operationId: WithdrawCreate
             consumes: []
             produces: [application/json]
@@ -268,6 +275,7 @@ paths:
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
+            description: 'از این متد برای نمایش لیست تسویه ها'
             operationId: WithdrawDetails
             consumes: []
             produces: [application/json]
