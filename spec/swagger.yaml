@@ -1,6 +1,5 @@
 swagger: '2.0'
 host: api.payping.ir
-basePath: 
 info:
     version: '1.0.0'
     title: 'سرویس‌های پلتفرم مالی پی‌پینگ'
@@ -141,7 +140,7 @@ paths:
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
             security: [{Bearer: []}, {oauth2: [pay.write]}]
-    '/v1/pay/{Code}':
+    '/v1/pay/{code}':
         delete:
             tags: [Payment]
             summary: 'برای لغو کردن یک کد پرداخت می توانید از این متد استفاده کنید'
@@ -226,7 +225,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     /v1/request/Multi:
         post:
             tags: [Request]
@@ -237,7 +236,7 @@ paths:
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     '/v1/request/{code}/SendReminder':
         post:
             tags: [Request]
@@ -248,7 +247,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'یادآوری با موفقیت انجام شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     '/v1/request/{code}':
         delete:
             tags: [Request]
@@ -259,7 +258,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'درخواست با موفقیت کنسل شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.Write]}]
+            security: [{Bearer: []}, {oauth2: [pay.write]}]
     '/v1/withdraw/{amount}':
         post:
             tags: [Withdraw]
@@ -271,7 +270,7 @@ paths:
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
             security: [{Bearer: []}, {oauth2: [pay.write]}]
-    '/v1/withdraw/{Code}':
+    '/v1/withdraw/{code}':
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
@@ -291,7 +290,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/AddressBook/ListCount:
         get:
             tags: [AddressBook]
@@ -301,7 +300,7 @@ paths:
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/AddressBook/{code}':
         get:
             tags: [AddressBook]
@@ -311,7 +310,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
         put:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
@@ -320,7 +319,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
         delete:
             tags: [AddressBook]
             summary: 'حذف مشتری'
@@ -329,7 +328,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/AddressBook:
         post:
             tags: [AddressBook]
@@ -339,7 +338,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice/SumPerStatus:
         get:
             tags: [Invoice]
@@ -349,7 +348,7 @@ paths:
             produces: [application/json]
             parameters: []
             responses: {'200': {description: 'جمع مبلغ فاکتور ها براساس وضعیت', schema: {$ref: '#/definitions/InvoiceDashboardReportViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'گزارشی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/Invoice/Buyer/{code}':
         get:
             tags: [Invoice]
@@ -359,7 +358,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'مشخصات پرداخت کننده فاکتور', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/Invoice/Schedule/{code}':
         get:
             tags: [Invoice]
@@ -369,7 +368,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'فاکتور زمانبندی شده', schema: {$ref: '#/definitions/ScheduleInvoiceWithChilds'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/Invoice/Subschedulers/{code}':
         get:
             tags: [Invoice]
@@ -379,7 +378,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'اطلاعات زمانبندی شده فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceSubSchulderDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Invoice/List:
         get:
             tags: [Invoice]
@@ -389,7 +388,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListCount:
         get:
             tags: [Invoice]
@@ -399,7 +398,7 @@ paths:
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListSchedule:
         get:
             tags: [Invoice]
@@ -409,7 +408,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها زمانبندی شده', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Invoice/ListScheduleCount:
         get:
             tags: [Invoice]
@@ -419,7 +418,7 @@ paths:
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها زمانبندی شده', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/Invoice/{code}':
         get:
             tags: [Invoice]
@@ -429,7 +428,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
         put:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
@@ -438,7 +437,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور'
@@ -447,7 +446,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice/SendByTemplateAdvance:
         post:
             tags: [Invoice]
@@ -457,7 +456,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice/SendByTemplateSimple:
         post:
             tags: [Invoice]
@@ -467,7 +466,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice:
         post:
             tags: [Invoice]
@@ -477,7 +476,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice/Schedule:
         post:
             tags: [Invoice]
@@ -487,7 +486,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     '/v1/Invoice/DeleteSchedule/{code}':
         delete:
             tags: [Invoice]
@@ -497,7 +496,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور زمانبندی شده', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور زمانبندی شده', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     '/v1/Invoice/Pdf/{code}':
         get:
             tags: [Invoice]
@@ -507,7 +506,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات فایل فاکتور غیر رسمی', schema: {$ref: '#/definitions/InvoicePdfResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Invoice/Cancel:
         post:
             tags: [Invoice]
@@ -526,7 +525,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال یادآوری فاکتور', schema: {$ref: '#/definitions/InvoiceSendReminderResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     '/v1/Invoice/Send/{code}':
         post:
             tags: [Invoice]
@@ -536,7 +535,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال فاکتور', schema: {$ref: '#/definitions/InvoiceSendInvoiceResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Invoice/SetCustomer:
         post:
             tags: [Invoice]
@@ -555,7 +554,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Template/ListCount:
         get:
             tags: [Template]
@@ -565,7 +564,7 @@ paths:
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Template/ListSchedule:
         get:
             tags: [Template]
@@ -575,7 +574,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Template/ListScheduleCount:
         get:
             tags: [Template]
@@ -585,7 +584,7 @@ paths:
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Template/ListNonSchedule:
         get:
             tags: [Template]
@@ -595,7 +594,7 @@ paths:
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     /v1/Template/ListNonScheduleCount:
         get:
             tags: [Template]
@@ -605,7 +604,7 @@ paths:
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
     '/v1/Template/{code}':
         get:
             tags: [Template]
@@ -615,7 +614,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice.read]}]
         put:
             tags: [Template]
             summary: 'بروزرسانی قالب'
@@ -624,7 +623,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
         delete:
             tags: [Template]
             summary: 'حذف قالب'
@@ -633,7 +632,7 @@ paths:
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای قالب', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/Template:
         post:
             tags: [Template]
@@ -643,7 +642,7 @@ paths:
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{bearerAuth: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice.write]}]
     /v1/coupon:
         put:
             tags: [coupon]
@@ -726,16 +725,16 @@ paths:
         get:
             tags: [ItemPay]
             summary: 'دریافت مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت'
-            operationId: ItemPayPay
+            operationId: ItemPayGet
             consumes: []
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'مشخصات پرداخت آیتم‌مالی به همراه لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PayGetViewModel'}}}
-    /v1/ItemPay:
+    '/v1/ItemPay':
         post:
             tags: [ItemPay]
             summary: 'ارسال مشخصات پرداخت آیتم‌مالی برای پرداخت'
-            operationId: ItemPayPay
+            operationId: ItemPayPost
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/PermanentPaymentViewModel'}}]
@@ -2156,13 +2155,13 @@ securityDefinitions:
       birthday: دسترسی به مشاهده تاریخ تولد کاربر
       shaba: دسترسی به مشاهده شبای بانکی کاربر
       phone: دسترسی به مشاهده شماره تماس کاربر
-      pay:read: دسترسی فقط خواندنی در سرویس پرداخت
-      pay:write: دسترسی نوشتن و تغییرات در سرویس پرداخت
-      product:read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
-      product:write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
+      pay.read: دسترسی فقط خواندنی در سرویس پرداخت
+      pay.write: دسترسی نوشتن و تغییرات در سرویس پرداخت
+      product.read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
+      product.write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
       invoice.read: دسترسی فقط خواندنی به سرویس فاکتور ها
       invoice.write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
-      upload:write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
+      upload.write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
 security:
   - Bearer: []
   - oauth2: [
@@ -2172,10 +2171,10 @@ security:
     birthday,
     shaba,
     phone,
-    pay:read,
-    pay:write,
-    product:read,
-    product:write,
-    invoice:read, 
-    invoice:write,
-    upload:write]
+    pay.read,
+    pay.write,
+    product.read,
+    product.write,
+    invoice.read, 
+    invoice.write,
+    upload.write]
