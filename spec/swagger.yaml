@@ -270,7 +270,7 @@ paths:
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
             security: [{Bearer: []}, {oauth2: [pay.write]}]
-    '/v1/withdraw/{code}':
+    '/v1/withdrawdetails/{code}':
         get:
             tags: [Withdraw]
             summary: 'نمایش جزئیات درخواست تسویه'
