@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PayPing API Specification</title>
-    <!-- needed for adaptive design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<title>PayPing API Specification</title>
+		<!-- needed for adaptive design -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!--
+		<!--
     ReDoc uses font options from the parent element
     So override default browser styles
     -->
-    <link rel="stylesheet" href="./styles/rtl.css">
-    <link rel="stylesheet" href="./styles/fontiran-style.css">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <redoc spec-url="./spec/swagger.yaml">
-    </redoc>
+		<link rel="stylesheet" href="./styles/rtl.css" />
+		<link rel="stylesheet" href="./styles/fontiran-style.css" />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+			}
+		</style>
 
-    <script src="./js/redoc.standalone.js"> </script>
-    <!-- <script src="./js/lunr.stemmer.support.min.js"> </script> -->
-    <!-- <script src="./js/lunr.ar.js"> </script> -->
-  </body>
+		<script type="text/javascript">
+			window.$crisp = [];
+			window.CRISP_WEBSITE_ID = '2e2fcbf8-4c2d-4801-bb7d-e8e7540e7b14';
+			(function() {
+				d = document;
+				s = d.createElement('script');
+				s.src = 'https://client.crisp.chat/l.js';
+				s.async = 1;
+				d.getElementsByTagName('head')[0].appendChild(s);
+			})();
+    </script>
+    
+	</head>
+	<body>
+		<redoc spec-url="./spec/swagger.yaml"> </redoc>
+
+		<script src="./js/redoc.standalone.js"></script>
+		<!-- <script src="./js/lunr.stemmer.support.min.js"> </script> -->
+		<!-- <script src="./js/lunr.ar.js"> </script> -->
+	</body>
 </html>
