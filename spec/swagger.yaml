@@ -96,6 +96,165 @@ paths:
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
             security: [{Bearer: []}, {oauth2: [pay.write]}]
+            x-code-samples:
+                - lang: 'C#'
+                  source: |
+                    var client = new RestClient("https://api.payping.ir/v1/pay");
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("authorization", "Bearer xxxxxxxxxxxxxxxxxxxxx");
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("accept", "application/json");
+                    var model = new
+                    {
+                        Amount = 100,
+                        PayerIdentity = "string",
+                        PayerName = "string",
+                        Description = "string",
+                        ReturnUrl = "string",
+                        ClientRefId = "string"
+                    };
+                    request.AddJsonBody(model);
+                    IRestResponse response = client.Execute(request);
+                - lang: PHP
+                  source: |
+                    <?php
+
+                    $request = new HttpRequest();
+                    $request->setUrl('https://api.payping.ir/v1/pay');
+                    $request->setMethod(HTTP_METH_POST);
+
+                    $request->setHeaders(array(
+                      'authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxx',
+                      'content-type' => 'application/json',
+                      'accept' => 'application/json'
+                    ));
+
+                    $request->setBody('{
+                      "payerName": "string",
+                      "amount": 100,
+                      "payerIdentity": "string",
+                      "returnUrl": "Uri Format For Exam: (http(s)://payping.ir)",
+                      "description": "string",
+                      "clientRefId": "string"
+                    }');
+
+                    try {
+                      $response = $request->send();
+
+                      echo $response->getBody();
+                    } catch (HttpException $ex) {
+                      echo $ex;
+                    }
+                - lang: Java
+                  source: |
+                    OkHttpClient client = new OkHttpClient();
+                    
+                    MediaType mediaType = MediaType.parse("application/json");
+                    RequestBody body = RequestBody.create(mediaType, "{\r\n  \"payerName\": \"string\",\r\n  \"amount\": 100,\r\n  \"payerIdentity\": \"string\",\r\n  \"returnUrl\": \"Uri Format For Exam: (http(s)://payping.ir)\",\r\n  \"description\": \"string\",\r\n  \"clientRefId\": \"string\"\r\n}");
+                    Request request = new Request.Builder()
+                      .url("https://api.payping.ir/v1/pay")
+                      .post(body)
+                      .addHeader("accept", "application/json")
+                      .addHeader("content-type", "application/json")
+                      .addHeader("authorization", "Bearer xxxxxxxxxxxxxxxxxx")
+                      .build();
+                    
+                    Response response = client.newCall(request).execute();
+                - lang: NodeJs
+                  source: |
+                    var request = require("request");
+
+                    var options = { method: 'POST',
+                      url: 'https://api.payping.ir/v1/pay',
+                      headers: 
+                       { authorization: 'Bearer xxxxxxxxxxxxxxxx',
+                         'content-type': 'application/json',
+                         accept: 'application/json' },
+                      body: 
+                       { payerName: 'string',
+                         amount: 100,
+                         payerIdentity: 'string',
+                         returnUrl: 'Uri Format For Exam: (http(s)://payping.ir)',
+                         description: 'string',
+                         clientRefId: 'string' },
+                      json: true };
+
+                    request(options, function (error, response, body) {
+                      if (error) throw new Error(error);
+
+                      console.log(body);
+                    });
+                - lang: Python
+                  source: |
+                    import http.client
+
+                    conn = http.client.HTTPConnection("")
+
+                    payload = "{\r\n  \"payerName\": \"string\",\r\n  \"amount\": 100,\r\n  \"payerIdentity\": \"string\",\r\n  \"returnUrl\": \"Uri Format For Exam: (http(s)://payping.ir)\",\r\n  \"description\": \"string\",\r\n  \"clientRefId\": \"string\"\r\n}"
+
+                    headers = {
+                        'accept': "application/json",
+                        'content-type': "application/json",
+                        'authorization': "Bearer xxxxxxxxxxxxxx"
+                        }
+
+                    conn.request("POST", "https://api.payping.ir/v1/pay", payload, headers)
+
+                    res = conn.getresponse()
+                    data = res.read()
+
+                    print(data.decode("utf-8"))
+                - lang: Jquery
+                  source: |
+                    var settings = {
+                      "async": true,
+                      "crossDomain": true,
+                      "url": "https://api.payping.ir/v1/pay",
+                      "method": "POST",
+                      "headers": {
+                        "accept": "application/json",
+                        "content-type": "application/json",
+                        "authorization": "Bearer xxxxxxxxxxxxxxxx"
+                      },
+                      "processData": false,
+                      "data": "{\r\n  \"payerName\": \"string\",\r\n  \"amount\": 100,\r\n  \"payerIdentity\": \"string\",\r\n  \"returnUrl\": \"Uri Format For Exam: (http(s)://payping.ir)\",\r\n  \"description\": \"string\",\r\n  \"clientRefId\": \"string\"\r\n}"
+                    }
+
+                    $.ajax(settings).done(function (response) {
+                      console.log(response);
+                    });
+                - lang: Go
+                  source: |
+                    package main
+
+                    import (
+                    	"fmt"
+                    	"strings"
+                    	"net/http"
+                    	"io/ioutil"
+                    )
+
+                    func main() {
+                    
+                    	url := "https://api.payping.ir/v1/pay"
+
+                    	payload := strings.NewReader("{\r\n  \"payerName\": \"string\",\r\n  \"amount\": 100,\r\n  \"payerIdentity\": \"string\",\r\n  \"returnUrl\": \"Uri Format For Exam: (http(s)://payping.ir)\",\r\n  \"description\": \"string\",\r\n  \"clientRefId\": \"string\"\r\n}")
+
+                    	req, _ := http.NewRequest("POST", url, payload)
+
+                    	req.Header.Add("accept", "application/json")
+                    	req.Header.Add("content-type", "application/json")
+                    	req.Header.Add("authorization", "Bearer xxxxxxxxxxxx")
+
+                    	res, _ := http.DefaultClient.Do(req)
+
+                    	defer res.Body.Close()
+                    	body, _ := ioutil.ReadAll(res.Body)
+
+                    	fmt.Println(res)
+                    	fmt.Println(string(body))
+
+                    }
     /v1/pay/BlockMoney:
         post:
             tags: [Payment]
@@ -140,6 +299,85 @@ paths:
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
             security: [{Bearer: []}, {oauth2: [pay.write]}]
+            x-code-samples:
+                - lang: 'C#'
+                  source: |
+                    var client = new RestClient("https://api.payping.ir/v1/pay/verify");
+                    var request = new RestRequest(Method.POST);
+                    request.AddHeader("authorization", "Bearer xxxxxxxxxxxxxxxxxxxx");
+                    request.AddHeader("content-type", "application/json");
+                    request.AddHeader("accept", "application/json");
+                    var model = new {
+                        RefId = "string",
+                        Amount = 100
+                    }
+                    request.AddJsonBody(model);
+                    IRestResponse response = client.Execute(request);
+                - lang: PHP
+                  source: |
+                    <?php
+
+                    $request = new HttpRequest();
+                    $request->setUrl('https://api.payping.ir/v1/pay/verify');
+                    $request->setMethod(HTTP_METH_POST);
+
+                    $request->setHeaders(array(
+                    'authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxx',
+                    'content-type' => 'application/json',
+                    'accept' => 'application/json'
+                    ));
+
+                    $request->setBody('{
+                    "refId": "string",
+                    "amount": 100
+                    }');
+
+                    try {
+                    $response = $request->send();
+
+                    echo $response->getBody();
+                    } catch (HttpException $ex) {
+                    echo $ex;
+                    }
+                - lang: Jquery
+                  source: |
+                    var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://api.payping.ir/v1/pay/verify",
+                    "method": "POST",
+                    "headers": {
+                        "accept": "application/json",
+                        "content-type": "application/json",
+                        "authorization": "Bearer xxxxxxxxxxxxxxxx"
+                    },
+                    "processData": false,
+                    "data": "{\r\n  \"refId\": \"string\",\r\n  \"amount\": 100\r\n}"
+                    }
+
+                    $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    });
+                - lang: Python
+                  source: |
+                    import http.client
+
+                    conn = http.client.HTTPConnection("")
+
+                    payload = "{\r\n  \"refId\": \"string\",\r\n  \"amount\": 100\r\n}"
+
+                    headers = {
+                        'accept': "application/json",
+                        'content-type': "application/json",
+                        'authorization': "Bearer xxxxxxxxxxxxxxxxxx"
+                        }
+
+                    conn.request("POST", "https://api.payping.ir/v1/pay/verify", payload, headers)
+
+                    res = conn.getresponse()
+                    data = res.read()
+
+                    print(data.decode("utf-8"))
     '/v1/pay/{code}':
         delete:
             tags: [Payment]
