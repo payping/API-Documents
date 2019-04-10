@@ -97,7 +97,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
             x-code-samples:
                 - lang: 'C#'
                   source: |
@@ -269,7 +269,7 @@ https://help.payping.ir/fa/article/-1yqmw2g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/pay/UnBlockMoney:
         post:
             tags: [Payment]
@@ -281,7 +281,7 @@ https://help.payping.ir/fa/article/-1yqmw2g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/UnBlockMoneyViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/pay/Multi:
         post:
             tags: [Payment]
@@ -293,7 +293,7 @@ https://help.payping.ir/fa/article/-wvkgq6"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/pay/verify:
         post:
             tags: [Payment]
@@ -305,7 +305,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
             x-code-samples:
                 - lang: 'C#'
                   source: |
@@ -394,7 +394,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'عملیات لغو با موفقیت انجام شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/pos:
         post:
             tags: [Pos]
@@ -405,7 +405,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/IPosPayResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/report/TransactionReport:
         post:
             tags: [Report]
@@ -416,7 +416,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     /v1/report/TransactionReportCount:
         post:
             tags: [Report]
@@ -427,7 +427,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     /v1/report/WithdrawTransactions:
         post:
             tags: [Report]
@@ -438,7 +438,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionWithdrawDetailsViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     /v1/report/WithdrawTransactionsCount:
         post:
             tags: [Report]
@@ -449,7 +449,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ResultVM'}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     '/v1/report/{code}':
         get:
             tags: [Report]
@@ -459,7 +459,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تراکنش با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentDetailsVM'}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     /v1/request:
         post:
             tags: [Request]
@@ -470,7 +470,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     /v1/request/Multi:
         post:
             tags: [Request]
@@ -481,7 +481,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     '/v1/request/{code}/SendReminder':
         post:
             tags: [Request]
@@ -492,7 +492,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'یادآوری با موفقیت انجام شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     '/v1/request/{code}':
         delete:
             tags: [Request]
@@ -503,7 +503,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست', required: true, type: string}]
             responses: {'200': {description: 'درخواست با موفقیت کنسل شد'}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     '/v1/withdraw/{amount}':
         post:
             tags: [Withdraw]
@@ -514,7 +514,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: amount, in: path, description: 'مبلغ تسویه حساب', required: true, type: integer, format: int32}]
             responses: {'200': {description: 'تسویه حساب جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/WithdrawResult'}}}
-            security: [{Bearer: []}, {oauth2: [pay.write]}]
+            security: [{Bearer: []}, {oauth2: [pay:write]}]
     '/v1/withdrawdetails/{code}':
         get:
             tags: [Withdraw]
@@ -525,7 +525,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد درخواست تسویه', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/WithdrawDetailsViewModel'}}}
-            security: [{Bearer: []}, {oauth2: [pay.read]}]
+            security: [{Bearer: []}, {oauth2: [pay:read]}]
     /v1/AddressBook/List:
         get:
             tags: [AddressBook]
@@ -535,7 +535,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/AddressBook/ListCount:
         get:
             tags: [AddressBook]
@@ -545,7 +545,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/AddressBook/{code}':
         get:
             tags: [AddressBook]
@@ -555,7 +555,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
         put:
             tags: [AddressBook]
             summary: 'بروزرسانی مشخصات مشتری'
@@ -564,7 +564,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
         delete:
             tags: [AddressBook]
             summary: 'حذف مشتری'
@@ -573,7 +573,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/AddressBook:
         post:
             tags: [AddressBook]
@@ -583,7 +583,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice/SumPerStatus:
         get:
             tags: [Invoice]
@@ -593,7 +593,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: []
             responses: {'200': {description: 'جمع مبلغ فاکتور ها براساس وضعیت', schema: {$ref: '#/definitions/InvoiceDashboardReportViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'گزارشی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/Invoice/Buyer/{code}':
         get:
             tags: [Invoice]
@@ -603,7 +603,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'مشخصات پرداخت کننده فاکتور', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/Invoice/Schedule/{code}':
         get:
             tags: [Invoice]
@@ -613,7 +613,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'فاکتور زمانبندی شده', schema: {$ref: '#/definitions/ScheduleInvoiceWithChilds'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/Invoice/Subschedulers/{code}':
         get:
             tags: [Invoice]
@@ -623,7 +623,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, required: true, type: string}]
             responses: {'200': {description: 'اطلاعات زمانبندی شده فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceSubSchulderDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Invoice/List:
         get:
             tags: [Invoice]
@@ -633,7 +633,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Invoice/ListCount:
         get:
             tags: [Invoice]
@@ -643,7 +643,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Invoice/ListSchedule:
         get:
             tags: [Invoice]
@@ -653,7 +653,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: "", required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: "", required: false, type: integer, format: int32, default: 10}, {name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست فاکتور ها زمانبندی شده', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Invoice/ListScheduleCount:
         get:
             tags: [Invoice]
@@ -663,7 +663,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: status, in: query, description: 'فیلتر وضعیت', required: false, type: integer, format: int32, default: 5, enum: [0, 1, 2, 3, 4, 5]}, {name: isArchived, in: query, description: 'فیلتر بایگانی', required: false, type: boolean, default: false}, {name: searchByDueDate, in: query, description: 'فیلتر با تاریخ سررسید', required: false, type: boolean, default: false}, {name: searchByCreateDate, in: query, description: 'فیلتر با تاریخ ثبت', required: false, type: boolean, default: false}, {name: searchDateFrom, in: query, description: 'شروع از تاریخ', required: false, type: string, format: date-time}, {name: searchDateTo, in: query, description: 'تا تاریخ', required: false, type: string, format: date-time}, {name: search, in: query, description: 'متن جستجو', required: false, type: string}, {name: addressBookCode, in: query, description: 'فیلتر بر اساس کد مشتری', required: false, type: string}, {name: invoiceCode, in: query, description: 'فیلتر براساس کد فاکتور', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد فاکتور ها زمانبندی شده', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/Invoice/{code}':
         get:
             tags: [Invoice]
@@ -673,7 +673,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
         put:
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
@@ -682,7 +682,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
         delete:
             tags: [Invoice]
             summary: 'حذف فاکتور'
@@ -691,7 +691,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice/SendByTemplateAdvance:
         post:
             tags: [Invoice]
@@ -701,7 +701,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice/SendByTemplateSimple:
         post:
             tags: [Invoice]
@@ -711,7 +711,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice:
         post:
             tags: [Invoice]
@@ -721,7 +721,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice/Schedule:
         post:
             tags: [Invoice]
@@ -731,7 +731,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     '/v1/Invoice/DeleteSchedule/{code}':
         delete:
             tags: [Invoice]
@@ -741,7 +741,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور زمانبندی شده', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای فاکتور زمانبندی شده', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     '/v1/Invoice/Pdf/{code}':
         get:
             tags: [Invoice]
@@ -751,7 +751,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات فایل فاکتور غیر رسمی', schema: {$ref: '#/definitions/InvoicePdfResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Invoice/Cancel:
         post:
             tags: [Invoice]
@@ -770,7 +770,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال یادآوری فاکتور', schema: {$ref: '#/definitions/InvoiceSendReminderResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     '/v1/Invoice/Send/{code}':
         post:
             tags: [Invoice]
@@ -780,7 +780,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}]
             responses: {'200': {description: 'نمایش وضعیت ارسال فاکتور', schema: {$ref: '#/definitions/InvoiceSendInvoiceResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Invoice/SetCustomer:
         post:
             tags: [Invoice]
@@ -799,7 +799,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Template/ListCount:
         get:
             tags: [Template]
@@ -809,7 +809,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: code, in: query, description: 'کد قالب', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Template/ListSchedule:
         get:
             tags: [Template]
@@ -819,7 +819,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Template/ListScheduleCount:
         get:
             tags: [Template]
@@ -829,7 +829,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Template/ListNonSchedule:
         get:
             tags: [Template]
@@ -839,7 +839,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش قالب ها', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceTemplateListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     /v1/Template/ListNonScheduleCount:
         get:
             tags: [Template]
@@ -849,7 +849,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد قالب ها', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
     '/v1/Template/{code}':
         get:
             tags: [Template]
@@ -859,7 +859,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.read]}]
+            security: [{Bearer: []}, {oauth2: [invoice:read]}]
         put:
             tags: [Template]
             summary: 'بروزرسانی قالب'
@@ -868,7 +868,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
         delete:
             tags: [Template]
             summary: 'حذف قالب'
@@ -877,7 +877,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای قالب', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالبی با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/Template:
         post:
             tags: [Template]
@@ -887,7 +887,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice.write]}]
+            security: [{Bearer: []}, {oauth2: [invoice:write]}]
     /v1/coupon:
         put:
             tags: [coupon]
@@ -897,7 +897,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponEditViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت بروزرسانی شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
         post:
             tags: [coupon]
             summary: 'ساخت یک کد تخفیف جدید'
@@ -906,7 +906,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     '/v1/coupon/{code}':
         get:
             tags: [coupon]
@@ -916,7 +916,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponDetailViewModel'}}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
         delete:
             tags: [coupon]
             summary: 'حذف یک کد تخفیف'
@@ -925,7 +925,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'کد تخفیف با موفقیت حذف شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     /v1/coupon/List:
         get:
             tags: [coupon]
@@ -935,7 +935,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن کدهای تخفیف‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در کدهای تخفیف', required: false, type: string}, {name: productcode, in: query, description: "", required: false, type: string}]
             responses: {'200': {description: 'لیست کدهای تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/CouponListItemViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     /v1/coupon/ListCount:
         get:
             tags: [coupon]
@@ -945,7 +945,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد کدهای تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/coupon/{couponCode}/BuyersListCount':
         get:
             tags: [coupon]
@@ -955,7 +955,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}]
             responses: {'200': {description: 'تعداد خریدهای یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/coupon/{couponCode}/BuyersList':
         get:
             tags: [coupon]
@@ -965,7 +965,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: couponCode, in: path, description: 'شناسه کد تخفیف', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست خریدهای این کد تخفیف با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/BuyerDetailsViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/ItemPay/{code}':
         get:
             tags: [ItemPay]
@@ -1011,7 +1011,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
         post:
             tags: [permaLink]
             summary: 'ساخت یک لینک ثابت جدید'
@@ -1020,7 +1020,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     '/v1/permaLink/{code}':
         get:
             tags: [permaLink]
@@ -1030,7 +1030,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/PermanentDetailViewModel'}}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
         delete:
             tags: [permaLink]
             summary: 'حذف یک لینک ثابت'
@@ -1039,7 +1039,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'شناسه لینک ثابت', required: true, type: string}]
             responses: {'200': {description: 'لینک ثابت با موفقیت حذف شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     /v1/permaLink/List:
         get:
             tags: [permaLink]
@@ -1049,7 +1049,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن لینک‌های ثابت‌ آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در لینک‌های ثابت', required: false, type: string}]
             responses: {'200': {description: 'لیست لینک‌های ثابت‌ با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/PermanentListItemViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     /v1/permaLink/ListCount:
         get:
             tags: [permaLink]
@@ -1059,7 +1059,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: witharchived, in: query, required: false, type: boolean, default: false}, {name: search, in: query, required: false, type: string}]
             responses: {'200': {description: 'تعداد لینک‌های ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/permaLink/{productCode}/BuyersList':
         get:
             tags: [permaLink]
@@ -1069,7 +1069,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}, {name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}]
             responses: {'200': {description: 'لیست با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductBuyerViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/permaLink/{productCode}/BuyersListCount':
         get:
             tags: [permaLink]
@@ -1079,7 +1079,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: productCode, in: path, description: 'کد آیتم‌مالی', required: true, type: string}]
             responses: {'200': {description: 'تعداد پرداختی‌های یک لینک‌ثابت با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CountVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     '/v1/permaLink/{payCode}/Buyer':
         get:
             tags: [permaLink]
@@ -1089,7 +1089,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: payCode, in: path, description: 'کد پرداخت', required: true, type: string}]
             responses: {'200': {description: 'جزئیات پرداخت یک آیتم‌مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/BuyerDetailsViewModel'}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
     /v1/product:
         put:
             tags: [product]
@@ -1099,7 +1099,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
         post:
             tags: [product]
             summary: 'ساخت یک آیتم‌ مالی جدید'
@@ -1108,7 +1108,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
             responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     '/v1/product/{code}':
         get:
             tags: [product]
@@ -1118,7 +1118,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ProductFullDeatilViewModel'}}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
         delete:
             tags: [product]
             summary: 'حذف یک آیتم مالی'
@@ -1127,7 +1127,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد آیتم مالی', required: true, type: string}]
             responses: {'200': {description: 'آیتم مالی با موفقیت حذف شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
-            security: [{Bearer: []}, {oauth2: [product.write]}]
+            security: [{Bearer: []}, {oauth2: [product:write]}]
     /v1/product/List:
         get:
             tags: [product]
@@ -1137,7 +1137,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شماره ابتدا لیست', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'شماره انتها لیست', required: false, type: integer, format: int32, default: 10}, {name: witharchived, in: query, description: 'اضافه شدن آیتم‌های آرشیو شده', required: false, type: boolean, default: false}, {name: search, in: query, description: 'کیلدواژه جستجو در آیتم‌های مالی', required: false, type: string}]
             responses: {'200': {description: 'لیست آیتم‌های مالی با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/ProductListItemViewModel'}}}}
-            security: [{Bearer: []}, {oauth2: [product.read]}]
+            security: [{Bearer: []}, {oauth2: [product:read]}]
             
     /v1/Upload/ProfilePic:
         post:
@@ -2400,12 +2400,12 @@ securityDefinitions:
       birthday: دسترسی به مشاهده تاریخ تولد کاربر
       shaba: دسترسی به مشاهده شبای بانکی کاربر
       phone: دسترسی به مشاهده شماره تماس کاربر
-      pay.read: دسترسی فقط خواندنی در سرویس پرداخت
-      pay.write: دسترسی نوشتن و تغییرات در سرویس پرداخت
-      product.read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
-      product.write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
-      invoice.read: دسترسی فقط خواندنی به سرویس فاکتور ها
-      invoice.write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
+      pay:read: دسترسی فقط خواندنی در سرویس پرداخت
+      pay:write: دسترسی نوشتن و تغییرات در سرویس پرداخت
+      product:read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
+      product:write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
+      invoice:read: دسترسی فقط خواندنی به سرویس فاکتور ها
+      invoice:write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
       upload.write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
 security:
   - Bearer: []
@@ -2416,10 +2416,10 @@ security:
     birthday,
     shaba,
     phone,
-    pay.read,
-    pay.write,
-    product.read,
-    product.write,
-    invoice.read, 
-    invoice.write,
+    pay:read,
+    pay:write,
+    product:read,
+    product:write,
+    invoice:read, 
+    invoice:write,
     upload.write]
