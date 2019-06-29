@@ -508,9 +508,9 @@ https://help.payping.ir/fa/article/-fkk25g"
             parameters: [{name: code, in: path, description: 'کد درخواست تسویه', required: true, type: string}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/WithdrawDetailsViewModel'}}}
             security: [{Bearer: []}, {oauth2: [pay:read]}]
-    /v1/AddressBook/List:
+    /v1/customer/List:
         get:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'لیست مشتریان'
             operationId: AddressBookList
             consumes: []
@@ -518,9 +518,9 @@ https://help.payping.ir/fa/article/-fkk25g"
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{Bearer: []}, {oauth2: [invoice:read]}]
-    /v1/AddressBook/ListCount:
+    /v1/customer/ListCount:
         get:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'تعداد مشتریان'
             operationId: AddressBookListCount
             consumes: []
@@ -528,9 +528,9 @@ https://help.payping.ir/fa/article/-fkk25g"
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{Bearer: []}, {oauth2: [invoice:read]}]
-    '/v1/AddressBook/{code}':
+    '/v1/customer/{code}':
         get:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'مشخصات مشتری'
             operationId: AddressBookGet
             consumes: []
@@ -539,7 +539,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{Bearer: []}, {oauth2: [invoice:read]}]
         put:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'بروزرسانی مشخصات مشتری'
             operationId: AddressBookPut
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
@@ -548,7 +548,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{Bearer: []}, {oauth2: [invoice:write]}]
         delete:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'حذف مشتری'
             operationId: AddressBookDelete
             consumes: []
@@ -556,9 +556,9 @@ https://help.payping.ir/fa/article/-fkk25g"
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
             security: [{Bearer: []}, {oauth2: [invoice:write]}]
-    /v1/AddressBook:
+    /v1/customer:
         post:
-            tags: [AddressBook]
+            tags: [Customer]
             summary: 'مشتری جدید'
             operationId: AddressBookPost
             consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
