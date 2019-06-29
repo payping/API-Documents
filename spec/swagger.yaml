@@ -12,31 +12,13 @@ tags:
         name: product
         description: 'سرویس‌های عمومی بخش آیتم‌های مالی، لینک ثابت و سرویس‌های مربوط به پروسه پرداخت آنها'
     -
-        name: campaign
-        description: 'سرویس‌های عمومی بخش کمپین‌ها‌'
-    -
         name: coupon
         description: 'سرویس‌های عمومی بخش کدهای تخفیف'
-    -
-        name: ItemPay
-        description: 'سرویس‌های عمومی بخش پروسه پرداخت یک آیتم‌مالی‌‌'
-    -
-        name: Category
-        description: 'سرویس‌های عمومی بخش دسته‌بندی‌ها'
-    -
-        name: AppManage
-        description: 'متن تستی برای توضیح کنترلر مدیریت برنامه'
-    -
-        name: File
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.'
-    -
-        name: Manage
-        description: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.'
     -
         name: Upload
         description: 'متدهای مرتبط با [آپلود فایل‌ها](#section/) ورودی تمام این سرویس‌ها به صورت formData می‌باشد.'
     -
-        name: AddressBook
+        name: Customer
         description: 'در این بخش میتوانید مشتریان خود را به صورت یک دفترچه سنتی مدیریت و در زمان صدور فاکتور از این لیست استفاده کنید.'
     -
         name: Invoice
@@ -77,7 +59,7 @@ x-tagGroups:
     -
         name: 'سرویس فاکتور'
         tags:
-            - AddressBook
+            - Customer
             - Invoice
             - Template
     -
@@ -1180,7 +1162,7 @@ definitions:
         type: object
         properties:
             amount: {format: int32, description: مبلغ, maximum: 50000000, minimum: 100, type: integer}
-            payerIdentity: {description: 'نام کاربری پرداخت کنند (در صورت وجود)', type: string}
+            payerIdentity: {description: 'شماره موبایل یا ایمیل پرداخت کننده', type: string}
             payerName: {description: 'نام پرداخت کننده', type: string}
             description: {description: توضیحات, type: string}
             returnUrl: {description: 'آدرس صفحه برگشت', type: string}
@@ -1249,7 +1231,7 @@ definitions:
             isPaid: {description: 'اینکه پرداخت تایید شده است', type: boolean}
             description: {description: توضیحات, type: string}
             name: {description: 'نام پرداخت کننده/دریافت کننده', type: string}
-            payerIdentity: {description: 'شناسه پرداخت کننده', type: string}
+            payerIdentity: {description: 'شماره موبایل یا ایمیل پرداخت کننده', type: string}
             isRequest: {description: درخواست/پرداخت, type: boolean}
             code: {description: 'کد پرداخت', type: string}
             clientId: {description: 'شناسه زیر سیستم مشتری در پی پینگ', type: string}
@@ -1285,7 +1267,7 @@ definitions:
             isRequest: {description: درخواست/پرداخت, type: boolean}
             isPaid: {description: 'تاییدیه پرداخت', type: boolean}
             description: {description: توضیحات, type: string}
-            payerIdentity: {description: 'شناسه پرداخت کننده', type: string}
+            payerIdentity: {description: 'شماره موبایل یا ایمیل پرداخت کننده', type: string}
             platform: {description: 'نوع سیستم عامل پرداخت کننده', type: string}
             browser: {description: 'مرورگر پرداخت کننده', type: string}
             rrn: {description: 'شماره کارت پرداخت کننده', type: string}
