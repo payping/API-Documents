@@ -78,7 +78,7 @@ paths:
 برای اطلاع کامل از فرآیند ساخت پرداخت به بخش زیر در راهنما مراجعه کنید:\r\n
 https://help.payping.ir/fa/article/-fkk25g"
             operationId: PaymentCreatePayment
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -250,7 +250,7 @@ https://help.payping.ir/fa/article/-fkk25g"
 برای اطلاع کامل از فرآیند ساخت پرداخت به بخش زیر در راهنما مراجعه کنید:\r\n
 https://help.payping.ir/fa/article/-1yqmw2g"
             operationId: PaymentBlockMoney
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -262,7 +262,7 @@ https://help.payping.ir/fa/article/-1yqmw2g"
             description: "برای اطلاع کامل از فرآیند ساخت پرداخت به بخش زیر در راهنما مراجعه کنید:\r\n
 https://help.payping.ir/fa/article/-1yqmw2g"
             operationId: PaymentUnBlockMoney
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/UnBlockMoneyViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -274,7 +274,7 @@ https://help.payping.ir/fa/article/-1yqmw2g"
             description: "برای اطلاع کامل از فرآیند ساخت پرداخت تسهیمی به بخش زیر در راهنما مراجعه کنید:\r\n
 https://help.payping.ir/fa/article/-wvkgq6"
             operationId: PaymentCreateMultiPayment
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreateMultiPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/PaymentResult'}}}
@@ -286,7 +286,7 @@ https://help.payping.ir/fa/article/-wvkgq6"
             description: "برای اطلاع کامل از فرآیند ساخت پرداخت به بخش زیر در راهنما مراجعه کنید:\r\n
 https://help.payping.ir/fa/article/-fkk25g"
             operationId: PaymentVerifyPayment
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/VerifyPaymentViewModel'}}]
             responses: {'200': {description: 'تاییدیه آیتم مالی با موفقیت انجام شد'}}
@@ -386,7 +386,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'ساخت پرداخت شناسه دار'
             description: 'از این متد می تواند برای ساخت یک پرادخت شناسه دار که به کمک دستگاه Pos پرداخت آن انجام می شود، استفاده کرد'
             operationId: PosCreatePayment
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات پرداخت', required: false, schema: {$ref: '#/definitions/CreatePaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت پول جدید با موفقیت ساخته شد', schema: {$ref: '#/definitions/IPosPayResult'}}}
@@ -397,7 +397,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'گزارش تراکنش ها'
             description: 'از این متد برای نمایش جزئیات تراکنش های کاربر استفاده می شود'
             operationId: ReportTransactionReport
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'لیسات تراکنش ها با موفقیت ساخته شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionReportViewModel'}}}}
@@ -408,7 +408,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'تعداد تراکنش ها'
             description: 'از این متد برای نمایش تعداد تراکنش های برگشت داده شده از متد TransactionReport استفاده می شود'
             operationId: ReportTransactionReportCount
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: "", required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'تعداد تراکنش ها با موفقیت ساخته شد', schema: {$ref: '#/definitions/ResultVM'}}}
@@ -419,7 +419,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'دریافت لیست تسویه حساب'
             description: 'به کمک این متد می توانید لیست درخواست های تسویه شده و در انتظار تسویه را نمایش دهید'
             operationId: ReportWithdrawTransactions
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/TransactionReportModel'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/TransactionWithdrawDetailsViewModel'}}}}
@@ -430,7 +430,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'تعداد لیست تسویه حساب'
             description: 'به کمک این متد می توانید تعداد لیست درخواست های تسویه شده و در انتظار تسویه را که از متد WithdrawTransactions دریافت کرده اید را نمایش دهید'
             operationId: ReportWithdrawTransactionsCount
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/BaseTransactionReport'}}]
             responses: {'200': {description: 'جزئیات تسویه با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/ResultVM'}}}
@@ -451,7 +451,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'ارسال درخواست پول'
             description: 'از این متد برای ارسال لینک درخواست پول برای یک نفر بصورت  پیامک یا ایمیل استفاده می شود'
             operationId: RequestCreateRequest
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست پول', required: false, schema: {$ref: '#/definitions/CreateRequestViewModel'}}]
             responses: {'200': {description: 'ساخت درخواست پول جدید با موفقیت انجام شد', schema: {$ref: '#/definitions/RequestResult'}}}
@@ -462,7 +462,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             summary: 'ارسال درخواست پول برای چند نفر'
             description: 'از این متد برای ارسال لینک درخواست پول برای چند نفر بصورت  پیامک یا ایمیل استفاده می شود'
             operationId: RequestCreateMultiRequest
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات درخواست گنندگان پول', required: false, schema: {$ref: '#/definitions/CreateMultiRequestViewModel'}}]
             responses: {'200': {description: 'درخواست پول با موفقیت انجام شد', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/MultiRequestViewModel'}}}}
@@ -545,7 +545,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Customer]
             summary: 'بروزرسانی مشخصات مشتری'
             operationId: AddressBookPut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -564,7 +564,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Customer]
             summary: 'مشتری جدید'
             operationId: AddressBookPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -663,7 +663,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'بروزرسانی فاکتور'
             operationId: InvoicePut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای فاکتور', required: true, type: string}, {name: value, in: body, description: 'فاکتور بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceEditViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -682,7 +682,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - پیشرفته'
             operationId: InvoiceSendByTemplateAdvance
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplate'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -692,7 +692,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'ارسال فاکتور جدید با استفاده از قالب - سریع'
             operationId: InvoiceSendByTemplateSimple
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceSendByTemplateSimple'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -702,7 +702,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'فاکتور جدید'
             operationId: InvoicePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور', required: false, schema: {$ref: '#/definitions/InvoiceCreateViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/InvoiceDetailViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -712,7 +712,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'فاکتور زمانبندی شده جدید'
             operationId: InvoiceSchedulePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات فاکتور زمانبندی شده', required: false, schema: {$ref: '#/definitions/InvoiceCreateScheduleViewModel'}}]
             responses: {'200': {description: 'نمایش فاکتور زمانبندی شده', schema: {$ref: '#/definitions/InvoiceDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتور یا داده های وابسته به فاکتور با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -742,7 +742,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'درخواست لغو فاکتور'
             operationId: InvoiceCancel
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceCancelRequest'}}]
             responses: {'200': {description: 'نمایش فاکتور', schema: {$ref: '#/definitions/InvoiceCancelResponse'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -771,7 +771,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Invoice]
             summary: 'ثبت مشتری به فاکتور'
             operationId: InvoiceSetCustomer
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: "", required: false, schema: {$ref: '#/definitions/InvoiceSetCustomerRequestViewModel'}}]
             responses: {'200': {description: 'نمایش وضعیت ثبت مشتری فاکتور', schema: {$ref: '#/definitions/InvoiceConfirmPaymentResponseViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'فاکتوری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -849,7 +849,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Template]
             summary: 'بروزرسانی قالب'
             operationId: TemplatePut
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتای قالب', required: true, type: string}, {name: value, in: body, description: 'قالب بروز شده', required: false, schema: {$ref: '#/definitions/InvoiceTemplateEditViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'قالب یا داده های وابسته به قالب با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -868,7 +868,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [Template]
             summary: 'قالب جدید'
             operationId: TemplatePost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات قالب', required: false, schema: {$ref: '#/definitions/InvoiceTemplateCreateViewModel'}}]
             responses: {'200': {description: 'نمایش قالب', schema: {$ref: '#/definitions/InvoiceTemplateDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'اطلاعات وابسته نسبت به ثبت قالب جدید با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
@@ -878,7 +878,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [coupon]
             summary: 'بروزرسانی کد تخفیف'
             operationId: couponEdit
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponEditViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت بروزرسانی شد'}, '404': {description: 'کد تخفیفی با این شناسه وجود ندارد'}}
@@ -887,7 +887,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [coupon]
             summary: 'ساخت یک کد تخفیف جدید'
             operationId: couponCreate
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات کد تخفیف', required: false, schema: {$ref: '#/definitions/CouponCreateViewModel'}}]
             responses: {'200': {description: 'کد تخفیف با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
@@ -965,7 +965,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [ItemPay]
             summary: 'ارسال مشخصات پرداخت آیتم‌مالی برای پرداخت'
             operationId: ItemPayPost
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/PermanentPaymentViewModel'}}]
             responses: {'200': {description: 'پرداخت آیتم‌مالی با موفقیت انجام شد'}}
@@ -974,7 +974,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [ItemPay]
             summary: 'چک کردن وضعیت یک کد تخفیف برای پرداخت'
             operationId: ItemPayCheckCoupon
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, required: false, schema: {$ref: '#/definitions/CouponViewModel'}}]
             responses: {'200': {description: 'مشخصات یک کد تخفیف با موفقیت نمایش داده شد', schema: {$ref: '#/definitions/CouponResultVM'}}}
@@ -983,7 +983,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [ItemPay]
             summary: 'تایید پرداخت لینک‌ثابت یک آیتم‌مالی'
             operationId: ItemPayVerifyPermanentLink
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: verfyPermaVM, in: body, required: false, schema: {$ref: '#/definitions/VerfyPermaVM'}}]
             responses: {'200': {description: 'پرداخت لینک‌ثابت این آیتم‌مالی با موفقیت تایید شد', schema: {$ref: '#/definitions/PayReportViewModel'}}}
@@ -992,7 +992,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [permaLink]
             summary: 'بروزرسانی لینک ثابت'
             operationId: permaLinkEdit
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentEditViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت بروزرسانی شد'}, '404': {description: 'لینک ثابتی با این شناسه وجود ندارد'}}
@@ -1001,7 +1001,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [permaLink]
             summary: 'ساخت یک لینک ثابت جدید'
             operationId: permaLinkCreate
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات لینک ثابت', required: false, schema: {$ref: '#/definitions/PermanentCreateViewModel'}}]
             responses: {'200': {description: 'لینک ثابت با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
@@ -1080,7 +1080,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [product]
             summary: 'بروزرسانی آیتم مالی'
             operationId: productEdit
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductEditViewModel'}}]
             responses: {'200': {description: 'آیتم‌ مالی با موفقیت بروزرسانی شد'}, '404': {description: 'آیتم مالی با این کد موجود نمی‌باشد'}}
@@ -1089,7 +1089,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             tags: [product]
             summary: 'ساخت یک آیتم‌ مالی جدید'
             operationId: productCreate
-            consumes: [application/json-patch+json, application/json, text/json, 'application/*+json']
+            consumes: [application/json]
             produces: [application/json]
             parameters: [{name: model, in: body, description: 'مشخصات آیتم مالی', required: false, schema: {$ref: '#/definitions/ProductCreateViewModel'}}]
             responses: {'200': {description: 'آیتم مالی با موفقیت ساخته شد', schema: {$ref: '#/definitions/CodeVM'}}}
