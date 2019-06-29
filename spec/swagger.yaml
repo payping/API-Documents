@@ -517,7 +517,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: offset, in: query, description: 'شروع صفحه از شماره 1', required: false, type: integer, format: int32, default: 0}, {name: limit, in: query, description: 'تعداد سطر بازگشت داده ها مثال : 10', required: false, type: integer, format: int32, default: 10}, {name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: withPhoto, in: query, description: 'با آدرس تصویر مشتری', required: false, type: boolean, default: false}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش لیست مشتریان', schema: {uniqueItems: false, type: array, items: {$ref: '#/definitions/AddressBookListItemViewModel'}}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:read]}]
+            security: [{Bearer: []}, {oauth2: [customer:read]}]
     /v1/customer/ListCount:
         get:
             tags: [Customer]
@@ -527,7 +527,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: search, in: query, description: 'متن مورد نظر جهت جستجو', required: false, type: string}, {name: customerType, in: query, description: 'نوع مشتری - حقیقی یا حقوقی', required: false, type: integer, format: int32, default: 0, enum: [0, 1, 2]}, {name: code, in: query, description: 'کد مشتری', required: false, type: string}]
             responses: {'200': {description: 'نمایش تعداد مشتریان', schema: {$ref: '#/definitions/ListCountViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:read]}]
+            security: [{Bearer: []}, {oauth2: [customer:read]}]
     '/v1/customer/{code}':
         get:
             tags: [Customer]
@@ -537,7 +537,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کد مشتری ارسال نمایید', required: true, type: string}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:read]}]
+            security: [{Bearer: []}, {oauth2: [customer:read]}]
         put:
             tags: [Customer]
             summary: 'بروزرسانی مشخصات مشتری'
@@ -546,7 +546,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}, {name: value, in: body, description: 'مشخصات بروز شده مشتری', required: false, schema: {$ref: '#/definitions/AddressBookEditViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:write]}]
+            security: [{Bearer: []}, {oauth2: [customer:write]}]
         delete:
             tags: [Customer]
             summary: 'حذف مشتری'
@@ -555,7 +555,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: code, in: path, description: 'کلید یکتا مشتری', required: true, type: string}]
             responses: {'200': {description: 'نمایش کلید یکتای مشتری', schema: {type: string}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:write]}]
+            security: [{Bearer: []}, {oauth2: [customer:write]}]
     /v1/customer:
         post:
             tags: [Customer]
@@ -565,7 +565,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [invoice:write]}]
+            security: [{Bearer: []}, {oauth2: [customer:write]}]
     /v1/Invoice/SumPerStatus:
         get:
             tags: [Invoice]
@@ -2386,6 +2386,8 @@ securityDefinitions:
       pay:write: دسترسی نوشتن و تغییرات در سرویس پرداخت
       product:read: دسترسی فقط خواندنی در سرویس آیتم‌های مالی
       product:write: دسترسی نوشتن و تغییرات در سرویس آیتم‌های مالی
+      customer:read: دسترسی فقط خواندنی به سرویس مشتریان
+      customer:write: دسترسی نوشتن و تغییرات در سرویس مشتریان
       invoice:read: دسترسی فقط خواندنی به سرویس فاکتور ها
       invoice:write: دسترسی نوشتن و تغییرات در سرویس فاکتور ها
       upload.write: دسترسی مرتبط با سرویس بارگذاری فایل‌ها
@@ -2402,6 +2404,8 @@ security:
     pay:write,
     product:read,
     product:write,
+    customer:read, 
+    customer:write,
     invoice:read, 
     invoice:write,
     upload.write]
