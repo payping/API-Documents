@@ -305,7 +305,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ResultVM"
+                  "$ref" : "#/components/schemas/ResultViewModel"
                 }
               }
             }
@@ -365,7 +365,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ResultVM"
+                  "$ref" : "#/components/schemas/ResultViewModel"
                 }
               }
             }
@@ -400,7 +400,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PaymentDetailsVM"
+                  "$ref" : "#/components/schemas/PaymentDetailsViewModel"
                 }
               }
             }
@@ -939,7 +939,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CodeVM"
+                  "$ref" : "#/components/schemas/CodeViewModel"
                 }
               }
             }
@@ -1152,7 +1152,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CountVM"
+                  "$ref" : "#/components/schemas/CountViewModel"
                 }
               }
             }
@@ -1187,7 +1187,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CountVM"
+                  "$ref" : "#/components/schemas/CountViewModel"
                 }
               }
             }
@@ -1284,7 +1284,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CodeVM"
+                  "$ref" : "#/components/schemas/CodeViewModel"
                 }
               }
             }
@@ -3148,7 +3148,7 @@
           }
         }
       },
-      "ResultVM" : {
+      "ResultViewModel" : {
         "type" : "object",
         "properties" : {
           "result" : {
@@ -3181,7 +3181,7 @@
           }
         }
       },
-      "PaymentDetailsVM" : {
+      "PaymentDetailsViewModel" : {
         "type" : "object",
         "properties" : {
           "amount" : {
@@ -5846,7 +5846,7 @@
           }
         }
       },
-      "CodeVM" : {
+      "CodeViewModel" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -5989,7 +5989,7 @@
           }
         }
       },
-      "CountVM" : {
+      "CountViewModel" : {
         "type" : "object",
         "properties" : {
           "count" : {
@@ -6085,7 +6085,7 @@
           }
         }
       },
-      "PayDirectVM" : {
+      "PayDirectViewModel" : {
         "type" : "object",
         "properties" : {
           "amount" : {
@@ -6153,7 +6153,7 @@
             "type" : "string"
           },
           "category" : {
-            "$ref" : "#/components/schemas/CategoryMinorDetailVM"
+            "$ref" : "#/components/schemas/CategoryMinorDetailViewModel"
           }
         }
       },
@@ -6187,7 +6187,7 @@
           }
         }
       },
-      "CategoryMinorDetailVM" : {
+      "CategoryMinorDetailViewModel" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -6234,20 +6234,6 @@
             "type" : "string"
           },
           "backImageType" : {
-            "type" : "string"
-          }
-        }
-      },
-      "VerfyPermaVM" : {
-        "type" : "object",
-        "properties" : {
-          "payCode" : {
-            "type" : "string"
-          },
-          "clientRefId" : {
-            "type" : "string"
-          },
-          "refId" : {
             "type" : "string"
           }
         }
@@ -6434,48 +6420,6 @@
           }
         }
       },
-      "PermanentPaymentViewModel" : {
-        "type" : "object",
-        "properties" : {
-          "productCode" : {
-            "type" : "string"
-          },
-          "amount" : {
-            "type" : "string"
-          },
-          "addressLine" : {
-            "type" : "string"
-          },
-          "postalCode" : {
-            "type" : "string"
-          },
-          "city" : {
-            "type" : "string"
-          },
-          "firstName" : {
-            "type" : "string"
-          },
-          "lastName" : {
-            "type" : "string"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "phone" : {
-            "type" : "string"
-          },
-          "fullName" : {
-            "type" : "string",
-            "readOnly" : true
-          },
-          "customDescription" : {
-            "type" : "string"
-          },
-          "couponCode" : {
-            "type" : "string"
-          }
-        }
-      },
       "CouponViewModel" : {
         "required" : [ "couponCode" ],
         "type" : "object",
@@ -6493,7 +6437,7 @@
           }
         }
       },
-      "CouponResultVM" : {
+      "CouponResultViewModel" : {
         "type" : "object",
         "properties" : {
           "result" : {
@@ -6506,143 +6450,6 @@
             "type" : "string"
           },
           "isSuccess" : {
-            "type" : "boolean"
-          }
-        }
-      },
-      "PermanentCreateViewModel" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string"
-          },
-          "redirectPage" : {
-            "type" : "string"
-          },
-          "getAddress" : {
-            "type" : "boolean"
-          },
-          "mailerLiteListId" : {
-            "type" : "string"
-          },
-          "smsText" : {
-            "type" : "string"
-          },
-          "customDescriptionText" : {
-            "type" : "string"
-          },
-          "emailOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "phoneOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "nameOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "customDesOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "clientId" : {
-            "type" : "string"
-          },
-          "clientRefId" : {
-            "type" : "string"
-          },
-          "permanentType" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
-          }
-        }
-      },
-      "PermanentEditViewModel" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string"
-          },
-          "redirectPage" : {
-            "type" : "string"
-          },
-          "getAddress" : {
-            "type" : "boolean"
-          },
-          "mailerLiteListId" : {
-            "type" : "string"
-          },
-          "smsText" : {
-            "type" : "string"
-          },
-          "customDescriptionText" : {
-            "type" : "string"
-          },
-          "isActive" : {
-            "type" : "boolean"
-          },
-          "emailOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "phoneOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "nameOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "customDesOption" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
-          },
-          "permanentType" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
-          }
-        }
-      },
-      "PermanentListItemViewModel" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string"
-          },
-          "customDescriptionText" : {
-            "type" : "string"
-          },
-          "isActive" : {
-            "type" : "boolean"
-          },
-          "permanentType" : {
-            "type" : "integer",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
-          },
-          "amount" : {
-            "type" : "integer",
-            "format" : "int32"
-          },
-          "defineAmountByUser" : {
-            "type" : "boolean"
-          },
-          "itemIsActive" : {
-            "type" : "boolean"
-          },
-          "itemIsAvailable" : {
             "type" : "boolean"
           }
         }
@@ -6681,7 +6488,7 @@
             "type" : "string",
             "readOnly" : true
           },
-          "phoneVM" : {
+          "phoneViewModel" : {
             "type" : "string",
             "readOnly" : true
           }
@@ -6781,7 +6588,7 @@
             "type" : "string",
             "readOnly" : true
           },
-          "quantityVM" : {
+          "quantityViewModel" : {
             "type" : "string",
             "readOnly" : true
           },
@@ -6898,7 +6705,7 @@
     "tags" : [ "Customer" ]
   }, {
     "name" : "سرویس آیتم‌های مالی",
-    "tags" : [ "product", "permaLink", "coupon" ]
+    "tags" : [ "product", "coupon" ]
   }, {
     "name" : "سرویس فاکتور",
     "tags" : [ "Invoice", "Schedule", "Template" ]
