@@ -1,7 +1,7 @@
 swagger: '2.0'
 host: api.payping.ir
 info:
-    version: '1.0.0'
+    version: 'v1'
     title: 'سرویس‌های پلتفرم مالی پی‌پینگ'
     x-logo:
         url: 'https://raw.githubusercontent.com/Ashkan-rmk/test-redoc/7acf03754958b2cd9778771ff5e02cbc0cb8e68b/logo/logo.png'
@@ -51,6 +51,10 @@ x-tagGroups:
             - Report
             - Pos
     -
+        name: 'سرویس مشتری'
+        tags:
+            - Customer
+    -
         name: 'سرویس آیتم‌های مالی'
         tags:
             - product
@@ -59,7 +63,6 @@ x-tagGroups:
     -
         name: 'سرویس فاکتور'
         tags:
-            - Customer
             - Invoice
             - Template
     -
@@ -565,7 +568,7 @@ https://help.payping.ir/fa/article/-fkk25g"
             produces: [application/json]
             parameters: [{name: value, in: body, description: 'مشخصات مشتری', required: false, schema: {$ref: '#/definitions/AddressBookCreateViewModel'}}]
             responses: {'200': {description: 'نمایش مشخصات مشتری', schema: {$ref: '#/definitions/AddressBookDetailViewModel'}}, '400': {description: 'مشکلی در ارسال درخواست وجود دارد', schema: {type: object, additionalProperties: {type: string}}}, '401': {description: 'عدم دسترسی'}, '403': {description: 'دسترسی غیرمجاز'}, '404': {description: 'مشتری با داده های ورودی درخواست شما پیدا نشد'}, '500': {description: 'مشکلی در سرور رخ داده است'}}
-            security: [{Bearer: []}, {oauth2: [customer:write]}]
+            security: [{Bearer: [customer:write]}, {oauth2: [customer:write]}]
     /v1/Invoice/SumPerStatus:
         get:
             tags: [Invoice]
