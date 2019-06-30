@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "مستندات سرویس‌های پلتفرم مالی پی‌پینگ",
-    "description" : "مستندات سرویس‌های عمومی پلت‌فرم مالی پی‌پینگ\n\n لینک‌های پشتیبانی: تلگرام: [t.me/payping](t.me/payping) | ایمیل: [info@payping.ir]() | تلفن: 02175038797\n # مقدمه\n\n تمامی وب‌ سرویس‌های توضیح داده شده در این مستندات به صورت [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) هستند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.    \n جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.\n\n # POSTMAN\n برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید\n \n [دانلود قالب postman](https://os.payping.ir/files/PayPing API - v1.postman_collection.json)\n\n # توضیحات تکمیلی برای تمام سرویس‌ها\n\n برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید. همینطور توجه داشته باشین واحد پول در تمام سرویس‌ها تومان می‌باشد و منطقه زمانی تمامی‌ تاریخ و ساعت‌ها برابر با ساعت جهانی یا UTC می‌باشد.\n\n # نکاتی برای آپلود فایل‌ها\n\n برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از [سرویس بارگذاری فایل](#tag/Upload) استفاده کنید.\n \n پس از انجام عملیات آپلود توسط سرویس بارگذاری فایل، تنها کافیست نام فایل آپلود شده که در خروجی سرویس به شما برگردانده می‌شود را ذخیره نمایید.\n\n # جدول کدهای دریافتی از هر سرویس\n\n بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RESTful یک کدی به شما بازگرداننده می‌شود.\n هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید\n\n |شماره کد|توضیحات|\n |-------|--------|\n |`200`| عملیات با موفقیت انجام شد |\n |`400`| مشکلی در ارسال درخواست وجود دارد |\n |`500`| مشکلی در سرور رخ داده است |\n |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |\n |`401`| عدم دسترسی|\n |`403`| دسترسی غیر مجاز |\n |`404`| آیتم درخواستی مورد نظر موجود نمی‌باشد |\n\n",
+    "description" : "مستندات سرویس‌های عمومی پلت‌فرم مالی پی‌پینگ\n\n لینک‌های پشتیبانی: تلگرام: [t.me/payping](t.me/payping) | ایمیل: [info@payping.ir]() | تلفن: 02175038797\n # مقدمه\n\n تمامی وب‌ سرویس‌های توضیح داده شده در این مستندات به صورت [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) هستند و طبق همین چهارچوب باید با آنها ارتباط برقرار کرد.    \n جهت رفع هرگونه مشکل و یا پرسش با پشتیبانی در تماس باشید.\n\n # POSTMAN\n برای راحتی کار شما فایل postman سرویس ها برای شما آماده شده است که می توانید از لینک زیر آن را دانلود کنید و با استفاده از اپلیکیشن دسکتاپ [postman](https://www.getpostman.com) از آن استفاده کنید\n \n [دانلود قالب postman](http://cdn.payping.ir/statics/postman.json)\n\n # توضیحات تکمیلی برای تمام سرویس‌ها\n\n برای فراخوانی سرویس‌های صفحه‌بندی (pagination) اگر پارامتر ورودی ارسال نشود، حداکثر ۱۰ آیتم نمایش داده می‌شود و همچنین حداکثر تعداد دریافت آیتم به ازای هر درخواست ۵۰ عدد می‌باشد و بیشتر از آن را سرویس پشتیبانی نمی‌کند و در صورت نیاز به بارگزاری تمام آیتم‌های یک سرویس به صورت یکجا با ایمیل به بخش پشتیبانی در تماس باشید. همینطور توجه داشته باشین واحد پول در تمام سرویس‌ها تومان می‌باشد و منطقه زمانی تمامی‌ تاریخ و ساعت‌ها برابر با ساعت جهانی یا UTC می‌باشد.\n\n # نکاتی برای آپلود فایل‌ها\n\n برای آپلود هرگونه فایل اعم از عکس پروفایل کاربران و یا گزارشات پرداخت‌ها و ... می‌بایست که از [سرویس بارگذاری فایل](#tag/Upload) استفاده کنید.\n \n پس از انجام عملیات آپلود توسط سرویس بارگذاری فایل، تنها کافیست نام فایل آپلود شده که در خروجی سرویس به شما برگردانده می‌شود را ذخیره نمایید.\n\n # جدول کدهای دریافتی از هر سرویس\n\n بعد از ارسال هر درخواست به سمت سرور، از سمت ما طبق قواعد وب‌سرویس‌های RESTful یک کدی به شما بازگرداننده می‌شود.\n هر کد معنایی دارد که در جدول زیر توضیحات مربوطه را می‌بینید\n\n |شماره کد|توضیحات|\n |-------|--------|\n |`200`| عملیات با موفقیت انجام شد |\n |`400`| مشکلی در ارسال درخواست وجود دارد |\n |`500`| مشکلی در سرور رخ داده است |\n |`503`| سرور در حال حاضر قادر به پاسخگویی نمی‌باشد |\n |`401`| عدم دسترسی|\n |`403`| دسترسی غیر مجاز |\n |`404`| آیتم درخواستی مورد نظر موجود نمی‌باشد |\n\n",
     "termsOfService" : "None",
     "version" : "v1",
     "x-logo" : {
@@ -204,7 +204,7 @@
     },
     "/v1/pos" : {
       "post" : {
-        "tags" : [ "Pos" ],
+        "tags" : [ "Payment" ],
         "summary" : "ساخت پرداخت شناسه دار",
         "description" : "از این متد می تواند برای ساخت یک پرادخت شناسه دار که به کمک دستگاه Pos پرداخت آن انجام می شود، استفاده کرد",
         "operationId" : "CreateIdPosPayment",
@@ -628,7 +628,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AddressBookCreateViewModel"
+                "$ref" : "#/components/schemas/CustomerCreateViewModel"
               }
             }
           }
@@ -639,7 +639,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AddressBookDetailViewModel"
+                  "$ref" : "#/components/schemas/CustomerDetailViewModel"
                 }
               }
             }
@@ -674,7 +674,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AddressBookDetailViewModel"
+                  "$ref" : "#/components/schemas/CustomerDetailViewModel"
                 }
               }
             }
@@ -706,7 +706,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AddressBookEditViewModel"
+                "$ref" : "#/components/schemas/CustomerEditViewModel"
               }
             }
           }
@@ -717,7 +717,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AddressBookDetailViewModel"
+                  "$ref" : "#/components/schemas/CustomerDetailViewModel"
                 }
               }
             }
@@ -846,7 +846,7 @@
                   "uniqueItems" : false,
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/AddressBookListItemViewModel"
+                    "$ref" : "#/components/schemas/CustomerListItemViewModel"
                   }
                 }
               }
@@ -1697,7 +1697,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AddressBookDetailViewModel"
+                  "$ref" : "#/components/schemas/CustomerDetailViewModel"
                 }
               }
             }
@@ -3366,7 +3366,7 @@
           }
         }
       },
-      "AddressBookListItemViewModel" : {
+      "CustomerListItemViewModel" : {
         "type" : "object",
         "properties" : {
           "code" : {
@@ -3413,7 +3413,7 @@
           }
         }
       },
-      "AddressBookDetailViewModel" : {
+      "CustomerDetailViewModel" : {
         "required" : [ "code", "firstName", "lastName" ],
         "type" : "object",
         "properties" : {
@@ -3497,7 +3497,7 @@
         },
         "description" : "جزییات مشخصات مشتری"
       },
-      "AddressBookEditViewModel" : {
+      "CustomerEditViewModel" : {
         "required" : [ "code", "firstName", "lastName" ],
         "type" : "object",
         "properties" : {
@@ -3578,7 +3578,7 @@
         },
         "description" : "بروزرسانی مشتری"
       },
-      "AddressBookCreateViewModel" : {
+      "CustomerCreateViewModel" : {
         "required" : [ "firstName", "lastName" ],
         "type" : "object",
         "properties" : {
@@ -3915,7 +3915,7 @@
         "type" : "object",
         "properties" : {
           "addressBook" : {
-            "$ref" : "#/components/schemas/AddressBookDetailViewModel"
+            "$ref" : "#/components/schemas/CustomerDetailViewModel"
           }
         },
         "description" : "مشتری یا پرداخت کننده"
@@ -4135,7 +4135,7 @@
         "type" : "object",
         "properties" : {
           "addressBook" : {
-            "$ref" : "#/components/schemas/AddressBookListItemViewModel"
+            "$ref" : "#/components/schemas/CustomerListItemViewModel"
           }
         },
         "description" : "مشتری یا پرداخت کننده"
@@ -4408,7 +4408,7 @@
             }
           },
           "addressBook" : {
-            "$ref" : "#/components/schemas/AddressBookCreateViewModel"
+            "$ref" : "#/components/schemas/CustomerCreateViewModel"
           }
         },
         "description" : "ثبت فاکتور با استفاده از قالب فاکتور"
@@ -4788,7 +4788,7 @@
             "type" : "string"
           },
           "customer" : {
-            "$ref" : "#/components/schemas/AddressBookCreateViewModel"
+            "$ref" : "#/components/schemas/CustomerCreateViewModel"
           }
         }
       },
