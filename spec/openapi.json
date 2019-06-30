@@ -1816,7 +1816,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "addressBookCode",
+          "name" : "customerCode",
           "in" : "query",
           "description" : "فیلتر بر اساس کد مشتری",
           "required" : false,
@@ -1943,7 +1943,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "addressBookCode",
+          "name" : "customerCode",
           "in" : "query",
           "description" : "فیلتر بر اساس کد مشتری",
           "required" : false,
@@ -2259,7 +2259,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "addressBookCode",
+          "name" : "customerCode",
           "in" : "query",
           "description" : "فیلتر بر اساس کد مشتری",
           "required" : false,
@@ -2386,7 +2386,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "addressBookCode",
+          "name" : "customerCode",
           "in" : "query",
           "description" : "فیلتر بر اساس کد مشتری",
           "required" : false,
@@ -3738,7 +3738,7 @@
             "type" : "string",
             "description" : "کد یکتای پرداخت"
           },
-          "ccToes" : {
+          "cc" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست ایمیل",
@@ -3746,7 +3746,7 @@
               "$ref" : "#/components/schemas/InvoiceCcToDetailViewModel"
             }
           },
-          "billToes" : {
+          "customers" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست مشتری",
@@ -3763,10 +3763,6 @@
           "paidManualDescription" : {
             "type" : "string",
             "description" : "شرح پرداخت دستی"
-          },
-          "saveToTemplate" : {
-            "type" : "boolean",
-            "description" : "ذخیره به عنوان قالب فاکتور"
           },
           "invoiceNumber" : {
             "type" : "integer",
@@ -3914,7 +3910,7 @@
       "InvoiceBillToDetailViewModel" : {
         "type" : "object",
         "properties" : {
-          "addressBook" : {
+          "customer" : {
             "$ref" : "#/components/schemas/CustomerDetailViewModel"
           }
         },
@@ -4103,7 +4099,7 @@
             "description" : "مبلغ نهایی یا قابل پرداخت",
             "format" : "double"
           },
-          "ccToes" : {
+          "cc" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "دریافت کننده های ایمیلی",
@@ -4111,7 +4107,7 @@
               "$ref" : "#/components/schemas/InvoiceCcToListItemViewModel"
             }
           },
-          "billToes" : {
+          "customers" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "دریافت کننده ها - مشتریان",
@@ -4134,7 +4130,7 @@
       "InvoiceBillToListItemViewModel" : {
         "type" : "object",
         "properties" : {
-          "addressBook" : {
+          "customer" : {
             "$ref" : "#/components/schemas/CustomerListItemViewModel"
           }
         },
@@ -4143,128 +4139,123 @@
       "InvoiceEditViewModel" : {
         "required" : [ "code" ],
         "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string",
-            "description" : "کلید یکتای فاکتور"
-          },
-          "ccToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "ایمیل ها",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
+        "properties": {
+          "cc": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "ایمیل ها",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
             }
           },
-          "billToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "مشتریان",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
+          "customers": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "مشتریان",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
             }
           },
-          "createStatus" : {
-            "type" : "integer",
-            "description" : "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
+          "createStatus": {
+            "type": "integer",
+            "description": "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
+            "format": "int32",
+            "enum": [ 0, 1, 2 ]
           },
-          "paidManualDescription" : {
-            "type" : "string",
-            "description" : "شرح پرداخت دستی"
+          "paidManualDescription": {
+            "type": "string",
+            "description": "شرح پرداخت دستی"
           },
-          "saveToTemplate" : {
-            "type" : "boolean",
-            "description" : "ذخیره به عنوان قالب",
-            "default" : false
+          "templateCode": {
+            "type": "string",
+            "description": "کد یکتای قالب فاکتور"
           },
-          "templateCode" : {
-            "type" : "string",
-            "description" : "کد یکتای قالب فاکتور"
+          "number": {
+            "type": "integer",
+            "description": "شماره فاکتور",
+            "format": "int64"
           },
-          "invoiceNumber" : {
-            "type" : "integer",
-            "description" : "شماره فاکتور",
-            "format" : "int64"
+          "title": {
+            "type": "string",
+            "description": "عنوان فاکتور"
           },
-          "invoiceTitle" : {
-            "type" : "string",
-            "description" : "عنوان فاکتور"
+          "sendDate": {
+            "type": "string",
+            "description": "تاریخ ارسال",
+            "format": "date-time"
           },
-          "invoiceDateTime" : {
-            "type" : "string",
-            "description" : "تاریخ ثبت",
-            "format" : "date-time"
+          "dueDate": {
+            "type": "string",
+            "description": "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
+            "format": "date-time"
           },
-          "dueDate" : {
-            "type" : "string",
-            "description" : "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
-            "format" : "date-time"
+          "discountValue": {
+            "type": "number",
+            "description": "تخفیف به کل فاکتور",
+            "format": "double"
           },
-          "totalDiscountValue" : {
-            "type" : "number",
-            "description" : "تخفیف به کل فاکتور",
-            "format" : "double"
+          "discountType": {
+            "type": "integer",
+            "description": "نوع تخفیف : \r\n0 = مبلغ\r\n1 = درصد",
+            "format": "int32",
+            "enum": [ 0, 1 ]
           },
-          "totalDiscountType" : {
-            "type" : "integer",
-            "description" : "نوع تخفیف به مبلغ یا درصد\r\n0 = مبلغ\r\n1 = درصد",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
+          "couponCode": {
+            "type": "string",
+            "description": "کد تخفیف به کل فاکتور"
           },
-          "shipping" : {
-            "type" : "number",
-            "description" : "هزینه حمل و نقل",
-            "format" : "double"
+          "shipping": {
+            "type": "number",
+            "description": "هزینه حمل و نقل",
+            "format": "double"
           },
-          "notes" : {
-            "type" : "string",
-            "description" : "متن جهت ارسال به دریافت کننده"
+          "notes": {
+            "type": "string",
+            "description": "متن جهت نمایش به دریافت کننده"
           },
-          "termsAndConditions" : {
-            "type" : "string",
-            "description" : "متن شرایط و قوانین جهت ارسال به دریافت کننده"
+          "termsAndConditions": {
+            "type": "string",
+            "description": "متن شرایط و قوانین جهت نمایش به دریافت کننده"
           },
-          "memo" : {
-            "type" : "string",
-            "description" : "ایجاد یک متن دلخواه جهت یادآوری فقط برای کاربر ثبت کننده"
+          "memo": {
+            "type": "string",
+            "description": "ایجاد یک متن دلخواه جهت یادآوری فقط برای کاربر ثبت کننده"
           },
-          "invoiceItems" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "آیتم های مالی فاکتور",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceItemCreateViewModel"
+          "items": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "آیتم های مالی فاکتور",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceItemCreateViewModel"
             }
           },
-          "isSendAttachmentsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendAttachmentsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendNotesAndTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendNotesAndTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "attachmentsIds" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
-            "items" : {
-              "type" : "string"
+          "attachments": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
+            "items": {
+              "type": "string"
             }
           },
-          "isDevicePayment" : {
-            "type" : "boolean",
-            "description" : "ثبت فاکتور بدون مشتری = true, با مشتری = false",
-            "default" : false
+          "withOutCustomers": {
+            "type": "boolean",
+            "description": "ثبت فاکتور بدون مشتری = true, با مشتری = false",
+            "default": false
           }
         },
         "description" : "بروزرسانی فاکتور ساده"
@@ -4272,7 +4263,7 @@
       "InvoiceCcToCreateOrUpdateViewModel" : {
         "type" : "object",
         "properties" : {
-          "emailAddress" : {
+          "email" : {
             "type" : "string",
             "description" : "آدرس ایمیل"
           }
@@ -4282,7 +4273,7 @@
       "InvoiceBillToCreateOrUpdateViewModel" : {
         "type" : "object",
         "properties" : {
-          "addressBookCode" : {
+          "customerCode" : {
             "type" : "string",
             "description" : "کلید یکتای مشتری"
           }
@@ -4296,7 +4287,7 @@
             "type" : "string",
             "description" : "کلید یکتا"
           },
-          "name" : {
+          "title" : {
             "type" : "string",
             "description" : "عنوان"
           },
@@ -4326,11 +4317,11 @@
             "format" : "int32",
             "enum" : [ 0, 1 ]
           },
-          "discountCouponCode" : {
+          "couponCode" : {
             "type" : "string",
             "description" : "کد یکتا تخفیف از بخش تخفیف ها"
           },
-          "price" : {
+          "amount" : {
             "type" : "number",
             "description" : "مبلغ فی",
             "format" : "double",
@@ -4347,19 +4338,19 @@
             "type" : "string",
             "description" : "کلید یکتای قالب فاکتور"
           },
-          "invoiceTitle" : {
+          "title" : {
             "type" : "string",
             "description" : "عنوان فاکتور"
           },
-          "invoiceNumber" : {
+          "number" : {
             "type" : "integer",
             "description" : "شماره فاکتور",
             "format" : "int64",
             "default" : 1
           },
-          "invoiceDateTime" : {
+          "sendDate" : {
             "type" : "string",
-            "description" : "تاریخ ثبت",
+            "description" : "تاریخ ارسال",
             "format" : "date-time"
           },
           "dueDate" : {
@@ -4367,7 +4358,7 @@
             "description" : "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
             "format" : "date-time"
           },
-          "ccToes" : {
+          "cc" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست آدرس ایمیل",
@@ -4375,7 +4366,7 @@
               "$ref" : "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
             }
           },
-          "billToes" : {
+          "customers" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست مشتری",
@@ -4383,7 +4374,7 @@
               "$ref" : "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
             }
           },
-          "isDevicePayment" : {
+          "withOutCustomers" : {
             "type" : "boolean",
             "description" : "ثبت فاکتور بدون مشتری = true, با مشتری = false",
             "default" : false
@@ -4394,272 +4385,270 @@
       "InvoiceSendByTemplateSimple" : {
         "required" : [ "templateCode" ],
         "type" : "object",
-        "properties" : {
-          "templateCode" : {
-            "type" : "string",
-            "description" : "کلید یکتای قالب فاکتور"
+        "properties": {
+          "templateCode": {
+            "type": "string",
+            "description": "کلید یکتای قالب فاکتور"
           },
-          "emailAddresses" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "لیست آدرس ایمیل",
-            "items" : {
-              "type" : "string"
+          "emails": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "لیست آدرس ایمیل",
+            "items": {
+              "type": "string"
             }
           },
-          "addressBook" : {
-            "$ref" : "#/components/schemas/CustomerCreateViewModel"
+          "customer": {
+            "$ref": "#/components/schemas/CustomerCreateViewModel"
           }
         },
         "description" : "ثبت فاکتور با استفاده از قالب فاکتور"
       },
       "InvoiceCreateViewModel" : {
         "type" : "object",
-        "properties" : {
-          "ccToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "ایمیل ها",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
+        "properties": {
+          "cc": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "ایمیل ها",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
             }
           },
-          "billToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "مشتریان",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
+          "customers": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "مشتریان",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
             }
           },
-          "createStatus" : {
-            "type" : "integer",
-            "description" : "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
-            "format" : "int32",
-            "enum" : [ 0, 1, 2 ]
+          "createStatus": {
+            "type": "integer",
+            "description": "نوع ثبت:\r\n0 = ذخیره در پیش نویس\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
+            "format": "int32",
+            "enum": [ 0, 1, 2 ]
           },
-          "paidManualDescription" : {
-            "type" : "string",
-            "description" : "شرح پرداخت دستی"
+          "paidManualDescription": {
+            "type": "string",
+            "description": "شرح پرداخت دستی"
           },
-          "saveToTemplate" : {
-            "type" : "boolean",
-            "description" : "ذخیره به عنوان قالب",
-            "default" : false
+          "templateCode": {
+            "type": "string",
+            "description": "کد یکتای قالب فاکتور"
           },
-          "templateCode" : {
-            "type" : "string",
-            "description" : "کد یکتای قالب فاکتور"
+          "number": {
+            "type": "integer",
+            "description": "شماره فاکتور",
+            "format": "int64"
           },
-          "invoiceNumber" : {
-            "type" : "integer",
-            "description" : "شماره فاکتور",
-            "format" : "int64"
+          "title": {
+            "type": "string",
+            "description": "عنوان فاکتور"
           },
-          "invoiceTitle" : {
-            "type" : "string",
-            "description" : "عنوان فاکتور"
+          "sendDate": {
+            "type": "string",
+            "description": "تاریخ ارسال",
+            "format": "date-time"
           },
-          "invoiceDateTime" : {
-            "type" : "string",
-            "description" : "تاریخ ثبت",
-            "format" : "date-time"
+          "dueDate": {
+            "type": "string",
+            "description": "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
+            "format": "date-time"
           },
-          "dueDate" : {
-            "type" : "string",
-            "description" : "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
-            "format" : "date-time"
+          "discountValue": {
+            "type": "number",
+            "description": "تخفیف به کل فاکتور",
+            "format": "double"
           },
-          "totalDiscountValue" : {
-            "type" : "number",
-            "description" : "تخفیف به کل فاکتور",
-            "format" : "double"
+          "discountType": {
+            "type": "integer",
+            "description": "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
+            "format": "int32",
+            "enum": [ 0, 1 ]
           },
-          "totalDiscountType" : {
-            "type" : "integer",
-            "description" : "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
+          "couponCode": {
+            "type": "string",
+            "description": "کد تخفیف به کل فاکتور"
           },
-          "shipping" : {
-            "type" : "number",
-            "description" : "هزینه حمل و نقل",
-            "format" : "double"
+          "shipping": {
+            "type": "number",
+            "description": "هزینه حمل و نقل",
+            "format": "double"
           },
-          "notes" : {
-            "type" : "string",
-            "description" : "پیامی جهت نمایش به پرداخت کننده"
+          "notes": {
+            "type": "string",
+            "description": "پیامی جهت نمایش به پرداخت کننده"
           },
-          "termsAndConditions" : {
-            "type" : "string",
-            "description" : "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
+          "termsAndConditions": {
+            "type": "string",
+            "description": "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
           },
-          "memo" : {
-            "type" : "string",
-            "description" : "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
+          "memo": {
+            "type": "string",
+            "description": "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
           },
-          "invoiceItems" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "آیتم های مالی فاکتور",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceItemCreateViewModel"
+          "items": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "آیتم های مالی فاکتور",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceItemCreateViewModel"
             }
           },
-          "isSendAttachmentsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendAttachmentsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendNotesAndTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendNotesAndTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "attachmentsIds" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
-            "items" : {
-              "type" : "string"
+          "attachments": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
+            "items": {
+              "type": "string"
             }
           },
-          "isDevicePayment" : {
-            "type" : "boolean",
-            "description" : "ثبت فاکتور بدون مشتری = true, با مشتری = false",
-            "default" : false
+          "withOutCustomers": {
+            "type": "boolean",
+            "description": "ثبت فاکتور بدون مشتری = true, با مشتری = false",
+            "default": false
           }
         },
         "description" : "ثبت فاکتور ساده"
       },
       "InvoiceCreateScheduleViewModel" : {
         "type" : "object",
-        "properties" : {
-          "ccToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "ایمیل ها",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
+        "properties": {
+          "cc": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "ایمیل ها",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceCcToCreateOrUpdateViewModel"
             }
           },
-          "billToes" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "مشتریان",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
+          "customers": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "مشتریان",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceBillToCreateOrUpdateViewModel"
             }
           },
-          "createStatus" : {
-            "type" : "integer",
-            "description" : "نوع ثبت:\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
-            "format" : "int32",
-            "enum" : [ 1, 2 ]
+          "createStatus": {
+            "type": "integer",
+            "description": "نوع ثبت:\r\n1 = ارسال\r\n2 = دستی پرداخت شد",
+            "format": "int32",
+            "enum": [ 1, 2 ]
           },
-          "paidManualDescription" : {
-            "type" : "string",
-            "description" : "شرح پرداخت دستی"
+          "paidManualDescription": {
+            "type": "string",
+            "description": "شرح پرداخت دستی"
           },
-          "saveToTemplate" : {
-            "type" : "boolean",
-            "description" : "ذخیره به عنوان قالب",
-            "default" : false
+          "templateCode": {
+            "type": "string",
+            "description": "کد یکتای قالب فاکتور"
           },
-          "templateCode" : {
-            "type" : "string",
-            "description" : "کد یکتای قالب فاکتور"
+          "number": {
+            "type": "integer",
+            "description": "شماره فاکتور",
+            "format": "int64"
           },
-          "invoiceNumber" : {
-            "type" : "integer",
-            "description" : "شماره فاکتور",
-            "format" : "int64"
+          "title": {
+            "type": "string",
+            "description": "عنوان فاکتور"
           },
-          "invoiceTitle" : {
-            "type" : "string",
-            "description" : "عنوان فاکتور"
+          "sendDate": {
+            "type": "string",
+            "description": "تاریخ ارسال",
+            "format": "date-time"
           },
-          "invoiceDateTime" : {
-            "type" : "string",
-            "description" : "تاریخ ثبت",
-            "format" : "date-time"
+          "dueDate": {
+            "type": "string",
+            "description": "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
+            "format": "date-time"
           },
-          "dueDate" : {
-            "type" : "string",
-            "description" : "تاریخ سررسید- تاریخی که باید پرداخت صورت پذیرد",
-            "format" : "date-time"
+          "discountValue": {
+            "type": "number",
+            "description": "تخفیف به کل فاکتور",
+            "format": "double"
           },
-          "totalDiscountValue" : {
-            "type" : "number",
-            "description" : "تخفیف به کل فاکتور",
-            "format" : "double"
+          "discountType": {
+            "type": "integer",
+            "description": "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
+            "format": "int32",
+            "enum": [ 0, 1 ]
           },
-          "totalDiscountType" : {
-            "type" : "integer",
-            "description" : "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
+          "couponCode": {
+            "type": "string",
+            "description": "کد تخفیف به کل فاکتور"
           },
-          "shipping" : {
-            "type" : "number",
-            "description" : "هزینه حمل و نقل",
-            "format" : "double"
+          "shipping": {
+            "type": "number",
+            "description": "هزینه حمل و نقل",
+            "format": "double"
           },
-          "notes" : {
-            "type" : "string",
-            "description" : "پیامی جهت نمایش به پرداخت کننده"
+          "notes": {
+            "type": "string",
+            "description": "پیامی جهت نمایش به پرداخت کننده"
           },
-          "termsAndConditions" : {
-            "type" : "string",
-            "description" : "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
+          "termsAndConditions": {
+            "type": "string",
+            "description": "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
           },
-          "memo" : {
-            "type" : "string",
-            "description" : "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
+          "memo": {
+            "type": "string",
+            "description": "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
           },
-          "invoiceSchulder" : {
-            "$ref" : "#/components/schemas/InvoiceSchulderCreateOrUpdateViewModel"
+          "schedule": {
+            "$ref": "#/components/schemas/InvoiceSchulderCreateOrUpdateViewModel"
           },
-          "invoiceItems" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "آیتم های مالی فاکتور",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceItemCreateViewModel"
+          "items": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "آیتم های مالی فاکتور",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceItemCreateViewModel"
             }
           },
-          "isSendAttachmentsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendAttachmentsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendNotesAndTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendNotesAndTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "attachmentsIds" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
-            "items" : {
-              "type" : "string"
+          "attachments": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
+            "items": {
+              "type": "string"
             }
           },
-          "isDevicePayment" : {
-            "type" : "boolean",
-            "description" : "ثبت فاکتور بدون مشتری = true, با مشتری = false",
-            "default" : false
+          "withOutCustomers": {
+            "type": "boolean",
+            "description": "ثبت فاکتور بدون مشتری = true, با مشتری = false",
+            "default": false
           }
         },
         "description" : "ثبت فاکتور زمانبندی شده"
@@ -4859,7 +4848,7 @@
             "type" : "string",
             "description" : "کد یکتای پرداخت"
           },
-          "ccToes" : {
+          "cc" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست ایمیل",
@@ -4867,7 +4856,7 @@
               "$ref" : "#/components/schemas/InvoiceCcToDetailViewModel"
             }
           },
-          "billToes" : {
+          "customers" : {
             "uniqueItems" : false,
             "type" : "array",
             "description" : "لیست مشتری",
@@ -4884,10 +4873,6 @@
           "paidManualDescription" : {
             "type" : "string",
             "description" : "شرح پرداخت دستی"
-          },
-          "saveToTemplate" : {
-            "type" : "boolean",
-            "description" : "ذخیره به عنوان قالب فاکتور"
           },
           "invoiceNumber" : {
             "type" : "integer",
@@ -5284,77 +5269,81 @@
         "description" : "جزییات مشخصات ساخت زمانبندی قالب فاکتور"
       },
       "InvoiceTemplateEditViewModel" : {
-        "required" : [ "code", "templateName" ],
+        "required" : [ "code", "title" ],
         "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string",
-            "description" : "کلید یکتای فاکتور"
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "کلید یکتای فاکتور"
           },
-          "templateName" : {
-            "type" : "string",
-            "description" : "عنوان"
+          "title": {
+            "type": "string",
+            "description": "عنوان"
           },
-          "totalDiscountValue" : {
-            "type" : "integer",
-            "description" : "تخفیف به کل فاکتور",
-            "format" : "int32"
+          "discountValue": {
+            "type": "integer",
+            "description": "تخفیف به کل فاکتور",
+            "format": "int32"
           },
-          "totalDiscountType" : {
-            "type" : "integer",
-            "description" : "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
+          "discountType": {
+            "type": "integer",
+            "description": "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
+            "format": "int32",
+            "enum": [ 0, 1 ]
           },
-          "shipping" : {
-            "type" : "number",
-            "description" : "هزینه حمل و نقل",
-            "format" : "double"
+          "couponCode": {
+            "type": "string",
+            "description": "کد تخفیف به کل فاکتور"
           },
-          "notes" : {
-            "type" : "string",
-            "description" : "پیامی جهت نمایش به پرداخت کننده"
+          "shipping": {
+            "type": "number",
+            "description": "هزینه حمل و نقل",
+            "format": "double"
           },
-          "termsAndConditions" : {
-            "type" : "string",
-            "description" : "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
+          "notes": {
+            "type": "string",
+            "description": "پیامی جهت نمایش به پرداخت کننده"
           },
-          "memo" : {
-            "type" : "string",
-            "description" : "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
+          "termsAndConditions": {
+            "type": "string",
+            "description": "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
           },
-          "invoiceSchulder" : {
-            "$ref" : "#/components/schemas/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+          "memo": {
+            "type": "string",
+            "description": "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
           },
-          "invoiceTemplateItems" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "آیتم های مالی فاکتور",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceTemplateItemCreateViewModel"
+          "schedule": {
+            "$ref": "#/components/schemas/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+          },
+          "items": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "آیتم های مالی فاکتور",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceTemplateItemCreateViewModel"
             }
           },
-          "isSendAttachmentsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendAttachmentsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendNotesAndTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendNotesAndTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "attachmentsIds" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
-            "items" : {
-              "type" : "string"
+          "attachments": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
+            "items": {
+              "type": "string"
             }
           }
         },
@@ -5404,7 +5393,7 @@
             "type" : "string",
             "description" : "کلید یکتا"
           },
-          "name" : {
+          "title" : {
             "type" : "string",
             "description" : "عنوان"
           },
@@ -5434,11 +5423,11 @@
             "format" : "int32",
             "enum" : [ 0, 1 ]
           },
-          "discountCouponCode" : {
+          "couponCode" : {
             "type" : "string",
             "description" : "کد یکتا تخفیف از بخش تخفیف ها"
           },
-          "price" : {
+          "amount" : {
             "type" : "number",
             "description" : "مبلغ فی",
             "format" : "double",
@@ -5448,73 +5437,77 @@
         "description" : "ثبت آیتم مالی قالب فاکتور"
       },
       "InvoiceTemplateCreateViewModel" : {
-        "required" : [ "templateName" ],
+        "required" : [ "title" ],
         "type" : "object",
-        "properties" : {
-          "templateName" : {
-            "type" : "string",
-            "description" : "عنوان"
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "عنوان"
           },
-          "totalDiscountValue" : {
-            "type" : "integer",
-            "description" : "تخفیف به کل فاکتور",
-            "format" : "int32"
+          "discountValue": {
+            "type": "integer",
+            "description": "تخفیف به کل فاکتور",
+            "format": "int32"
           },
-          "totalDiscountType" : {
-            "type" : "integer",
-            "description" : "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
-            "format" : "int32",
-            "enum" : [ 0, 1 ]
+          "discountType": {
+            "type": "integer",
+            "description": "نوع تخفیف به کل فاکتور:\r\n0 = مبلغ\r\n1 = درصد",
+            "format": "int32",
+            "enum": [ 0, 1 ]
           },
-          "shipping" : {
-            "type" : "number",
-            "description" : "هزینه حمل و نقل",
-            "format" : "double"
+          "couponCode": {
+            "type": "string",
+            "description": "کد تخفیف به کل فاکتور"
           },
-          "notes" : {
-            "type" : "string",
-            "description" : "پیامی جهت نمایش به پرداخت کننده"
+          "shipping": {
+            "type": "number",
+            "description": "هزینه حمل و نقل",
+            "format": "double"
           },
-          "termsAndConditions" : {
-            "type" : "string",
-            "description" : "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
+          "notes": {
+            "type": "string",
+            "description": "پیامی جهت نمایش به پرداخت کننده"
           },
-          "memo" : {
-            "type" : "string",
-            "description" : "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
+          "termsAndConditions": {
+            "type": "string",
+            "description": "متن شرایط و قوانین جهت نمایش به پرداخت کننده"
           },
-          "invoiceSchulder" : {
-            "$ref" : "#/components/schemas/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+          "memo": {
+            "type": "string",
+            "description": "ایجاد یک متن دلخواه جهت یادآوری فقط برای صادر کننده فاکتور"
           },
-          "invoiceTemplateItems" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "آیتم های مالی فاکتور",
-            "items" : {
-              "$ref" : "#/components/schemas/InvoiceTemplateItemCreateViewModel"
+          "schedule": {
+            "$ref": "#/components/schemas/InvoiceTemplateSchulderCreateOrUpdateViewModel"
+          },
+          "items": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "آیتم های مالی فاکتور",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceTemplateItemCreateViewModel"
             }
           },
-          "isSendAttachmentsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendAttachmentsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش فایل های ضمیمه به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendNotesAndTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendNotesAndTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش پیام به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "isSendTermsAfterPayment" : {
-            "type" : "boolean",
-            "description" : "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
-            "default" : false
+          "isSendTermsAfterPayment": {
+            "type": "boolean",
+            "description": "نمایش متن قوانین و مقررات به پرداخت کننده پس از پرداخت موفق = true, نمایش در قبل و بعد از پرداخت = false",
+            "default": false
           },
-          "attachmentsIds" : {
-            "uniqueItems" : false,
-            "type" : "array",
-            "description" : "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
-            "items" : {
-              "type" : "string"
+          "attachments": {
+            "uniqueItems": false,
+            "type": "array",
+            "description": "کلید(های) یکتا دریافت شده از سرویس آپلود به صورت آرایه از رشته ها قرار دهید",
+            "items": {
+              "type": "string"
             }
           }
         },
