@@ -3,7 +3,6 @@
 	direction: rtl;
 	text-align: right;
 }
-
 .dltiCp,
 .huVGWs,
 .iYGBSY {
@@ -14,12 +13,17 @@
 .bRFgPh,
 .IavJd {
 	flex-direction: row-reverse;
+	text-align: left !important;
 }
 .fcLCaT p:last-child {
 	margin: 0 0.5em 0 0 !important;
 }
 .security-details tbody tr td ul li {
 	margin-bottom: 1em;
+}
+.eleWFd pre {
+	direction: ltr;
+	text-align: left;
 }
 .eleWFd code {
 	margin-left: 0.5em;
