@@ -3,10 +3,6 @@
 	direction: rtl;
 	text-align: right;
 }
-.sc-6itmo6-0, .ebXbwy pre{
-	direction: ltr;
-	text-align: left;
-}
 .dltiCp,
 .huVGWs,
 .iYGBSY {
@@ -24,6 +20,10 @@
 }
 .security-details tbody tr td ul li {
 	margin-bottom: 1em;
+}
+.eleWFd pre {
+	direction: ltr;
+	text-align: left;
 }
 .eleWFd code {
 	margin-left: 0.5em;
