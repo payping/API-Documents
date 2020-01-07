@@ -3,7 +3,10 @@
 	direction: rtl;
 	text-align: right;
 }
-
+.sc-6itmo6-0, .ebXbwy pre{
+	direction: ltr;
+	text-align: left;
+}
 .dltiCp,
 .huVGWs,
 .iYGBSY {
@@ -14,6 +17,7 @@
 .bRFgPh,
 .IavJd {
 	flex-direction: row-reverse;
+	text-align: left !important;
 }
 .fcLCaT p:last-child {
 	margin: 0 0.5em 0 0 !important;
