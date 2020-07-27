@@ -177,3 +177,17 @@ h6 {
 #Authentication {
 	display: none;
 }
+.ebXbwy {
+	position: fixed !important;
+}
+.iAMmDn {
+	margin-right: 260px !important;
+}
+@media print, screen and (max-width: 85rem) {
+	.dykNiJ .diqfaT .eleWFd {
+		width: 100% !important;
+	}
+	.iAMmDn {
+		margin-right: auto !important;
+	}
+}
